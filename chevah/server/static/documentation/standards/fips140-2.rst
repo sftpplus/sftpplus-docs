@@ -1,0 +1,77 @@
+.. container:: tags pull-left
+
+    `client-side`
+    `server-side`
+    `security`
+
+
+FIPS 140-2 Obligations
+######################
+
+Security Requirements for Cryptographic Modules (FIPS 140-2), specifies the
+security requirements that will be satisfied by a cryptographic
+module utilized within a security system protecting sensitive information.
+Further details are available `in this document published by the National Institute for Standards and Technology <http://csrc.nist.gov/publications/fips/fips140-2/fips1402.pdf>`_.
+
+The server supports all FIPS-140 compliant cryptographic algorithms, as well
+as other algorithms required by older or non FIPS-140 compliant endpoints.
+
+We acknowledge that, for many, FIPS 140-2 compliance is an important security
+reference.
+We want to highlight that this is a standard which was released in
+December 2002 and not updated since.
+With the fast pace at which the computer security landscape is evolving,
+a standard defined in 2002 should not be considered up to date.
+
+FIPS 140-3 update was not yet released due to disagreement in the US
+government and the updated document is not yet ready for consumption
+as of this writing.
+Meanwhile, use the guidance from PCI and ISO/IEC 24759:2017 standards.
+
+To help assist those with FIPS 140-2 obligations, we have created
+this page to outline which portion of SFTPPlus functionality applies to FIPS
+140-2.
+
+..  note::
+
+    While SFTPPlus is not FIPS 140-2 certified and does not have a
+    certification number, it can be configured to run with a set of ciphers and
+    :doc:`cryptographic</standards/cryptography>` algorithms that are
+    complaint to the FIPS 140-2 standard.
+
+
+Changing SSH Cipher List
+========================
+
+The `fips` configuration value in the `ssh_cipher_list` configuration option
+can be used to allow using only FIPS 140-2 compliant ciphers and algorithms for
+the SSH based services.
+
+By using the `fips` keyword in this configuration, a pre-defined set of FIPS
+140-2 approved ciphers is available.
+When FIPS 140-2 ciphers are enabled, any other configured cipher in the list is
+ignored.
+
+Further details are available at the `ssh_cipher_list` in the
+:doc:`SSH (SFTP and SCP) Service page</configuration/ssh-service>`.
+
+
+FIPS 140-2 compliance
+=====================
+
+We believe that we have followed the requirements laid out in the FIPS 140-2
+computer security standard for *Security Level 1* and that SFTPPlus meets
+those requirements.
+
+According to NIST, *Security Level 1* covers basic security requirements
+specified for a cryptographic module.
+No specific physical security mechanisms are required in a *Security
+Level 1* cryptographic module beyond the basic requirement for production-grade
+components.
+
+
+Roadmap to FIPS 140-2 certification
+===================================
+
+Supporting the FIPS 140-2 certification is on our roadmap, but the product
+has not yet been certified.

@@ -1,0 +1,16 @@
+The following variables (case insensitive) are provided as context data
+containing information about the event being triggered:
+
+* `id`
+* `message`
+* `account.name`
+* `account.peer.address`
+* `account.peer.port`
+* `account.peer.protocol`
+* `account.uuid`
+* `component.name`
+* `component.uuid`
+* `data`
+* `data_json`
+* `timestamp.cwa_14051`
+* `timestamp.timestamp`

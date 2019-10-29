@@ -1,0 +1,410 @@
+File system access
+==================
+
+..  contents:: :local:
+
+
+Overview
+--------
+
+This page describes how SFTPPlus handles native file system access on both
+Unix-like and Windows platforms for the server-side operations.
+While running on a specific operating system, it provides the extra features
+provided by that operating system.
+
+
+File system permissions for application and operating system accounts
+---------------------------------------------------------------------
+
+When accounts are authenticated as operating systems accounts
+(local, domain, or remote), they will observe the same file system permissions
+as those defined in the local file system.
+In other words, the file system access will be granted according to user
+permissions for the local file system.
+This way, you can have multiple accounts accessing the same file or folder,
+each account having its own permissions.
+The permissions that are set is completely dependent on each use case.
+For example, you may only want to set read-only permission if you only want
+users to have read-only permission.
+
+For accounts authenticated as server application accounts, all accounts
+are mapped to the same OS account and they will have the same permissions.
+
+For application accounts, all file system activity will be executed under the
+account specified by the `[server]` account configuration option.
+Application accounts are locked into their home directories.
+
+The client would need close to full control with permissions.
+
+Windows administrators can further allocate advanced permission settings.
+In this case, they can also choose to exclude the following
+permissions - `Read Permissions`, `Change Permissions`, `Take Ownership`, and
+`Write Extended Attributes`.
+
+Files on Windows having the `read-only` attribute set are removed, renamed,
+moved, and copied without getting an access denied error.
+
+..  warning::
+    `Read-only` files cannot be modified, but they can be copied, moved,
+    renamed, or deleted.
+    It is possible that moving, renaming, or deleting a read-only file can
+    cause a program that relies on that file to stop working properly.
+
+
+Using Windows Network shared folders
+------------------------------------
+
+When running SFTPPlus on Windows, SFTPPlus can use the Windows
+operating system functionalities to access CIFS/SMB network shared resources
+(files or folder).
+SFTPPlus does not directly support the CIFS (Microsoft Windows Network Shares)
+protocol.
+This is why SMB/CIFS support is not available on the Unix-like
+operating systems: Linux and macOS.
+
+The Microsoft Windows UNC
+(short for Universal Naming Convention or Uniform Naming Convention) path
+format is used to access a network share.
+SFTPPlus supports the Microsoft Windows UNC paths.
+
+For example, to configure the home folder for a user named ``johnd`` as the
+``users\johnd`` folder of a ``ftp-files`` remote shared resource
+hosted by the server ``srv01.example.com``,
+you can set up the `home_folder_path` configuration as::
+
+    [accounts/6602-4622-8dfa]
+    name = johnd
+    home_folder_path = \\srv01.example.com\ftp-files\users\johnd
+
+Remote Windows Network shares are also available via symbolic links,
+which will create an alias that can be accessed using a local path format.
+
+For example, you can set up a home folder as ``c:\ftp-files\johnd`` which will
+provide access for an user to local files as for any account,
+but will also have a folder named ``sales-team`` for which the files are
+stored as a remote shared resource named ``sales-ftp`` hosted on a
+machine named ``srv01.example.com``.
+The `mklink` command below need to be executed in an elevated command.::
+
+    mklink /D c:\ftp-files\johnd\sales-team \\srv01.example.com\sales-ftp
+
+Then configure the account as::
+
+    [accounts/6602-4622-8dfa]
+    name = johnd
+    home_folder_path = c:\ftp-files\johnd
+
+In the above configuration, an FTP file like ``/sales-team/report.csv`` will
+be accessed from the the ``srv01.example.com`` server, while a path like
+``/project-status.prj`` will be served from the
+``c:\ftp-files\johnd\project-status.prj`` path.
+
+When the SFTPPlus service is executed using a local account (and not an
+AD account), the remote server should have an account with the same username
+and the same password.
+Otherwise, Windows will deny access to Windows Network Shares.
+This is because the files on the network drive are accessed using the local
+account and remote server has no method to authenticate it.
+
+In order for SFTPPlus to access network resources, the service under which
+SFTPPlus operates need to be associated with a dedicated service account.
+
+This means that when the SFTPPlus MFT process tries to access a Windows Share,
+the OS will ask for the real user to authenticate itself to that Window Share.
+
+Using the default SYSTEM account will not work, as this is not a real account
+and it will not have access to remote drivers.
+
+
+Locked accounts
+---------------
+
+Lock access is specified by `lock_in_home_folder` in the account's settings.
+
+In locked accounts, the account is locked inside the home folder path and
+access to files and folders outside the home folder path will be denied.
+
+Application accounts are always inside their home folder and will not have
+access to files outside the home folder.
+
+Operating System accounts have further configuration options:
+
+* Deny access to files and folders outside the home folder.
+
+* Inherit the account’s group configuration.
+
+
+Locked to home folder
+^^^^^^^^^^^^^^^^^^^^^
+
+:Scenario:
+    If an account is locked and the home folder is set to ``/home/user1/``, the
+    user is locked inside the home folder.
+    The home folder path is now the root folder visible to the client.
+    When a client lists the folder contents of ‘/upload’, the request is mapped
+    in accordance to the home folder.
+    Therefore it is mapped to ``/home/user1/upload`` on the local file system.
+
+
+Not locked to home folder
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Scenario:
+    If an account is not locked inside the home folder, a request to list the
+    relative file path ``/upload/`` folder will be mapped to the ``/upload``
+    folder on the local file system.
+
+
+Absolute and relative path handling in locked accounts
+------------------------------------------------------
+
+You can use absolute or relative file paths when specifying a home folder to
+lock an account to.
+
+Absolute and relative file paths when used in locked_in_home folder accounts
+differ to the paths used inside the configuration file as mentioned
+:ref:`in the section on absolute and relative paths <absolute-relative-paths>`.
+
+To avoid potentially creating ambiguous behaviour in setting lock access, opt
+to specify an absolute file path instead of a relative file path.
+
+
+Locked to home folder - use of absolute file paths
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Scenario:
+    When a locked account specifies an absolute file path outside the home
+    folder, they will not be able to access that folder.
+    For example, an account with a home folder of ``/home/user1/`` and states
+    an absolute file path to navigate to ``/home/user2/upload`` will be unable
+    to access the folder.
+
+
+Locked to home folder - use of relative file paths
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Scenario:
+    When a client navigates to a folder via relative file path, like
+    ``/upload/``, they will be able to access that folder.
+
+
+Not locked to home folder - use of absolute file paths
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Scenario:
+    When an account that is not locked to the home folder specifies an absolute
+    file path to a destination outside that folder, it is able to access that
+    folder.
+    For example, if an account with a home folder of ``/home/user1`` navigates
+    to a file path outside its home folder to ``/home/user2/upload`` it will
+    be able to access that folder.
+    This is also dependent on the account having privileges on the OS to access
+    that particular folder.
+
+
+Not locked to home folder - use of relative file paths
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Scenario:
+    Similar to the scenario of a locked home folder account, when a user
+    navigates to a folder via relative file paths, they will also be able
+    to access that folder.
+
+
+Support for symbolic links and hard links
+-----------------------------------------
+
+A symbolic link is a special type of file pointing to the location of another
+file, while a hard link is basically a reference or a label associated
+to a file.
+SFTPPlus supports both types of file links, but you should be aware
+of the following constraints:
+
+* A hard link can be used only for files and not directories
+* A hard link can be used only for files on the same volume
+* New hard links cannot be created from SFTPPlus on any protocol
+* Symbolic links creation is supported only for the SFTP protocol, however,
+  it works on all platforms.
+
+If a hard link references a file outside the user home folder,
+SFTPPlus will allow access to it.
+
+SFTPPlus will not allow the creation of symbolic links outside the
+home folder, preventing users from bypassing their home folder boundaries.
+
+For symbolic links created outside of the STPPlus application
+and which point to a file or folder outside
+the user home folder,
+SFTPPlus will follow the link.
+In this way, you can explicitly configure an account to have access to
+specific files and folders outside of its home folder.
+
+Symbolic links are supported on Windows for local paths as target,
+as well as remote Windows Shares using UNC paths as target.
+
+
+Virtual folders
+---------------
+
+Virtual folders are directories which can be found outside of
+the account's locked home folder,
+but mapped as paths listed inside the home folder.
+
+Virtual folders act as symbolic links.
+
+As for real folders, permissions for virtual folders can be defined at the
+account configuration level or inherited from group configuration.
+
+Virtual folders and their parents in the path cannot be changed
+through file transfer operations.
+That is, an account cannot delete, rename,
+set attributes, or change the root virtual folder, or its parent or
+grandparents.
+Even if SFTPPlus permissions allow for deleting a folder,
+the operation of deleting the root virtual folder will fail.
+
+Accounts can still modify or delete files and folders which are inside the
+virtual folders, as per the current permissions set in SFTPPlus.
+
+Virtual folders are mapped starting from the root folder.
+
+
+Example virtual folder configuration and scenario
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following is a scenario for a user, ``JohnD`` requiring access to
+virtual folders.
+
+The user, ``JohnD``, has ``C:\Users\JohnD`` as the home folder path,
+and access to these folders::
+
+    C:\Users\JohnD
+    C:\Users\JohnD\download
+
+In SFTPPlus, this user is associated with the following `group` and `account`
+configuration.
+Notice that `virtual_folders` are listed in the ``d32e-653a-98da`` group.
+The account, ``JohnD``, is not only a part of this group but it is also
+inheriting the group's configuration settings::
+
+    [groups/d32e-653a-98da]
+    name = Sales
+    virtual_folders =
+        /virtual-in-root, C:\Storage\base
+        /read-only-reports, C:\Storage\reports
+        /upload/team/emea, C:\Storage\teams\sales
+    permissions = allow-full-control
+        /read-only-reports/*, allow-list, allow-read
+
+    [accounts/7521-bb32-6cce]
+    name = JohnD
+    group = d32e-653a-98da
+    home_folder_path = C:\Users\JohnD
+    permissions = inherit
+
+When a file transfer session is commenced, the session will make available to
+the user the following list of folder structure to file transfer clients::
+
+    /                      -> C:\Users\JohnD
+    /download              -> C:\Users\JohnD\download
+    /upload                -> Virtual folder with 'team' as single member
+    /upload/team           -> Virtual folder with 'sales' as single member
+    /upload/team/emea      -> C:\Storage\teams\sales
+    /upload/team/emea/jobs -> C:\Storage\teams\sales\jobs
+    /virtual-in-root       -> C:\Storage\base
+    /virtual-in-root/vid   -> C:\Storage\base\vid
+    /read-only-reports     -> C:\Storage\reports
+    /read-only-reports/us  -> C:\Storage\reports\us
+
+In addition, the following permissions are also applied to these folders::
+
+    /                      -> Full control
+    /download              -> Full control, including ability to remove the
+                              folder.
+    /upload                -> Only list, since this is a virtual folder.
+    /upload/team           -> Only list, since this is a virtual folder.
+    /upload/team/sales     -> Full control, but cannot delete the folder since
+                              it is a virtual folder.
+    /upload/team/emea/jobs -> Full control, but cannot delete the folder
+                              itself.
+    /virtual-in-root       -> Full control, but cannot delete the folder
+                              itself.
+    /virtual-in-root/vid   -> Full control, can also delete the `vid` folder.
+    /read-only-reports     -> Only allow reading files and listing folders.
+    /read-only-reports/us  -> Only allow reading files and listing folders.
+
+
+With the configurations above, the file transfer administrator can be assured
+that ``JohnD`` has access to the appropriate virtual folders with the right
+access controls.
+
+..  note::
+
+    On Linux, virtual folders are case-sensitive.
+    On Windows and macOS, virtual folders are case-insensitive and are always
+    represented in lowercase.
+
+
+..  note::
+
+    You cannot have a virtual folder sharing the same name as a real folder
+    or file that already exists at the same path that is represented by the
+    virtual folder.
+
+
+Virtual folders and authentication
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+During the authentication process, SFTPPlus will check that no real path
+exists with the same name as one of the configured virtual paths.
+If these paths are found, the authentication fails and the connection is
+rejected.
+
+For example, if there is a user with ``C:\Users\JohnD`` as the home folder
+path and the following folders::
+
+    C:\Users\JohnD
+    C:\Users\JohnD\upload
+
+And they have the following virtual folder configured::
+
+    virtual_folders = /upload/team/sales, C:\Storage\teams\sales
+
+The user will fail to authenticate since the real path
+``C:\Users\JohnD\upload`` is accessible inside the user's home folder as
+``/upload``.
+When this occurs, a conflict is detected with the virtual path
+``/upload/team/sales`` and the authentication will fail.
+
+Administrators can mitigate this issue by ensuring that no real path
+exists with the same name as one of the configured virtual paths.
+
+
+File and Folder Names
+---------------------
+
+
+Unix-like systems
+^^^^^^^^^^^^^^^^^
+
+Folder / file names that contain only space characters are fully supported on
+Unix-like systems: Linux and macOS.
+Names containing leading or trailing spaces are preserved as is.
+
+Names can contain ASCII characters or Unicode names encoded using UTF-8.
+Other character encoding schemes are not supported yet.
+
+..  note::
+    If you require to handle names using a character encoding scheme other
+    than `UTF-8`, please contact us.
+
+
+Windows
+^^^^^^^
+
+On Windows, leading and trailing spaces from file names are stripped by
+the operating system.
+Due to this, names with only space characters are converted into names with no
+characters, invalidating them.
+
+ASCII and Unicode characters are supported.

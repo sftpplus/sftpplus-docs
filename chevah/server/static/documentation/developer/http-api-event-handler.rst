@@ -1,0 +1,290 @@
+HTTP POST Event Handler
+=======================
+
+..  contents:: :local:
+
+
+Introduction
+------------
+
+The *HTTP POST Event Handler* is where you can integrate SFTPPlus with your
+web resource.
+Simply create an event handler that will send a HTTP POST
+request to your remote HTTP resource based on specified server event IDs.
+
+In the Local Manager GUI, create a new Event Handler of type `Send as HTTP Post
+request` or add the `url` in the configuration file for the
+event-handlers UUID::
+
+    [event-handlers/6d32ee50-b277-49e5-b2f4-c70eeea289a7]
+    url = http://www.acme.io/http-post-hook-url
+
+For an example configuration that targets the server event ID `40007` and
+specifying that the JSON format be used to send the event in the HTTP body,
+see below::
+
+    [event-handlers/6d51ed1e-35ec-41d7-8b51-53e56c716212]
+    enabled = True
+    type = http
+    name = Example file transfer hook for ACME
+    description = Send a HTTP POST hook when event is raised
+    target = 40007
+    url = http://www.acme.io/http-post-hook-url
+    http_content_type = json
+
+
+Request body
+------------
+
+When an HTTP or HTTPS handler is used, SFTPPlus will initiate an HTTP
+POST client request to the configured URL with a body containing one or
+more events, together with the identity of the server making the request.
+
+The request body is formatted as JSON.
+
+The `server` member of the response contains the following attributes:
+
+-----
+
+:name: uuid
+:type: string
+:optional: No
+:description: UUID of the server emitting this event.
+
+-----
+
+Each event from the `events` array contains the following attributes.
+
+.. include:: /developer/event-object.rst.include
+
+Below is an example for a `POST` request containing two events::
+
+    POST /remote/url
+    Content-Type: application/json
+
+    {
+      "events": [
+        {
+          "id": "10025",
+          "timestamp": {
+            "timestamp":  "1510742418.2341",
+            "cwa_14051": "2017-11-15 10:40:18"
+            },
+          "data": {
+            "path": "/path/of/file/as/seen/by/client",
+            "details": "Some details about failure."
+            },
+          "account": {
+            "uuid": "0c12a7f9-484a-45de-b622-8a5d96061328",
+            "name": "mike",
+            "peer": {
+              "address": "12.442.23.34",
+              "port": 2345,
+              "family": "IPv4",
+              "protocol": "TCP"
+              }
+            },
+          "component": {
+            "uuid": "dff314a6-c594-48dc-8e34-5270fd6cb635",
+            "type": "ssh"
+            }
+
+          },
+        {
+          "id": "20040",
+          "timestamp": {
+            "timestamp":  "1510742419.1245",
+            "cwa_14051": "2017-11-15 10:40:19"
+            },
+          "data": {
+            "subject": "event specific data."
+            },
+          "account": {
+            "uuid": "0c12a7f9-484a-45de-b622-8a5d96061328",
+            "name": "mike",
+            "peer": {
+              "address": "2006:4820:4060::8844",
+              "port": 2355,
+              "family": "IPv6",
+              "protocol": "TCP"
+              }
+            },
+          "component": {
+            "uuid": "dff314a6-c594-48dc-8e34-5270fd6cb635",
+            "type": "ssh"
+            }
+          }
+        ],
+    "server": {
+      "uuid": "cc5c804d-0a3c-4c4c-b651-eba6fc3b5902"
+      }
+    }
+
+
+Response codes
+--------------
+
+Once the server has successfully received and processed the events, it should
+respond with HTTP code `200`::
+
+    Status: 200 OK
+
+HTTP code `204` is also a valid response code::
+
+    Status: 204 No Content
+
+When the remote HTTP server is busy and can't process more requests,
+the response should display HTTP code `503` together with a `Retry-After`
+header with a value expressed in seconds.
+The current events are discarded.::
+
+    Status: 503 Service Unavailable
+    Retry-After: 3600
+
+For any response code, other than `200` and `203`, SFTPPlus will consider that
+the requests failed to be successfully processed by the remote HTTP endpoint.
+
+Failed requests are not retried and the event handler will stop sending events
+after the configured number of consecutive failures.
+
+An event is emitted for every event which failed to be processed by the
+remote HTTP server.
+For example, when the event ID `40007` is triggered
+(opening an existing folder) and its handling failed,
+the server-side SFTPPlus log will specify the server return code.
+In this case, `203` is the specified server return code:
+
+    | 20174 2017-05-12 14:12:12 other-event-http-uuid Process 0.0.0.0:0
+      Failed to handle event 40007 by "file-transfer-hooks".
+      Server returned 203:Non-Authoritative Information
+
+
+Redundant HTTP URL / Endpoints
+------------------------------
+
+An HTTP POST event handler can be configured with more than one URL to
+provide redundant event handling.
+
+If handling of an event failed for an URL, SFTPPlus will re-try to handle
+the event using the next URL from the list.
+
+If handling of an event succeeded, SFTPPlus will not send the request to the
+following URLs from the list.
+
+Below is an example of an event handler configured with multiple URLs::
+
+    [event-handlers/6d32ee50-b277-49e5-b2f4-c70eeea289a7]
+    url = http://www.acme.io/events, https://fallback.acme.io/events
+
+SFTPPlus will send the HTTP requests to URL `http://www.acme.io/events`.
+URL `https://fallback.acme.io/events` is used only when the request
+failed to be handled by the HTTP endpoint at URL `http://www.acme.io/events`
+
+When the request fails for an URL, the usage of that URL will be suspended
+and resumed after 5 minutes.
+
+If all URLs are not available, SFTPPlus will emit an error informing that
+processing the event via HTTP POST failed and will no retry the delivery.
+
+
+Fault-tolerant / Resilient HTTP requests
+----------------------------------------
+
+It is possible for a request to the HTTP endpoint to return a failure
+response.
+SFTPPlus can be configure to retry the same URL on failure.
+
+For example, the following configuration will make a first request to
+``http://www.acme.io/events`` and if it fails, it will wait 0.5 second and
+then try again.
+If the request still fails, it will retry for 1 seconds before retrying for
+a second try.
+If the second request will fail, the request is considered as a permanent
+failure and the request will not be sent again to the URL.
+
+Below is the configuration for the retry scenario described above::
+
+    [event-handlers/6d32ee50-b277-49e5-b2f4-c70eeea289a7]
+    url = http://www.acme.io/events
+    retry_count = 2
+    retry_increase = 0.5
+
+It is possible to comply the URL retry configuration with a fallback URL.
+In this case, it will retry the first url twice and then will attempt the
+same request on the next URL::
+
+    [event-handlers/6d32ee50-b277-49e5-b2f4-c70eeea289a7]
+    url = http://www.acme.io/events, https://fallback.acme.io/events
+    retry_count = 2
+    retry_increase = 0.5
+
+
+Sending custom data in HTTP POST request
+----------------------------------------
+
+Each payload sent by the HTTP POST event handler contains the following
+members, as documented in previous sections::
+
+    {
+      "events": [ EVENT_DATA ],
+      "server": { SERVER_DATA }
+    }
+
+You can configure the event handler to add custom values to the payload.
+The extra values are configured in JSON format and can be nested structures.
+
+The keys and values can contain variables which are replaced with values based
+on the event's data.
+
+For example to send the event as a Slack Incoming WebHook message, you can
+use this configuration::
+
+    [event-handlers/b904ed23-v254-4ccf-8abd-edcae4d3324f]
+    url = https://hooks.slack.com/services/n2unjSpQQ4L6JIOrHoO9CKXl
+    extra_data = {
+        "text": "{message}",
+        "attachments": [
+          {
+          "pretext": "New event {id} SFTPPlus *MFT-023-QA*",
+          "author_name": "{account.name}",
+          "author_icon": "https://www.sftpplus.com/static/images/logo-80.png",
+          "text": "{message}",
+          "footer": "Sent by SFTPPlus HTTP Post Event",
+          "mrkdwn_in": ["pretext"],
+          "fields": [
+            {"title": "IP", "value": "{account.peer.address}"},
+            {"title": "Port", "value": "{account.peer.port}"},
+            {"title": "Server ID", "value": 132},
+            ]
+          }
+        ]}
+
+Note the usage of `{id}` or `{message}` variables inside the key names or
+string values.
+In this case, they payload sent by the HTTP POST event handler contains the
+following members::
+
+    {
+      "events": [ EVENT_DATA_AS_BEFORE ],
+      "server": { SERVER_DATA_AS_BEFORE },
+      "text": "Stopped authentication "AD DAP" of type ldap. Failed at start",
+      "attachments": [
+        {
+        "pretext": "New event 20157 SFTPPlus *MFT-023-QA*",
+        "author_name": "Process",
+        "author_icon": "https://www.sftpplus.com/static/images/logo-80.png",
+        "text": "Stopped authentication "AD DAP" of type ldap.",
+        "footer": "Sent by SFTPPlus HTTP Post Event",
+        "mrkdwn_in": ["pretext"],
+        "fields": [
+          {"title": "IP", "value": "182.12.31.21", "short": true},
+          {"title": "Port", "value": "346", "short": true},
+          {"title": "Server ID", "value": 132, "short: true"},
+          ]
+        }
+    }
+
+On Slack, the message will look like
+
+..  image:: /_static/guides/http-event-slack.png
+    :alt: HTTP Event as received on Slack.

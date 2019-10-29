@@ -1,2 +1,0 @@
-# sftpplus-docs
-SFTPPlus Documentation

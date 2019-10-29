@@ -1,0 +1,26 @@
+.. container:: tags pull-left
+
+    `client-side`
+    `server-side`
+    `security`
+
+
+Notes for ISO27001
+##################
+
+According to the `Good Practice Guide <https://www.ncsc.gov.uk/guidance/protective-monitoring-hmg-ict-systems-gpg-13>`_ :
+
+*ISO27001 Compliance (reference [e]) - if the organisation is intending,
+formally or informally, to comply with ISO27001 then the controls in the GPG13
+Guide directly satisfy the group of all 6 controls under A.10.10 (Monitoring)
+and A.15.3 (Information systems audit considerations).*
+
+To help assist those with Protective Monitoring obligations, we have created
+:doc:`a dedicated section to outline which portion of SFTPPlus functionality
+applies to the controls in the GPG13</standards/gpg13>`.
+
+Further details are available from the ISO website in regards to the
+`ISO/IEC 27001 - Information security management <http://www.iso.org/iso/iso27001>`_
+standards.
+
+Please note that this page is not a confirmation of ISO/IEC 27001 certification.

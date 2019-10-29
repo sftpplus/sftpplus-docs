@@ -1,0 +1,7 @@
+puttygen-4.png filter=lfs diff=lfs merge=lfs -text
+puttygen-5.png filter=lfs diff=lfs merge=lfs -text
+status-small.png filter=lfs diff=lfs merge=lfs -text
+main-admin-page.png filter=lfs diff=lfs merge=lfs -text
+puttygen-1.png filter=lfs diff=lfs merge=lfs -text
+puttygen-2.png filter=lfs diff=lfs merge=lfs -text
+puttygen-3.png filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,31 @@
+{#
+This is the Jinja2 events documentation template for the server event groups.
+#}
+Server Event Groups
+===================
+
+The server's events are grouped in **event groups**.
+Grouping facilitates operations on multiple events, and is done based
+according to various criteria.
+
+Below is the reference of available Server Event Groups.
+
+{#
+Unpack the group_id and use Jinja dictsort.
+#}
+
+{% for group_id, group in groups|dictsort %}
+{%- if not group.name.startswith('__') %}
+
+{#
+Add a new subheading for each group_id name and capitalize the first character.
+#}
+{{ group.name | capitalize }}
+{{ '^' * group.name|count }}
+
+{#
+Add the group_id's description underneath the group ID section.
+#}
+{{ group.description }}
+{% endif %}
+{% endfor %}
