@@ -764,6 +764,26 @@ service.
     Check that your network is not vulnerable to
     `IP address spoofing <https://en.wikipedia.org/wiki/IP_address_spoofing>`_
     .
+    
+    Disabling this feature from the Administrator dashboard will not disable
+    the functionality. To disable, select `Authentications:Ban IP with multiple failures`,
+    Set Enable at Startup to No. Review and Apply. Then modify server.ini by removing
+    ban-ip-uuid from the server configuration block. Finally, restart the server from
+    the command line or windows service.
+    
+    ```
+    [server]
+    uuid = single-server-uuid
+    name = sftp
+    description = SFTP Server
+    account = sftpplus
+    execute_at_startup = Disabled
+    umask = 022
+    password_minimum_strength = 4
+    password_minimum_length = 12
+    authentications = username-blocker-uuid, ban-ip-uuid, application-uuid, os-uuid
+    manager_authentications = application-uuid
+    ```
 
 
 ban_interval
