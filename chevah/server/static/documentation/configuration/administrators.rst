@@ -107,6 +107,12 @@ For example, to add a new administrator named **sa-admin**::
         administrators that are used for multiple roles.
         In this case, the result is undefined.
 
+..  note::
+    Administrator names and passwords longer than 150 characters
+    are not allowed by SFTPPlus.
+    Generating passwords longer than 128 characters is not possible either.
+    These restrictions prevent denial of service attacks.
+
 
 Configuration options for roles
 -------------------------------

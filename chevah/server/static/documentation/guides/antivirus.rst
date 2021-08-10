@@ -18,4 +18,5 @@ These operations will not affect the overall performance of the system.
 ..  warning::
     In order to ensure that no false positives are reported by the anti-virus
     applications, please consider adding the SFTPPlus process -
-    ``/Install/Path/bin/python.exe`` - to the anti-virus exception list.
+    ``/Install/Path/lib/sftpplus-worker.exe`` -
+    to the anti-virus exception list.

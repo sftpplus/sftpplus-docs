@@ -55,30 +55,29 @@ Guidance for reading the documentation
 
 We use the following methods for highlights:
 
+A note supplements and highlights additional information.
+When ignored, the information presented here will not have any
+negative consequences.
+Below is an example of a note message.
+
 ..  note::
-    A note supplements and highlights additional information.
-    When ignored, the information presented here will not have any
-    negative consequences.
+    It is highly recommended to define an explicit group
+    (other than the `DEFAULT_GROUP`) for each application account.
+    This will make the configuration file much easier to understand by removing
+    any implicit behaviour associated with an unspecified group.
 
-    Example:
-
-    The OpenSSL version distributed with SUSE Linux Enterprise Linux version
-    12 does not allow using the eNULL ciphers.
+A warning is information which should not be ignored.
+The information should be understood, as otherwise it can lead to
+irreversible actions and undesirable consequences.
+Below is an example of a note message.
 
 ..  warning::
-    A warning is information which should not be ignored.
-    The information should be understood, as otherwise it can lead to
-    irreversible actions and undesirable consequences.
-
-    Example:
-
     Depending on your architecture, this could change the service to make the
     default administrative account accessible over the Internet.
     Care must be taken to ensure that the default administrative account is
     altered or deleted.
 
-You will notice certain terms will be color-coded `grey` or ``blue``.
-
+You will notice certain terms will be colour-coded `grey` or ``blue``.
 
 `Verbatim` values represent terms which should be used exactly as documented.
 For example, a configuration option such as `home_folder_path` is a verbatim
@@ -144,6 +143,3 @@ on all supported operating systems and hardware architectures.
 
     Please get in touch with us if you want to know specific details about
     your OS or consider an upgrade critical and we haven't provided it.
-
-    Operating systems with OpenSSL library version 0.9.7 and prior are locked
-    with Python 2.7.8 for compatibility reasons.

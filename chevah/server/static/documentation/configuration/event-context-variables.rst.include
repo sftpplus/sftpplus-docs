@@ -1,4 +1,4 @@
-The following variables (case insensitive) are provided as context data
+The following variables (case-insensitive) are provided as context data
 containing information about the event being triggered:
 
 * `id`
@@ -10,7 +10,14 @@ containing information about the event being triggered:
 * `account.uuid`
 * `component.name`
 * `component.uuid`
-* `data`
+* `data.DATA_MEMBER_NAME`
 * `data_json`
 * `timestamp.cwa_14051`
+* `timestamp.iso_8601`
+* `timestamp.iso_8601_fractional`
+* `timestamp.iso_8601_local`
+* `timestamp.iso_8601_basic`
+* `timestamp.iso_8601_compact`
 * `timestamp.timestamp`
+* `server.name`
+* `server.uuid`

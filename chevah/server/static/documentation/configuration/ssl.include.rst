@@ -28,7 +28,7 @@ ssl_certificate
 
 :Default value: `no-certificate-defined`
 :Optional: Yes
-:Values: * Absolute path on local filesystem.
+:Values: * Absolute path on the local filesystem.
          * Certificate in PEM text format (Since 3.40.0).
          * Certificate in PKCS12 / PXF binary format (Since 4.0.0).
          * `Disabled`
@@ -36,7 +36,8 @@ ssl_certificate
 :To version: None
 :Description:
     This can be defined as an absolute path on the local filesystem
-    to the SSL certificate file used by the component.
+    to the file containing the SSL certificate or chain of certificates
+    used by the component.
 
     File content should be encoded in the Privacy-Enhanced Mail (PEM) or
     PKCS12 / PFX formats.
@@ -87,7 +88,7 @@ ssl_certificate
     in which case you don't need to set the path to the private key.
     Only supported for PEM encoding.
 
-    The certificate file can contain the certificate chain.
+    The certificate file can contain the full chain of certificates.
     The targeted certificate should be first in the file,
     followed by the chained certificates.
     It will advertise the certificate chain in the same order as listed in
@@ -96,9 +97,11 @@ ssl_certificate
     (Since 3.22.0)
 
     For server-side components using TLS/SSL secure communication, this
-    configuration options is required.
+    configuration option is required.
+    If no value is defined here, the global `ssl_certificate` value is
+    used.
 
-    For client-side component using TLS/SSL, you can disable sending the
+    For the client-side component using TLS/SSL, you can disable sending the
     certificate as part of the handshake, by setting this configuration
     option to `Disabled`.
 
@@ -108,7 +111,7 @@ ssl_key
 
 :Default value: Empty
 :Optional: Yes
-:Values: * Absolute path on local filesystem.
+:Values: * Absolute path on the local filesystem.
          * Key as PEM text format (Since 3.40.0).
          * Empty
 :From version: 1.6.0
@@ -131,6 +134,10 @@ ssl_key
             ...
             Wh+QF3UArO8r8RYv3HRcnBjrGh+yEK93wIifVNGgy63FIQ==
             -----END RSA PRIVATE KEY-----
+
+    If `ssl_certificate` is not defined, any value defined for this
+    `ssl_key` configuration is ignored
+    and the global `ssl_key` value is used.
 
     If the value defined in `ssl_certificate` option already contains
     the private key, this option can be omitted by leaving it empty.
@@ -156,18 +163,29 @@ ssl_certificate_authority
 
 :Default value: `Disabled`
 :Optional: Yes
-:Values: * Absolute path on local filesystem.
+:Values: * Absolute path on the local file.
          * Content of the CA chain (Since 3.40.0).
          * `${LETS_ENCRYPT_X3_CA}`
          * `${MICROSOFT_IT_CA}`
+         * `${GO_DADDY_G2_G1}`
          * `Disabled`
 :From version: 1.6.0
 :Description:
     This can be defined as an absolute path on the local filesystem to a
-    file containing the certificates to the
-    Certificates Authority used to validate the remote peer.
+    file containing the certificates of the
+    Certificate Authorities used to validate the remote peer.
 
-    You can also define the content of the CA as text in PEM format.
+    This is used only for certificate-based peer validation.
+    To add the CA certificate for an SSL certificate for this component,
+    simply add it to `ssl_certificate`, possibly together with other
+    certificates needed to complete the full chain of certificates.
+
+    The remote peer identity can only be validated when the remote address
+    is configured using a fully qualified domain name.
+    IP based validation will always fail, this is not a method accepted
+    by the public certificate authorities.
+
+    You can define the content of the CA as text in PEM format.
 
     When the value is defined as PEM text, the configuration
     will look as in the following example::
@@ -180,9 +198,9 @@ ssl_certificate_authority
             JZQaMjV9XxNTFOlNUTWswff3uE677wSVDPSuNkxo2FLRcGfPUxAQGsgL5Ts=
             -----END CERTIFICATE-----
 
-    When a certificate authority is define, this will result
+    When a certificate authority is defined, this will result
     in initiating the two-way SSL/TLS authentication/handshake validation.
-    For a successful connection, make sure the client sends a valid
+    For a successful connection, make sure the remote peer sends a valid
     certificate.
     If the connection fails, the event with ID `40009` is emitted.
 
@@ -196,8 +214,10 @@ ssl_certificate_authority
     * `${LETS_ENCRYPT_X3_CA}` - For Let's Encrypt X3 certificate authority.
     * `${MICROSOFT_IT_CA}` - For all Microsoft IT CA certificates,
       used by SharePoint Online and other services provided by Microsoft.
+    * `${GO_DADDY_G2_G1}` - For all GoDaddy Certificate Bundles,
+       G2 With Cross to G1.
 
-    To configure a component to accept peer certificates signed by
+    To configure a component to accept the remote peer certificates signed by
     Microsoft IT CA, which is the CA used by SharePoint Online,
     you can set the configuration as::
 
@@ -207,11 +227,12 @@ ssl_certificate_authority
     When certificate authority check is disabled, connection peers are not
     required to send a certificate and will result in a one-way SSL/TLS
     authentication.
-    If the peer sends a certificate, it is ignored.
+    If the remote peer sends a certificate, it is ignored.
 
-    This defines the path on local filesystem to a file contain the certificate
-    in PEM format for the single certificate authority or multiple authorities
-    authorities with which this component will communicate.
+    This defines the path on the local filesystem to a file containing
+    the certificate in PEM format for the single certificate authority
+    or multiple authorities authorities with which this component
+    will communicate.
 
     Only peer connections using certificates signed by one of
     these certificate authorities will be permitted to communicate to this
@@ -286,7 +307,7 @@ ssl_certificate_revocation_list
         CDP publishing Delta CRL are not supported.
 
     ..  note::
-        If the certificate defines multiple HTTP based distribution points in
+        If the certificate defines multiple HTTP-based distribution points in
         the CDP extension, only the first HTTP URI is used.
         All non HTTP or the other HTTP URIs are ignored.
 
@@ -354,7 +375,7 @@ ssl_cipher_list
 
     The format for this value is the same as the one used for defining the
     OpenSSL cipher list.
-    More information can be found on the `OpenSSL site <https://www.openssl.org/docs/manmaster/man1/ciphers.html>`_.
+    More information can be found on the `OpenSSL site <https://www.openssl.org/docs/man1.1.0/man1/ciphers.html>`_.
 
 
 ssl_allowed_methods

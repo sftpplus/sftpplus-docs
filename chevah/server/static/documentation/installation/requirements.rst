@@ -6,36 +6,42 @@ Supported Operating Systems
 ---------------------------
 
 * Windows 8, 10, 2012 Server, 2012R2 Server, 2016 Server, 2019 Server.
-  Full support on X86 and X86_64 architectures.
+  Full support on X86 and x86_64 architectures.
 
-* Red Hat Enterprise Linux 7 on X86_64.
-  On request, we provide builds for older versions (RHEL 5 or 6) or
-  different architectures (x86, POWER8, S390x).
-  Make sure the "libffi" package is installed.
+* Red Hat Enterprise Linux 5, 6, 7, 8 on x86_64.
+  Version 5.11 (Final) is required on RHEL 5.
+  On request, we provide builds for different architectures
+  (x86, POWER8, S390x).
+  Make sure the "libffi" package is installed on RHEL 8.
 
-* Amazon Linux 2 AWS on X86_64.
-  For the older Amazon Linux AMI 2018.03 on X86_64, we support the use of
-  the RHEL 7 package.
+* Amazon Linux 2 and Amazon Linux AMI 2018.03 on x86_64.
 
-* SUSE Linux Enterprise Server 11 SP4 (with or without the Security Module)
-  and 12 SP3 on X86_64.
+* Ubuntu Server 14.04 LTS, 16.04 LTS, 18.04 LTS, 20.04 LTS on x86_64.
+  Contact us if you need specific support for a different Ubuntu Linux version
+  and/or another hardware platform.
+  Alternatively, you can also try the generic Linux package
+  featuring static OpenSSL libraries.
 
-* Debian Linux 9 on X86_64.
-  Contact us if you need support for a different Debian Linux version
+* Alpine Linux 3.14 on x86_64.
+  Contact us if you need support for a different Alpine Linux version
   and/or another hardware platform.
 
-* Ubuntu Server 18.04 LTS on X86_64.
-  Contact us if you need support for an older Ubuntu server version
+* Generic Linux distributions on x86_64.
+  This version is statically-built against required libraries,
+  including OpenSSL 1.1.1.
+  It is designed to work on any modern Linux distribution with
+  GLIBC version 2.5 or newer:
+  Ubuntu Server older than 14.04 LTS, non-LTS Ubuntu,
+  SUSE Linux Enterprise Server (SLES) 11 and newer, OpenSUSE,
+  Debian Linux, Slackware, Arch, etc.
+  Contact us if you need support for a Linux distribution not based on GLIBC
   and/or another hardware platform.
 
-* Alpine Linux 3.7 on X86_64.
-  Contact us if you need support for a newer Alpine Linux version
-  and/or another hardware platform.
-
-* Apple macOS 10.13 High Sierra and 10.14 Mojave on x86_64.
-  This version is built against OS-provided LibreSSL libraries version 2.2.7.
-  Contact us if you need support for macOS 10.12 Sierra
-  or for an older version of OS X.
+* Apple macOS 10.13 High Sierra or newer on x86_64.
+  This version is statically-built against required libraries,
+  including OpenSSL 1.1.1.
+  macOS 10.12 Sierra is also known to work, but it's not supported.
+  Contact us if you need support for an older Mac OS X version.
 
 Do contact us if your OS of choice is not listed here, we can provide support
 for any Unix or Unix-like OS on almost any hardware platform as long as there
@@ -48,9 +54,9 @@ SFTPPlus does not include cluster-aware logic, but
 it provides generic functionalities for implementing clustering.
 
 We have customers deploying SFTPPlus resilience configuration on MSCS,
-Red Hat Linux, and IBM AIX clusters.
+Red Hat Linux, and other type of clusters.
 To read more about our approach to fault tolerance and zero redundancy
-`deployments please see our guide <guides/fault-tolerant-environment>`_.
+:doc:`deployments please see our guide</guides/fault-tolerant-environment>`.
 
 On MSCS, SFTPPlus can be deployed as a Generic Service
 Resource or a Generic Script Resource.
@@ -62,13 +68,13 @@ Software Requirements
 On Windows, there are no 3rd party dependencies, as the OpenSSL libraries
 are distributed together with the installation package.
 
-On Linux, the product typically uses the OpenSSL libraries
-available on the OS.
+On Linux, the product typically uses the OpenSSL libraries available on the OS.
 As such, we recommend that a recent version of the OpenSSL libraries
 are installed to benefit from the latest security fixes.
+However, the generic Linux package is bundled with its own OpenSSL libraries.
 
-On macOS, you will need to install the OpenSSL 1.0.2 libraries
-provided by the Homebrew community.
+On macOS, there are no 3rd party dependencies, as the OpenSSL libraries
+are distributed together with the installation package.
 
 
 Hardware Requirements

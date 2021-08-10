@@ -308,6 +308,49 @@ When the request fails for an URL, the usage of that URL will be suspended
 and resumed after 5 minutes.
 
 
+Authenticating the request itself
+---------------------------------
+
+In some cases you your HTTP endpoint / server will required that the
+HTTP request made by SFTPPlus to be authenticated.
+
+Note that this section handled the authentication happening between the
+SFTPPlus Server and the external HTTP API endpoint.
+
+This does not covers the authentication between an external client
+and the SFTPPlus server.
+This is covered by the request payload and was covered in the previous sections.
+
+The HTTP request (and not the payload) might need authentication when
+using an HTTP API Gateway which has a general authentication policy
+or you want extra security to make sure that authentication requests
+only originate from authorized SFTPPlus sources.
+
+The request can be authentication using HTTP Basic Authentication or with
+a custom `Authorization` header or any other HTTP header.
+
+Below is an example using the HTTP Basic Auth in which all the request
+from the configured SFTPPlus server are authenticated with an username and
+password::
+
+    [event-handlers/6d32ee50-b2d2-93e5-caf4-c70a7]
+    type = http
+    url = http://www.acme.io/auth
+    username = API-username
+    password = API-passord-or-token
+
+
+Another example is when the remote HTTP API endpoing required an API key
+or some other type of authentication.
+This can be implemented by configuring a custom header that is sent with
+each HTTP authentication request::
+
+    [event-handlers/6d32ee50-b2d2-93e5-caf4-c70a7]
+    type = http
+    url = http://www.acme.io/auth
+    headers = Authorization: token YOUR-AUTH-API-KEY
+
+
 Example: Using SFTPPlus HTTP API for authenticating with a web application
 --------------------------------------------------------------------------
 

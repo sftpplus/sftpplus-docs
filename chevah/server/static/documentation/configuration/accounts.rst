@@ -28,6 +28,12 @@ accessed using one of the available file transfer protocols.
     access of each user to only the files and folders located inside the home
     folder.
 
+..  note::
+    Account names and passwords longer than 150 characters
+    are not allowed by SFTPPlus.
+    Generating passwords longer than 128 characters is not possible either.
+    These restrictions prevent denial of service attacks.
+
 
 Configuring administrators
 --------------------------
@@ -297,6 +303,34 @@ email
     Email address associated with this account.
 
 
+created
+^^^^^^^
+
+:Default value: `EMPTY`
+:Optional: Yes
+:From version: 4.12.0
+:Values: * ISO 8601 date
+         * ISO 8601 combined date and time
+         * ISO 8601 combined date, time, and timezone
+:Description:
+    This records the date and time when this account was created.
+
+    Date and time are defined in ISO 8601 format for combined date and time.
+    Beside the standard format ``YYYY-MM-DD HH:MM:SSZ`` in UTC, it supports
+    a few relaxed formats like:
+
+    * YYYY-MM-DD
+    * YYYY-MM-DD HH:MM:SS
+    * YYYY-MM-DD HH:MM:SS+hh
+    * YYYY-MM-DD HH:MM:SS+hh:mm
+
+    When no timezone is defined, it will use the local timezone.
+
+    When no time is defined, it will assume the time as 00:00:00 (midnight).
+
+    When a date is defined, it needs to have the full year, month and day.
+
+
 home_folder_path
 ^^^^^^^^^^^^^^^^
 
@@ -334,20 +368,94 @@ home_folder_path
         The folder can be automatically created, just as for regular accounts.
 
 
+virtual_folders
+^^^^^^^^^^^^^^^
+
+:Default value: `inherit`
+:Optional: Yes
+:From version: 4.5.0
+:Values: * Comma-separated values of virtual path to real path mappings.
+         * List of virtual path rules, one mapping per line.
+         * `inherit`
+         * Empty.
+:Description:
+    By defining one or more virtual folders, you can allow access to
+    selected files which are located outside an account's locked home
+    folder.
+
+    This is a comma-separated list of values containing two elements -
+    the virtual path and the real path.
+
+    For more details and examples on how to configure virtual folders,
+    see the
+    :doc:`filesystem access documentation</operation/filesystem-access>`.
+
+    Leave it empty to not have any virtual folders.
+
+    Set it to `inherit` to use the virtual folders from the group.
+
+
+required_credentials
+^^^^^^^^^^^^^^^^^^^^
+
+:Default value: `inherit`
+:Optional: Yes
+:From version: 4.10.0
+:Values: * `password`
+         * `ssh-key`
+         * `password, ssh-key`
+         * `any`
+         * `Inherit`
+:Description:
+    This defines the set of valid credentials required for authenticating this
+    account.
+
+    Set it to `password` to authenticate the account once it provides a valid
+    password.
+
+    Set it to `ssh-key` to authenticate the account once it provides a valid
+    SSH key.
+    The provided key is checked against all SSH keys from the configured list.
+
+    Set it to `password, ssh-key` to authenticate the account only if
+    it provides both a valid password AND a valid SSH key.
+
+    Set it to `any` to authenticate the account once it provides
+    any type of credentials, e.g. a valid password OR a valid SSH key.
+
+    When this option is empty or set to `Inherit`,
+    the value defined for the account's group applies.
+
+
 ssh_authorized_keys_path
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 :Default value: `Disabled`
 :Optional: Yes
 :From version: 1.7.0
-:Values: * Path on local filesystem.
+:Values: * Path to a file on the local filesystem.
+         * Path to a directory on the local filesystem.
          * `Disabled`
          * `Inherit`
 :Description:
     This option specifies whether or not the server will permit
-    access using a list of public SSH keys retrieved from the specified file.
+    access using a list of public SSH keys retrieved from the specified file
+    or from any file found inside the specified directory path.
 
-    The file can contain multiple public SSH keys, each key on a separate line.
+    When configured as a single file,
+    it can contain multiple public SSH keys in OpenSSH format,
+    each key on a separate line.
+
+    When configured as a path to a folder,
+    it will read all files found in that folder, and try to load
+    SSH public keys from each of them.
+    The public keys can be stored in any standard format
+    (OpenSSH, Tectia SSH, PuTTY, etc).
+
+    The files should be readable by the account under which the SFTPPlus
+    process operates.
+
+    Failure occurs if private keys are found in the configured path.
 
     More details about SSH key authentication can be found
     :ref:`in the dedicated section <ssh-key-authentication>`.
@@ -362,9 +470,6 @@ ssh_authorized_keys_path
     group will apply.
     For a better understanding, please follow the :ref:`explanations
     and examples on proprieties inheritance <inherited-home-folder-path>`.
-
-    In the Local Manager GUI, `${USER}` must be in the file path, otherwise it
-    is appended at the end.
 
 
 ssh_authorized_keys_content
@@ -404,7 +509,8 @@ source_ip_filter
 :From version: 3.45.0
 :Values: * IPv4 address
          * IPv6 address
-         * Comma-separated list of IPv4 or IPv6 addressed.
+         * Classless Inter-Domain Routing subnet notation.
+         * Comma-separated list of IPv4, IPv6 addresses, or CIDR values.
          * `Inherit`
          * Empty
 
@@ -416,7 +522,8 @@ source_ip_filter
     for this account.
 
     To allow authentication from multiple source IPs, define them as a
-    comma-separated list.
+    comma-separated list or a range of IP addresses from the same subnet
+    using the Classless Inter-Domain Routing (CIDR) notation.
 
     Set it to `Inherit` to use the configuration defined for the group
     associated with this account.
@@ -426,7 +533,6 @@ source_ip_filter
 
     ..  note::
         Host names or FQDN are not supported.
-        IP classes are not supported.
         Only IP addresses are supported.
 
 
@@ -450,6 +556,80 @@ allow_certificate_authentication
 
     When this option is set to `Inherit`, the value defined for the account's
     group will apply.
+
+
+as2_require_http_authentication
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: Inherit
+:Optional: Yes
+:From version: 4.9.0
+:Values: * Yes
+         * No
+         * Inherit
+:Description:
+    This defines whether the AS2 partner is required to perform
+    HTTP authentication together with the incoming AS2 message request.
+
+    Set it to `No` to allow receiving AS2 from non-authenticated HTTP
+    connections.
+    SFTPPlus will still validated the signature and encryption of the
+    received AS2 message.
+
+    For increased security, we recommend setting this to `Yes`.
+
+
+as2_certificates
+^^^^^^^^^^^^^^^^
+
+:Default value: Empty
+:Optional: Yes
+:From version: 4.5.0
+:Values: * Single public X.509 SSL certificate in PEM format
+         * Multiple concatenated certificates in PEM format
+         * Empty
+:Description:
+    This option specifies one or more certificates used to validate
+    signatures for received files.
+
+    The certificates should be defined in PEM format.
+
+    Most of the time, this will be configured with a single certificate.
+
+    Multiple certificates are usually configured when an existing certificate
+    is about to expire and there is a transition period in which both
+    the existing certificate and a new certificate might be used.
+
+    For asynchronous MDNs requests, the configured certificates are used
+    to validate and authenticate the remote MDN receiver server.
+
+
+as2_async_mdn_ca
+^^^^^^^^^^^^^^^^
+
+:Default value: `Disabled`
+:Optional: Yes
+:From version: 4.9.0
+:Values: * Absolute path on the local file.
+         * Content of the CA chain in PEM.
+         * Empty value.
+         * `Disabled`
+:Description:
+    This is used to configure the certificate authority or the list of
+    certificates authorities for validating the remote HTTPS server
+    during an asynchronous MDN response.
+
+    You can define the list of all root CA and intermediate CA in PEM format.
+
+    It can be configured as an absolute path to a file containing all the
+    CA certificates in PEM format.
+
+    When this configuration is left empty, the async MDN are rejected.
+
+    Set as `Disabled` to disable validating the remote peer's certificates.
+
+    It support the same options as the
+    `ssl_certificate_authority` configuration.
 
 
 permissions

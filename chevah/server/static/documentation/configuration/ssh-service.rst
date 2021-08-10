@@ -177,23 +177,24 @@ scp
     Enable/Disable support for the SCP protocol.
 
 
-rsa_private_key
-^^^^^^^^^^^^^^^
+ssh_host_private_keys
+^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: ``configuration/sftp-service-rsa-private.key``
+:Default value: Empty
 :Optional: Yes
-:Values: * Absolute path to local filesystem.
-         * Text version of the SSH key (Since 3.40.0).
+:Values: * Absolute path on the local filesystem.
+         * Multiple absolute paths on the local filesystem, one per line.
+         * Text version of a SSH private key.
+         * Multiple concatenated SSH private keys in PEM format.
          * Empty.
-:From version: 1.6.0
+:From version: 4.9.0
 :To version: None
 :Description:
-    Path to file containing private RSA key file used by the service.
+    One or more SSH host private keys used by default for the SSH-based
+    services (SFTP/SCP).
 
-    Leave it empty to disable RSA host keys.
+    It can be one or more concatenated SSH private keys in PEM format.
 
-    You can also define the content of the SSH key directly as a text value.
-    In this case the configuration will look like the following example.
     It's important to start each line with at least one space character and
     keep the number of leading spaces constant::
 
@@ -210,12 +211,27 @@ rsa_private_key
             ...
             Pkf+23OGZln2dLz/pkJkiRRzmsWgT2hUv/EK4NYRQq1kEAXLf3J6xZqLlR3ZBLJm
             -----END RSA PRIVATE KEY-----
+            -----BEGIN DSA PRIVATE KEY-----
+            H7yMbPk/vrhT5jkSDGIUdH+nG0OQpeSWcQXd4JJ6pqdJh/cw/havtxlHFp1yz
+            MORE SSH KEY CONTENT
+            OGZln2dLz/pkJkiRRzmsWgT2hUv/EK4NYRQq1kEAXLf3J6xZqLlR3ZBLJm
+            -----END DSA PRIVATE KEY-----
 
-    We recommend to store the key in PEM OpenSSH format, but Putty or Tectia
+    For Putty keys, since they are not using a PEM format,
+    only a single private key is supported.
+    If you have to use multiple Putty keys here,
+    convert them to a PEM format such as the OpenSSH one.
+
+    You can also configure it with one or more absolute paths on the
+    local filesystem to files containing private SSH keys.
+    One path per line.
+
+    We recommend to store keys in PEM OpenSSH format, but Putty or Tectia
     formats are also supported.
 
-    When the configured key is encrypted, the value configured in
-    `rsa_private_key_password` is used to decrypt the key.
+    When the configured RSA or DSA keys are encrypted, the values configured in
+    `rsa_private_key_password` or `dsa_private_key_password`
+    are used to decrypt those keys.
 
 
 rsa_private_key_password
@@ -230,43 +246,7 @@ rsa_private_key_password
     The password is used for decrypting the stored RSA private key, in the case
     that it is stored encrypted on disk.
 
-
-dsa_private_key
-^^^^^^^^^^^^^^^
-
-:Default value: `configuration/sftp-service-dsa-private.key`
-:Optional: Yes
-:Values: * Absolute path on local filesystem.
-         * Text version of the SSH key (Since 3.40.0).
-         * Empty
-:From version: 1.6.0
-:To version: None
-:Description:
-    Path to file containing the private DSA key used by the service.
-
-    Leave it empty to disable DSA/DSS host keys.
-
-    You can also define the content of the SSH key directly as a text value.
-    In this case the configuration will look like the following example.
-    It's important to start each line with at least one space character and
-    keep the number of leading spaces constant::
-
-        [server/b904e6h6-c295-4ccf-8abd-edcae4d3324f]
-        name = SFTP Internal Server
-        type = sftp
-        dsa_private_key = -----BEGIN DSA PRIVATE KEY-----
-            MIIBugIBAAKBgQDOwkKGnmVZ9bRl7ZCn/wSELV0n5ELsqVZFOtBpHleEOitsvjEB
-            ...
-            MORE SSH KEY CONTENT
-            ...
-            oTedYsAyi80L8phYBN4=
-            -----END DSA PRIVATE KEY-----
-
-    We recommend to store the key in PEM OpenSSH format, but Putty or Tectia
-    formats are also supported.
-
-    When the configured key is encrypted, the value configured in
-    `dsa_private_key_password` is used to decrypt the key.
+    This option will be removed in a future V5 release.
 
 
 dsa_private_key_password
@@ -276,10 +256,11 @@ dsa_private_key_password
 :Optional: Yes
 :Values: * Password for the DSA private key as text.
 :From version: 1.7.19
-:To version: None
 :Description:
     The password is used for decrypting the stored DSA private key, in the case
     that it is stored encrypted on disk.
+
+    This option will be removed in a future V5 release.
 
 
 dh_prime_size
@@ -289,6 +270,7 @@ dh_prime_size
 :Optional: Yes
 :Values: * Pair of comma-separated values: absolute minimum, preferred size.
 :From version: 3.46.0
+:Description:
     This option controls the size of the prime number used during the
     Diffie-Hellman group exchange.
 
@@ -299,6 +281,7 @@ dh_prime_size
     the minimum size.
 
     The following sizes are supported:
+
     * 1024
     * 1536
     * 2048
@@ -309,6 +292,7 @@ dh_prime_size
 
     The second value defines the negotiated size used based on sizes
     announced by the client. The available are:
+
     * `minimum` - Use the minimum value supported by the client and server.
     * `ideal` - Use the ideal value advertised by the client.
     * `maximum` - Use the maximum value supported by the client.

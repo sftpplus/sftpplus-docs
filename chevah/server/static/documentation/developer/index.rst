@@ -7,7 +7,7 @@ Introduction
 
 As part of the standard features, we provide public APIs to extend the identity
 management, file access, audit functionality and more of the SFTPPlus
-Server using HTTP based micro-services / endpoints.
+Server using HTTP-based micro-services / endpoints.
 
 The HTTP APIs can be used to integrate file transfer processes with disparate
 systems, such as web applications, that need to interface with SFTPPlus.
@@ -21,8 +21,8 @@ If you are an existing customer or interested in developing with the API
 beyond what is available in the documentation, please contact us for further
 information including costs and conditions.
 
-We currently have documentation for HTTP based micro-services / endpoints and
-Python based event handlers.
+We currently have documentation for HTTP-based micro-services / endpoints and
+Python-based event handlers.
 Please contact us for C / Java code examples or for more HTTP / Python
 examples.
 

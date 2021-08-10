@@ -134,7 +134,7 @@ What you get from the Unix `cp` command, you also get from SCP, except
 `scp` does not support folder listing, folder creation, folder removal,
 and file removal.
 
-WinSCP cannot be used together with SFTPPlus server to do SCP based
+WinSCP cannot be used together with SFTPPlus server to do SCP-based
 transfers.
 This is because the SCP server implementation on SFTPPlus Server
 only allows the standard `scp` command.

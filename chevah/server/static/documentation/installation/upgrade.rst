@@ -10,28 +10,35 @@ Introduction
 Before proceeding with any upgrade, ensure that SFTPPlus, along with all file
 transfer services, are stopped.
 
-There are three different procedures that you can follow, depending
+Initializing the configuration or the service account and groups
+is not required for an upgrade.
+
+There are different procedures that you can follow, depending
 on the version to be upgraded:
+
+* When upgrading from versions 4.x to latest version,
+  you can extract the files
+  or run the installer using the same installation path.
+
+* When upgrading from versions 3.x to latest version,
+  you can extract the files
+  or run the installer using the same installation path.
+
+* When upgrading from versions 2.x to latest, it is required to uninstall first
+  and reinstall the server and integrate the existing configuration in the
+  new system.
+  There are significant changes for the logging and authentication parts.
 
 * When upgrading from versions pre-2.0 to latest, one should be aware
   that major configuration changes have been implemented and the process should
   be performed with care.
 
-* When upgrading from versions 2.x to latest, it is required to reinstall the
-  server and integrate the existing configuration in the new system.
-  Changes were done for the logging and authentication parts.
-
-* When upgrading from versions 3.x to latest, one can run the installer using
-  the same installation path.
-
-* When upgrading from versions 4.x to latest, one can run the installer using
-  the same installation path.
 
 ..  note::
     Regardless of the chosen upgrade procedure,
-    check if any custom paths in the install have been made.
-    The instructions in this documentation are for default paths and may
-    need to be modified based on your paths.
+    check if any custom paths are used for the installation.
+    Documentation instructions use default paths and may
+    need to be modified accordingly.
 
 In all cases, the configuration files should be backed up before proceeding
 with the upgrade, otherwise the configuration data will be lost.
@@ -48,6 +55,30 @@ Once you have obtained the full version of the software, follow the upgrade
 instructions under
 "Upgrading from version 4.X.X to a newer one" or
 "SFTPPlus manual upgrade on Linux and macOS", depending on your OS.
+
+
+Upgrading from Windows 32bit to Windows 64bit
+---------------------------------------------
+
+As long as a 32bit Windows version of SFTPPlus is upgraded to a 64bit version
+using the same installation path, no extra steps are required on top of the
+normal upgrade procedure.
+
+Note that the default installation path for 32-bit Windows applications is
+`C:\\Program Files (x86)\\SFTPPlus`, while for 64-bit applications it is
+`C:\\Program Files\\SFTPPlus`.
+In this case you will need to follow these steps:
+
+1. Backup the current configuration directory from
+   `C:\\Program Files (x86)\\SFTPPlus\configuration`.
+2. Uninstall the existing 32bit SFTPPlus application.
+3. Install the new 64bit SFTPPlus application.
+4. After 64bit SFTPPlus is installed, go to Windows services and stop the
+   `SFTPPlus MFT` service.
+5. Copy the previous configuration from
+   `C:\\Program Files (x86)\\SFTPPlus\\configuration` to
+   `C:\\Program Files\\SFTPPlus\\configuration`
+6. Go to Windows Services and start the `SFTPPlus MFT` service.
 
 
 Upgrading from version 4.X.0 to a newer 4.Y.Z
@@ -68,7 +99,7 @@ Release Notes<../release-notes>`.
 
 * Stop the SFTPPlus service.
 
-* Copy the configuration file to a backup location.
+* Copy the configuration directory to a backup location.
 
 * Run the installer and use the same installation path as the one of
   your current version.
@@ -86,9 +117,9 @@ SFTPPlus version 3 to a newer 4.Y.Z version:
 * If you are still using a SFTPPlus init script from version 2.10.0 or older,
   replace the `--start` command line argument with the `start` subcommand.
 
-* Remove clear text passwords for accounts and replace them with hashed based
+* Remove clear text passwords for accounts and replace them with hashed-based
   version.
-  This can be done by setting new passwords via the Local Manager web based
+  This can be done by setting new passwords via the Local Manager web-based
   management console.
   You can also generate hashed version of the password by using the
   `admin-commands generate-password` command line.
@@ -132,9 +163,70 @@ SFTPPlus version 3 to a newer 4.Y.Z version:
   The other email client resources are ignored and can be manually removed.
 
 * SFTPPlus is now configured with resource monitor having the
-  `DEFAULT-RESOURCE-MONITOR` UUID.
+  `DEFAULT-ANALYTICS` UUID.
   If your configuration already contains an resource monitor, it will
-  be automatically migrated to a resource with UUID `DEFAULT-RESOURCE-MONITOR`.
+  be automatically migrated to a resource with UUID `DEFAULT-ANALYTICS`.
+
+* The database event handler now only support SQLite3 embedded databases and
+  is configured with the direct path ot the database file.
+  SFTPPlus will automatically try to migrate the configuration and use
+  `log/server.db3` as the path to the log file.
+  You need to review the configuration for the event handler to make sure it
+  was correctly migrated.
+
+* SFTPPlus' `process-monitor` resource was renamed as the `analytics` resource.
+  You can continue to use `process-monitor` as the type name for this resource.
+
+* SFTPPlus now provides an embedded analytics component.
+  The previous `account-activity` event handler was integrated into this new
+  analytics component.
+  If your configuration already contains an `account-activity` event
+  handler, it will be automatically migrated.
+
+* SFTPPlus now supports a single SMTP client configuration. The previous
+  email configuration is automatically migrated as
+  `[resources/DEFAULT-EMAIL-CLIENT]`.
+
+* Configuration for Let's Encrypt certificate generation is now always
+  present inside the configuration file as `[resources/DEFAULT-LETS-ENCRYPT]`.
+  If you don't have Let's Encrypt support enabled, this configuration
+  is created under the disabled state.
+
+* SFTPPlus now has a separate embedded databases used for storing the
+  event logs and another dedicated databased used to store internal state.
+  The internal state database configuration is automatically created under
+  `[resources/DEFAULT-SQLITE]`
+
+* The embedded SFTPPlus authentication configuration is now always present
+  inside the configuration file as `[authentications/DEFAULT-AUTHENTICATION]`.
+
+* When authenticating operating systems accounts, you now have to define
+  the list of OS groups for which to allow access.
+  If you want to allow access to all OS groups, you can use the
+  `${ALL_OS_GROUPS}` marker::
+
+    [authentications/os-uuid]
+    enabled: Yes
+    type: os
+    name: Operating System Accounts
+    description: Accounts provided by the operating system.
+    allowed_groups = ${ALL_OS_GROUPS}
+
+* The `type` configuration for a transfer was removed and replaced by
+  `delete_source_on_success`.
+  SFTPPlus will automatically update the configuration at start.
+  The following equivalence applies:
+
+  * `type = copy` -> `delete_source_on_success=No`
+  * `type = move` -> `delete_source_on_success=Yes`
+
+* If you are using the SFTPPlus PHP Webadmin authentication,
+  you will have to replace it with a generic "HTTP Request"
+  authentication method.
+  The legacy WebAdmin authentication method is no longer supported.
+  If your previous url was configured as
+  "http://admin.example.com/SFTPPlus" you should
+  now use "http://admin.example.com/SFTPPlus/TransferLoginSimple.php"
 
 
 Upgrading from version 2.X.X to 3.Y.Y
@@ -149,7 +241,7 @@ integration of the existing data into the new system.
 
 * Stop the SFTPPlus service.
 
-* Copy the configuration files to a backup location.
+* Copy the configuration directory to a backup location.
   Optionally, consider copying the log files as well.
 
 * Uninstall the SFTPPlus version running on your server.
@@ -222,7 +314,7 @@ To migrate the file log handler, remove the `logs` handler section::
     [logs/03288e36-cf6b-4bd5-a9be-f421372f17e6]
     enabled = Yes
     name = Default Local Log File
-    description = Append logs to a file on local filesystem.
+    description = Append logs to a file on the local filesystem.
 
     type = file
 
@@ -233,7 +325,7 @@ And replace it with a dedicated `event-handlers` section::
     [event-handlers/00feb81f-a99d-42f1-a86c-1562c3281bd9]
     enabled = Yes
     name = Default Local Log File
-    description = Append logs to a file on local filesystem.
+    description = Append logs to a file on the local filesystem.
 
     type = local-file
 

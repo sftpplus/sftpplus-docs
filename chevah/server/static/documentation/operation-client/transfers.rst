@@ -148,6 +148,27 @@ The conditions could depend on factors such as the schedule, the file type
 the transfer rule and more.
 
 
+Delete Source Directories
+-------------------------
+
+For recursive transfers you can configure SFTPPlus to automatically delete
+the parent source directory, if becomes empty.
+
+Below is an example in which, after successfully transferring a file from path
+``E:\\Reports\\2020-12-28\\sales.pdf``, the file is removed right away
+while the parent is removed after 1 hour, if there are no other files
+in the same source path::
+
+      [transfers/15d46e5a-25f6-11e9-87b3-0b5ae5eda581]
+      source_path = E:\Reports\
+      delete_source_on_success = True
+
+      delete_souorce_parent_delay = 3600
+
+Any other file transferred from the same parent source path will reset the
+delay after which the delete operation is executed.
+
+
 Destination Location
 --------------------
 
@@ -189,8 +210,10 @@ When `destination_temporary_suffix` is configured, any file transfer
 to the destination will be done using a temporary name.
 
 In the case in which you only want a selected set of files transferred
-using temporary names, you can leave `destination_temporary_suffix` empty
-and set `destination_path_actions` with the `temporary-suffix` action.
+using temporary names or want to transfer files using a temporary prefix,
+you can leave `destination_temporary_suffix` empty
+and set `destination_path_actions` with the `temporary-suffix` or
+`temporary-prefix` actions.
 See the dedicated documentation for the
 :ref:`temporary-suffix <configuration-temporary-suffix>` action.
 
@@ -222,11 +245,11 @@ Having the following configuration::
     [transfers/313a9679-bc15-42e9-80ef-e2305959a3d1]
     enabled: yes
     name: copy-to-remote
-    type: move
 
     recursive: yes
     source_path: c:\out\sales
     source_filter: *
+    delete_source_on_success: Yes
 
     destination_uuid: 5f304286-8d56-41f9-ba57-420a2303e90c
     destination_path: /Outbox/
@@ -270,11 +293,11 @@ Having the following configuration::
     [transfers/313a9679-bc15-42e9-80ef-e2305959a3d1]
     enabled: yes
     name: copy-to-remote
-    type: move
 
     recursive: yes
     source_path: c:\out\sales
     source_filter: *
+    delete_source_on_success: Yes
 
     destination_uuid: 5f304286-8d56-41f9-ba57-420a2303e90c
     destination_path: /Outbox/
@@ -308,17 +331,17 @@ renaming to the initial name once all the file content was transferred.
 It takes a single option consisting of the characters used as the temporary
 suffix.
 
-With the following configuration, the file `c:\out\sales\report.pdf` will
+With the following configuration, the file ``c:\out\sales\report.pdf`` will
 be first transferred to ``/Outbox/report.pdf.tmp``, then finally renamed to
 ``/Outbox/report.pdf``::
 
     [transfers/313a9679-bc15-42e9-80ef-e2305959a3d1]
     enabled: yes
     name: push-to-remote
-    type: move
 
     source_path: c:\out\sales
     source_filter: *
+    delete_source_on_success: Yes
 
     destination_uuid: 5f304286-8d56-41f9-ba57-420a2303e90c
     destination_path: /Outbox/
@@ -328,6 +351,38 @@ be first transferred to ``/Outbox/report.pdf.tmp``, then finally renamed to
 
 When a transfer fails before completing the transfer of the file's content,
 the incompletely transferred file on destination keeps the temporary suffix.
+
+
+temporary-prefix
+^^^^^^^^^^^^^^^^
+
+The `temporary-prefix` action allows uploading a file using a temporary
+prefixed name,
+renaming to the initial name once all the file content was transferred.
+
+It takes a single option consisting of the characters used as the temporary
+prefix.
+
+With the following configuration, the file ``c:\out\sales\report.pdf`` will
+be first transferred to ``/Outbox/TEMP_report.pdf``, then finally renamed to
+``/Outbox/report.pdf``::
+
+    [transfers/313a9679-bc15-42e9-80ef-e2305959a3d1]
+    enabled: yes
+    name: push-to-remote
+
+    source_path: c:\out\sales
+    source_filter: *
+    delete_source_on_success: Yes
+
+    destination_uuid: 5f304286-8d56-41f9-ba57-420a2303e90c
+    destination_path: /Outbox/
+
+    destination_path_actions:
+      *.pdf, temporary-prefix, TEMP_
+
+When a transfer fails before completing the transfer of the file's content,
+the incompletely transferred file on destination keeps the temporary prefix.
 
 
 replace-separator
@@ -348,11 +403,11 @@ Having the following configuration::
     [transfers/313a9679-bc15-42e9-80ef-e2305959a3d1]
     enabled: yes
     name: copy-to-remote
-    type: move
 
     recursive: yes
     source_path: c:\out\sales
     source_filter: *
+    delete_source_on_success: Yes
 
     destination_uuid: 5f304286-8d56-41f9-ba57-420a2303e90c
     destination_path: /Outbox/
@@ -380,7 +435,7 @@ using destination file path and file name all in lower case.
 It takes no options.
 
 ..  note::
-    If the remote filesystem is case insensitive and a file with the same
+    If the remote filesystem is case-insensitive and a file with the same
     name (but different cases) exists, the remote name is kept.
 
 Below is an example for the `lowercase` transformation::
@@ -388,11 +443,11 @@ Below is an example for the `lowercase` transformation::
     [transfers/313a9679-bc15-42e9-80ef-e2305959a3d1]
     enabled: yes
     name: copy-to-remote
-    type: move
 
     recursive: yes
     source_path: /out/sales
     source_filter: *
+    delete_source_on_success: Yes
 
     destination_uuid: 5f304286-8d56-41f9-ba57-420a2303e90c
     destination_path: /Outbox/
@@ -432,11 +487,11 @@ Below is an example for the `fixed-path` transformation::
     [transfers/313a9679-bc15-42e9-80ef-e2305959a3d1]
     enabled: yes
     name: copy-to-remote
-    type: move
 
     recursive: yes
     source_path: /out/sales
     source_filter: *
+    delete_source_on_success: Yes
 
     destination_uuid: 5f304286-8d56-41f9-ba57-420a2303e90c
     destination_path: /Outbox/
@@ -641,7 +696,7 @@ SFTPPlus allows configuring a transfer to execute at certain transfer steps:
 * Execute after failure of a file transfer
 
 The configuration from this example,
-will copy (indicated by `type`) files from a source
+will copy (indicated by `delete_source_on_success: No`) files from a source
 (indicated by `source_path` and `source_uuid`) to a destination (indicated
 by `destination_path` and `destination_uuid`).
 A `timestamp-always` is set in the `overwrite_rule` in order to always
@@ -674,9 +729,9 @@ An example of the above configuration::
     enabled = Yes
     name = inbox-transfer
     description = Transfer Inbox files.
-    type = copy
     source_uuid = local-file-system-source-uuid
     source_path = C:\acme\sftpplus\accounting\inbox
+    delete_source_on_success: No
     destination_uuid = local-file-system-destination-uuid
     destination_path = C:\acme\sftpplus\accounting\inbox-final
     execute_after_success = C:\acme\sftpplus\transfer-jobs\after-success.bat
@@ -869,12 +924,12 @@ For example, in ``c:\jobs\reports\ACC-2018-09-23\report.desc`` or
     description: Move all report files once the report is finalized.
        A report.desc file is generated by the external reporting process
        to signal that the process is complete.
-    type: move
 
     recursive: Yes
     source_uuid: c4b74ed0-b952-4edc-be24-7d8e1e6d8068
     source_path: c:\jobs\reports
     source_filter: m/*.(pdf|desc)/
+    delete_source_on_success: Yes
 
     destination_uuid: 92eb50d4-bfc2-4b15-a369-f0d74dc68dac
     destination_path: /dropbox/

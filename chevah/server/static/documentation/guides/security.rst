@@ -29,65 +29,14 @@ employ the same cryptographic algorithms, yet the protocols are incompatible.
 The server supports all FIPS-140 compliant cryptographic algorithms, as well
 as other algorithms required by older or non FIPS-140 compliant endpoints.
 
-What are colloquially known as SSL certificates should be referred to as X.509
-certificates.
-The term SSL certificate became common due to the adoption of the
-X.509 certificate format by Netscape when it designed the original version of
-the SSL (Secure Socket Layer) protocol.
-SSL is now deprecated (being replaced by TLS) but the term `SSL certificate`
-is still common, and will likely persist for the near future.
-
-
-Establishing trust
-------------------
-
-Trust is established by using Public Key Encryption.
-In a Public Key Encryption system, each party operates with pairs of keys.
-Those keys may be *private* or *public*.
-
-Possession of a private key will prove the identity of the party.
-For this reason, a private key should never be shared.
-
-In an SSL/TLS connection, trust is established using an external party, the
-Certificate Authority.
-
-In an SSH connection, trust is established directly by the client accepting
-the server's public key.
-
-
-SSL/TLS host and server validation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-When the FTPS or HTTPS protocol is used, the configured certificate must
-be issued with the Subject Alternative Name (`subjectAltName`) or the
-Common Name (CN) containing the address used by the HTTPS or FTPS clients to
-connect to the server.
-
-Multiple services can share the same set of keys and certificates.
-
-If you have server-side certificates issued with different Common Names (CN),
-such as ``CN=acme-test.com`` and ``CN=acme1-test.com``, ensure that there is a
-corresponding client certificate for each each of the CNs involved or that the
-name of the account is the same as the configured CN.
-
-The port number is not included in SSL/TLS certificate validation.
-
-When validating and troubleshooting SSL/TLS host and server,
-check both server-side and client-side error logs as the issue may be on the
-client or server-side certificates.
-If you only have access to the client-side or the server-side logs,
-such as working with external partners, please get in touch with them to
-obtain logs from the other side.
-
-When there is an error code and message, the log information corresponds with
-the diagnostic information provided by
-`OpenSSL <https://www.openssl.org/docs/man1.0.2/apps/verify.html>`_.
+To read more about the Public Key Infrastructure (PKI), please go to our
+:doc:`dedicated section here </operation/pki>`.
 
 
 Key Management
 --------------
 
-Default server installation will generate a self-signed SSL certificate,
+The default server installation will generate a self-signed SSL certificate,
 and pairs of 2048-bit RSA and 1024-bit DSA private/public keys.
 
 To change the certificates used by the SSL/TLS service, you need to generate
@@ -158,41 +107,6 @@ In a worst-case scenario, you can generate a new CSR (Certificate Signing
 Request) for the same private key.
 
 There is no method to recover private keys other than from backups.
-
-
-Certificate Chaining
---------------------
-
-The X.509 standard used by SSL and TLS includes a model for setting up a
-hierarchy of certificate authorities.
-
-At their core, SSL and TLS protocols use X.509 certificates to validate
-connection endpoints.
-To allow verification of the authenticity of these certificates, they are
-digitally signed by a certificate authority (a CA).
-
-In a similar manner, a certificate authority's certificate is signed by a
-higher level CA which delegates its trust to what is called an
-intermediate certificate authority.
-
-This chain of trust can be traced back to a certificate signed by a CA known
-as a "Root Certificate Authority".
-A Root CA is an authority whose certificate is considered ultimately trusted.
-
-This whole process is called certificate chaining.
-
-Unlike operating systems and browsers, SFTPPlus is not distributed with a
-single list of root CAs.
-
-SFTPPlus contains a couple of narrow down lists of Root CAs,
-but each are targeted to a specific usage.
-For example, with the SharePoint Online AA list you will only set the
-component to accept from peer certificates signed by Microsoft IT SSL SHA2 and
-nothing else.
-
-Administrators are required to explicitly configure the list of trusted
-root CAs,
-together with their intermediate CAs and the associated CRLs.
 
 
 Performance considerations
@@ -278,10 +192,6 @@ Non-encryption mode (`eNULL`) can be used in special cases when the remote peer
 is required to be authenticated, but the transmitted data is already encrypted
 using another method like a PGP encrypted file.
 
-..  note::
-    The OpenSSL version distributed with SUSE Linux Enterprise Linux version
-    12 does not allow using the `eNULL` ciphers.
-
 Non-authentication mode (`aNULL`) is vulnerable to a "man in the middle" attack
 and its use is highly discouraged.
 In this mode, the connection will not validate the remote peer.
@@ -311,7 +221,7 @@ In some special cases the current loaded CRL is considered invalid, even
 if the `Next Update` is not reached.
 The error messages will indicate whether the CRL is no longer valid.
 
-When a SSL/TLS based service is started and CRL or CDP configuration is
+When a service using SSL/TLS is started and CRL or CDP configuration is
 defined it will try to pre-cache the CRL by loading the CRL, even if no
 client has yet made a connection.
 In this way, when a client will later initiate a connection, the connection is

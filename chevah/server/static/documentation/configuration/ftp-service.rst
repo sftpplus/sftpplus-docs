@@ -164,6 +164,8 @@ idle_data_connection_timeout
     For this number of seconds, the service will only act upon
     the data channel, without disconnecting the command channel.
 
+    When set to 0 or a negative number, the default timeout is used.
+
 
 .. include:: /configuration/ssl.include.rst
 .. include:: /configuration/service-commons.include.rst
@@ -232,14 +234,14 @@ ftps_force_secured_authentication
 :To version: None
 :Description:
     The server can be configured to force the user to establish a secured
-    connection before sending account credentials (eg. username and password).
+    connection before sending account credentials (e.g. username and password).
 
     If the server is configured to only allow secured authentication and not
     to enforce securing generic commands, after a successful authentication,
     users can send the Clear Command Channel (CCC) command to revert the
     command channel to an unsecured transport.
 
-    This will allow firewall or other tools (eg. FTP audit tools) to
+    This will allow firewall or other tools (e.g. FTP audit tools) to
     parse the commands issued within an FTP session.
 
     Not available for Implicit FTPS protocol, where secured authentication

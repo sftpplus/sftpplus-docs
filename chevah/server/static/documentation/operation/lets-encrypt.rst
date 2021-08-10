@@ -10,6 +10,16 @@ General description
 Via the `lets-encrypt` resource, SFTPPlus can act as an ACME client, in order
 to generate or renew certificates signed by Let's Encrypt's CA.
 
+The IETF-standardized ACME protocol, RFC 8555, is the ACME v2 protocol used by
+SFTPPlus when interacting with the Let's Encrypt service.
+
+The ACME v1 protocol is deprecated as of November 2019,
+therefore no longer supported in the latest version of SFTPPlus.
+
+You can still use SFTPPlus with ACME v1 until June 2021, assuming that
+your first request for your certificate was issued before November 2019
+and you keep using SFTPPlus version 3.53.0 or older.
+
 This page focuses on the implementation and operation of SFTPPlus'
 Let's Encrypt ACME client.
 For configuration information, refer to the dedicated
@@ -176,7 +186,8 @@ For production, the configuration will look like::
 
     address = 0.0.0.0
     port = 80
-    acme_url = https://acme-v01.api.letsencrypt.org/directory
+    acme_url = https://acme-v02.api.letsencrypt.org/directory
+    contact_email = admin-contact@your.domain.tld
 
 
 For testing/staging, the configuration will look like::
@@ -187,7 +198,7 @@ For testing/staging, the configuration will look like::
 
     address = 0.0.0.0
     port = 80
-    acme_url = https://acme-staging.api.letsencrypt.org/directory
+    acme_url = https://acme-staging-v02.api.letsencrypt.org/directory
 
 
 Let's Encrypt Request Limits

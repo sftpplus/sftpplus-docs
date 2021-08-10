@@ -45,7 +45,7 @@ Changing SSH Cipher List
 
 The `fips` configuration value in the `ssh_cipher_list` configuration option
 can be used to allow using only FIPS 140-2 compliant ciphers and algorithms for
-the SSH based services.
+the SSH-based services.
 
 By using the `fips` keyword in this configuration, a pre-defined set of FIPS
 140-2 approved ciphers is available.

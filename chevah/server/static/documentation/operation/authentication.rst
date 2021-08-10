@@ -105,6 +105,9 @@ the following configuration options from the `[server]` section:
 
 * `password_minimum_strength` - enforce a minimum strength
 * `password_minimum_length` - enforce a minimum length
+* `password_history` - enforce the number of unique new passwords before an
+  old password can be reused.
+* `password_hashing_scheme` - defines the function used to hash passwords.
 
 The password strength policy is designed to replace the composite policy rules
 that often fail both ways, allowing weak passwords (such as P@ssword1) and
@@ -116,6 +119,7 @@ To require a password policy with a minimum of 12 characters and
     [server]
     password_minimum_strength = 4
     password_minimum_length = 12
+    password_history = 10
 
 The password strength is determined using the
 `zxcvbn password strength estimator <https://blogs.dropbox.com/tech/2012/04/zxcvbn-realistic-password-strength-estimation/>`_
@@ -282,7 +286,8 @@ you can restrict the access of a source IP to only a specific account or group.
 Below is an example in which the ``automation`` group configuration
 doesn't allow the account to be authenticated from any source IP address,
 while account ``billing-sap`` is configured to explicitly allow
-authentication from source IPs ``10.0.2.45`` or ``10.0.2.46``::
+authentication from source IPs ``10.0.2.45`` or any IP from the
+192.168.2.0/24 subnet::
 
     [groups/87dc321-87dc-aedf-1123-cd5328aef4]
     name = automation
@@ -297,7 +302,7 @@ authentication from source IPs ``10.0.2.45`` or ``10.0.2.46``::
     group = 87dc321-87dc-aedf-1123-cd5328aef4
     description = Account used by billing automation system to pull reports.
 
-    source_ip_filter = 10.0.2.45, 10.0.2.46
+    source_ip_filter = 10.0.2.45, 192.168.2.0/24
 
 
 Allowing users to change their own password

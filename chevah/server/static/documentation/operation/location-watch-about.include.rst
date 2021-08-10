@@ -61,3 +61,21 @@ after two hours, even if the `stable_interval` is lower::
     [transfers/b904e6a6-c29b-4ccf-8abd-edcae4d3324f]
     changes_poll_interval = 3600
     stable_interval = 60
+
+
+File age discovery
+^^^^^^^^^^^^^^^^^^
+
+The file age is determined based on the file's `modified` attribute.
+
+Some file copy tools provided by the operating system or 3rd party
+might preserver the file attribute during the copy operation.
+In this case, even if you make a new copy of a file, it will be
+observed as an old file by the SFTPPlus system.
+
+Windows Explorer or command prompt tools will preserve the original modified
+date of the copied file.
+
+Linux and macOS tools will update the modified date of the copied files.
+The modified data is preserved only when the copy operation is done in
+`archive mode`.

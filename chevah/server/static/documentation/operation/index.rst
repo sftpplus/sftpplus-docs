@@ -15,6 +15,7 @@ If you are looking to implement bespoken functionality, see the
 
     authentication
     authorization
+    pki
     services
     ftp
     sftp
@@ -23,3 +24,4 @@ If you are looking to implement bespoken functionality, see the
     command-line
     filesystem-access
     ../guides/event-handlers
+    admin-shell

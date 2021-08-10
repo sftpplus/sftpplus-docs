@@ -87,32 +87,57 @@ description
     Human-readable text that describes the purpose of this transfer.
 
 
-type
-^^^^
-
-:Default value: ''
-:Optional: No
-:From version: 2.6.0
-:Values:
-    * `copy`
-    * `move`
-:Description:
-    This option specifies the type of the transfer.
-
-    When the `copy` type is configured, the transfers will copy files from
-    source to destination and process them using the configured actions:
-    executing external commands before and after transferring the files,
-    archiving the files, etc.
-
-    The `move` type is similar to `copy`.
-    However, once the transfer is successful, source files are removed from
-    the source location.
-    Source files will still be archived, if configured so.
-    If transfers fail, the files are not removed from the source location
-    regardless of the cause.
-
-
 .. include:: /configuration/location-watch.include.rst
+
+
+delete_source_on_success
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: `Yes`
+:Optional: yes
+:Values: * `Yes`
+         * `No`
+:From version: 4.0.0
+:Description:
+    Whether to delete the source file after a successful transfer.
+
+    You can use the `archive_success_path` configuration option to have
+    the file removed from the source directory and moved into another
+    directory.
+
+    If the transfer fails, the source is not removed,
+    even when this is set to `Yes`.
+
+
+delete_source_parent_delay
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: `0`
+:Optional: yes
+:Values: * Number of seconds
+:From version: 4.10.0
+    This defines whether the parent directory of the source file is also
+    removed on successful transfer.
+
+    Set it to `0` to not delete the source directory.
+
+    It is configured with a number of seconds after which, if no other file
+    is transferred inside the targeted directory, the directory is removed.
+
+    The parent directory is not removed right away to allow other external
+    application to write all the required files for that directory.
+
+    The base source directory is never removed.
+    This configuration only removes the direct parent directory of the
+    file that was transferred.
+    The directory is not removed if it contains other files or directories.
+
+    The configuration is valid for both local and remote source locations.
+
+    ..  note::
+        This configuration is ignored for non-recursive transfers.
+        This configuration has no effect if the source file is not
+        configured to also be removed via `delete_source_on_success`.
 
 
 source_filter_age
@@ -301,6 +326,23 @@ batch_marker_path
     </operation-client/transfers>`.
 
 
+execute_timeout
+^^^^^^^^^^^^^^^
+
+:Default value: 30
+:Optional: Yes
+:From version: 4.11.0
+:Values: * Number of seconds
+:Description:
+    This defines the time interval in seconds allowed for the execution
+    of external commands.
+    If the external command is still running after the configured duration,
+    it's automatically terminated with an error.
+
+    When defined with a value lower or equal to zero the default timeout
+    value is used.
+
+
 execute_before
 ^^^^^^^^^^^^^^
 
@@ -458,7 +500,7 @@ archive_success_path
 :Optional: Yes
 :From version: 3.0.0
 :Values:
-    * Path on local filesystem.
+    * Path on the local filesystem.
     * `Disabled`
 :Description:
     Path to a folder in the local file system used to keep a copy of
@@ -521,6 +563,27 @@ archive_failure_path
     ..  note::
         Archiving is disabled when a transfer has both source and destination
         as remote locations.
+
+
+archive_format
+^^^^^^^^^^^^^^
+
+:Default value: `timestamp-always`
+:Optional: Yes
+:From version: 4.0.0
+:Values:
+    * `timestamp-always`
+    * `exact`
+:Description:
+    This configuration defines the way archive files are created.
+
+    `timestamp-always` will archive all files using a timestamp.
+    It will mirror the directory structure from the source folder.
+
+    `exact` will store the files using the exact same name and will mirror the
+    directory structure from the source folder.
+    If a file with the same name already exits, the new file is archived
+    with a timestamp.
 
 
 archive_retention_period
@@ -717,6 +780,8 @@ destination_path_actions
     * `lowercase` - Will use the same file path as source, but in all lower
        case. This action has no parameters.
     * `temporary-suffix` - Will use a temporary file name suffix to transfer
+       the file, renaming it back after all the content was transferred.
+    * `temporary-prefix` - Will use a temporary file name prefix to transfer
        the file, renaming it back after all the content was transferred.
     * `fixed-path` - Will use the same path for all the transferred files.
     * `no-action` - Will keep the file path and file name as in the

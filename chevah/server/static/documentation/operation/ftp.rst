@@ -527,7 +527,7 @@ rather than `501 Syntax error in parameters or arguments` as documented in
 the RFC.
 
 
-SSL certificate based authentication
+SSL certificate-based authentication
 ------------------------------------
 
 SSL certificate-based authentication allows clients to authenticate using
@@ -557,7 +557,7 @@ configuration/server.ini)::
     enable_ssl_certificate_authentication = Yes
 
 In the Local Manager FTPS services configuration, set to
-`Enable SSL certificate based authentication`.
+`Enable SSL certificate-based authentication`.
 
 This option is enabled by default, so you should already have this option set.
 
@@ -578,11 +578,11 @@ CN ``JohnD`` ::
     name = JohnD
     allow_certificate_authentication = Yes
 
-The CN field and username matching is case sensitive.
+The CN field and username matching is case-sensitive.
 A certificate issued for CN ``JohnD`` will not be valid for an account
 with name ``johnd`` (all lowercase).
 
-Setting `enable_ssl_certificate_authentication = No` will disable SSL based
+Setting `enable_ssl_certificate_authentication = No` will disable SSL-based
 authentication and accounts will have to authenticate using other methods,
 like username and password.
 
@@ -599,10 +599,10 @@ in::
     enable_password_authentication = Yes
 
 
-Password based authentication
+Password-based authentication
 -----------------------------
 
-Password based authentication is the most common authentication method used
+Password-based authentication is the most common authentication method used
 with FTP and FTPS.
 
 To enable/disable it use the `enable_password_authentication` configuration
@@ -611,7 +611,7 @@ option available for each FTP or FTPS services.
 When disabling password authentication, make sure other authentication methods
 are enabled.
 For example, the following configuration disables password authentication
-and enables SSL based authentication::
+and enables SSL-based authentication::
 
     [services/03288e36-cf6b-4bd5-a9be-f421372f17e6]
     name = FTPS Implicit Server
@@ -657,7 +657,7 @@ characters::
 Load Balancer
 -------------
 
-The FTP/FTPS services of SFTPPlus can be integrated in a DNS based
+The FTP/FTPS services of SFTPPlus can be integrated in a DNS-based
 load balancing solution.
 
 FTP/FTPS services can function behind a layer 4 load balancer,

@@ -9,7 +9,7 @@ Introduction
 
 The *HTTP POST Event Handler* is where you can integrate SFTPPlus with your
 web resource.
-Simply create an event handler that will send a HTTP POST
+Simply create an event handler that will send an HTTP POST
 request to your remote HTTP resource based on specified server event IDs.
 
 In the Local Manager GUI, create a new Event Handler of type `Send as HTTP Post
@@ -27,7 +27,7 @@ see below::
     enabled = True
     type = http
     name = Example file transfer hook for ACME
-    description = Send a HTTP POST hook when event is raised
+    description = Send an HTTP POST hook when the event is raised
     target = 40007
     url = http://www.acme.io/http-post-hook-url
     http_content_type = json
@@ -40,9 +40,12 @@ When an HTTP or HTTPS handler is used, SFTPPlus will initiate an HTTP
 POST client request to the configured URL with a body containing one or
 more events, together with the identity of the server making the request.
 
-The request body is formatted as JSON.
+The request body can be formatted as JSON, XML, or using a custom template.
 
-The `server` member of the response contains the following attributes:
+..  warning::
+  The `server` member found in the root container is deprecated and will be
+  removed in SFTPPlus v5.
+  You should use the `server` attribute of each event.
 
 -----
 
@@ -57,7 +60,7 @@ Each event from the `events` array contains the following attributes.
 
 .. include:: /developer/event-object.rst.include
 
-Below is an example for a `POST` request containing two events::
+Below is an example for a `POST` request containing two JSON events::
 
     POST /remote/url
     Content-Type: application/json
@@ -86,7 +89,8 @@ Below is an example for a `POST` request containing two events::
             },
           "component": {
             "uuid": "dff314a6-c594-48dc-8e34-5270fd6cb635",
-            "type": "ssh"
+            "type": "ssh",
+            "name": "SFTP-Internal"
             }
 
           },
@@ -111,14 +115,85 @@ Below is an example for a `POST` request containing two events::
             },
           "component": {
             "uuid": "dff314a6-c594-48dc-8e34-5270fd6cb635",
-            "type": "ssh"
+            "type": "ssh",
+            "name": "SFTP-Internal"
             }
-          }
-        ],
-    "server": {
-      "uuid": "cc5c804d-0a3c-4c4c-b651-eba6fc3b5902"
-      }
+          },
+          "server": {
+            "uuid": "cc5c804d-0a3c-4c4c-b651-eba6fc3b5902",
+            "name": "AZWMPreProd01"
+            }
+        ]
     }
+
+Below is an example for a `POST` request containing one XML SOAP event::
+
+    POST /remote/url
+    Content-Type: application/soap+xml; charset=utf-8
+
+    <?xml version="1.0" ?>
+    <soap:Envelope
+      soap:encodingStyle="http://www.w3.org/2003/05/soap-encoding"
+      xmlns:soap="http://www.w3.org/2003/05/soap-envelope/">
+      <soap:Body xmlns:m="http://www.sftpplus.com/event">
+        <m:Events>
+          <m:Event>
+            <account>
+              <peer>
+                <protocol>TCP</protocol>
+                <port>55216</port>
+                <family>IPv6</family>
+                <address>::ffff:127.0.0.1</address>
+              </peer>
+              <uuid>user_uuid</uuid>
+              <name>user</name>
+            </account>
+            <created>1591402889.06</created>
+            <timestamp>
+              <cwa_14051>2020-06-06 01:21:29</cwa_14051>
+              <timestamp>1591402889.06</timestamp>
+              <iso_8601>2020-06-06T00:21:29Z</iso_8601>
+              <iso_8601_fractional>
+                2020-06-06T00:21:29.056312084198Z</iso_8601_fractional>
+              <iso_8601_local>2020-06-06T01:21:29+01:00</iso_8601_local>
+            </timestamp>
+            <component>
+              <type>http</type>
+              <name>http</name>
+              <uuid>http-1</uuid>
+            </component>
+            <server>
+              <uuid>test-server-uuid</uuid>
+              <name>test-server-name</name>
+            </server>
+            <message>
+              Successfully uploaded file at &quot;/path/file.txt&quot;.
+              Wrote 168691 bytes at 48227205.7845 bytes/second
+              in 0.003497838974 seconds.
+            </message>
+            <data>
+              <total_write>168691</total_write>
+              <real_path>
+                /srv/ftp/path/file.txt</real_path>
+              <write_speed>48227205.7845</write_speed>
+              <avatar>
+                <peer>
+                  <protocol>TCP</protocol>
+                  <port>55216</port>
+                  <family>IPv6</family>
+                  <address>::ffff:127.0.0.1</address>
+                </peer>
+                <uuid>user_uuid</uuid>
+                <name>user</name>
+              </avatar>
+              <duration>0.003497838974</duration>
+              <path>/path/file.txt</path>
+            </data>
+            <id>40017</id>
+          </m:Event>
+        </m:Events>
+      </soap:Body>
+    </soap:Envelope>
 
 
 Response codes
@@ -141,7 +216,7 @@ The current events are discarded.::
     Status: 503 Service Unavailable
     Retry-After: 3600
 
-For any response code, other than `200` and `203`, SFTPPlus will consider that
+For any response code, other than `200` and `204`, SFTPPlus will consider that
 the requests failed to be successfully processed by the remote HTTP endpoint.
 
 Failed requests are not retried and the event handler will stop sending events
@@ -157,6 +232,61 @@ In this case, `203` is the specified server return code:
     | 20174 2017-05-12 14:12:12 other-event-http-uuid Process 0.0.0.0:0
       Failed to handle event 40007 by "file-transfer-hooks".
       Server returned 203:Non-Authoritative Information
+
+
+Response body
+-------------
+
+For remote servers which are sending the error inside an HTTP response with
+code `200`, you can use the `expected_response` configuration to define
+a matching expression to detect a successful response.
+In the following example, SFTPPlus will treat the HTTP response as an error
+if it doesn't contain the `<Status>OK</Status>` value anywhere in the body::
+
+    [event-handlers/69fb02f4-a896-11ea-b3ee-134d4ef1f480]
+    enabled: yes
+    type: http
+    name: file-transfer-hooks
+    url: https://web-hooks.example.com/received-files.api
+
+    expected_response=*<Status>OK</Status>*
+
+You can use the negated regular expression to consider a success any
+response which doesn't contain the `<Status>Error</Status>` value,
+like in the following example::
+
+    [event-handlers/69fb02f4-a896-11ea-b3ee-134d4ef1f480]
+    enabled: yes
+    type: http
+    name: file-transfer-hooks
+    url: https://web-hooks.example.com/received-files.api
+
+    expected_response=e/.*<Status>Error</Status>.*/i
+
+When using regular expressions to match a value that spans multiple lines,
+you will need to explicitly include the newline characters.
+This is not required for globbing expression, as the newline characters
+are included in the `* (match anything)` glob.
+Below is an example of defining multi lines expression::
+
+    [event-handlers/69fb02f4-a896-11ea-b3ee-134d4ef1f480]
+    enabled: yes
+    type: http
+    name: file-transfer-hooks
+    url: https://web-hooks.example.com/received-files.api
+
+    expected_response=e/.*<Status>.*\n.*Error.*\n.*</Status>.*/i
+
+The above example which will consider the response a failure if the
+body contains either of the values::
+
+    <Status>Error</Status>
+
+    or
+
+    <Status>
+      Error
+    </Status>
 
 
 Redundant HTTP URL / Endpoints
@@ -184,7 +314,7 @@ When the request fails for an URL, the usage of that URL will be suspended
 and resumed after 5 minutes.
 
 If all URLs are not available, SFTPPlus will emit an error informing that
-processing the event via HTTP POST failed and will no retry the delivery.
+processing the event via HTTP POST failed, not retrying the delivery.
 
 
 Fault-tolerant / Resilient HTTP requests
@@ -219,8 +349,8 @@ same request on the next URL::
     retry_increase = 0.5
 
 
-Sending custom data in HTTP POST request
-----------------------------------------
+Sending custom JSON data in HTTP POST request
+---------------------------------------------
 
 Each payload sent by the HTTP POST event handler contains the following
 members, as documented in previous sections::

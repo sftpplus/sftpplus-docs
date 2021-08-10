@@ -14,7 +14,6 @@ server and client side functionalities, and contain specific usage examples.
     file-dispatcher
     docker
     ssh-keys
-    ssl-pki-ca
     gpg-usage
     antivirus
     email-notifications

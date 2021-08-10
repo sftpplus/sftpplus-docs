@@ -1,6 +1,8 @@
 Resources
 =========
 
+..  contents:: :local:
+
 SFTPPlus can interact with various external resources in order to execute
 related operations, such as sending emails on errors.
 
@@ -60,7 +62,7 @@ type
 :Values: * `sqlite` - Embedded SQLite database
          * `email-client` - Email client configuration.
          * `lets-encrypt` - Let's Encrypt ACME client.
-         * `process-monitor` - Monitor computer resources used by SFTPPlus.
+         * `analytics-engine` - Monitor computer resources used by SFTPPlus.
 :Description:
     This option specifies the type of the resource.
 
@@ -77,10 +79,10 @@ You will need to specify the path.
 path
 ^^^^
 
-:Default value: ``configuration/storage.db3``
+:Default value: ``configuration/cache.db3``
 :Optional: No
 :From version: 4.0.0
-:Values: * Path on local filesystem.
+:Values: * Path on the local filesystem.
 :Description:
     The path to a file where data is stored for this database.
 
@@ -164,6 +166,22 @@ email_from_address
         In this way, you will receive email delivery errors.
 
 
+email_to_recipients
+^^^^^^^^^^^^^^^^^^^
+
+:Default value: Empty
+:Optional: Yes
+:Values: * email.address@example.com
+         * email.address@example.com, other.team@example.com
+:From version: 4.1.0
+:Description:
+    Email address or addresses used as the default recipients for email
+    sent by SFTPPlus.
+
+    This value is used when no explicit recipient is defined for an
+    event handler or other email sender component.
+
+
 Let's Encrypt Client / CertBot
 ------------------------------
 
@@ -204,7 +222,9 @@ the domain name for Let's Encrypt::
     type = lets-encrypt
     address = 0.0.0.0
     port = 80
-    acme_url = https://acme-v01.api.letsencrypt.org/directory
+    acme_url = https://acme-v02.api.letsencrypt.org/directory
+    contact_email = admin-contact@your-domain.tld
+    redirect_url = https://sftp.your-domain.tld/home/
 
     [services/1c17-4485-878c]
     name = FTPS Explicit
@@ -277,7 +297,7 @@ port
 acme_url
 ^^^^^^^^
 
-:Default value: `https://acme-v01.api.letsencrypt.org/directory`
+:Default value: `https://acme-v02.api.letsencrypt.org/directory`
 :Optional: No
 :Values: * URL to the ACME Server endpoint.
 :From version: 3.42.0
@@ -288,11 +308,44 @@ acme_url
     use a different ACME server.
 
     Also, you can use it to point to the staging Let's Encrypt server
-    at `https://acme-staging.api.letsencrypt.org/directory`.
+    at `https://acme-staging-v02.api.letsencrypt.org/directory`.
     Highly recommended during initial deployment and testing.
 
     Most users don't need to change this configuration,
     and should use the default value.
+
+
+contact_email
+^^^^^^^^^^^^^
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Comma-separated list of contact emails for this domain.
+:From version: 3.54.0
+:Description:
+    Optional email contact information provided to the ACME server.
+
+    You can provide multiple addresses as a comma-separated value.
+
+    Let's Encrypt can use these addresses to contact you for issues
+    related to certificates obtained by SFTPPlus.
+    For example, the server may wish to notify you about server-initiated
+    revocation or certificate expiration.
+
+    Leave it empty to not provide any contact information.
+
+
+redirect_url
+^^^^^^^^^^^^
+
+:Default value: `empty`
+:Optional: Yes
+:Values: * Absolute URL
+:From version: 3.52.0
+:Description:
+    This configuration option is used to define the URL to which any
+    request made to this service is redirected, with the exception of
+    Let's Encrypt validation requests.
 
 
 debug
@@ -313,11 +366,16 @@ debug
     initiate them.
 
 
-Process Monitor and Alerts
---------------------------
+Analytics and Alerts
+--------------------
 
-The `process-monitor` resource is defined in order to monitor
-at a fixed interval the OS resources used by SFTPPlus.
+The `analytics` resource is defined for monitoring and recording the
+activity of SFTPPlus.
+
+For example, it collects last user login information that can be
+later retrieved and displayed as a report inside the Local Manager.
+The logins span across all services configured on the server (FTP, SFTP,
+Local Manager, etc.).
 
 At the configured interval, a dedicated event containing the usage counters
 is generated.
@@ -333,8 +391,8 @@ when there are more than 1000 total active connections::
 
     [resources/03c4-1caf-fee0]
     enabled = yes
-    name = Let's Encrypt Cert Generator
-    type = process-monitor
+    name = Analytics Engine
+    type = analytics
     monitor_interval = 120
     connections_count_trigger = 1000
 
@@ -365,6 +423,11 @@ monitor_interval
 :From version: 3.44.0
 :Description:
     Time interval, in seconds, between system resources measurements.
+
+    This value is only used for metrics which require taking constant
+    snapshots of the system state.
+
+    Login date, time, and transfer activity is recorded in real time.
 
     For production environments we recommend setting a value
     equal to or greater than 60 seconds.

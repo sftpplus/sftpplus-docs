@@ -22,9 +22,16 @@ Passwords can be generated in interactive or non-interactive mode.
 After the command is executed, it will list the encrypted password.
 This can be copied inside the configuration file.
 
-To generate a password in `non-interactive` mode::
+To generate a password in `non-interactive` mode using the default
+hashing function::
 
     ./bin/admin-commands.sh generate-password NEW_PASSWORD
+    NEW_ENCRYPTED_PASSWORD_HERE
+
+You can specify a certain password hashing function.
+In this example, the password is hashed using PBKDF2-SHA512::
+
+    ./bin/admin-commands.sh generate-password NEW-PASS --format=pbkdf2-sha512
     NEW_ENCRYPTED_PASSWORD_HERE
 
 When generating a password in `interactive` mode, the command will ask
@@ -73,6 +80,62 @@ This will generate the following files:
 Keys can be exchanged between SFTPPlus and an OpenSSH Server without
 requiring any additional conversion steps.
 
+Use the included help command to see all the options available for creating a
+new SSH key::
+
+    ./bin/admin-commands.sh generate-ssh-key --help
+
+
+Generating PGP keys
+-------------------
+
+To generate a PGP key pair, use the following command::
+
+    ./bin/admin-commands.sh \
+        generate-pgp-key \
+        --key-type=rsa \
+        --key-file=KEY_FILENAME \
+        --key-comment='Test PGP key' \
+        --email=your.name@example.com \
+        --name='Your Name'
+
+You can replace `rsa` with `dsa` to generate a DSA key pair.
+
+This will generate the following files:
+
+ * ``KEY_FILENAME``, containing the private part of the new PGP key pair.
+ * ``KEY_FILENAME.pub``, containing the public part of the new PGP key pair.
+
+Use the included help command to see all options available for creating a
+new PGP key::
+
+    ./bin/admin-commands.sh generate-pgp-key --help
+
+
+Generating Self-Signed Certificates
+-----------------------------------
+
+To generate a new self-signed certificate for DNS name `localhost`
+from the command line, use the following command::
+
+    $ ./bin/admin-commands.sh generate-self-signed \
+        --common-name=localhost \
+        --alternative-name=DNS:localhost,IP:127.0.0.1 \
+        --key-size=2048 \
+        --sign-algorithm=sha256
+
+The certificate and the private key are then generated on the standard
+output.
+You can copy the output to a file or inside the SFTPPlus configuration
+file.
+
+The generated certificate is valid for 10 years.
+
+There are multiple options available to generate self-signed certificates,
+including specifying the X.509 basic constraints or the X.509 key usage::
+
+    $ ./bin/admin-commands.sh generate-self-signed --help
+
 
 Generating SSL keys and Certificate Signing Requests
 ----------------------------------------------------
@@ -89,6 +152,8 @@ To generate a new SSL key and an associated certificate signing request::
         --key-file=KEY_FILENAME.key \
         --alternative-name="IP:192.168.7.1,DNS:www.fs.domain.tld" \
         --email="admin@domain.tld" \
+        --constraints="CA:FALSE" \
+        --key-usage="critical:server-authentication" \
         --organization=ACME \
         --organization-unit="ACME IT Services" \
         --locality=London \

@@ -18,7 +18,6 @@ client and server operations.
     matching-expression
     server
     resources
-    databases
     accounts
     groups
     administrators
@@ -26,6 +25,7 @@ client and server operations.
     ftp-service
     ssh-service
     http-service
+    http-redirection-service
     monitor-service
     locations
     transfers

@@ -78,11 +78,32 @@ you can define the following event handler::
     enabled = Yes
     name = Standard Output Logger
     type = standard-stream
-    target = 10092, 20024, 20033, 20058, 20059, 20102, 20106, 20163
+    target = 10092, 20024, 20033, 20058, 20059, 20102, 20106
 
 Leave `target` empty to log all events.
 Check out the :doc:`Event Handler Configuration</configuration/event-handlers>`
 for more details about the available filters.
+
+
+Docker Storages
+===============
+
+Dedicated Docker volumes should be used for storing user files and configuration
+outside of the SFTPPlus container.
+This allows the data to persist when the container no longer exists,
+and also eases access to the data from outside of the container.
+For example, given the `sftpplus_config` and `sftpplus_storage` Docker volumes,
+a typical command to mount them in an SFTPPlus container would be::
+
+    docker run --detach --name sftpplus \
+        --publish 10020:10020 \
+        --publish 10443:10443 \
+        --publish 10022:10022 \
+        --publish 10021:10021 \
+        --publish 10900-10910:10900-10910 \
+        --mount source=sftpplus_config,target=/opt/sftpplus/configuration \
+        --mount source=sftpplus_storage,target=/srv/storage \
+        sftpplus:4.0.0
 
 
 Container and Service-Oriented Architecture (SOA)
@@ -108,10 +129,10 @@ These files are placed in the same storage, regardless of the file transfer
 protocol used.
 
 While SFTPPlus provides its own user identity management system and log
-management system, in a SOA deployment you might already have a HTTP based
+management system, in a SOA deployment you might already have an HTTP-based
 API service for authentication and logging.
-SFTPPlus fully supports HTTP based API for authentication and auditing, and
-make use of your existing services.
+SFTPPlus fully supports HTTP-based API for authentication and auditing,
+making use of your existing services.
 
 Check out our :doc:`Developer Documentation</developer/index>` for more
 details about how to use the HTTP API.

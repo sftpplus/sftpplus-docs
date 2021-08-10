@@ -121,7 +121,6 @@ type
          * `anonymous` - Anonymous account authentication.
          * `ldap` - Authenticate against an LDAP server.
          * `local-file` - Authenticate the accounts from a separate local file.
-         * `legacy-webadmin` - Legacy SFTPPlus WebAdmin global users.
 :Description:
     This option specifies the type of the method. Each type has a set
     of specific configuration options
@@ -135,7 +134,27 @@ based on accounts defined in the configuration file of SFTPPlus.
 
 It will authenticate accounts of type `application`.
 
-For now, no other options are provided for this authentication method.
+
+allowed_groups
+^^^^^^^^^^^^^^
+
+:Default value: `empty`
+:Optional: Yes
+:Values: * `empty`
+         * Group UUID
+         * Comma-separated list of group UUIDs.
+:From version: 4.0.0
+:Description:
+    Defines a group or a list of groups with users that
+    are allowed by this authentication method.
+
+    When this is empty, any account is accepted as long as it has valid
+    credentials.
+
+    ..  note::
+        This option applies to group UUID values, not group names.
+        This makes it possible to rename a group without having to update
+        this configuration option.
 
 
 OS-level Authentication Method
@@ -165,7 +184,6 @@ The `os` authentication method will authenticate the following account types:
 * Linux accounts with passwords defined in the ``/etc/passwd`` file or
   by the Name Service Switch library.
 * Linux accounts with passwords defined in the ``/etc/shadow`` file.
-* macOS local accounts.
 
 On systems supporting PAM, PAM can also be used for authenticating users
 with username and password credentials.
@@ -213,12 +231,6 @@ pam_usage
     Set it to `disabled` to completely disable PAM usage.
 
     ..  note::
-        On macOS, this option is ignored and the `exclusive` mode is used
-        instead.
-        Open Directory local accounts are always authenticated using PAM
-        because macOS doesn't support authentication based on ``/etc/passwd``.
-
-    ..  note::
         On Windows, this option is always `disabled`, as SFTPPlus has no support
         for PAM on this platform.
 
@@ -238,21 +250,62 @@ allowed_groups
 ^^^^^^^^^^^^^^
 
 :Default value: `empty`
-:Optional: Yes
+:Optional: No
 :Values: * `empty`
          * OS group name
+         * `${ALL_OS_GROUPS}`
          * Comma-separated list of OS group names.
 :From version: 3.35.0
 :Description:
     Defines an operating system group or a list of OS groups with users that
     are allowed by this authentication method.
 
-    When this is empty, any OS account is accepted as long as it has valid
-    credentials.
+    When this is empty, no OS account is accepted.
+    You need to define a list of group names for which to allow access.
+    For example, if you need to allow all users from the local system, you can
+    typically use the default `users` group available on both Windows and Linux.
+
+    If you absolutely need to allow access to all OS users from all OS groups,
+    set this to `${ALL_OS_GROUPS}`.
+    This should be the only value, and you can't mix `${ALL_OS_GROUPS}` with
+    other group names.
 
     ..  note::
         This configuration takes operating system group names and not
         SFTPPlus group names.
+
+
+group_association
+^^^^^^^^^^^^^^^^^
+
+:Default value: `DEFAULT_GROUP`
+:Optional: No
+:Values: * GROUP-UUID
+         * `group-name`
+         * `group-name-with-default`
+:From version: 4.11.0
+:Description:
+    Defines the SFTPPlus group that is associated with authenticated users.
+
+    When set with the identifier (UUID) of a SFTPPlus group,
+    it will associate any user with that SFTPPlus group.
+
+    When set to `group-name`, it will associate the user with the
+    SFTPPlus group having the same name as the operating system group of
+    this user.
+    If the user is a member of multiple groups,
+    the first group defined in `allowed_groups` will be used.
+    If no SFTPPlus group is found with the same name, the authentication fails.
+
+    When set to `group-name-with-default`, it will try to associate the user
+    with a SFTPPlus group having the same name as the OS group.
+    It will use the default SFTPPlus group if no SFTPPlus group is found having
+    the same name as the OS group.
+
+    ..  note::
+        When an OS account is explicitly defined inside SFTPPlus configuration
+        the `group_association` is ignored and the account's groups
+        configuration is used instead.
 
 
 manager_allowed_groups
@@ -329,7 +382,7 @@ path
 
 :Default value: ''
 :Optional: No
-:Values: * Path to local filesystem
+:Values: * Path on the local filesystem
 :From version: 3.33.0
 :Description:
     Absolute path to a file, local to the server, in which the
@@ -364,6 +417,18 @@ The `ldap` authentication method can be used to authenticate
 `application` type accounts using the information provided by a remote LDAP
 server.
 
+LDAP and Secure LDAP over TLS/SSL (LDAPS) protocols are supported.
+
+..  note::
+    Only IPv4 LDAPS servers are supported.
+    If you require IPv6 LDAPS, contact our support team.
+    IPv6 LDAP servers are supported when configured using
+    IPv6 address literals.
+
+..  note::
+    LDAP StartTLS method is not yet supported.
+    If you require it, contact our support team.
+
 Simple BIND operation is used for authenticating an account against the
 LDAP server in order to validate the credentials received from a file
 transfer client session.
@@ -378,17 +443,13 @@ to the configured LDAP server for validation.
     the credential and will not allow any other authentication to continue
     with validating the credentials.
 
-..  note::
-    BIND operation over SSL or SASL PLAIN BIND operation are not yet
-    supported.
-    If you require one of these BIND operations please contact our
-    support team.
 
 ..  note::
     Only LDAP v3 is supported. If you require a different version
     please contact our support team.
 
-Successfully authenticated accounts are associated to the default group.
+Successfully authenticated accounts are associated to the default group,
+or to a specific group based on the `group_mapping` configuration.
 
 
 address
@@ -405,11 +466,6 @@ address
     Host name, domain name or IP address used to connect to the remote
     LDAP server.
 
-    ..  note::
-        If possible, consider defining this option using an IP address.
-        This will improve the performance, as a DNS query will not be required
-        before doing each authentication request.
-
 
 port
 ^^^^
@@ -420,6 +476,28 @@ port
 :From version: 3.13.0
 :Description:
     Port number used by the remote LDAP server to receive client connections.
+
+
+secure_connection
+^^^^^^^^^^^^^^^^^
+
+:Default value: `No`
+:Optional: Yes
+:Values: * `Yes`
+         * `No`
+:From version: 4.11.0
+:Description:
+    When set to `yes` the connection to the LDAP server will be protected
+    by a TLS security wrapper.
+    This will enabled LDAP over TLS/SSL communication method, also called
+    `LDAPS`.
+
+    ..  warning::
+        Without the `ssl_certificate_authority` configuration, the LDAPS
+        connect will use TLS, but the identity of the remote server will
+        not be validated.
+        Use `ssl_certificate_authority` to define the certificate
+        authorities allowed to issue a certificate for the remote server.
 
 
 bind_dn_type
@@ -436,8 +514,9 @@ bind_dn_type
     This field defines the method utilized to construct the LDAP DN that is
     administered for the LDAP authentication (BIND) request.
 
-    With `bind_dn_type` set to `parent` (or the 'Search only in bind DN`
-    option in the Local Manager GUI), a distinguished name applied for the bind
+    With `bind_dn_type` set to `parent`
+    (or the 'Username generated from Bind DN` option in the Local Manager GUI),
+    a distinguished name applied for the bind
     (authentication) operation is generated using the following method:
     ``cn=USERNAME,BIND_DN_VALUE``.
 
@@ -485,8 +564,10 @@ bind_dn
 
     For more details, consult the documentation for `bind_dn_type`.
 
-    ..  note::
-        This is ignored when `bind_dn_type` is set to `absolute`.
+    When `bind_dn_type` is set to `direct-username`, this is used as the
+    base DN of the Active Directory group to which access is permitted.
+
+    This is ignored when `bind_dn_type` is set to `absolute`.
 
 
 username_attribute
@@ -495,6 +576,7 @@ username_attribute
 :Default value: `cn`
 :Optional: Yes
 :Values: * Attribute name.
+         * Attribute name, @FQDN.DOMAIN.COM
 :From version: 3.17.0
 :Description:
     The attribute name that LDAP uses to create the DN for performing the
@@ -520,12 +602,33 @@ username_attribute
         `parent` or `direct-username`.
 
 
+username_suffix
+^^^^^^^^^^^^^^^
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Empty
+         * @FQDN.DOMAIN.COM
+:From version: 4.1.0
+:Description:
+    When `bind_dn_type = direct-username` you can use this configuration
+    to define a default domain that is appended to the name of each use.
+
+    In this way, the file transfer users can login with just the username,
+    and SFTPPlus will use the full UPN for the Active Directory
+    authentication request.
+
+    The domain name should include the `@` character.
+    For example: `username_suffix = @ad.example.com`.
+
+
 home_folder_attribute
 ^^^^^^^^^^^^^^^^^^^^^
 
 :Default value: `homeDirectory`
 :Optional: Yes
 :Values: * Attribute name.
+         * Attribute name, home path template
          * Empty value.
 :From version: 3.13.0
 :Description:
@@ -539,10 +642,51 @@ home_folder_attribute
     Leave it empty to not retrieve the home folder path from the
     LDAP entry, but rather inherit the value from the associated group.
 
+    You can create the home folder path by combining a configurable template
+    and the value stored in the LDAP attribute.
+    For example to reuse the Internet Information Service (MS IIS)
+    user path, you can use::
+
+        home_folder_attribute: msIIS-FTPDir, E:\SFTP-Files\{msIIS_FTPDir}
+
     ..  note:
         The authentication will fail when the LDAP entry associated with the
         account to be authenticated has multiple values for the home
         folder attribute.
+
+
+multi_factor_authentication_attribute
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Attribute name.
+         * `Empty`.
+:From version: 4.12.0
+:Description:
+    Name of the LDAP attribute used to store the multi-factor
+    authentication parameters for SFTPPlus users.
+    For example, when the MFA parameter for an SFTPPlus user is stored in
+    an LDAP attribute named ``totpSharedSecret``, the configuration shows::
+
+        multi_factor_authentication_attribute = totpSharedSecret
+
+    When `multi_factor_authentication_attribute` is defined, MFA
+    authentication is enforced in SFTPPlus for all LDAP users.
+
+    For now, only the TOTP MFA method is supported.
+    Values stored in LDAP for this attribute should use the
+    Google Authenticator Key URI format.
+    For example, an LDIF value to be stored by the LDAP server::
+
+        totpSharedSecret: otpauth://totp/FSrv:admin?secret=PRIVATE&issuer=FSrv
+
+    ..  danger::
+        This multi-factor authentication method should only be used when
+        end users don't have direct access to their MFA parameter
+        stored on the LDAP server.
+        Otherwise, an SFTPPlus user can retrieve their MFA
+        secret from LDAP, and bypass this security measure.
 
 
 search_filter
@@ -588,6 +732,8 @@ manager_search_filter
     Leave it empty to deny any LDAP entry as administrator.
 
 
+.. _conf-ldap_group_mapping:
+
 group_mapping
 ^^^^^^^^^^^^^
 
@@ -608,6 +754,216 @@ group_mapping
 
     You can create complex group mapping by specifying multiple groups which
     are selected based on targeted LDAP values.
+
+    Leave this configuration option empty to use the default
+    SFTPPlus group configuration.
+
+.. include:: /configuration/ssl.include.rst
+
+
+RADIUS Authentication Method
+----------------------------
+
+The `radius` authentication method can be used to authenticate
+`application` type accounts by delegating the authentication to a remote
+RADIUS UDP server.
+
+When an authentication request is made for a file transfer session,
+SFTPPlus will use the provided credentials (username and password)
+and forward them to the configured RADIUS server for validation.
+
+All authentication request are made using `NAS-Port = 0`.
+Contact our support team is you need to authenticat using a different NAS
+port number.
+
+For now, PAP, CHAP, MS-CHAP-V1 and MS-CHAP-V2 are supported.
+Contact us if you need EAP-MD5 or other authentication protocols.
+
+..  note::
+    Only UDP transport protocol is supported.
+    If you require TCP support, contact our support team.
+
+Successfully authenticated accounts are associated to the default group,
+or to a specific group based on the `group_mapping` configuration.
+
+The implementation follows the
+`RFC 2865 <https://tools.ietf.org/html/rfc2865>`_ standard.
+
+It supports multiple Filter-ID attributes, but this usage is not encouraged
+by `RFC 5080 <https://tools.ietf.org/html/rfc5080>`_.
+
+..  warning::
+    Only use RADIUS over internal networks.
+    RADIUS relies on MD5 and is not FIPS compliant.
+
+
+address
+^^^^^^^
+
+:Default value: ''
+:Optional: No
+:Values: * Host name.
+         * Fully qualified domain name resolving an IPv4 or IPv6 address.
+         * IPv4 address.
+         * IPv6 address.
+:From version: 4.10.0
+:Description:
+    Host name, domain name or IP address used to connect to the remote
+    RADIUS server.
+
+
+port
+^^^^
+
+:Default value: `1812`
+:Optional: Yes
+:Values: * Port number.
+:From version: 4.10.0
+:Description:
+    Port number used by the remote RADIUS server.
+
+
+shared_secret
+^^^^^^^^^^^^^
+
+:Default value: ''
+:Optional: No
+:Values: * Clear text secret.
+:From version: 4.10.0
+:Description:
+    This is the shared secret defined between the RADIUS server and the
+    SFPPlus application used to secure the communication.
+
+
+authentication_type
+^^^^^^^^^^^^^^^^^^^
+
+:Default value: 'ms-chap-v2'
+:Optional: Yes
+:Values: * `pap`
+         * `chap`
+         * `ms-chap-v1`
+         * `ms-chap-v2`
+:From version: 4.13.0
+:Description:
+    The authentication type to use when sending the credentials to the
+    RADIUS server.
+
+    Use `pap` for Password Authentication Protocol as specified in the main
+    RADIUS documentation. Uses MD5.
+
+    Use `chap` for Challenge-Handshake Authentication Protocol as specified in
+    the main RADIUS documentation. Uses MD5.
+
+    Use `ms-chap` for the Microsoft version of the
+    Challenge-Handshake Authentication Protocol as specified in
+    `RFC 2548 <https://datatracker.ietf.org/doc/html/rfc2548>`_.
+
+    Use `ms-chap-v2` for the Microsoft
+    Challenge-Handshake Authentication Protocol Version 2 as specified in
+    `RFC 2759 <https://datatracker.ietf.org/doc/html/rfc2759>`_.
+
+    ..  warning::
+        The current security standards no longer consider MS-CHAP-v2 as a
+        secure authentication method.
+        MS-CHAP-v2 is still in used as there are many legacy products using
+        it.
+
+        With any authentication method, only use RADIUS over secure networks.
+
+
+continue_authentication
+^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: `No`
+:Optional: Yes
+:Values: * Yes
+         * No
+:From version: 4.10.0
+:Description:
+    Whether to continue and try other authentication methods when RADIUS
+    server has rejected the authentication request for the current user.
+
+    If the connection to the RADIUS server fails, the authentication fails
+    right away.
+
+
+timeout
+^^^^^^^
+
+:Default value: `60`
+:Optional: Yes
+:Values: * Number of seconds.
+:From version: 4.13.0
+:Description:
+    Duration, in seconds, to wait for a response from the RADIUS server.
+
+    If a response is not received during this period, the authentication fails.
+
+    ..  note::
+        If the `idle_connection_timeout` value of a service is lower
+        than the RADIUS `timeout`,
+        then the login attempt may fail before the RADIUS server responds.
+
+
+nas_port
+^^^^^^^^
+
+:Default value: '0'
+:Optional: Yes
+:Values: * Integer number
+:From version: 4.13.0
+:Description:
+    Value of the RADIUS `NAS-Port` used for the access request.
+
+    For most configurations, this can be set to 0 (zero).
+
+
+debug
+^^^^^
+
+:Default value: 'no'
+:Optional: Yes
+:Values: * `yes`
+         * `no`
+:From version: 4.13.0
+:Description:
+    When enabled, emit low-level protocol debug messages.
+
+
+.. _conf-radius_group_mapping:
+
+group_mapping
+^^^^^^^^^^^^^
+
+:Default value: ''
+:Optional: Yes
+:Values: * Group UUID.
+         * Comma separated RADIUS attribute name, matching value,
+           and group UUID.
+         * Empty value.
+:From version: 4.10.0
+:Description:
+    The group mapping configuration can be used to associate a successfully
+    authenticated user with an SFTPPlus group, based on the RADIUS attributes
+    found in the `Access-Accept` message.
+
+    Setting to a single group UUID will associate all the RADIUS authenticated
+    accounts to the same SFTPPlus group.
+
+    You can create complex group mapping by specifying multiple groups which
+    are selected based on RADIUS attribute names and values.
+    Define group mappings, one rule per line.
+
+    The first line should always contain a single value which is the default
+    group used in the case in which no RADIUS attribute is matched.
+
+    Subsequent lines will contain 3 comma separated values.
+    The first value is the name of the RADIUS attribute.
+    The second value is a matching expression used to match the value of the
+    RADIUS attribute.
+    The third value is the SFTPPlus group UUID used to associate the
+    authenticated user to.
 
     Leave this configuration option empty to use the default
     SFTPPlus group configuration.
@@ -646,6 +1002,19 @@ url
     Since 3.51.0.
 
 
+timeout
+^^^^^^^
+
+:Default value: `120`
+:Optional: Yes
+:Values: * Number of seconds.
+:From version: 4.13.0
+:Description:
+    Duration, in seconds, to wait for a response from the HTTP server.
+
+    If a response is not received during this period, the authentication fails.
+
+
 username
 ^^^^^^^^
 
@@ -658,9 +1027,13 @@ username
 
     Leave this value empty in order to leave out HTTP Basic authentication.
 
+    This will overwrite any custom `Authorization` header set via the
+    `headers` configuration option.
+
     ..  warning::
         For now, only HTTP Basic authentication is supported.
-        This will send the username and password in clear text.
+        This will send the username and password in clear text
+        (BASE64 encoded).
 
 
 password
@@ -673,6 +1046,32 @@ password
          * Empty.
 :Description:
     Password associated with the configured `username`.
+
+
+headers
+^^^^^^^
+
+:Default value: ''
+:Optional: Yes
+:From version: 4.4.0
+:Values: * Header-Name: Header-Value
+         * Multiple headers on separate lines
+:Description:
+    This defines a set of extra headers which are sent with each HTTP request.
+
+
+test_at_start
+^^^^^^^^^^^^^
+
+:Default value: 'Yes'
+:Optional: Yes
+:From version: 4.5.0
+:Values: * Yes
+         * No
+:Description:
+    When set to `Yes` it will check at startup that the configured URL
+    can be reached and fail to start if the URL is not available to respond
+    to authentication requests.
 
 
 proxy
@@ -751,9 +1150,15 @@ service.
     accepted earlier by other authentication methods.
 
 ..  warning::
+    SFTPPlus is behind a load balancer, make sure that Proxy Protocol version 2
+    is enabled on both the load balancer and SFTPPlus file transfer services.
+    Otherwise all the authentication requests will be made using the
+    load balancer own IP address and not the client IP address.
+
+..  warning::
     Do not use this method if SFTPPlus is behind a Proxy/Gateway or any other
     network device which does not preserve the source IP address of the
-    initial authentication request.
+    initial authentication request or does not support Proxy Protocol v2
 
     The ban applies to the source IP address used to initiate the
     authentication requests.
@@ -831,57 +1236,3 @@ anonymous_account_uuid
 :Description:
     This is the UUID of the application account associated with the
     `anonymous` account.
-
-
-Authenticating WebAdmin users
------------------------------
-
-SFTPPlus can be configured together with a legacy centralized SFTPPlus
-WebAdmin instance.
-SFTPPlus will allow SFTPPlus WebAdmin's global users to be authenticated
-and to use the services provided by the server.
-
-The SFTPPlus WebAdmin needs to be installed and configured prior to using
-it alongside SFTPPlus.
-For more information, please consult the
-`installation guide for SFTPPlus WebAdmin
-<http://www.sftpplus.com/documentation/webadmin/latest/installation.html>`_.
-
-To enable global WebAdmin users, create a new authentication method using
-the `legacy-webadmin` `type`, and define the URL parameter accordingly.
-
-Global WebAdmin users with the ``User Alias`` configuration option set are
-handled as `os` accounts, while those not having it configured are handled
-as `application` accounts.
-
-..  note::
-    This authentication method can't be used with the Local Manager services.
-
-..  note::
-    The SFTPPlus WebAdmin global account configuration option `User Alias`
-    is only supported when SFTPPlus runs on Unix-like systems and
-    it is started as root.
-
-
-url
-^^^
-
-:Default value: ''
-:Optional: No
-:Values: * URL to SFTPPlus Webadmin Legacy/obsolete installation.
-:From version: 3.0.0
-:To version: None
-:Description:
-    This is the URL to the installed SFTPPlus PHP WebAdmin version 1.5.2 or
-    newer.
-
-    SFTPPlus PHP WebAdmin versions prior to 1.5.2 might also work.
-    Please contact us to check if your WebAdmin version is supported.
-
-    It is used to allow SFTPPlus WebAdmin's global users to use this server.
-    For example, if SFTPPlus Webadmin is running on localhost on port 8080,
-    installed in the ``/SFTPPlus`` path, you should use the following
-    configuration::
-
-        [authentications/0ef580fe-45cb-47e0-b434-c0e44557b364]
-        url = http://localhost:8080/SFTPPlus

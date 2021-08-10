@@ -17,39 +17,13 @@ About this Guide
 We created this Users Guide as the starting resource for those interested in
 using SFTPPlus for file transfers involving WebDAV over HTTPS.
 
-For new users, the SFTPPlus client-side implementation now supports WebDAV over
-HTTPS.
-To get started, contact us to obtain the latest release of SFTPPlus,
-follow the :doc:`getting started guide </quick-start/getting-started>`
-and read the :doc:`client-shell </operation-client/client-shell>`
-documentation to gain an idea of the client-side implementation.
-
 The product roadmap will include further support for more WebDAV features.
 
 Please see the :doc:`WebDAV operations </operation/http>` page for the current
 features in detail.
 
-If there is a particular scenario or guide that is not addressed here, please
+If there is a particular scenario or guide that is not addressed here,
 feel free to contact us.
-
-
-Connecting via the client-shell
--------------------------------
-
-WebDAV over HTTPS is currently only available on the client-side implementation
-of SFTPPlus.
-
-To connect to the Sharepoint server in the `client-shell` with your
-credentials.
-
-    | $ client-shell webdavs://user@acme.onmicrosoft.com@acme.sharepoint.com -p
-      'password'
-       > connect
-
-After connecting, you are able to execute some of the commands available in
-the :doc:`Command-Line Client-Shell page </operation-client/client-shell>`.
-
-Please note that not all `client-shell` commands are supported in `webdav`.
 
 
 Connecting with locations under proxy
@@ -67,11 +41,6 @@ Local Manager or in the text configuration file::
 
 To ensure that the connection is not refused by the other side, the proxy
 configuration should match your network's correct proxy configuration.
-
-To connect in the `client-shell`, please append after your Sharepoint
-credentials::
-
-    --proxy=connect://address:port
 
 
 Troubleshooting audit events

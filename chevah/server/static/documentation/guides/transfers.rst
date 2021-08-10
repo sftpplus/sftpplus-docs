@@ -115,6 +115,15 @@ Below is a list of configuration options which trigger extra requests:
   file already exists.
 
 
+Stop / Cancel a transfered file
+===============================
+
+When a transfer is stopped any pending file is canceled.
+
+The current data transfer is stopped and no other actions are executed for
+that transfer.
+
+
 Pushing files to mainframe system
 =================================
 

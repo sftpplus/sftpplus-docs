@@ -6,7 +6,9 @@ Installation and Upgrade Instructions
 
     requirements
     windows
-    unix
+    linux
+    linux-advanced
+    macos
     troubleshooting
     upgrade
     uninstall

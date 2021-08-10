@@ -46,11 +46,6 @@ This is the list of known issues for the current release of SFTPPlus.
   No error is generated because internally the server uses UUIDs for addressing
   these items.
 
-* [#1547] When creating a new FTP or Implicit FTPS service, the passive
-  port range is not updated in the GUI.
-  After the new service creation has been applied on the server, the passive
-  port range is available for changes.
-
 * [#1588] On service start/stop the audit
   entries for these actions have no field mentioning the administrator
   requesting the action.
@@ -75,6 +70,11 @@ This is the list of known issues for the current release of SFTPPlus.
   option to force a new save to the configuration file, other than making
   another change and applying it.
   Then, all previous changes will also be saved.
+
+* [#2134] On Linux, SFTPPlus cannot detect if the OpenSSL libraries provided by
+  the operating system support TLS 1.0 or TLS 1.1.
+  If you configure one of them on an OS with no support,
+  the configured service will start and any connections will fail.
 
 * [#2383] On Windows systems, `execute_before`, `execute_after_success`, and
   `execute_after_failure` cannot be configured with a path containing space
@@ -102,9 +102,6 @@ This is the list of known issues for the current release of SFTPPlus.
 * [#3371] File dispatcher will not work for upload event for which the client
   is making the initial upload request under a provisional file name which is
   change once the file is successfully uploaded.
-
-* [#3379] `hmac-sha2-512` is not yet available in our SSH implementation due to
-  an interoperability issue with the OpenSSH client.
 
 * [#2135] SCP server implementation does not handle errors reported by the
   client side during file get / download operations.
@@ -159,12 +156,6 @@ This is the list of known issues for the current release of SFTPPlus.
   validated and accepts mixing ignored and allowed event ids.
   When configured using both methods, it will behave as the `allow` method.
 
-* [#3685] Multiline text with blank lines is not correctly parsed from
-  the configuration file.
-  The blank lines are removed.
-  If you need to have a blank line in the configuration, please use `{LF}` in
-  the line preceding the needed blank line.
-
 * [#2127] When SCP protocol is used, you can only download a single file
   as part of a SCP session.
 
@@ -184,20 +175,12 @@ This is the list of known issues for the current release of SFTPPlus.
 * [#4869] When an HTTP file transfer service is closed for not being active,
   there is no explicit logout event.
 
-* [#4945] As of 25th of May 2018, Microsoft CRL used by SharePoint online was
-  serving a CRL which expires on the 23rd of May 2018.
-  This causes the SharePoint Online CRL validation to fail.
-
 * [#5000] When a transfer is configured in any of the available batch modes,
   SFTPPlus will no longer monitor it once a file is added to the queue.
   If a file is added to the transfer batch queue and the file is removed
   from the source,
   SFTPPlus will still try to transfer it and the transfer will fail as the
   source file is no longer there.
-
-* [#5022] When a transfer has an Azure Files location as destination and is
-  configured to rename existing files on destination, the transfer will fail
-  as the rename operation is not yet implemented for Azure Files.
 
 * [#5071] For batch transfers, when using `execute_on_destination_before`,
   `execute_on_destination_after_success` and
@@ -212,3 +195,39 @@ This is the list of known issues for the current release of SFTPPlus.
 * The anonymous authentication method can only be used with accounts defined
   in the main configuration. It does not support accounts from a separate
   local file or accounts from other authentication methods.
+
+* SFTPPlus only detects daylight saving time changes while running.
+  Timezone changes at runtime are not detected.
+  If changing timezone on a system running SFTPPlus you need to restart
+  SFTPPlus in order to apply the changes.
+
+* Updated file transfer debug configuration is applied on new connections.
+  You will need to disconnect and reconnect to see the
+  debug configuration applied for your session.
+  Note that when using a web browser, the HTTP connections are persisted.
+  You will need to close the tab or the browser to force a disconnection.
+
+* [#5531] Private password-protected ECDSA / Ed25519 keys are not supported
+  yet.
+
+* [#5582] When the OS authentication method is configured with `group-name` or
+  `group-name-with-default` the allowed source IP configuration and SSH
+  public keys configuration are extracted from the default group.
+
+* [#5586] SCP file transfer protocol doesn't support transfers for files with
+  quotes in the path or filename.
+  This issue doesn't affect the SFTP protocol.
+
+* [#5598] When a transfer is configured to copy/move a file a destination
+  using a temporary name and the content of the file is copied to destination
+  but the rename operation fails, the transfer will fail, but the log will
+  show the file as succeeded.
+
+* [#5606] The WebDAVS protocol is not supported by the `client-shell` command
+  line tool.
+
+* [#5621] The LDAPS authentication only works with IPv4.
+  Only LDAP authentication is supported for IPv6 address literals.
+
+* [#5672] SMB/Windows Shares authenticated via Kerberos Domain method are not
+  yet supported. NTLM authentication is supported.

@@ -31,6 +31,18 @@ If server supports the CLNT command, the client will also issue the `CLNT`
 command, before issuing the `OPTS` command.
 
 
+PASV data channel IP address
+----------------------------
+
+The FTP client implementation from SFTPPlus will always use the same IP
+address for the command and data channel.
+
+The IP address returned by the PASV command is ignored.
+
+In this way, the PASV command implementation is similar to the
+ESPV (Extended PASV) command.
+
+
 Date and Time
 -------------
 
@@ -56,13 +68,30 @@ dates before the year 1970 and after the year 2038.
 Validating the identity of the remote FTPS server
 -------------------------------------------------
 
-When no certificate authority is defined, SFTPPlus will not check the
-identity of the remote server.
+It is important to define a certificate authority that is associated
+to the peer.
+The role of a CA (or certificate authority) is not only to be the issuer
+for digital certificates,
+but it is also central within the PKI (public key infrastructure) in
+building the trust required for both the subject/owner of the certificate
+(such as a local peer)
+and the recipient/or party that is reliant on the certificate (such as
+a remote peer).
 
-When a certificate authority is defined for a FTPS server, SFTPPlus will
-check that the certificate presented by the server is signed by the trusted
-certificate authority and that the certificate was issued for the CN or
-Alternate Name matching the name used in the SFTPPlus configuration file.
+Without defining a CA, the trust model is incomplete and the remote serve
+certificates are not validated.
+
+To define a certificate authority, the administrator must add the following
+to the location configuration::
+
+    [locations/234a-bc34-9812]
+    ssl_certificate_authority: path/to/ca-cert.pem
+    adderss: same.name-as-CN-or-SAN.tld
+
+Once a CA is defined, SFTPPlus will
+check that the certificate presented by the remote peer is signed by the
+trusted CA and that the certificate was issued for the
+CN or if relevant, the Subject Alternative Name.
 
 Server identity validation is only supported when the server address is
 defined as DNS names / FQDN.
@@ -73,9 +102,10 @@ validity period.
 
 If a certificate revocation list is defined, it will also check whether
 the certificate presented by the server was not revoked.
+To link a certificate revocation list, please add the following::
 
-When the certificate presented by the server has the Subject Alternative Name
-defined, the CN field is ignored.
+    ssl_certificate_revocation_list: path/to/crl-distribution-points
+    ssl_certificate_revocation_list_refresh = value
 
 
 Authenticating FTPS with username and X.509 certificate
@@ -86,7 +116,15 @@ during the authentication process.
 
 This assumes that the remote server supports this type of credentials.
 
-When the certificate is accepted as the credential, the configured password is
+For client validation, the client proving its identity to the remote server,
+ensure that the client key and certificate specified by the
+`ssl_key` and `ssl_certificate` configuration options.
+
+When the SFTPPlus client-side does not send its certificate due to a
+misconfiguration, the server-side might not
+accept the SSL/TLS connection and will emit an SSL handshake error message.
+
+Once the certificate is accepted as the credential, the configured password is
 ignored and not sent to the server.
 
 If the certificate is rejected as the credentials, it will fall back to using

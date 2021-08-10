@@ -288,6 +288,34 @@ create_home_folder_group
         Please contact us in the case that you need a different behaviour.
 
 
+required_credentials
+^^^^^^^^^^^^^^^^^^^^
+
+:Default value: `any`
+:Optional: Yes
+:From version: 4.10.0
+:Values: * `password`
+         * `ssh-key`
+         * `password, ssh-key`
+         * `any`
+:Description:
+    This defines the set of valid credentials required for authenticating this
+    group of accounts.
+
+    Set it to `password` to authenticate an account once it provides a valid
+    password.
+
+    Set it to `ssh-key` to authenticate an account once it provides a valid
+    SSH key.
+    The provided key is checked against all SSH keys from the configured list.
+
+    Set it to `password, ssh-key` to authenticate an account only if
+    it provides both a valid password AND a valid SSH key.
+
+    Leave it empty or set it to `any` to authenticate the account once it
+    provides any type of credentials, e.g. a valid password OR a valid SSH key.
+
+
 ssh_authorized_keys_path
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -304,7 +332,7 @@ ssh_authorized_keys_path
     It is defined as a path to a folder containing files with allowed SSH keys,
     each file name being associated with an account name.
 
-    Set it to `Disabled` to disable SSH key based authentication.
+    Set it to `Disabled` to disable SSH key-based authentication.
 
     More details about SSH key authentication can be found
     :ref:`in the dedicated section <ssh-key-authentication>`.
@@ -319,6 +347,11 @@ ssh_authorized_keys_path
     Use the `${SHARED}` prefix when you want all users from the group to
     use a single file to store the authorized SSH keys.
 
+    The files should be readable by the account under which the SFTPPlus
+    process operates.
+
+    Failure occurs if private keys are found in the configured path.
+
 
 source_ip_filter
 ^^^^^^^^^^^^^^^^
@@ -328,7 +361,8 @@ source_ip_filter
 :From version: 3.45.0
 :Values: * IPv4 address
          * IPv6 address
-         * Comma-separated list of IPv4 or IPv6 addresses.
+         * Classless Inter-Domain Routing subnet notation.
+         * Comma-separated list of IPv4, IPv6 addresses, or CIDR values.
          * Empty
 
 :Description:
@@ -340,14 +374,14 @@ source_ip_filter
     for this account.
 
     To allow authentication from multiple source IPs, define them as a
-    comma-separated list.
+    comma-separated list or a range of IP addresses from the same subnet
+    using the Classless Inter-Domain Routing (CIDR) notation.
 
     Leave it empty to allow this account to be authenticated from any source
     IP address.
 
     ..  note::
         Host names or FQDN are not supported.
-        IP classes are not supported.
         Only IP addresses are supported.
 
 
@@ -367,6 +401,26 @@ allow_certificate_authentication
 
     If SSL certificate base authentication is not enabled, accounts belonging
     to this group will have to use other means of authentication.
+
+
+as2_require_http_authentication
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: Yes
+:Optional: Yes
+:From version: 4.9.0
+:Values: * Yes
+         * No
+:Description:
+    This defines whether the AS2 partner is required to perform
+    HTTP authentication together with the incoming AS2 message request.
+
+    Set it to `No` to allow receiving AS2 from non-authenticated HTTP
+    connections.
+    SFTPPlus will still validated the signature and encryption of the
+    received AS2 message.
+
+    For increased security, we recommend setting this to `Yes`.
 
 
 allow_own_password_change

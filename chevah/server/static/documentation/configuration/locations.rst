@@ -7,21 +7,22 @@ Locations
 Introduction
 ------------
 
-A location configuration provides the required information to allow the
+A location configuration provides the required information to allow
 SFTPPlus to connect to local or remote locations in order to perform
 file transfers between locations.
 
 Please consult the `type` configuration option to see the list of
 supported location types.
 
-Location are auto-started when a transfer or another component needs them and
+Locations are auto-started when a transfer or another component needs them and
 the location is not started and connected.
 
-They are also fault-tolerant allowing to retry failed connections.
+They are also fault-tolerant, allowing retries for interrupted connections.
 
-All components/transfer trying to use a location which failed, will also have
-their operation failed and will not trigger a new connection attempt of the
-location.
+Transfers using a failed location will also fail and will
+not trigger a new connection attempt for the location.
+In this type of scenario, the failed location must be manually started first,
+after resolving the initial error.
 
 
 Adding a new location via Local Manager
@@ -98,7 +99,9 @@ type
          * `ftpse` - Explicit FTPS protocol.
          * `ftpsi` - Implicit FTPS protocol.
          * `webdavs` - WebDAV over HTTPS.
+         * `as2` - AS2 over HTTP or HTTPS
          * `azure-file` - Azure File Service.
+         * `smb` - SMB / Windows Share
 :Description:
     This option specifies the type of the location.
     Each type has a set of specific configuration options
@@ -150,7 +153,7 @@ idle_connection_keepalive_interval
 connection_retry_count
 ^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `2`
+:Default value: `12`
 :Optional: Yes
 :From version: 3.9.0
 :Values: * Number of retries
@@ -164,7 +167,7 @@ connection_retry_count
 connection_retry_interval
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `60`
+:Default value: `300`
 :Optional: Yes
 :From version: 3.9.0
 :Values: * Number of seconds
@@ -216,6 +219,7 @@ ssh_server_identity
          * SHA256 Base64
          * OpenSSH Public Key
          * X.509 certificate
+         * Multiple identities on multiple lines.
          * `set-on-first-connection`
 :From version: 3.51.0
 :Description:
@@ -229,6 +233,14 @@ ssh_server_identity
     To automatically configure with the identity of the server found during the
     first connection, you can use the `set-on-first-connection` option.
     For security reasons, we do not recommend this option.
+    This option is not available for cluster operations when the remote
+    SFTP service has more than one SSH server identity.
+
+    When you are connecting to a remote SSH / SFTP service which is deployed
+    as a cluster or as a disaster recovery failover it is possible that each
+    node/server from the cluster to have its own identity.
+    You will need to configure SFTPPlus with the identity of each server
+    by defining multiple identities on separate lines.
 
     This configuration is mandatory and critical for securing the SSH
     connection.
@@ -599,26 +611,32 @@ Unlike a web browser, to protect the HTTPS connection you will have to
 explicitly configure the list of trusted CA and the location of the CRLs.
 
 
-address
-^^^^^^^
+url
+^^^
 
 :Default value: ''
 :Optional: No
-:Values: * Host name or IP address.
-:From version: 3.20.0
+:Values: * URL
+:From version: 4.11.0
 :Description:
-    Address of the WebDAV server. IP or host name.
+    Full URL address of the WebDAV server root page.
 
+    For SharePoint Online you can define it as::
 
-port
-^^^^
+        url = https://YOUR-SITE.sharepoint.com
 
-:Default value: `443`
-:Optional: Yes
-:Values: * Number, greater than 0.
-:From version: 3.20.0
-:Description:
-    Port number to connect to the WebDAV server.
+    For generic WebDAV servers you can define it as::
+
+        url = https://files.example.com
+        or
+        url = https://files.example.com/path/webdav/resource
+
+    Or if you need a custom port number use::
+
+        url = https://files.example.com/path/webdav/resource
+
+    When this is defined as an `http://` URL, the SSL configuration options
+    are ignored.
 
 
 username
@@ -661,6 +679,274 @@ proxy
     For now, only the HTTP/1.1 CONNECT tunneling proxy method is supported.
 
 
+authentication_method
+^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: 'sharepoint-online'
+:Optional: Yes
+:Values: * `sharepoint-online`
+         * `basic-authentication-scheme`
+:From version: 4.12.0
+:Description:
+    The authentication method to use for connecting to the WebDAV server.
+
+    The default value of `sharepoint-online` is used for the
+    Microsoft SharePoint Online cloud service authenticated
+    via the Microsoft single sign-on process.
+
+    Another supported method is `basic-authentication-scheme`,
+    the HTTP "Basic" access authentication, as per
+    `RFC 7617 <https://tools.ietf.org/html/rfc7617>`_.
+
+
+allow_insecure_http
+^^^^^^^^^^^^^^^^^^^
+
+:Default value: 'No'
+:Optional: Yes
+:Values: * `Yes`
+         * `No`
+:From version: 4.12.0
+:Description:
+    When set to `Yes`, the WebDAV connection is made via insecure HTTP
+    instead of HTTPS.
+
+    ..  warning::
+        This is useful for testing or troubleshooting,
+        but is strongly discouraged in production,
+        because it sends all communication including passwords and data
+        as plaintext over the network.
+
+
+.. include:: /configuration/ssl.include.rst
+
+
+AS2 over HTTPS or HTTP Location
+-------------------------------
+
+An `as2` location allows sending files to a remote AS2 server.
+
+The `as2` location can only be used for sending files over AS2.
+If you need to receive files over the AS2 protocol, you will need to
+configure the HTTP file transfer service.
+
+Unlike a typical web browser connection, to protect an AS2 HTTPS connection
+you will have to explicitly configure the list of trusted CAs and
+the location of the CRLs.
+
+
+url
+^^^
+
+:Default value: ''
+:Optional: No
+:Values: * .
+:From version: 4.5.0
+:Description:
+    Receiving URL for your partner.
+
+    SFTPPlus will use this URL to send files to your AS2 partner.
+
+    When this is defined as an `http://` URL, the SSL configuration options
+    are ignored.
+
+
+username
+^^^^^^^^
+
+:Default value: ''
+:Optional: Yes
+:From version: 4.5.0
+:Values: * Text.
+:Description:
+    Username used to authenticate to the remote AS2 partner server.
+
+    Leave it empty when the remote AS2 partner doesn't require authentication.
+
+
+password
+^^^^^^^^
+
+:Default value: ''
+:Optional: Yes
+:From version: 4.5.0
+:Values: * Plain text password.
+         * Empty.
+:Description:
+    This option specifies the password used to connect to the remote
+    AS2 partner server.
+
+    It is ignored when `username` is empty.
+
+
+as2_own_identifier
+^^^^^^^^^^^^^^^^^^
+
+:Default value: ''
+:Optional: No
+:From version: 4.5.0
+:Values: * Text.
+:Description:
+    Identifier for your own local AS2 organization sending the files.
+
+
+as2_own_certificate
+^^^^^^^^^^^^^^^^^^^
+
+:Default value: 'General server SSL certificate'
+:Optional: No
+:From version: 4.5.0
+:Values: * PEM certificate.
+         * PEM certificate and PEM private key.
+:Description:
+    Certificate for your own local AS2 organization used when
+    signing files sent to a remote AS2 partner.
+
+    The certificate should be configured in PEM format.
+
+    This configuration can also contain the private key associated to the
+    certificate.
+
+    This can be empty when sending unsigned files.
+
+
+as2_own_private_key
+^^^^^^^^^^^^^^^^^^^
+
+:Default value: 'General server SSL private key'
+:Optional: No
+:From version: 4.5.0
+:Values: * PEM private key.
+:Description:
+    Certificate for your own local AS2 organization used when
+    signing files sent to a remote AS2 partner.
+
+    The certificate should be configured in PEM format.
+
+    This configuration can also contain the private key associated to the
+    certificate.
+
+
+as2_partner_identifier
+^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: ''
+:Optional: No
+:From version: 4.5.0
+:Values: * Text.
+:Description:
+    Identifier for the remote AS2 partner receiving the files.
+
+
+as2_partner_certificates
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: ''
+:Optional: No
+:From version: 4.5.0
+:Values: * PEM certificate
+         * Multiple PEM certificates
+:Description:
+    Certificate in PEM format used to encrypt files sent to the AS2
+    partner and to validate the received signed MDN.
+
+    You can define multiple PEM certificates for the case in which the partner
+    uses different certificates for signing and encryption.
+
+    Old and new PEM certificates can be defined at the same time
+    for a partner's certificate rollover.
+
+    When sending encrypted files, the first configured PEM certificate will
+    be used for the encryption operation.
+
+
+as2_send_security
+^^^^^^^^^^^^^^^^^
+
+:Default value: 'signed-and-encrypted'
+:Optional: yes
+:From version: 4.5.0
+:Values: * `signed-and-encrypted`
+         * `signed`
+         * `encrypted`
+         * `disabled`
+:Description:
+    This defines the method used to secure the file transfers on top of
+    the standard security provided by the HTTPS protocol.
+
+    When encrypting file content, the first certificate defined at
+    `as2_partner_certificates` is used.
+
+    When signing file content, the digest/hashing algorithm defined in
+    `as2_signature_algorithm` is used.
+
+    When defined as `disabled`, files are sent unsigned and unencrypted.
+
+
+as2_mdn_receipt
+^^^^^^^^^^^^^^^
+
+:Default value: 'sync-signed'
+:Optional: yes
+:From version: 4.5.0
+:Values: * `sync-signed`
+         * `sync-unsigned`
+         * `disabled`
+:Description:
+    This defines the method used to request the
+    message disposition notifications (MDN) receipt.
+
+    When requesting a signed MDN, it will make the request using the
+    digest/hashing algorithm defined in `as2_signature_algorithm`.
+
+    When defined as `disabled`, it will not request an MDN receipt.
+
+
+as2_encryption_algorithm
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: 'aes256'
+:Optional: yes
+:From version: 4.5.0
+:Values: * `3des`
+         * `aes128`
+         * `aes192`
+         * `aes256`
+:Description:
+    Symmetric encryption algorithm used to encrypt sent files.
+
+    All algorithms use the Cipher Block Chaining (CBC) mode and PKCS#1 v1.5
+    padding.
+
+
+as2_signature_algorithm
+^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: 'sha256'
+:Optional: yes
+:From version: 4.5.0
+:Values: * `md5`
+         * `sha1`
+         * `sha224`
+         * `sha256`
+         * `sha348`
+         * `sha512`
+:Description:
+    Digest / Hashing algorithm used when signing sent files and
+    requesting the MDN receipt.
+
+
+as2_content_type
+^^^^^^^^^^^^^^^^
+
+:Default value: 'application/octet-stream'
+:Optional: Yes
+:From version: 4.5.0
+:Values: * MIME content type
+:Description:
+    MIME content type used when sending AS2 files.
+
+
 .. include:: /configuration/ssl.include.rst
 
 
@@ -673,7 +959,7 @@ Azure File Service of an Azure Storage account.
 The files stored in Azure File Service shares are accessible via the
 SMB protocol and HTTP API.
 Azure Files is specifically a network file system.
-SFTPPlus will use the HTTPS based API to manage the files.
+SFTPPlus will use the HTTPS-based API to manage the files.
 
 The HTTPS connections will use the default list of `secure` ciphers and will
 accept TLS v1.0, TLS v1.1 and TLS v1.2 protocols.
@@ -729,3 +1015,88 @@ password
 
     It should be specified in Base64 format.
     This is the default format presented by the Azure Portal.
+
+
+SMB / Windows Share Location
+----------------------------
+
+An `smb` location provides access to an SMB version 3
+(Server Message Block or Windows Share) server over TCP.
+This does not include access over UDP or version 1 or 2.
+
+The location only requires configuring the server address and credentials.
+The actual share names and paths used for a file transfer are defined as part
+of the transfer path configuration.
+
+The communication with the SMB server is encrypted and all messages are
+signed.
+Contact us if you need access to legacy Windows shares that don't support
+encryption or message signing.
+
+..  warning::
+    When accessing an Azure Files share authenticated using storage account key
+    from outside the Azure cloud,
+    it is highly recommended to secure your connection to the Azure cloud
+    using private endpoints, site-to-site, or point-to-site VPN.
+    Azure Files storage account key authentication is based on NTLM and is
+    vulnerable to man-in-the-middle attacks.
+
+..  note::
+    On-premises Active Directory Domain Services or
+    Azure Active Directory Domain Services authentication methods via
+    Kerberos are not yet supported.
+
+
+address
+^^^^^^^
+
+:Default value: ''
+:Optional: No
+:Values: * Host name or IP address of the server.
+:From version: 4.13.0
+:Description:
+    Address of the remote SSH server. IP or DNS name.
+
+    If you are using Azure Files the address will have the following format:
+    ``ACCOUNT_NAME.file.core.windows.net`` where ACCOUNT_NAME is replaced
+    with your Azure Storage account name.
+
+
+port
+^^^^
+
+:Default value: `445`
+:Optional: No
+:Values: * Number, greater than 0.
+:From version: 4.13.0
+:Description:
+    Port number of the remote server.
+
+
+username
+^^^^^^^^
+
+:Default value: ''
+:Optional: No
+:From version: 4.13.0
+:Values: * Text.
+:Description:
+    Username or storage account name used to authenticate to the remote server.
+
+    Anonymous (guest) access is not yet supported.
+    Contact us if you need support for connecting to a Windows Share without
+    a username and password.
+
+
+password
+^^^^^^^^
+
+:Default value: ''
+:Optional: No
+:From version: 4.13.0
+:Values: * Plain text password.
+         * `Disabled` or empty.
+:Description:
+    This option specifies the password or key used to connect to the remote
+    server.
+    It is provided in plain text.

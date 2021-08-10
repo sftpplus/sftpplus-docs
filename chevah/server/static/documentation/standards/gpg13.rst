@@ -160,8 +160,8 @@ PMC-9 Alerting Critical Events
 * The administrator can set up email notifications based on event rules.
 
 For example, when a connection fails the authentication step for an event with
-ID `20078` is created in the log system. Use an email notification event
-handler to send emails each time an event with ID `20078` is created by the
+ID `20157` is created in the log system. Use an email notification event
+handler to send emails each time an event with ID `20157` is created by the
 log/audit system.
 
 Further details in the
@@ -182,10 +182,10 @@ For example, if there is a failure to start logging, the details are in
 
 When an email notification is setup but there is a misconfiguration to the
 ``email-client`` resource, this is also logged. The example below is for an
-event ID ``20076``, which triggered an email notification but led to an error:
+event ID ``20158``, which triggered an email notification but led to an error:
 
     | 20174 2017-01-29 20:20:05 log-email-handler Process 127.0.0.1:0 Failed
-      to handle event 20076 by "Log Email Handler". User timeout caused
+      to handle event 20158 by "Log Email Handler". User timeout caused
       connection failure.
 
 

@@ -58,10 +58,10 @@ That is, it will rename the previous log file and start with an empty file.
 
 In SFTPPlus there are 2 main types of rotations:
 
-* size based rotation
-* time based rotation
+* size-based rotation
+* time-based rotation
 
-The size based rotation will rotate the file as soon as the log file reaches
+The size-based rotation will rotate the file as soon as the log file reaches
 a certain size.
 The files on disk will look like::
 
@@ -75,9 +75,9 @@ The files on disk will look like::
 where ``path/to/server.log`` is the main log file and the others
 are rotated files containing older logs.
 
-The time based rotation will rotate the file at a specific time or
+The time-based rotation will rotate the file at a specific time or
 regular time intervals, regardless of the size of the log file.
-The time based rotated files will look on disk like the example below.
+The time-based rotated files will look on disk like the example below.
 The actual time stamp used for the rotated files differs based on the
 rotation rule::
 
@@ -97,11 +97,6 @@ rotated files and keep rotated log files up to a certain number.
 
 Log centralization
 ==================
-
-You can achieve log centralization in SFTPPlus by the use of databases.
-SFTPPlus can store the log entries in a database.
-Multiple SFTPPlus instances can use the same database to become a central
-place for log storage.
 
 The embedded SFTPPlus database is not suitable for high volume installations.
 We recommend using specialized tools for log centralization.
@@ -146,3 +141,40 @@ The log analysis component is implemented in SFTPPlus as the
 
 We recommend using the analysis and filtering functionalities provided by
 the dedicated logging tools.
+
+
+Linux Service Logs
+==================
+
+When running on Linux without systemd or without a custom supervisor,
+SFTPPlus will operate using an embedded process supervisor.
+
+Two additional logs are created:
+
+* log/supervisord.log - Content of the processed launched to create the
+  SFTPPlus service / daemon.
+* log/server-startup-errors.log  -
+  This is usually empty and contains unexpected error during startup.
+
+
+Windows Service Logs
+====================
+
+When running on Windows as a service, SFTPPlus will generate 3 additional
+log files.
+There are used to log the initial service startup up to the point where the
+SFTPPlus own logs are initialized.
+
+Under normal operation these don't contain any important information.
+The purpose of these logs is to catch errors during the Windows service
+startup process.
+
+Below is a description of each log file:
+
+* sftpplus-service.wrapper.log - Logs the commands used to start the SFTPPlus
+  Windows service. This log can be removed at any time.
+* sftpplus-service.TIMESTAMP.out.log - Includes the standard output for the
+  main SFTPPlus process during startup.
+  This log file can only be removed when the SFTPPlus service is not running.
+* sftpplus-service.TIMESTAMP.err.log - Includes the standard error content.
+  This log file can only be removed when the SFTPPlus service is not running.

@@ -91,8 +91,8 @@ functionality.
 Server-side
 ^^^^^^^^^^^
 
-You can access the :doc:`HTTP Service</operation/http>` at
-http://127.0.0.1:10080 using your browser or the
+You can access the :doc:`HTTPS Service</operation/http>` at
+https://127.0.0.1:10443 using your browser or the
 :doc:`SFTP Service</operation/sftp>` at 127.0.0.1:10022 using a SFTP client
 such as FileZilla or WinSCP to test the server and transfer a file.
 

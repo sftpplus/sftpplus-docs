@@ -7,47 +7,47 @@ HTTP File Transfer Service API
 API Standards and Styles
 ------------------------
 
-The HTTP file transfer service provides a set of different APIs styles for
-managing the files.
+The HTTP file transfer service provides a set of different APIs
+for managing files.
 
 Some of the APIs are well standardized and documented by a multi-vendor group,
 while others are just design principles without any standardization body.
 
-The following variant of HTTP APIs are available:
+The following variants of HTTP APIs are available:
 
-* RESTful with JSON representation (not a JSON-RPC).
-* WebDAV which is well standardized.
-* HTML Browser to manage the files via any web browser.
+* RESTful with JSON representation (not JSON-RPC).
+* WebDAV, which is well standardized.
+* GET and POST with HTML integration, for managing files via any web browser.
 
-To request SFTPPlus to work with the JSON API, make the request using the
-`Accept: application/json` header.
+To have SFTPPlus respond via the JSON API, make the request using the
+`Accept: application/json` header in your client.
 
-Regardless of the API flavour,
-the URL for a folder should always have a trailing (end with) slash (/).
-Any URL without a trailing slash is considered a file URL.
+Regardless of the used API,
+URLs for folders should always end with a trailing forward slash (/).
+Any URL without a trailing forward slash is considered a file URL.
 
 All APIs are mapped to the same URL space.
-This means that you can mix the API styles, and for the same URL, you can make
-requests for different API types.
+This means that you can mix APIs by
+making requests for different API types for the same URL.
 
-Example for the request headers::
+Example of request headers::
 
     > GET /home/ HTTP/1.1
-    > Host: acme.com:10080
+    > Host: acme.com:18080
     > Authorization: Basic dXNlcjpwYXNz
     > User-Agent: curl/7.53.1
     > Accept: */*
     > Content-Type: application/json; charset=utf-8
 
-When responding to path related requests, the response will contain the
+When responding to path-related requests, the response will contain the
 following additional headers:
 
-* ``server`` - Name and server version.
-* ``server-path`` - Path on server associated with the request.
-  Making an FTP or SFTP request using this path will generate a request for the
+* ``server`` - Server name and version.
+* ``server-path`` - Server path associated with the request.
+  Making FTP or SFTP requests using this path will generate a request for the
   same file/folder.
 
-Example valid and verbose header response::
+Example of valid headers for a response::
 
     < HTTP/1.1 200 OK
     < Date: Sun, 14 May 2017 14:33:47 GMT
@@ -57,27 +57,26 @@ Example valid and verbose header response::
     < Server: SFTPPlus/3.20.1
     < Set-Cookie: ACME_HTTP_SESSION=details_here; Path=/
 
-The documentation from this section is focused on the available HTTP methods
-and the format for the request and the response as used by a developer working
-on integrating external processes with the SFTPPlus product.
+This section of documentation is focused on available HTTP methods
+and the format of requests and responses, as used by developers working
+on integrating external processes with SFTPPlus.
 
-Inside this documentation you will see references to the `__chsps__` URL
-fragment.
-This name is uses for URL namespaces which overlap with user's own files.
-The values was designed to reduce the risk of creating a conflict with a
-path found in the user's home path.
+The `__chsps__` URL fragment referenced in the sections below is used for
+URL namespaces which overlap with the files of an SFTPPlus account.
+This fragment's peculiar name was chosen to minimize the risk of
+conflicts with file and folder names from an SFTPPlus account home path.
 
 
 Response Content Type
 ---------------------
 
-The response sent by the HTTP file transfer service can be in HTML or JSON
+Responses sent by the HTTP file transfer service can be in HTML or JSON
 format.
+
+The default format is JSON.
 
 HTTP `content negotiation <http://en.wikipedia.org/wiki/Content_negotiation>`_
 is a complex mechanism.
-
-The default format is JSON.
 
 To generate the response in HTML format,
 you will need to either set the `Accept` or `Content-Type` header to
@@ -85,38 +84,42 @@ you will need to either set the `Accept` or `Content-Type` header to
 
 As long as the content type of your request is
 `application/json; charset=utf-8`,
-the response will also be JSON-formatted and encoded in UTF-8.
+the response will also be JSON-formatted and UTF-8 encoded.
 
 
 Authenticating Requests
 -----------------------
 
-The HTTP file transfer service is designed to be used from any web-based
-browser,
-including modern and old browsers, as well as those with
-Javascript or cookies disabled.
+The HTTP file transfer service is designed to be used from any web browser,
+including both modern and old browsers, as well as those with
+disabled JavaScript or blocked cookies.
 
 For modern web browsers with cookies enabled,
-cookie-based authentication is used which is persistent across multiple
+cookie-based authentication is used. This is persistent across multiple
 requests.
 
 
 Basic Authentication
 ^^^^^^^^^^^^^^^^^^^^
 
-The HTTP file transfer service supports Basic Authentication as defined in
-`RFC 2617 <http://www.ietf.org/rfc/rfc2617.txt>`_.
+The HTTP file transfer service also supports Basic Authentication,
+as defined in `RFC 2617 <http://www.ietf.org/rfc/rfc2617.txt>`_.
 
-This is suitable for non-interactive / non-browser usage.
-For example, when used together with the cURL command.
+This is used for browsers that do not support or block
+JavaScript or cookies.
 
-Each request will trigger a new authentication call.
-You don't need to make a special request to the HTTP service login page.
-The Basic authentication scheme is less suitable for when multiple requests
-are made as part of a transaction
-For such a scenario, we recommend using session based authentication.
+Basic Authentication is also suitable for non-interactive usage
+outside of a browser.
 
-To get the list of all the files and folders for user ``JohnD``, using the
+For example, when using the cURL command.
+Each cURL request will trigger a new authentication call and
+there is no need to make a special request for the HTTP service login page.
+
+Basic authentication is less suitable for multiple requests
+made as part of a transaction.
+For such a scenario, we recommend using session-based authentication.
+
+To get the list of all files and folders for user ``JohnD``, using the
 JSON format::
 
     curl -u JohnD \
@@ -125,7 +128,7 @@ JSON format::
 
     > {"content": [{"is_directory": true, "name": "test", "modified": 151476...
 
-For a request with invalid credentials, the response will redirect to the
+For requests with invalid credentials, the response will redirect to the
 login page. Here we have the HTML format of the response.::
 
     curl -u JohnD -H 'Accept: text/html' \
@@ -147,11 +150,11 @@ login page. Here we have the HTML format of the response.::
 Session Authentication
 ^^^^^^^^^^^^^^^^^^^^^^
 
-To use the session authentication from our API, you will first need to
-create the session token.
-It can be requested as HTML URL encoded or JSON format.
+To use session authentication with our API, you will first need to
+create a session token.
+It can be requested as an URL-encoded form value or as JSON.
 
-To request as URL encoded, the request and response looks like::
+An URL-encoded request and the corresponding JSON response::
 
     curl --data 'username=JohnD' --data 'password=my-secret' \
         -H 'Accept: application/json' \
@@ -162,8 +165,7 @@ To request as URL encoded, the request and response looks like::
     < Content-Type: application/json
     {"results": [{"session": "8539cc3e424c0040bd87fba41e106d0c"}]}
 
-To request as JSON, the request looks like the following example.
-The response is JSON formatted and similar to the URL encoded request::
+A JSON-formatted request and the corresponding response::
 
     curl -H 'Content-Type: application/json' \
         -X POST \
@@ -175,7 +177,20 @@ The response is JSON formatted and similar to the URL encoded request::
     < Content-Type: application/json
     {"results": [{"session": "8539cc3e424c0040bd87fba41e106d0c"}]}
 
-For a failed request, the response will look like the following example::
+If you don't specify that you want the response as JSON, the session will
+be return as a web browser compatible cookie header named
+`CHEVAH_HTTP_SESSION`::
+
+    curl --data 'username=JohnD' --data 'password=my-secret' \
+        -H 'Accept: application/json' \
+        https://localhost:10443/__chsps__/login
+    > Content-Type: application/x-www-form-urlencoded
+
+    < HTTP/1.1 302 Found
+    < Content-Type: text/html; charset=utf-8
+    < Set-Cookie: CHEVAH_HTTP_SESSION=cbd162; Path=/; HttpOnly; SameSite=strict
+
+For failed requests, the response might look as follows::
 
     curl -u JohnD \
         -H 'Accept: application/json' \
@@ -189,9 +204,9 @@ For a failed request, the response will look like the following example::
     details.", "title": "Unauthorized"}]}
 
 Once you get the ID of the authenticated session, you can use it to make a
-request with the `Authorization` headers as exampled below::
+request with the `Authorization` headers, as exemplified below::
 
-    curl -H 'authorization: session YOUR-ID' \
+    curl -H 'authorization: session YOUR-SESSION-ID' \
         -H 'Accept: application/json' \
         https://localhost:10443/home/
 
@@ -199,9 +214,9 @@ request with the `Authorization` headers as exampled below::
     < Content-Type: application/json
     {"content": [{"is_directory": true, "name": "test", ....
 
-When a session ID is no longer valid, the response will look like::
+When a session ID is no longer valid, the response will be::
 
-    curl -H 'authorization: session YOUR-ID' \
+    curl -H 'authorization: session YOUR-SESSION-ID' \
         -H 'Accept: application/json' \
         https://localhost:10443/home/
 
@@ -217,51 +232,55 @@ Account Password Update
 -----------------------
 
 Users/clients of the HTTP file transfer service can update the password
-associated with their accounts,
-assuming that this functionality is enabled for their accounts
+associated with their account,
+assuming that this functionality is enabled for their group of accounts.
 
-In order to update the password the following information are required:
+In order to update the password, the following details are required:
 * account name / username
 * current password
 * new password
 
-When updating the password, the new password is validated against the
+When updating a password, the new one is validated against the
 active password policy.
 
-The password can be updated via the web browser interface or the JSON API.
+Passwords can be updated via the web browser interface or through the JSON API.
 
-To update the password via the web browser, clients can visit the normal
-HTTP file transfer page and will find a link to a page from which they can
-update their password.
+To update their password using a web browser, clients should first login
+through the HTTP file transfer service. Pages for logged users will always
+present an option to change the password situated close to the logout link.
 
-For JSON based API, clients need to first perform a successful authentication
-using the current password and then can send the following POST request::
+Passwords can also be updated through the JSON-based API.
+A successful authentication is needed first, using the current valid password.
+Afterwards, a POST request of the following format should be sent::
 
     curl -X POST \
-        -H 'Authorization: session YOUR-ID' \
+        -H 'Authorization: session YOUR-SESSION-ID' \
         -H 'Content-Type: application/json' \
         -H 'Accept: application/json' \
-        -d '{"current_password":"pass","new_password":"new-secret"}' \
+        -d '{"current_password":"old-secret","new_password":"new-secret"}' \
         https://localhost:10443/home/__chsps__/password-update
 
 
 RESTful JSON-based API
 ----------------------
 
-The HTTP service provides a simple JSON-based API for accessing and managing
-files over the HTTP protocol.
+RESTful web services allow the requesting systems to access and manipulate
+textual representations of web resources by using a uniform and predefined
+set of stateless operations.
 
-The current JSON API is designed based on the REST architecture.
-It is not a JSON-RPC API.
-It is designed to be a lightweight version of the WebDAV protocol, using
-JSON instead of XML.
+The HTTP service provides a simple JSON-based API for accessing and managing
+files over the HTTP protocol using a RESTful approach.
+
+This is not a JSON-RPC API.
+It is a lightweight version of the WebDAV protocol,
+using JSON instead of XML.
 
 Unlike WebDAV, there is no official standard for RESTful web APIs.
-This is because REST is an architectural style, while WebDAV is an extension
+This is because REST is an architectural approach, while WebDAV is an extension
 of the HTTP protocol defined in
 `RFC 4918 <https://tools.ietf.org/html/rfc4918>`_.
 
-The text is encoded in UTF-8.
+Text in JSON-based requests and responses is always encoded using UTF-8.
 
 
 Response to invalid headers or content
@@ -281,8 +300,8 @@ The body will contain a message with JSON-formatted error details::
     }
 
 
-Response to valid headers or content but cannot be processed
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Responses to valid headers/content that cannot be processed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For requests which have valid headers and valid content, but which cannot be
 processed, the header response is::
@@ -299,8 +318,8 @@ The response in JSON should be::
 
 ..  note::
     When the URL for a folder request does not end with an `/`
-    (slash character), the server will respond with a redirect toward the
-    associated URL ending with a slash.
+    (forward slash character), the server will respond with
+    a redirect towards the same URL with an appended forward slash.
 
 
 GET and HEAD
@@ -315,7 +334,7 @@ In the above example, the URL will trigger a download request for
 
 Both `GET` and `HEAD` request methods are supported.
 
-There is also support for the ``If-Modified-Since`` request header and the
+There is also support for the ``If-Modified-Since`` request header. The
 server will reply with the standard ``304 Not Modified`` response header if
 the file has not been modified since the requested date.
 
@@ -329,7 +348,6 @@ The header and content response from the server will be::
     < Server-Path: /PATH/TO/file
 
     FILE_CONTENT_HERE
-
 
 The folder listing request URL is structured as follows::
 
@@ -388,27 +406,28 @@ the given directory.::
     seconds with decimals representing the milliseconds.
 
 ..  note::
-    If you consume this JSON in JS, note that `Date()` is instantiated with
-    milliseconds, so you will need to use `new Date(json_value * 1000)`.
+    If you consume this JSON in JavaScript, note that `Date()` is instantiated
+    with milliseconds, so you will need to use `new Date(json_value * 1000)`.
 
-To download the whole folder as a ZIP archive, including its sub-folders,
+To download as a ZIP archive an entire folder, including its sub-folders,
 use the `Accept: application/zip` header in the request.
 
     > GET /home/PATH/TO/FOLDER/ HTTP/1.1
     > Accept: application/zip
 
-The files inside the ZIP archive are stored using their full paths.
+Files inside the resulting ZIP archive are stored using their full paths.
 
-Symbolic links are ignored when generating the ZIP archive.
+Symbolic links are ignored when generating ZIP archives.
 
 
 PUT
 ^^^
 
-When requested for a file,
-it will create the file or overwrite it when the file already exists.
+When using the PUT request for a file,
+the file will be created if not existing
+or overwritten if already existing.
 
-Here is the example for uploading a file named ``/reports/2018-12-10.CSV``::
+Example for uploading a file named ``/reports/2018-12-10.CSV``::
 
     < PUT /home/reports/2018-12-10.CSV HTTP/1.1
     <
@@ -416,11 +435,12 @@ Here is the example for uploading a file named ``/reports/2018-12-10.CSV``::
     >
     > HTTP/1.1 201 Created
 
-When requested for a folder, it will create that folder.
-It will fail when folder already exists,
-or if the parent path holding the folder does not exist.
+When using the PUT request for a folder,
+the folder will be created if not existing.
+The PUT request will fail if the folder already exists
+or if the parent folder does not exist.
 
-Here is an example for creating a new folder named ``accounting-2018-12-10``::
+Example for creating a new folder named ``accounting-2018-12-10``::
 
     < PUT /home/reports/accounting-2018-12-10/ HTTP/1.1
     > HTTP/1.1 201 Created
@@ -429,16 +449,19 @@ Here is an example for creating a new folder named ``accounting-2018-12-10``::
 DELETE
 ^^^^^^
 
-When requested for a folder, it will do a recursive delete for that folder.
-This will delete the folder ``/reports`` as well as any other folders like
-``/reports/2017`` or ``/reports/2018``::
+When using the DELETE request for a folder,
+that folder will be removed recursively.
+
+Example for deleting folder ``/reports`` together with any other folders
+such as ``/reports/2017`` or ``/reports/2018``::
 
     < DELETE /home/reports/ HTTP/1.1
     > HTTP/1.1 204 No Content
 
-For a file, it will delete the file associated with the URL.
-To delete the file ``/reports/2018-12-10.CSV`` the request and response will
-look like::
+When using the DELETE request For a file,
+that file will be removed.
+
+Example for deleting the file ``/reports/2018-12-10.CSV``::
 
     < DELETE /home/reports/2018-12-10.CSV HTTP/1.1
     > HTTP/1.1 204 No Content
@@ -447,10 +470,10 @@ look like::
 POST
 ^^^^
 
-POST for a file URL is not supported.
+The POST request is not supported for a file URL.
 
 You can execute folder operations by sending a POST request with an
-`application/json; charset=utf-8` content type to a folder path.
+`application/json; charset=utf-8` content type for a folder path.
 
 Below is the list of supported commands:
 
@@ -458,7 +481,7 @@ Below is the list of supported commands:
 * create-folder
 * create-folder-if-missing
 
-If all commands have been successful, the response will be::
+If all commands are successful, the response will be::
 
     < HTTP/1.1 200 OK
 
@@ -476,7 +499,7 @@ action will be performed::
 
 When at least one command fails, the response will contain a result combining
 the results of all commands.
-For successful commands the `message` is `null`.
+For successful commands, the `message` is `null`.
 Besides the error message, each error will contain the associated `target`::
 
     < HTTP/1.1 422 Unprocessable Entity
@@ -573,6 +596,28 @@ The request will look like::
     > }
 
 
+Triggering custom actions for members of a folder
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following example will perform the `approve` custom trigger on
+``/home/path/to/folder/some-file.txt`` and
+``/home/path/to/folder/another-file.pdf``.
+
+The request will look like::
+
+    > POST /home/path/to/folder
+    > Content-type: application-json; charset=utf-8
+    >
+    > {
+    > "commands": [
+    >     {
+    >         "command": "YOUR-CUSTOM-TRIGGER-NAME",
+    >         "target": ["some-file.txt", "another-file.pdf"]
+    >         }
+    >     ]
+    > }
+
+
 Combining requests
 ^^^^^^^^^^^^^^^^^^
 
@@ -594,6 +639,10 @@ The request will look like::
     >         "target": "sibling-folder"
     >         },
     >     {
+    >         "command": "YOUR-CUSTOM-TRIGGER-NAME",
+    >         "target": ["some-file.txt", "another-file.pdf"]
+    >         },
+    >     {
     >         "command": "delete",
     >         "target": "other-file"
     >         }
@@ -603,7 +652,7 @@ The request will look like::
 ..  note::
     Command names are case-sensitive.
     The command target is also case-sensitive, with the exception of files
-    stored on NTFS or other case-insensitive file systems.
+    and folders stored on NTFS or other case-insensitive file systems.
 
 
 HTTP WebDAV API
@@ -615,7 +664,7 @@ as defined in `RFC 4918 <https://tools.ietf.org/html/rfc4918>`_.
 We are working to fully implement the WebDAV extensions as documented in the
 RFC.
 
-In this section, we document what is currently implemented on the server-side.
+In this section, we document what is currently implemented server-side.
 Anything that is not documented here can be considered as not yet implemented.
 Get in contact with us if you want a WebDAV feature which is not yet
 implemented.
@@ -632,9 +681,9 @@ GET and HEAD
 ^^^^^^^^^^^^
 
 When requested for a file, it will return the content of the file.
-It will behave as for the REST API.
+It will behave similarly to the REST API.
 
-HEAD the same behaviour and will return the same response codes as for GET,
+HEAD has the same behaviour and will return the same response codes as for GET,
 with the exception that the body is always empty.
 
 
@@ -652,11 +701,11 @@ It is not supported for file URLs.
 PUT
 ^^^
 
-In SFTPPlus, a PUT request in the context of WebDAV has the same bevaviour as
+In SFTPPlus, a PUT request in the context of WebDAV has the same behaviour as
 the REST API.
 
-The specification does not define the behavior of the PUT method for
-existing or non-existing folders and it will behave like a REST API.
+The specification does not define the behaviour of the PUT method for
+existing or non-existing folders. In SFTPPlus it will behave like the REST API.
 
 
 DELETE
@@ -669,7 +718,7 @@ When requested for a folder, it will do a recursive delete for that folder.
 Browser HTML API
 ----------------
 
-HTTP service provides a browser friendly API for managing files using HTML.
+The HTTP service provides a browser-friendly API for managing files using HTML.
 The API is designed to be integrated with HTML FORM elements.
 
 It is based on the GET, HEAD and POST HTTP methods.
@@ -684,8 +733,8 @@ it will return an HTML markup describing the members of that folder.
 The following response codes are returned:
 
 * 200 - when the request was successful
-* 404 - when the request path doesn't exists
-* 403 - when permissions is denied
+* 404 - when the request path doesn't exist
+* 403 - when permission is denied
 * 400 - on any other error
 
 The HEAD request will return no content, and will have the same response code
@@ -695,10 +744,10 @@ as for GET.
 POST
 ^^^^
 
-The data for the POST request is encoded using multipart/form-data.
+The data for POST requests is encoded using multipart/form-data.
 
-Here is an example of an HTML code which can be used to upload a file,
-to create a new folder and to select which files or folders to delete.::
+Here is an example of HTML code which can be used to upload a file,
+create a new folder and select which files or folders to delete.::
 
     <form
       action=""
@@ -715,6 +764,12 @@ to create a new folder and to select which files or folders to delete.::
         name="action"
         value="upload-file"
         >Upload files</button>
+
+      <button
+        type="submit"
+        name="action"
+        value="YOUR-CUSTOM-TRIGGER-NAME"
+        >Custom trigger action</button>
 
       <input
         name="new-folder"
@@ -768,7 +823,7 @@ the request to create a new folder with name `new-folder` is::
     test-folder
     ------Browser4sDB61mTyhxl1VS9--
 
-To delete multiple members of the folder the request can be::
+To delete multiple members of the folder, the request would be::
 
     > POST /home/path/to/folder/ HTTP/1.1
     > Content-type: multipart/form-data; boundary=----BrowserDpxASFZnpR6imXgG
@@ -792,6 +847,28 @@ To delete multiple members of the folder the request can be::
     tmp0t6kdr.csv
     ------BrowserDpxASFZnpR6imXgG--
 
+To perform a custom trigger action on multiple members of the folder, the
+request would look as follows.
+(replace `YOUR-CUSTOM-TRIGGER-NAME` with the name of your trigger)::
+
+    > POST /home/path/to/folder/ HTTP/1.1
+    > Content-type: multipart/form-data; boundary=----BrowserDpxASFZnpR6imXgG
+
+
+    ------BrowserDpxASFZnpR6imXgG
+    Content-Disposition: form-data; name="action"
+
+    YOUR-CUSTOM-TRIGGER-NAME
+    ------BrowserDpxASFZnpR6imXgG
+    Content-Disposition: form-data; name="selected-members"
+
+    some-file.txt
+    ------BrowserDpxASFZnpR6imXgG
+    Content-Disposition: form-data; name="selected-members"
+
+    another-actioned-file.pdf
+    ------BrowserDpxASFZnpR6imXgG--
+
 
 action
 ~~~~~~
@@ -804,6 +881,7 @@ Name of the requested action.
     * upload-file
     * delete-members
     * download-members
+    * CUSTOM-TRIGGER-NAME
 
 
 new-folder
@@ -825,6 +903,6 @@ Content of the file requested for upload.
 selected-members[]
 ~~~~~~~~~~~~~~~~~~
 
-List of members' names requested for removal or bulk download.
+List of member names requested for removal or bulk download.
 
 :type: list

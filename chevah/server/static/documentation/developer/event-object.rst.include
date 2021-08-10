@@ -7,6 +7,11 @@ The overall structure of the event object is::
     message
     timestamp:
         cwa_14051
+        iso_8601
+        iso_8601_local
+        iso_8601_fractional
+        iso_8601_basic
+        iso_8601_compact
         timestamp
     account:
         name
@@ -15,20 +20,24 @@ The overall structure of the event object is::
             address
             port
             protocol
+            family
     component:
         name
         uuid
         type
-        family
-        restart_required
-        start_time
-        stop_time
-        startup_configuration
+    server:
+        uuid
+        name
+    data_json
     data
 
 The members of `data` are specific to each event.
 See :doc:`Events page</events/index>` for more details regarding the
 data available for each event.
+
+Many events have `data.path` and `data.real_path`, together with the
+associated `data.file_name`, `data.directory_name`, `data.real_file_name`, and
+`data.real_directory_name`.
 
 Below is the description for the main members of the event object.
 
@@ -133,11 +142,29 @@ The `component` contains the following attributes:
 :name: uuid
 :type: string
 :optional: No
-:description: UUID of the server part emitting this event.
+:description: UUID of the component (service or transfer) emitting this event.
 
 ----
 
 :name: type
 :type: string
 :optional: No
-:description: Type of the server part emitting this event.
+:description: Type of the component emitting this event.
+
+----
+
+The `server` contains the following attributes:
+
+----
+
+:name: uuid
+:type: string
+:optional: No
+:description: UUID of the server emitting this event.
+
+----
+
+:name: type
+:type: string
+:optional: No
+:description: Type of the server emitting this event.

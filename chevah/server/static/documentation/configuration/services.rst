@@ -94,7 +94,7 @@ is the service identifier for the SSH/SFTP service::
     authentications = 0022b17a-30a0-4b70, ffa17005-51c2-42f1
 
     ; Other SSH-specific options.
-    rsa_private_key = path/to/ssh.key
+    ssh_host_private_keys = path/to/ssh.key
     sftp = Yes
     scp = No
 
@@ -142,6 +142,7 @@ type
          * `ftpsi` - for Implicit FTPS services.
          * `ssh` - for SSH services providing the SFTP and SCP protocols.
          * `http` - for HTTP services.
+         * `http-redirect` - for HTTP Redirection services.
          * `https` - for HTTPS services.
          * `monitor` - for local file system monitor services.
          * `manager` - for Local Manager services.

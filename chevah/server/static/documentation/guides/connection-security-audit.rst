@@ -18,28 +18,28 @@ Introduction
 This guide describes how you can audit the encryption used for the
 client and server side connection protected using TLS and SSH.
 
-The TLS/SSL and SSH are different protocols judging by the low level
-technical details, but serve the same purpose and
+TLS/SSL and SSH are different protocols judging by the low level
+technical details, but they serve the same purpose and
 have similar behavior in terms of cryptographic operations.
 
 They have a similar handshake protocol based on asymmetric cryptography,
 encrypting the payload/data in motion using symmetric cryptography.
 Both use similar data integrity mechanisms.
 
-For TLS/SSL based file transfer protocols the provided information is:
+For file transfer protocols based on TLS/SSL, the provided information is:
 
 * TLS/SSL version (TLS1.2 or TLS1.1)
 * Cipher and HMAC
 * Peer certificate (if any)
 
-For SSH based file transfer protocols the provided information is::
+For file transfer protocols based on SSH, the provided information is::
 
 * Host Key algorithm
 * Key Exchange algorithm
 * Cipher and HMAC
 
-SFTPPlus supports only SSH version 2 which is the latest version and the
-version supported and used by all the other SSH implementation.
+SFTPPlus supports only SSH version 2, which is the latest version and the
+version supported and used by all the other SSH implementations.
 
 
 Start of connection audit

@@ -13,7 +13,7 @@ In this quick User Guide, we will provide a very brief overview
 showing how you can use Filezilla Client with SFTPPlus to perform
 basic actions.
 We are using Filezilla Client as an example, since it is one of
-the more commonly used GUI based client software used by our
+the more commonly used GUI-based client software used by our
 customers.
 While we support multiple operating systems, this guide is based
 on the Windows platform.

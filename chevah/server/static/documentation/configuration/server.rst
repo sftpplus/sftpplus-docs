@@ -34,7 +34,6 @@ Below is another sample for the ``server`` section as a text configuration::
     name = Short_Name_For_Server
     description = Long text describing the server
     account = sftpplus
-    execute_at_startup = Disabled
     umask = 022
     authentications = 0022b17a-30a0-4b70, ffa17005-51c2-42f1
     manager_authentications = 65a1-41ce-fea1-8015
@@ -125,33 +124,6 @@ account
 ..  note::
     This option is ignored on Windows systems, where the server will operate
     under the same account as the one used for starting the server.
-
-
-execute_at_startup
-^^^^^^^^^^^^^^^^^^
-
-:Default value: `Disabled`
-:Optional: Yes
-:Values: * Path to an external script or executable which will be called
-           at server's start.
-         * `Disabled` - no command will be executed.
-:From version: 1.7.0
-:To version: None
-:Description:
-    Specifies the external executable or script to be executed just after
-    the server starts.
-
-    Set it to `Disabled` not to run any command.
-
-    This can be used, for example, on Windows operating systems, to map network
-    drives.
-    The server comes with an example script::
-
-        [server]
-        execute_at_startup = execute_at_startup.bat
-
-    The command will be executed under the account launching the server and
-    not under the account defined by the 'account' option.
 
 
 umask
@@ -266,3 +238,114 @@ password_minimum_length
     for passwords defined outside of SFTPPlus, such as OS passwords.
 
     Set it to `0` to disable password length checking.
+
+
+password_history
+^^^^^^^^^^^^^^^^
+
+:Default value: `8`
+:Optional: Yes
+:Values: * Number
+:From version: 4.10.0
+:To version:
+:Description:
+    This defines the number of unique new passwords that must be associated
+    with a user account before an old password can be reused.
+
+    Set it to `0` to disable the password history policy.
+
+    If `password_history` was previously enabled and is now disabled,
+    updating the password for an account will clear the history
+    of previously used passwords for that account.
+
+
+password_hashing_scheme
+^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: `crypt-sha512`
+:Optional: Yes
+:Values: * `crypt-sha512`
+         * `crypt-sha256`
+         * `pbkdf2_sha512`
+         * `pbkdf2_sha256`
+:From version: 3.51.0
+:To version:
+:Description:
+    This defines the function used to hash the passwords of the
+    internal SFTPPlus user and administrator accounts. Not
+    applicable for OS accounts.
+
+    The following hash functions are supported:
+
+    * `crypt-sha512` - Unix Crypt SHA-512
+    * `crypt-sha256` - Unix Crypt SHA-256
+    * `pbkdf2-sha512` - RSA PKCS #5 based on SHA-512
+    * `pbkdf2-sha256` - RSA PKCS #5 based on SHA-256
+
+    For more info see the dedicated
+    :doc:`Modular Crypt Password Hashing </standards/cryptography>` section
+    from our Supported Cryptographic Standards documentation page.
+
+
+ssl_certificate
+^^^^^^^^^^^^^^^
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Absolute path on the local filesystem.
+         * Certificate in PEM text format.
+         * Certificate in PKCS12 / PXF binary format.
+         * `Disabled`
+:From version: 1.6.0
+:To version: None
+:Description:
+    Certificate or chain of certificates in Privacy-Enhanced Mail (PEM) format
+    or an absolute path on the local filesystem for a file containing
+    a certificate or a chain of certificates in PEM format
+    to be used by default for TLS/SSL services.
+
+    File content must be encoded in the Privacy-Enhanced Mail (PEM) or
+    the PKCS12 / PFX formats.
+
+
+ssl_key
+^^^^^^^
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Absolute path on the local filesystem.
+         * Key as PEM text format.
+         * Empty
+:From version: 4.0.0
+:Description:
+    X.509 private key in Privacy-Enhanced Mail (PEM) format
+    or an absolute path on the local filesystem for a file containing
+    a X.509 private key to be used by default for TLS/SSL services.
+
+
+ssh_host_private_keys
+^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Absolute path on the local filesystem.
+         * Multiple absolute paths on the local filesystem, one per line.
+         * Text version of a SSH private key.
+         * Multiple concatenated SSH private keys in PEM format.
+         * Empty.
+:From version: 4.9.0
+:To version: None
+:Description:
+    One or more SSH host private keys used by default for the SSH-based
+    services (SFTP/SCP).
+
+    It can be one or more concatenated SSH private keys in PEM format.
+
+    For Putty keys, since they are not using a PEM format,
+    only a single private key is supported.
+    If you have to use multiple Putty keys here,
+    convert them to a PEM format such as the OpenSSH one.
+
+    You can also configure it with one or more absolute paths on the
+    local filesystem to files containing private SSH keys.
+    One path per line.

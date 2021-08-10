@@ -139,7 +139,7 @@ User password change
 
 You can configure an account to allow updating its own password.
 When enabled, the user can change its password over the SSH protocol
-using the `passwd` or `change-password` commands.
+using the `passwd` command.
 
 To change its password, a user must provide the current password.
 
@@ -187,6 +187,42 @@ ends with exit code `1`::
 
 ..  note::
     The password cannot contain leading or trailing space or tab characters.
+
+
+Transfer performance
+--------------------
+
+The SFTP/SCP/SSH protocols are less efficient at bulk data transfer,
+when compared to FTPS or HTTPS.
+In SSH every block of data transferred requires an acknowledgment from the
+other peer.
+
+Clients like WinSCP, Filezilla, or PuTTY are exchanging data
+using 32 parallel requests,
+each request exchanging 4Kbytes blocks at a time.
+OpenSSH SFTP CLI uses by default 64 parallel requests, each at 32Kbytes.
+
+By using WinSCP, Filezilla, or Putty you can expect transfer speed of up to
+7MB/s.
+When using OpenSSH SFTP command line client, you can expect transfer speed
+of up to 12MB/s.
+
+We are working to improve the speed of our SSH/SFTP implementation.
+In the near future, you can expect transfer speeds of 65MB/s.
+
+The benchmark for SFTP transfer is the OpenSSH SFTP implementation
+which can transfer at 170MB/s over the localhost with files stored on a fast
+SSD.
+
+SFTPPlus performance falls behind the OpenSSH implementation.
+OpenSSH is a product targeted to Unix systems and focused on the SSH/SFTP
+protocol.
+SFTPPlus runs on Unix and Windows
+and support multiple file transfer protocols like HTTPS and FTPS.
+
+Beside the actual file transfer, SFTPPlus provides detailed audit logs,
+like the name of the user performing an operation, duration of transfer and
+overall transfer speed.
 
 
 Load Balancer

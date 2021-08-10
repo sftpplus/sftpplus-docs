@@ -36,6 +36,8 @@ changes_poll_interval
     the changes in the monitored path and compare snapshots, a record of any
     changes, in a monitored folder.
 
+    When set to zero or a negative number, the default value is used.
+
 
 stable_interval
 ^^^^^^^^^^^^^^^
@@ -47,6 +49,8 @@ stable_interval
 :Description:
     This is the interval after which a file is considered stable if no changes
     are made to it.
+
+    This values should be greater than the value of `changes_poll_interval`.
 
 
 source_filter

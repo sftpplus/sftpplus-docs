@@ -34,13 +34,13 @@ the monitor type, other than the standard service configuration options.
 .. include:: /configuration/location-watch.include.rst
 
 
-warn_non_modified_files_interval
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+file_age_notification
+^^^^^^^^^^^^^^^^^^^^^
 
 :Default value: `0`
 :Optional: Yes
 :Values: * Number of seconds.
-:From version: 3.5.0
+:From version: 4.0.0
 :Description:
     Age in seconds after which an event is triggered for files which are
     not modified in that time.
@@ -49,7 +49,52 @@ warn_non_modified_files_interval
 
     Set it to `0` to disable triggering this type of events.
 
-    ..  warning::
-        This option is in the experimental stage.
-        It might be changed in future versions in a way which is not backward
-        compatible.
+    It will check for older files based on the `changes_poll_interval`
+    configuration.
+
+
+file_age_auto_delete
+^^^^^^^^^^^^^^^^^^^^
+
+:Default value: `0`
+:Optional: Yes
+:Values: * Number of seconds.
+:From version: 3.52.0
+:Description:
+    Age in seconds after which a file is automatically deleted if it is
+    still found in the monitored path.
+
+    A separate event is emitted for each deleted file.
+
+    Set it to `0` to disable automatically deleting files.
+
+    It will check for older files based on the `changes_poll_interval`
+    configuration.
+
+
+monitored_operations
+^^^^^^^^^^^^^^^^^^^^
+
+:Default value: `all`
+:Optional: Yes
+:Values: * Comma separated values.
+         * `disable`
+         * `all`
+         * `exist`
+         * `create`
+         * `modify`
+         * `rename`
+         * `delete`
+:From version: 3.52.0
+:Description:
+    Comma-separated list of file operations for which to emit notification
+    events.
+
+    Each action has a separate event ID.
+
+    Set it to `all` for emitting events for any file operation.
+
+    Set it to `disable` to not emit events for file operations.
+
+    If both `all` and `disable` are defined at the same time, the monitor will
+    emit events for all file operations, ignoring the `disable` value.

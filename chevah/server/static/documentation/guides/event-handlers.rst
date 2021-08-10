@@ -86,13 +86,13 @@ generated in the past.
 
 Here are a few actions available:
 
-* Filter by database
+* Filter by event handler
 * Filter by date and time
 * View x events per page
 * Filter by event ID, peer IP, username, and summary
 * Further view the details of each event.
 
-Please see below for an example page filtered by database (SQLite).
+Please see below for an example page.
 
 ..  image:: /_static/gallery/gallery-pastactivity.png
 
@@ -138,7 +138,7 @@ available in the format used for storing audit entries in a database.
 
 Here is an example of text file log format:
 
-    | 20076 2014-06-07 19:44:05 ftp-only-1 Process 0.0.0.0:0 Service "ftp"
+    | 20156 2014-06-07 19:44:05 ftp-only-1 Process 0.0.0.0:0 Service "ftp"
       started on "0.0.0.0:10023" using "ftp" protocol.
     | 10033 2014-06-07 19:44:10 ftp-only-1 Unknown 127.0.0.1:51290 New FTP/FTPS
       client connection made.
@@ -185,12 +185,6 @@ space used by the plain text logging system.
 
 Audit entries stored in a `database` can be viewed and filtered using the
 Local Manager service.
-
-..  note::
-    Currently, there is no option to remove/clean log entries stored in a
-    database from within SFTPPlus.
-
-    You can, however, use external tools to remove logs stored in a database.
 
 
 Filtering the handled events
@@ -431,14 +425,14 @@ The sole exception is the `Summary` / `message` field, in order to limit
 database/table size.
 
 When using the database event handler, SFTPPlus will store / update
-the newly generated events in the database.
+the newly generated events in an SQLite3 database file.
 
 As each installation will have its own data and log retention policy,
 SFTPPlus will not delete any event.
 
 This can result in a database which will continuously grow in size.
 
-We assume that each site administrator will use standard database tools to
+We assume that each site administrator will set the auto-delete feature to
 manage the size of the database.
 
 The name of the database used to store the logs is `chevah_log_entries`.

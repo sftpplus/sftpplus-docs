@@ -18,7 +18,7 @@ The file dispatcher is a generic event handler which is used to perform
 various actions on the files on which SFTPPlus operates.
 
 As any event handler you can define all the available filtering rules for
-defining the scope on which the handler should be trigerred.
+defining the scope on which the handler should be triggered.
 
 It can be used for both server-side and client-side operations.
 
@@ -91,8 +91,8 @@ Such a condition can be found when configuring the dispatch handler for an
 event ID which has no associated paths.
 
 
-Matching expression
-===================
+Matching expressions
+====================
 
 The `dispatch_rules` will have a matching expression defined as the second
 member of the configuration.
@@ -125,13 +125,18 @@ moved to ``/srv/teams/ops`` when placed into the source folder
     since this is used for files which are not matching any of the
     configured expressions.
 
+For more details about the available expressions see the
+:doc:`matching expression documentation.
+</configuration/matching-expression>`
 
-Regular Expression and Grouping
-===============================
+
+Regular Expressions and Grouping
+================================
 
 When regular expressions are defined for the path matching expression,
 you can use the parentheses for grouping parts of the source path which,
-once matched, can be used to dynamically define the destination path.
+once matched, can be used to dynamically define the destination path
+based on the source path.
 
 ..  note::
     The exclusion regular expression mode (``e/some/.*.pdf``) is not supported
@@ -155,7 +160,7 @@ use the following configuration::
 
     [event-handlers/f040be6a-e158]
     dispatch_rules =
-        move, m/inbox/(.*)/(.*)/SRV_.+\.PDF/, /reports/{2}/teams/{1}/
+        move, m/inbox/(.+)/(.+)/SRV_.+\.PDF/, /reports/{2}/teams/{1}/
 
 The first pair of parentheses will match the source team name and the second
 pair will match the source username.
@@ -179,7 +184,7 @@ For example, to have a file which is pushed to a path
 
     [event-handlers/f040be6a-e158]
     dispatch_rules =
-        move, m/users/(.*)/(SRV_.+\.PDF)/, /staging/{1}-{2}.in
+        move, m/users/(.+)/(SRV_.+\.PDF)/, /staging/{1}-{2}.in
 
 To let SFTPPlus generate the destination path and for example have the file
 pushed as ``/user/john/SRV_123.PDF`` moved to the path
@@ -187,7 +192,115 @@ pushed as ``/user/john/SRV_123.PDF`` moved to the path
 
     [event-handlers/f040be6a-e158]
     dispatch_rules =
-        move, m/users/(.*)/SRV_.+\.PDF/, /staging/{1}/
+        move, m/users/(.+)/SRV_.+\.PDF/, /staging/{1}/
+
+
+Destination path variables
+==========================
+
+The destination path can be defined to include values from
+a set of dynamic variables based on each event.
+
+Assume you have 2 accounts named ``john-d`` and ``jane-r`` with home
+directories in ``C:\SFTP-In\john-d`` and ``C:\SFTP-In\jane-r`` respectively.
+
+When ``john-d`` or ``jane-r`` uploads a file named ``/reports.xml``
+inside their root folder, the actual file is received on disk as
+``C:\SFTP-In\john-d\app\report.xml`` or
+``C:\SFTP-In\jane-r\app\report.xml``.
+
+You might need to move both reports into a common internal application
+inbox directory with file names like
+``C:\App-In\john-d_report.xml`` or ``C:\App-In\jane-r_report.xml``.
+
+This can be done using the following configuration, in which only the files
+placed inside the `app` sub-directories are moved::
+
+    [event-handlers/f040be6a-e158]
+    dispatch_rules =
+        move, g/C:\SFTP-In\*\app\*/, C:\App-In\{account.name}-{data.file_name}
+
+You can also define the following configuration, in which any file uploaded
+by a user is moved::
+
+    [event-handlers/f040be6a-e158]
+    dispatch_rules =
+        move, g/.*/, C:\App-In\{account.name}-{data.file_name}
+
+or defined using regular expression syntax with matching groups enabled::
+
+    [event-handlers/f040be6a-e158]
+    dispatch_rules =
+        move, m/(.*)/i, C:\App-In\{account.name}-{data.file_name}
+
+..  note::
+    The usage of explicit `g/EXPRESSION/` globbing matching syntax or
+    regular expression with groups is required for destination path
+    variables.
+
+    This is required for backward compatibility with older configurations
+    in which the destination configuration was defining only the base
+    destination directory.
+
+
+Destination path normalization
+==============================
+
+The destination paths are normalized and any forward slash or backward slash
+is automatically converted to the path delimiter used by the operating system
+hosting the STPPlus application.
+
+For example if you have the following configuration on a Linux system,
+the destination path is ``/staging/john/SRV_123.PDF``::
+
+    [event-handlers/f040be6a-e158]
+    dispatch_rules =
+        move, m/users/(.+)/SRV_.+\.PDF/, \staging\{1}\
+
+While with the following example on Windows
+the destination path is ``C:\staging\john/SRV_123.PDF``::
+
+    [event-handlers/f040be6a-e158]
+    dispatch_rules =
+        move, m/C:\\users\\(.+)/SRV_.+\.PDF/, c:/staging/{1}/
+
+
+Advanced Regular Expressions
+============================
+
+Using the `matching_expressions` configuration, you can create a destination
+path using multiple data sources, not only the path of the handled file.
+
+At the same time, you can transform the values to uppercase or lowercase.
+
+As an example, suppose we handle ZIP archives copied to
+`/inbox/AcmeCo-reports.zip`
+containing files `/sales.csv` and `/returns.csv`.
+The system is configured to automatically extract the files to
+the `/storage/received/` path.
+Upon normal operation, this would result in `/received/sales.csv` and
+`/storage/received/returns.pdf`.
+
+However, if you want to have these files extracted as
+`/received/sales-AcmeCo.csv` and
+`/received/returns-AcmeCo.pdf`, you can use the following
+configuration:::
+
+    matching_expressions:
+        source_path, m//inbox/(\d{6})-.+.zip/i
+
+    dispatch_rules:
+        rename, m/.+/(.+\)\.([a-z])/i, /received/{1}-{source_path.1}.{2}
+
+Using character case transform operations, you could have the files extracted as
+`/received/sales-ACMECO.csv` and
+`/received/returns-ACMECO.pdf` with the following configuration::
+
+    matching_expressions:
+        source_path, m//inbox/(\d{6})-.+.zip/i
+
+    dispatch_rules:
+        rename, m/.+/(.+\)\.([a-z])/i, /received/{1}-{source_path.1_upper}.{2}
 
 
 Triggering the Dispatch Rule
@@ -228,6 +341,26 @@ File Overwrite Prevention
 The file dispatcher will not overwrite existing file and the whole dispatch
 process will fail if one of the configured destinations already contains
 a file with the same name.
+
+
+Handling of temporary / transient files
+=======================================
+
+It is common to have an external client or process pushing a file using
+a temporary name and rename to the final name once the transfer is
+complete.
+
+In this case, you can use the `dispatch_delay` option to configure
+the file dispatcher to execute the dispatching with a delay.
+This will allow the file to be created with a final name.
+
+
+Retry on errors
+===============
+
+The file dispatcher can be configured to retry the operation on error.
+
+It can wait a configurable number of seconds before retrying.
 
 
 Automatically creating destination folders
