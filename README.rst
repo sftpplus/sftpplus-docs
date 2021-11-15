@@ -12,3 +12,9 @@ To build the documentation you need a Python3 environment::
     . venv/bin/activate
     pip install -r requirements.txt
     sphinx-build -b html doc_source/ deploy
+
+To test the docs for any errors and view in a browser::
+
+    sphinx-build -b html -W --keep-going doc_source/ deploy
+    python -m http.server -d deploy/
+    firefox http://localhost:8000
