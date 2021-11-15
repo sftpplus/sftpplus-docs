@@ -29,7 +29,7 @@
 [build.environment]
   GIT_LFS_ENABLED = "True"
   SFTPPLUS_TARGET = "production"
-  PYTHON_VERSION = "3.8"
+  PYTHON_VERSION = "2.7"
 
 [context.production.environment]
   SFTPPLUS_TARGET = "production"
@@ -47,3 +47,9 @@
 # Rules for staging branch.
 [context.staging.environment]
   SFTPPLUS_TARGET = "production"
+
+[[redirects]]
+  from = "/static/*"
+  to = "https://www.sftpplus.com/static/:splat"
+  status = 301
+  force = true
