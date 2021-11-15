@@ -1,0 +1,446 @@
+.. container:: tags pull-left
+
+    `server-side`
+    `client-side`
+    `configuration`
+
+
+Events, Event Handlers and the audit trail
+##########################################
+
+..  contents:: :local:
+
+
+Introduction
+============
+
+While operating, SFTPPlus will emit a set of events.
+Each event has a unique ID and defines a specific operation carried out by the
+server.
+
+A common action for an event is to send it to one of the supported logging
+systems.
+This covers the Accounting requirement of the AAA (Authentication,
+Authorization, and Accounting) security design framework.
+
+For information on covering the Authentication process,
+check :doc:`the authentication section</operation/authentication>`
+and for the Authorization process,
+see :doc:`the authorization section</operation/authorization>`.
+
+In addition, arbitrary actions can be attached to an event by configuring
+event handlers.
+
+Event handlers are asynchronous / independent components and server operations
+will continue regardless of the side effects produced by the event handler.
+
+All data used by the event handlers is Unicode, encoded as UTF-8.
+
+The integrated logging system,
+keeps an audit trail for each action/event produced while
+performing management tasks or file transfer operations.
+The server can also send events to a SysLog server or to the Windows
+EventLog, but after an entry is sent,
+the server cannot retrieve or manage those logs.
+
+
+Event groups as an alternative to logging levels
+================================================
+
+SFTPPlus does not use any form of logging level or severity level
+conventions to classify and categorize the generated log entries.
+Instead, the event groups are provided as a way to classify the entries.
+A single event can belong to multiple groups.
+
+A special group is the `failure` group, which contains all events which may
+be considered an error.
+
+A failure event is emitted when a client-side or server-side request produces
+an outcome that is either an error
+(when request is processed and returns an error as defined in the protocol)
+or a failure (when the request was not processed).
+
+For example, a client which requested to create a folder that
+already exists may be ignored since the client may also ignore the error.
+In other cases, you may want to investigate the failure and
+update the client to not try to create a folder which already exists.
+
+Internal server errors and errors which should not occur during normal
+operations are part of the `failure` and `failure-critical` groups.
+All critical failures have a `details` data field which contains information
+about the cause of the error.
+
+Configuration errors and other errors which cause one of the components to
+stop, or prevent it from starting, are part of the `failure` and `failure-high`
+group.
+
+
+Activity Log page in Local Manager
+==================================
+
+For low volume installations, the "Activity Log" (or the audit trail) can
+be used within the Local Manager to view and filter logs.
+
+Using a web browser you can perform interactive searches within the events
+generated in the past.
+
+Here are a few actions available:
+
+* Filter by event handler
+* Filter by date and time
+* View x events per page
+* Filter by event ID, peer IP, username, and summary
+* Further view the details of each event.
+
+Please see below for an example page.
+
+..  image:: /_static/gallery/gallery-pastactivity.png
+
+Note that the embedded database, used by default by the Local Manager,
+is not suitable for high volume installations.
+
+In the case in which your installation generates thousand of entries each day,
+we recommend using specialized log management tools external to
+SFTPPlus.
+For more information about managing logs in high volume websites, see
+
+see :doc:`the authorization section</guides/log-management>`.
+
+
+Account Activity page in Local Manager
+======================================
+
+Activities of accounts set up in SFTPPlus are reported in Local Manager.
+
+..  image:: /_static/gallery/gallery-reports-page.png
+
+
+The Audit Trail
+===============
+
+This section describes how the audit trail works in order to help you use it
+and integrate it as per your requirements.
+For configuring the audit system, please see
+:doc:`event handlers configuration </configuration/event-handlers>`.
+
+Each audit entry contains the following information:
+
+* Unique event ID
+* Date and time
+* Component ID
+* Account name
+* IP and port of remote client
+* Human readable message
+* Structured log data as JSON.
+
+While the plain text log format does not list the structured log data, this is
+available in the format used for storing audit entries in a database.
+
+Here is an example of text file log format:
+
+    | 20156 2014-06-07 19:44:05 ftp-only-1 Process 0.0.0.0:0 Service "ftp"
+      started on "0.0.0.0:10023" using "ftp" protocol.
+    | 10033 2014-06-07 19:44:10 ftp-only-1 Unknown 127.0.0.1:51290 New FTP/FTPS
+      client connection made.
+    | 20009 2014-06-07 19:44:10 ftp-only-1 test_user 127.0.0.1:51290 User
+      authenticated as application account using password credentials.
+    | 10059 2014-06-07 19:44:10 ftp-only-1 test_user 127.0.0.1:51290 User
+      successfully logged on "/srv/iop_files/test_user" as "/".
+    | 10061 2014-06-07 19:44:17 ftp-only-1 test_user 127.0.0.1:51292 Passive
+      transfer requested.
+    | 10022 2014-06-07 19:44:17 ftp-only-1 test_user 127.0.0.1:51292 Listening
+      on port 9000 for the next passive request.
+    | 10077 2014-06-07 19:44:17 ftp-only-1 test_user 127.0.0.1:51292 Processing
+      STOR command for file "/remote_put".
+
+For Syslog the log format conforms to
+`RFC 3164 <https://www.ietf.org/rfc/rfc3164.txt>`_. Here is an example:
+
+    | <30>Apr 19 18:08:11 host test-server-name: 20156 admin 127.0.0.1:33674
+      Successfully started event handler \"SQLite Event Handler\" of type
+      database.
+    | <30>Apr 19 18:09:53 host test-server-name: 20156 admin 127.0.0.1:33674
+      Successfully started event handler \"sample-digital-signature\" of type
+      digital-signature-validation.
+    | <30>Apr 19 18:19:28 host test-server-name: 50002 admin 127.0.0.1:33674
+      Configuration read from local manager.
+    | <30>Apr 19 21:38:34 host test-server-name: 20156 Process 0.0.0.0:0
+      Successfully started database connector \"SQLite\" of type sqlite.
+
+Here is an example of structured data attached to an event with ID 10077::
+
+    account:
+        name: test_user
+        peer:
+          protocol: TCP
+          port: 51490
+          address 127.0.0.1
+    path: /remote_put
+
+Plain text log files can automatically `rotate` based on size, date
+or time of the day.
+Older files can be automatically removed, based on configurable rules.
+This helps limit the size of a single file and control the total disk
+space used by the plain text logging system.
+
+Audit entries stored in a `database` can be viewed and filtered using the
+Local Manager service.
+
+
+Filtering the handled events
+============================
+
+When an event handler is defined there are a set of rules based on which you
+can include or exclude the events handled by the configured event handler.
+
+Multiple rules can be defined and an event is handled if all rules are
+matching the targeted event.
+That is, the combined rules are defining a logical conjunction (AND).
+
+Note that inside a single rule the configured values can form a disjunction
+(OR), this is based on the characteristics of each rule.
+
+For example, to only send the events from users ``mcr_adm`` or ``acct_aut``
+with event IDs `20156` to Syslog, you can define the following
+configuration::
+
+    [event-handlers/00feb81f-a99d-42f1-a86c-1562c3281bd9]
+    enabled: Yes
+    name: Syslog Notification
+    description: Sends logs to backup Syslog server.
+    type: syslog
+    url: file:///dev/log
+
+    usernames: mcr_adm, acct_aut
+    target: 20156, 20127, 50002
+
+In this case, only events by the accounts (``mcr_adm`` OR ``acct_aut``) AND
+event IDs (`20156` OR `20127` OR `50002`) are sent to the specified Syslog
+path.
+Any other event IDs outside of this will not be logged.
+
+For more details check the configuration documentation available for each of
+the filtering rules.
+
+
+Event ID
+^^^^^^^^
+
+A simple and straight forward rule is to include only event IDs.
+
+For example, to only send event IDs 20156 or 20127 or 50002 to
+Syslog, you can define the following configuration.
+Subsequently, event IDs 5421 or 2341 are not matched since they are not listed
+as a `target`::
+
+    [event-handlers/1ee4337a-22f7-4a67-9a77-5c3a508a8158]
+    enabled: Yes
+    name: Syslog Backup
+    description: Sends logs to backup Syslog server.
+    type: syslog
+    url: file:///dev/log
+
+    target: 20156, 20127, 50002
+
+The `target` configuration option also support event exclusion by prefixing
+the event ID with with the exclamation mark (`!`).
+
+If you want to send all the events to Syslog, with the exception of the
+event IDs `20156` or `20127`,
+you can define the following configuration::
+
+    [event-handlers/27a31405-a963-4fb9-b4ee-09d415b1a30a]
+    enabled: Yes
+    name: Syslog Main Source
+    description: Sends filtered logs to Syslog server.
+    type: syslog
+    url: file:///dev/log
+
+    target: !20156, !20127
+
+
+Username / Account Name
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Most of the events emitted by the server-side components will have
+associated accounts or usernames.
+
+These are part of the `authenticated` group and are emitted for a session for
+which the authentication process was successful.
+
+You can filter these type of events based on the associated user or account
+name.
+
+Note that the filtering is done based on the name, and not the UUID.
+This is done to accommodate various authentication methods which do not have
+the concept of UUID.
+
+For example, to only send the events from users ``mcr_adm`` or ``acct_aut``
+to Syslog you can define the following configuration::
+
+    [event-handlers/7db823d8-05f8-4481-be98-b87a826ded28]
+    enabled: Yes
+    name: Syslog Notification
+    description: Sends notification to Syslog server.
+    type: syslog
+    url: file:///dev/log
+
+    usernames: mcr_adm, acct_aut
+
+If you want to send all the events to Syslog, with the exception of the
+users ``mcr_adm`` or ``acct_aut``, the configuration will look like::
+
+    [event-handlers/7db823d8-05f8-4481-be98-b87a826ded28]
+    enabled: Yes
+    name: Syslog Notification
+    description: Sends notification to Syslog server.
+    type: syslog
+    url: file:///dev/log
+
+    usernames: !mcr_adm, !acct_aut
+
+
+Components
+^^^^^^^^^^
+
+SFTPPlus is built around a modular design in which multiple components are
+interacting in order to perform the manged file transfer flow.
+
+Components are file transfer services, authentication methods, transfers,
+resources and event handlers.
+
+Each component has an unique ID (UUID) and the handler can filter events
+based on these IDs.
+
+By using the UUID, you can rename a component without having to update the
+configuration of the associated event handlers.
+
+For example, to send all the events emitted by certain authentication methods
+to Syslog, you can use the following configuration::
+
+    [authentications/ac547e16-a3ff-4fc3-a6ab-142af2744f50]
+    enabled: yes
+    type: deny-username
+    name: deny-admin-accounts
+    description: Filter all admin accoutns
+    usernames: root, adm, administrator
+
+    [authentications/22a9d8fb-068d-4a63-8d5d-0ce94ef22a25]
+    enabled: Yes
+    type: ip-time-ban
+    name: ip-time-ban-auth
+    description: Ban for 30 seconds after 3 failures
+    ban_interval = 30
+    ban_after_count = 3
+
+    [event-handlers/27b8e2b1-7971-416d-af14-6a8aae2ac46e]
+    enabled: Yes
+    name: Syslog Notification
+    description: Sends rogue auth requests to Syslog.
+    type: syslog
+    url: file:///dev/log
+
+    components: 27b8e2b1-7971-416d-af14-6a8aae2ac46e,
+                ac547e16-a3ff-4fc3-a6ab-142af2744f50
+
+To send all the events to Syslog, with the exception of a few
+components, you can configure the handler as the following configuration::
+
+    [event-handlers/27b8e2b1-7971-416d-af14-6a8aae2ac46e]
+    enabled: Yes
+    name: Syslog Notification
+    description: Sends rogue auth requests to Syslog.
+    type: syslog
+    url: file:///dev/log
+
+    components: !27b8e2b1-7971-416d-af14-6a8aae2ac46e,
+                !ac547e16-a3ff-4fc3-a6ab-142af2744f50
+
+
+Source address of the remote peer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can include or exclude events based on the source IP address of the remote
+peer.
+
+If for example, your load balancers are sending probes usiing the
+``172.26.2.45`` and ``196.168.9.34`` IP addresses you might want to exclude
+those connections from the main logs.
+
+The example from below will send all the events to Syslog,
+with the exception of the connection made from certain IP addresses::
+
+    [event-handlers/27b8e2b1-7971-416d-af14-6a8aae2ac46e]
+    enabled: Yes
+    name: Syslog Notification
+    description: Sends all connections to Syslog excepting the probes.
+    type: syslog
+    url: file:///dev/log
+
+    source_addresses: !172.26.2.45, !196.168.9.34
+
+
+Attached structured data
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Each event emitted by SFTPPlus has a data attribute with an arbitrary
+structure.
+
+The members of the data attribute are specific to each event.
+This filter is usually used together with the `target` option,
+to also filter based on event IDs.
+
+If an event does not have the required data member, the event will not
+be handled.
+
+The following example will only send the PDF files uploaded via SFTP
+to Syslog.
+Non PDF files are not sent to Syslog.
+The PDF files are defined using the regular expression ``.*\.pdf``::
+
+    [event-handlers/1ee4337a-22f7-4a67-9a77-5c3a508a8158]
+    enabled: Yes
+    name: Syslog Notification
+    description: Sends PDF file operations to Syslog.
+    type: syslog
+    url: file:///dev/log
+
+    target: 30068
+    data_filter: path, m/.*\.pdf/
+
+
+HTTP / HTTPS POST Handlers
+==========================
+
+To read more about HTTP POST event handlers in the audit trail, please go to
+:doc:`the Developer Documentation </developer/http-api-event-handler>`.
+
+
+Database handlers
+=================
+
+All fields that are displayed in the Activity Log page have an associated,
+single column, index.
+The sole exception is the `Summary` / `message` field, in order to limit
+database/table size.
+
+When using the database event handler, SFTPPlus will store / update
+the newly generated events in an SQLite3 database file.
+
+As each installation will have its own data and log retention policy,
+SFTPPlus will not delete any event.
+
+This can result in a database which will continuously grow in size.
+
+We assume that each site administrator will set the auto-delete feature to
+manage the size of the database.
+
+The name of the database used to store the logs is `chevah_log_entries`.
+In SQLite, to check all the fields from the table, you can use::
+
+    | sqlite> SELECT * FROM sqlite_master WHERE type='table' and
+      name='chevah_log_entries';
+
+To delete all log entries older than a certain timestamp, you can use::
+
+    sqlite> DELETE FROM chevah_log_entries WHERE timestamp < '1526469347' ;

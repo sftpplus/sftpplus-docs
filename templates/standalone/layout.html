@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title }} | {{ project }} Documentation</title>
+
+  <meta name="author" content="Pro:Atria Team" />
+  <meta name="coypright" content="SFTPPlus Team" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="shortcut icon" href="{{ pathto('static/images/favicon.ico', 1) }}" />
+  <link rel="shortcut icon" href="{{ pathto('static/images/favicon.png', 1) }}" />
+  <link rel="stylesheet" href="{{ pathto('static/css/production_v4.css', 1) }}" />
+
+  {%- set url_root = pathto('', 1) %}
+  {%- if url_root == '#' %}{% set url_root = '' %}{% endif %}
+  <script type="text/javascript" id="documentation_options"
+    data-url_root="{{ url_root }}"
+    data-file_suffix="{{ '' if no_search_suffix else file_suffix }}"
+    src="{{ pathto('_static/documentation_options.js', 1) }}">
+  </script>
+
+  {%- for scriptfile in script_files %}
+  <script type="text/javascript" src="{{ pathto(scriptfile, 1) }}"></script>
+  {%- endfor %}
+
+  {% block extrahead %}{%- endblock %}
+
+  {%- block linktags %}{%- endblock %}
+</head>
+
+<body class="d-flex flex-column min-vh-100 sphinx-content">
+
+  <header role="Navigation">
+    <div class="navbar-container">
+      <nav class="navbar justify-content-between navbar-light border-bottom-0 bg-white py-1">
+        <div class="container">
+          <a class="navbar-brand" href="{{ pathto('index') }}" title="SFTPPlus">
+            <img src="{{ pathto('static/svg/sftpplus.svg', 1) }}" alt="SFTPPlus" class="w-50" />
+          </a>
+          <div class="navbar-nav">
+            <a class="nav-item nav-link h4 mb-0" href="{{ pathto('index') }}">
+              {{ project }} Documentation
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main aria-label="Content">
+    <div class="container-fluid bg-primary-2 d-flex align-items-center decorated">
+      <div class="container">
+        <div class="row">
+          <div class="col-9">
+            <form action="{{ pathto('search') }}" method="get" autocomplete="off">
+              <div class="row">
+                <div class="col-10">
+                  <input name="q" type="text" placeholder="Keywords..." class="form-control"/>
+                </div>
+                <div class="col-2 pl-0">
+                  <button type="submit" class="btn btn-outline-light">
+                    Search
+                  </button>
+                </div>
+              <input type="hidden" name="check_keywords" value="yes"/>
+              <input type="hidden" name="area" value="default" />
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container py-3">
+      <div class="row mb-2">
+        <div class="col-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="{{ pathto(master_doc) }}">Start Page</a>
+              </li>
+              {%- for parent in parents %}
+                <li class="breadcrumb-item">
+                  <a href="{{ parent.link|e }}">{{ parent.title }}</a>
+                </li>
+              {%- endfor %}
+              <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+
+      <div class="doc-body row">
+        <div class="col" role="main">
+          {% block body %}
+          {% endblock %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="float-left">
+            {% if prev %}
+              <a class="" href="{{ prev.link|e }}">
+                <i class='fas fa-chevron-left'></i> {{ prev.title }}
+              </a>
+            {% else %}
+              &nbsp;
+            {% endif %}
+          </div>
+
+          <div class="float-right">
+            {% if next %}
+              <a class="" href="{{ next.link|e }}">
+                {{ next.title }} <i class='fas fa-chevron-right'></i>
+              </a>
+            {% else %}
+              &nbsp;
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-footer text-light py-3 mt-auto">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-12 col-md-6">
+          <p>
+            SFTPPlus is a product of Pro:Atria Ltd, operating since 2001.
+          </p>
+        </div>
+        <div class="col-12 col-md-6">
+          <i class='fas fa-envelope'></i>
+          <a href="mailto:contact@proatria.com" class="text-white">
+            contact@proatria.com
+          </a>
+        </div>
+      </div>
+
+      <div class="row text-center text-small mt-2">
+        <div class="col">
+          &copy; 2001 - 2021 Pro:Atria Ltd. Company No: 4213930. All rights
+          reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+  <a href="#" class="btn back-to-top btn-primary btn-round">
+    <i class='fas fa-arrow-up'></i>
+  </a>
+</body>
+</html>
