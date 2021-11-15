@@ -48,8 +48,22 @@
 [context.staging.environment]
   SFTPPLUS_TARGET = "production"
 
+
 [[redirects]]
   from = "/static/*"
   to = "https://www.sftpplus.com/static/:splat"
   status = 301
   force = true
+
+
+[[redirects]]
+  from = "/documentation/sftpplus/versions.js"
+  to = "https://www.sftpplus.com/documentation/sftpplus/versions.js"
+  status = 301
+  force = true
+
+
+[[redirects]]
+  from = "/*"
+  to = "https://www.sftpplus.com/:splat"
+  status = 301
