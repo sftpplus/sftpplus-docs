@@ -6,7 +6,8 @@ docs.sftpplus.com
 
 The documentation for the SFTPPlus product.
 
-To build the documentation you need a Python3 environment::
+To build the documentation you need a Python environment.
+(python3 upgrade soon)::
 
     virtualenv venv
     . venv/bin/activate

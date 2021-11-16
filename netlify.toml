@@ -50,20 +50,43 @@
 
 
 [[redirects]]
+  from = "/documentation/sftpplus/versions.js"
+  to = "https://www.sftpplus.com/documentation/sftpplus/versions.js"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/static/*"
   to = "https://www.sftpplus.com/static/:splat"
   status = 301
   force = true
 
-
 [[redirects]]
-  from = "/documentation/sftpplus/versions.js"
-  to = "https://www.sftpplus.com/documentation/sftpplus/versions.js"
+  from = "/product/*"
+  to = "https://www.sftpplus.com/product/:splat"
   status = 301
-  force = true
-
 
 [[redirects]]
-  from = "/*"
-  to = "https://www.sftpplus.com/:splat"
+  from = "/pricing/*"
+  to = "https://www.sftpplus.com/pricing/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/support/*"
+  to = "https://www.sftpplus.com/support/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/articles/*"
+  to = "https://www.sftpplus.com/articles/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/about/*"
+  to = "https://www.sftpplus.com/about/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/resources/*"
+  to = "https://www.sftpplus.com/resources/:splat"
   status = 301
