@@ -15,7 +15,6 @@ If you are looking to implement bespoken functionality, see the
 
     authentication
     authorization
-    admin-authorization
     pki
     ftp
     sftp

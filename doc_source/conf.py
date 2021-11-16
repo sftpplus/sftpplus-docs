@@ -1,6 +1,8 @@
 
 
-extensions = []
+extensions = [
+    'sphinx.ext.intersphinx',
+    ]
 suppress_warnings = ['toc.secnum']
 source_suffix = '.rst'
 # Ignore included files in root and in child folders from being reported
@@ -15,13 +17,19 @@ intersphinx_mapping = {}
 templates_path = ['../templates']
 html_static_path = ['_static']
 html_theme_path = ['../templates']
-
-html_theme = 'sphinx_rtd_theme'
-
-project = "SFTPPlus"
+html_theme = 'integrated'
+project = "SFTPPlus MFT"
 copyright = "ProAtria Team"
+
+html_context = {
+    'robots': 'all',
+    'canonical_site': 'https://www.sftpplus.com/documentation/sftpplus/latest/',
+}
+
+
 version = "4.15.0"
 release = "4.15.0"
+
 autodoc_default_flags = ['members']
 primary_domain = 'py'
 
@@ -34,3 +42,5 @@ pdf_documents = [(
 pdf_stylesheets = ['sphinx', 'kerning', 'a4']
 pdf_use_toc = False
 pdf_toc_depth = 2
+
+

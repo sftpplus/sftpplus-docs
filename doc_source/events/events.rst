@@ -22036,11 +22036,15 @@ Management and Local Manager Events
 ^^^^^
 
 
-:Message: Administrative operation denied. %(details)s
-:Groups: failure, administration, local-manager
-:From version: 4.15.0
-:To version: None
+:Message: Local manager authentication failed for &#34;%(name)s&#34;. Administrator is not a member of one of the enabled administrations groups.
+:Groups: failure, failure-specific, administration, local-manager
+:From version: 2.1.0
+:To version: 3.37.0
 :Description: None
+:Data:
+  :name: Name of administrator for which authentication failed.
+
+
 
 
 
