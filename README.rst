@@ -19,3 +19,14 @@ To test the docs for any errors and view in a browser::
     sphinx-build -b html -W --keep-going doc_source/ deploy
     python -m http.server -d deploy/
     firefox http://localhost:8000
+
+
+Sync with product development
+-----------------------------
+
+Generate the documentation source and template from the product repository::
+
+    cd chevah-server
+    ./brink.sh documentation_integrated
+    cp -r build-server/docs_source ../sftpplus-docs/
+    cp -r build-server/lib/python/site-packages/sftpplus_website/sphinx ../sftpplus-docs/
