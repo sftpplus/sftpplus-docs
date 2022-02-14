@@ -27,17 +27,12 @@
 
 
 [build.environment]
-  GIT_LFS_ENABLED = "True"
+  GIT_LFS_ENABLED = "true"
   SFTPPLUS_TARGET = "production"
   PYTHON_VERSION = "2.7"
 
-[context.production.environment]
-  SFTPPLUS_TARGET = "production"
-
-
 [context.deploy-preview.environment]
   SFTPPLUS_TARGET = "dev"
-
 
 # Generic rules for any branch.
 [context.branch-deploy.environment]

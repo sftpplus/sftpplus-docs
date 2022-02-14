@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>{{ title|truncate(20) }} | {{ project }} Documentation </title>
+  <title>{{ title }} | {{ project }} Documentation</title>
 
   <meta name="author" content="Pro:Atria Team" />
   <meta name="coypright" content="SFTPPlus Team" />
@@ -92,7 +92,7 @@
       </div>
 
       <div class="doc-body row">
-        <div class="col-12">
+        <div class="col" role="main">
           {% block body %}
           {% endblock %}
         </div>

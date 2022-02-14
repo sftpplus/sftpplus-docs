@@ -2,6 +2,11 @@
 {%- extends "base.html" %}
 
 {% block extrahead %}
+  <meta class="swiftype" name="title" data-type="string" content="{{ title }}" />
+
+  <meta name="robots" content="{{ robots }}" />
+  <link rel="canonical" href="{{ canonical_site }}{{ pagename }}{{ file_suffix }}" />
+
   {%- set url_root = pathto('', 1) %}
   {%- if url_root == '#' %}{% set url_root = '' %}{% endif %}
   <script type="text/javascript" id="documentation_options" data-url_root="{{ url_root }}" src="{{ pathto('_static/documentation_options.js', 1) }}"></script>
@@ -12,12 +17,11 @@
 {% endblock %}
 
 {% block head_title %}
-  {{ title|truncate(20) }} | {{ project }} Documentation |
-  Server and Client secure file transfer software for SFTP, FTP, FTPS, and HTTPS. Enterprise data MFT across Windows, Linux, macOS, and containers.
+  {{ title }} | {{ project }} Documentation
 {% endblock %}
 
 {% block header %}
-<div class="col-lg-8 col-md-12 d-md-flex flex-md-row">
+<div class="col-lg-8 col-md-12 d-md-flex flex-md-row" data-swiftype-index="false">
   <h1 class="mb-2 mb-lg-0 mr-2">Documentation</h1>
   <div class="dropdown mb-2 mb-lg-0">
     <a class="btn btn-outline-light dropdown-toggle" href="#"
@@ -52,7 +56,15 @@
 {% endblock %}
 
 {%- block content %}
-<div class="container py-3 sphinx-content">
+{#
+We don't want to add index pages to the search engines.
+The search should go to the page it itself and not to the index page listing
+the page and its siblings.
+#}
+{%- set is_searchable_content = 'true' %}
+{%- if pagename.endswith('index') %}{% set is_searchable_content = 'false' %}{% endif %}
+
+<div class="container py-3 sphinx-content" data-swiftype-index="false">
   <div class="row mb-2">
     <div class="col-12">
       <nav aria-label="breadcrumb">
@@ -73,7 +85,7 @@
     </div>
   </div>
 
-  <div class="doc-body row mb-2" data-swiftype-index="true">
+  <div class="doc-body row mb-2" data-swiftype-index="{{is_searchable_content}}">
     <div class="col-12">
       {% block body %}
       {% endblock %}

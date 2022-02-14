@@ -4,25 +4,16 @@
 <head>
   <meta charset="utf-8" />
   <title>
-
-    {%- block head_title %}{%- endblock head_title %}
-  </title>
-
-  <meta class="swiftype" name="title" data-type="string" content="Documentation Template" />
-
-  <!-- HTML4 support to disable cache -->
-  <meta http-equiv="expires" content="0">
-  <meta http-equiv="pragma" content="no-cache" >
+{%- block head_title %}{%- endblock head_title %}  </title>
 
   <meta name="author" content="Pro:Atria Team" />
-  <meta name="description" content="SFTPPlus provides on-premise server and client cross platform solutions for encrypted managed file transfer using SFTP/FTPS/HTTPS protocols. Enterprise secure data transfer with additional audit and automation for regulatory & corporate compliance across multi platforms including Windows, Linux and macOS." />
+  <meta name="description" content="SFTPPlus provides on-premise and cloud server and client cross platform solutions for encrypted managed file transfer using SFTP/FTPS/HTTPS protocols. Enterprise secure data transfers with additional audit and automation for regulatory & corporate compliance across multi platforms including Windows, Linux and macOS." />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="revisit-after" content="7 days" />
-  <meta name="google-site-verification" content="JPHLZnJXoSKWmypWLju66P-qVO4vekjZcaE-F2ppX30" />
 
   <meta name="rating" content="general" />
-  <meta name="robots" content="all" />
+
 
   <link rel="icon" href="/static/svg/favicon.svg" type="image/svg" />
   <link rel="shortcut" href="/static/images/favicon.ico" type="image/x-icon" />
@@ -31,60 +22,11 @@
 
   <link rel="alternate" hreflang="en" href="/placeholders/sphinx.html" />
 
-<script type="text/javascript">
-  function loadScript(url) {
-    var element = document.createElement('script');
-    element.type = 'text/javascript';
-    element.async = true;
-    element.src = url;
 
-    var first_script = document.getElementsByTagName('script')[0];
-    first_script.parentNode.appendChild(element);
-  };
-
-  function queryParam(name) {
-    var reg = new RegExp('[\?&]' + name + '=([^&#]*)');
-    var results = reg.exec(window.location.search);
-
-    if (results != null) {
-      return results[1] || 0;
-    }
-  };
-
-  function executeCommand(name, value) {
-    if(name === 'loadScript') {
-      loadScript(value);
-    }
-  };
-
-  window['SwiftypeObject'] = '_st';
-  window[window['SwiftypeObject']] = executeCommand;
-
-  document.addEventListener('DOMContentLoaded', function(event) {
-    window.Swiftype || (window.Swiftype = {});
-    window.Swiftype.disableAutocomplete = true;
-
-    var keyword = queryParam('srch-term');
-
-    if(keyword) {
-      window.location.replace(window.location.pathname + '#stq=' + keyword);
-    }
-  });
-</script>
-<script src="https://s.swiftypecdn.com/install/c/widget.js?install=yVWmzFqLRsyhwkdAY3zM"></script>
-<style>
-  .st-search-bar, .st-logo-header, .st-logo-footer { display: none }
-  .st-result-listing * { font-weight: normal; }
-  .st-result { padding: 10px 0 25px; border-bottom: 1px dotted #EEE; }
-  .st-result-text a, .st-pagination a { color: #428bca; }
-  .st-result-image { float: right; padding: 15px 0 0 10px; }
-  .st-pagination { text-align: center; padding-top: 20px; }
-  .st-pagination a { text-decoration: none; font-size: 130%; padding: 0 20px; }
-  .st-snippet em { font-style: normal; font-weight: bold; background: #EEE; }
-</style>
 
     {%- block head %}{%- endblock head %}
     {%- block extrahead %}{%- endblock extrahead %}
+
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -122,7 +64,6 @@
       </div>
     </nav>
   </div>
-
 
   <main aria-label="Content" data-swiftype-index="true">
   <div class="container-fluid bg-primary-2 text-light">
@@ -178,7 +119,7 @@
         </form>
 
         <p>
-          SFTPPlus is a product of Pro:Atria Ltd,
+          SFTPPlus MFT is a product of Pro:Atria Ltd,
           operating since 2001.
         </p>
 
@@ -288,5 +229,6 @@
 
 <script async defer data-domain="www.sftpplus.com" src="https://www.sftpplus.com/p.js"></script>
   <script src="/static/js/production_v4.js"></script>
+  <script src="https://s.swiftypecdn.com/install/c/widget.js?install=yVWmzFqLRsyhwkdAY3zM" type="text/javascript"></script>
 </body>
 </html>
