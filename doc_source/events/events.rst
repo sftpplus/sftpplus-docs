@@ -623,6 +623,12 @@ Generic and server-side common functionality
 
 
 
+
+
+
+
+
+
 20000
 ^^^^^
 
@@ -3591,7 +3597,10 @@ Generic and server-side common functionality
   :credentials_type: Type of the accepted credentials.
 
 
-  :group_name: Name of the group/role associated to this account. (Since 3.38.0)
+  :group_name: Comma separated text with name of the group/role associated to this account. (Since 3.38.0)
+
+
+  :group_names: List with name of the group/role associated to this account. (Since 4.16.0)
 
 
   :method_name: Name of the method used for authentication.
@@ -4494,7 +4503,7 @@ Generic and server-side common functionality
 ^^^^^
 
 
-:Message: Failed to handle event %(id)s by &#34;%(name)s&#34;. %(details)s
+:Message: Failed to handle event %(id)s by &#34;%(name)s&#34; for &#34;%(target_path)s&#34;. %(details)s
 :Groups: failure, failure-high, authenticated
 :From version: 2.10.0
 :To version: None
@@ -4507,6 +4516,9 @@ Generic and server-side common functionality
 
 
   :name: Name of the event handler that failed.
+
+
+  :target_path: Path to a file associated with the failed event handling.
 
 
 
@@ -4857,6 +4869,31 @@ Generic and server-side common functionality
 
 
   :real_path: Path to the source file which was handled.
+
+
+
+
+
+
+
+
+
+
+
+20189
+^^^^^
+
+
+:Message: HTTP POST notification for event %(event_id)s successful for &#34;%(target_path)s&#34;.
+:Groups: process, informational, operational
+:From version: 4.16.0
+:To version: None
+:Description: None
+:Data:
+  :event_id: The original event ID for which this was requested.
+
+
+  :target_path: Path to a file associated with the HTTP post.
 
 
 
@@ -8057,6 +8094,24 @@ FTP protocol
 
 
 
+10089
+^^^^^
+
+
+:Message: Failed to initiate FTP session. %(details)s
+:Groups: failure, authenticated, ftp
+:From version: 4.16.0
+:To version: None
+:Description: None
+
+
+
+
+
+
+
+
+
 10090
 ^^^^^
 
@@ -8341,6 +8396,12 @@ FTP protocol
 
 
   :encryption: The cipher suite used to protect the command channel.
+
+
+
+
+
+
 
 
 
@@ -12614,6 +12675,18 @@ SSH protocol
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 30004
 ^^^^^
 
@@ -13684,8 +13757,8 @@ SSH protocol
 ^^^^^
 
 
-:Message: Client SSH connection time out.
-:Groups: failure, failure-specific, authenticated, ssh
+:Message: Closing the SSH connection. %(details)s
+:Groups: failure, authenticated, ssh
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -14165,7 +14238,7 @@ SSH protocol
 ^^^^^
 
 
-:Message: Connection to SSH server was lost for location %(name)s. Protected using host-key:%(host_key)s key-exchange:%(key_exchange)s in-hmac:%(in_hmac)s in-cipher:%(in_cipher)s out-hmac:%(out_hmac)s out-cipher:%(out_cipher)s
+:Message: Connection to SSH server &#34;%(server_version)s&#34; was lost for location %(name)s. Protected using host-key:%(host_key)s key-exchange:%(key_exchange)s in-hmac:%(in_hmac)s in-cipher:%(in_cipher)s out-hmac:%(out_hmac)s out-cipher:%(out_cipher)s
 :Groups: client-side, session, informational, ssh
 :From version: 3.0.0
 :To version: None
@@ -14190,6 +14263,9 @@ SSH protocol
 
 
   :out_hmac: Hash-based message authentication code for sent data.
+
+
+  :server_version: The SSH product detected on the server.
 
 
 
@@ -15385,6 +15461,18 @@ SSH protocol
 
 HTTP/HTTPS protocol
 ===================
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -21838,6 +21926,18 @@ Management and Local Manager Events
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 50000
 ^^^^^
 
@@ -22036,15 +22136,11 @@ Management and Local Manager Events
 ^^^^^
 
 
-:Message: Local manager authentication failed for &#34;%(name)s&#34;. Administrator is not a member of one of the enabled administrations groups.
-:Groups: failure, failure-specific, administration, local-manager
-:From version: 2.1.0
-:To version: 3.37.0
+:Message: Administrative operation denied. %(details)s
+:Groups: failure, administration, local-manager
+:From version: 4.15.0
+:To version: None
 :Description: None
-:Data:
-  :name: Name of administrator for which authentication failed.
-
-
 
 
 
@@ -22956,6 +23052,18 @@ Management and Local Manager Events
 
 Transfer and client-side functionality
 ======================================
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

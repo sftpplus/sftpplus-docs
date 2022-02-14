@@ -67,6 +67,8 @@ you could use this configuration example::
     type = http
     http_content_type = json
 
+    timeout = 30
+
     target = 1345, 2456
     usernames = mary, john
 
@@ -634,6 +636,19 @@ url
     Since 3.51.0.
 
 
+timeout
+^^^^^^^
+
+:Default value: `120`
+:Optional: Yes
+:Values: * Number of seconds.
+:From version: 4.16.0
+:Description:
+    Duration, in seconds, to wait for a response from the HTTP server.
+
+    If a response is not received during this period, the event handling fails.
+
+
 retry_count
 ^^^^^^^^^^^
 
@@ -841,7 +856,7 @@ reconnect and will not handle any event until the connection is established.
 url
 ^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 3.8.0
 :Values: * `file://some-relative/path`
@@ -966,9 +981,9 @@ email_bcc
 email_associated_files
 ^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
-:Values: * `Disabled`.
+:Values: * Empty
          * `attachment`.
 :From version: 3.18.0
 :Description:
@@ -980,7 +995,7 @@ email_associated_files
     If the file can't be attached or is larger than 5MB, then the email is
     not sent and an audit event is created for this failure.
 
-    When set to `Disabled`, an email is sent without an attachment.
+    When set to the empty value, an email is sent without an attachment.
 
 
 email_subject
@@ -1052,6 +1067,7 @@ dispatch_rules
     * `delete`
     * `copy`
     * `execute`
+    * `ignore`
 
     Second value is the the full path matching expression. `Globbing expression
     <http://en.wikipedia.org/wiki/Glob_%28programming%29>`_ or
@@ -1256,10 +1272,10 @@ overwrite_rule
 create_destination_folder
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :Values: * `parent`
-         * `Disabled`
+         * Empty
 :From version: 3.31.0
 :Description:
     This configuration can be used to instruct SFTPPlus to create the
@@ -1269,7 +1285,7 @@ create_destination_folder
 
     Set it to `parent` to create the parent directory of the destination file.
 
-    Set it to `Disable` to not have the destination automatically created and
+    Leave it empty to not have the destination automatically created and
     fail when destination does not exist.
 
 

@@ -4,7 +4,7 @@ Standards, Compliance, Obligation and Certification
 This section includes various stand-alone articles which document the
 server and client side compliance with various standards and obligations.
 
-.. toctree::
+..  toctree::
     :maxdepth: 1
 
     cryptography
@@ -13,3 +13,4 @@ server and client side compliance with various standards and obligations.
     iso27001
     hipaa-hitech
     gpg13
+    protocols

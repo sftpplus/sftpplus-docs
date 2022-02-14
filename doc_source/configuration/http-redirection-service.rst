@@ -33,7 +33,7 @@ Below you can find the list of available configuration options.
 redirect_url
 ^^^^^^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: No
 :Values: * Absolute URL
 :From version: 3.52.0
@@ -45,7 +45,7 @@ redirect_url
 headers
 ^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: Yes
 :Values: * Single header with name and value.
          * Multiple headers, each header on a separate line.
@@ -61,7 +61,7 @@ headers
 accepted_origins
 ^^^^^^^^^^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: Yes
 :Values: * Comma-separated values of fully qualified domain names.
          * Comma-separated pairs of FQDN:PORT values.

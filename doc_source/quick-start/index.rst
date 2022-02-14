@@ -5,11 +5,11 @@ The following pages are a high level introduction to the main components and
 concepts used by SFTPPlus.
 
 
-.. toctree::
+..  toctree::
     :titlesonly:
     :numbered:
     :maxdepth: 2
 
-    getting-started
+    on-windows
+    on-linux
     local-manager
-    protocols

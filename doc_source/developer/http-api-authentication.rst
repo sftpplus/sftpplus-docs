@@ -1,5 +1,5 @@
-HTTP API Authentication
-=======================
+HTTP API User Authentication and Configuration
+==============================================
 
 ..  contents:: :local:
 
@@ -7,9 +7,13 @@ HTTP API Authentication
 Introduction
 ------------
 
-The HTTP authentication will make a single client-side POST request
-for each time the client credentials needs to be validated.
-It will use the HTTP response to decide on the outcome of the validation.
+The SFTPPlus HTTP API authentication method will make a single client-side
+POST request each time the client credentials needs to be validated.
+It will use the HTTP response to decide on the outcome of the validation
+and the configuration used for an authenticated user.
+
+The HTTP API works as a back-end process and can be used for authenticating
+accounts for other protocols, like SFTP or HTTPS.
 
 The remote server can reply in 3 major ways:
 
@@ -125,18 +129,24 @@ The expected request in JSON is::
 Success Response (204 / 200)
 ----------------------------
 
-For a successful authentication, the server should respond with HTTP code
-`204`::
+In the simplest form,
+for a successful authentication the server should respond with
+HTTP code `204`::
 
     Status: 204 Authenticated
 
-The response can also include an optional body containing account configuration.
+This will accept the authentication request and will use the **default group**
+configuration for the authenticated user.
 
-In this case, the response should be `200`::
+The response can also include an optional body containing the specific
+configuration for the authenticated user.
+
+In this case, the response code should be `200`::
 
     Status: 200 OK
 
-The expected response body in JSON is::
+The expected response body is a JSON object with keys and values for each
+configuration option::
 
     {
       "account": {

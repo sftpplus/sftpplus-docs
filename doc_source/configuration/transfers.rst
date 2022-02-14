@@ -143,7 +143,7 @@ delete_source_parent_delay
 source_filter_age
 ^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 3.51.0
 :Values: * Number of seconds
@@ -213,7 +213,7 @@ destination_uuid
 destination_path
 ^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :Values: * Absolute path on local file system.
          * Relative path to server installation folder.
@@ -346,12 +346,13 @@ execute_timeout
 execute_before
 ^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 2.7.0
 :Values:
     * Path to local script or executable to call before a file is
       transferred.
+    * Empty
 :Description:
     The executable is called with the full path to the file that is about to
     be transferred.
@@ -386,16 +387,19 @@ execute_before
     ..  note::
         Remote to remote transfers are not supported.
 
+    Leave it empty to not execute any command before a transfer.
+
 
 execute_after_success
 ^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 2.9.0
 :Values:
     * Path to local script or executable to call after a file is
       successfully transferred.
+    * Empty
 :Description:
     Please see the description of the `execute_before` configuration option.
 
@@ -408,12 +412,13 @@ execute_after_success
 execute_after_failure
 ^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 2.9.0
 :Values:
     * Path to local script or executable to call after a file fails to be
       transferred.
+    * Empty
 :Description:
     Please see the description of the `execute_before` configuration option.
 
@@ -427,11 +432,12 @@ execute_after_failure
 execute_on_destination_before
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 3.0.0
 :Values:
     * List of commands to be executed in the destination location.
+    * Empty
 :Description:
     Before starting the transfer of a file or a batch,
     execute in the destination location the list of configured commands.
@@ -465,11 +471,12 @@ execute_on_destination_before
 execute_on_destination_after_success
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 3.0.0
 :Values:
     * List of commands to be executed in the destination location.
+    * Empty
 :Description:
     See description of the `execute_on_destination_before` configuration
     option.
@@ -481,11 +488,12 @@ execute_on_destination_after_success
 execute_on_destination_after_failure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 3.0.0
 :Values:
     * List of commands to call after a file fails to be transferred.
+    * Empty
 :Description:
     See description of the `execute_on_destination_before` configuration
     option.
@@ -496,17 +504,17 @@ execute_on_destination_after_failure
 archive_success_path
 ^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 3.0.0
 :Values:
     * Path on the local filesystem.
-    * `Disabled`
+    * Empty
 :Description:
     Path to a folder in the local file system used to keep a copy of
     successfully transferred files.
 
-    To disable archiving, leave this option empty, or set it to `Disabled`.
+    To disable archiving, leave this option empty.
 
     To prevent overwriting previous files, new files are copied to the archive
     folder with timestamps inserted in their names.
@@ -531,17 +539,17 @@ archive_success_path
 archive_failure_path
 ^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 3.0.0
 :Values:
     * Path in the local file system.
-    * `Disabled`
+    * Empty
 :Description:
     Path to local folder in the local file system used to keep a copy of
     unsuccessful started file transfers.
 
-    To disable archiving, leave this option empty, or set it to `Disabled`.
+    To disable archiving, leave this option empty.
 
     When `execute_before` or `execute_on_destination_before` commands fail,
     the file transfer is not considered started, and the archiving stage is

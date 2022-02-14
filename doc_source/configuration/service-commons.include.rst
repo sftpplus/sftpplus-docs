@@ -5,7 +5,6 @@ idle_connection_timeout
 :Optional: Yes
 :Values: * Number of seconds after which idle connections are disconnected.
          * `0` - To disable timeouts.
-         * `Disabled` - To disable timeouts.
 :From version: 1.7.19
 :To version: None
 :Description:
@@ -20,7 +19,6 @@ maximum_concurrent_connections
 :Optional: Yes
 :Values: * Number of maximum concurrent connections accepted by the service.
          * `0` - To disable the limit.
-         * `Disabled` - To disable the limit.
 :From version: 1.7.19
 :To version: None
 :Description:

@@ -1,7 +1,7 @@
 source_path
 ^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :Values: * Absolute path on the local file system.
          * Relative path to the server installation folder.
@@ -56,12 +56,11 @@ stable_interval
 source_filter
 ^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 2.10.0
 :Values: * `Globbing expression containing wildcard characters`.
          * `Regular expression`
-         * `Disabled`
          * Empty
 :Description:
     `Globbing expression
@@ -73,9 +72,15 @@ source_filter
 
     Only files matching the expression will be transferred.
 
-    A globing expression can contain multiple filemask filtering rules,
+    A globbing expression can contain multiple filemask filtering rules,
     separated by the pipe character `|`.
 
-    Only file names are filtered, all folder names will be transferred.
+    If a globbing expressions doesn't include path separators, it only
+    matches the file name. The parent path is ignored.
 
-    Leave it empty or set it to `Disabled` to transfer all files.
+    When using regular expressions, only file names are matched.
+
+    Leave it empty to transfer all files.
+
+    Since 4.16.0, the globbing expression can be used to filter based on
+    the full file path, not only on the file name part.

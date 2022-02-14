@@ -21,6 +21,11 @@ Roles
 The roles represent a collection of permissions for Local Manager
 administrators that can be individually turned on and off.
 
+An administrator can have one or more roles.
+
+An administrator must have at least one role.
+The first associated role is considered the primary one.
+
 Roles can also be associated to operating system groups.
 In this way, you can allow access for administrators defined in operating
 system groups, e.g. using a Domain Controller or other centralized identity
@@ -127,12 +132,13 @@ enabled
 :Values: * `Yes`
          * `No`
 :Description:
-    This option specifies whether or not to disable access for all
-    administrators.
+    This option specifies whether or not this role is disabled.
 
-    ..  note::
-        If the administrator is disabled, Local Manager will show an
-        authentication failed message if login is attempted.
+    When a role is disabled, the authentication is denied to all
+    administrators having the disabled role as the primary one.
+
+    If a disabled role is not the primary one, its configuration
+    is ignored.
 
 
 name
@@ -161,7 +167,7 @@ description
 source_ip_filter
 ^^^^^^^^^^^^^^^^
 
-:Default value: `Empty`
+:Default value: Empty
 :Optional: Yes
 :From version: 4.14.0
 :Values: * IPv4 address
@@ -175,6 +181,88 @@ source_ip_filter
     administrators in this role are allowed to authenticate.
 
     Leave empty to allow any IP address.
+
+
+permissions
+^^^^^^^^^^^
+
+:Default value: `*, all`
+:Optional: Yes
+:From version: 4.15.0
+:Values: * Multiple lines of comma-separated definitions of permissions
+         * target-rule, comma, separated, actions
+:Description:
+    This defines the permissions available to administrators associated to
+    this role.
+
+    If the role is disabled, its permissions are not applied to an
+    administrator associated with it.
+
+    When this option is empty, the role has full access.
+
+    The option is defined as a list of one or more definitions of permissions,
+    with one definition per line.
+
+    A definition of permissions is a comma-separated list of values.
+    The first value is an expression defining the targeted elements of the
+    permissions.
+    The remaining values are the actions allowed to be performed on the
+    targeted elements.
+
+    The following element target classes are available:
+
+    * `configuration` - includes all the configuration elements
+    * `sync_pull` - allows reading full configuration by a secondary instance
+      for synchronization.
+
+    The following actions are available:
+
+    * `all` - allow any action
+    * `read` - allow reading the current configuration value or the state of a
+      component
+    * `update` - allow modifying / updating the value of a configuration or
+      the state (start/stop) of a component
+    * `create` - allow creating new configuration values
+    * `delete` - allow removing existing configuration values
+    * `deny` - this is a special value designed for complex scenarios
+      and which will deny any action and stop processing any other rules.
+      Most of the time you will not need to use it as the `deny` action is
+      applied by default for any target.
+
+    If no actions are defined for a definition, the `all` action is used by
+    default.
+
+    Once a target reaches the `deny` action the operation is denied
+    and no further rules are checked.
+    It takes precedence over any other configured action.
+
+    When the `all` action is configured together with other actions like
+    `create` or `update`, they are ignored and only the `all` action is used.
+
+    To allow an action, it must be matched with an explicit permission rule.
+
+    The order of the rules doesn't matter,
+    unless your configuration contains a rule using the `deny` action.
+
+    The rules are checked from top to bottom.
+    If an action is not explicitly allowed by permissions rule,
+    the process continues to check following defined permissions rules.
+
+    For example, to create a role in which administrators are
+    allowed to read/view the full configuration,
+    modify the existing groups,
+    and create and delete accounts,
+    you can use the following configuration::
+
+        [roles/70c0-4e1d-8480]
+        name = users-admin
+        permissions =
+          configuration, read
+          configuration/identity/accounts, create, delete, update
+          configuration/identity/groups, create, update
+
+    More information and examples are available on the
+    :doc:`Administrators authorization </operation/admin-authorization>` page.
 
 
 Options for administrators
@@ -232,11 +320,11 @@ description
 password
 ^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 2.1.0
 :Values: * Password encrypted using a one-way cryptographic hash function.
-         * `Disabled` or empty field.
+         * Empty.
 :Description:
     This option specifies the password used for validating the
     credentials for this administrator.
@@ -246,7 +334,7 @@ password
     To get the hashed password please check how to :ref:`generate encrypted
     passwords using admin-commands <generate-encrypted-password>`.
 
-    When the password is set to `Disabled` or left blank, the administrator
+    When the password left empty, the administrator
     will not be able to authenticate, even if the `enabled` option is set to
     `yes`.
 
@@ -291,12 +379,22 @@ multi_factor_authentication
     :doc:`cryptography guide </standards/cryptography>` page.
 
 
-role
-^^^^
+roles
+^^^^^
 
 :Default value: `DEFAULT-ROLE`
 :Optional: No
-:From version: 2.1.0
-:Values: * UUID for the role associated with this administrator.
+:From version: 4.16.0
+:Values: * UUID of a role.
+         * Comma-separated UUID of roles
 :Description:
-    Human-readable short string used to identify this role.
+    This option defines the roles associated with this administrator.
+
+    It can be configured with one or multiple role UUIDs.
+
+    The first UUID is the primary role of this administrator.
+
+    Updating this configuration doesn't impact the sessions of
+    already authenticated administrators, which continue to use
+    the old configuration value.
+    The new value is only used for new authentications.

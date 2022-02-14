@@ -229,6 +229,39 @@ you can use the following configuration::
     search_filter = (memberOf=file-transfer)
 
 
+Restrict access to a set of organizational units (OU) or LDAP sub-trees
+=======================================================================
+
+The authentication can be configured with multiple base DNs that are used
+when searching to authentication an account.
+
+For example, if you have multiple organizational unit and only want to
+allow access for users from the ``IT-Ops`` or ``Accounting`` units,
+the authentication can be configured as below::
+
+    [authentications/f691a41b-0eca-4135-8369-5b9f2600ebd6]
+    bind_dn_type = direct-username
+    bind_dn =
+      ou=IT-Ops,cn=Users,dc=ad,dc=example,dc=com
+      ou=Accounting,cn=Users,dc=ad,dc=example,dc=com
+    username_attribute = userPrincipalName
+
+SFTPPlus will first try to authenticate the account based on ``IT-Ops``.
+If the account is found in ``IT-Ops`` the authentication process stops with
+a successful result.
+If the account is not in that unit, it will continue to search in
+``Accounting``.
+When the account is not found in any of the organizational unit,
+the authentication fails.
+
+..  note::
+    When multiple values are set for `bind_dn`,
+    in the case of an authentication error, you will only see the error
+    generated using the last configured `bind_dn`.
+    To troubleshoot an authentication issue, temporarily configure a single
+    `bind_dn` value.
+
+
 Advanced configuration for home directory path
 ==============================================
 
@@ -276,6 +309,11 @@ For example, to only allow access to users from the
 
     [authentications/f691a41b-0eca-4135-8369-5b9f2600ebd6]
     manager_search_filter = (memberOf=file-transfer-admins)
+
+All administrators authenticated using the LDAP method are associated to the
+default role.
+Contact us if you need to associate LDAP administrators with one or multiple
+arbitrary roles.
 
 
 SFTPPlus Group Mapping without extra LDAP attributes
@@ -412,7 +450,8 @@ The LDAP server processes the provided username and password/code combination,
 separating the actual password from the ephemeral TOTP code appended to it.
 
 ..  note::
-    You don't need to use the `multi_factor_authentication_attribute`
+    You don't need to use the SFTPPlus LDAP MFA extension via the
+    `extension_entry_point = python:chevah.server.extension.ldap_mfa.AugmentedTOTP`
     configuration option in this scenario.
 
 
@@ -444,7 +483,7 @@ Your LDAP server should handle the username + password authentication,
 then SFTPPlus continues the authentication process to validate the
 TOTP code.
 
-.. note::
+..  note::
     The scenario described in this section only implements TOTP for
     SFTPPlus' authentication.
     It doesn't add TOTP support to your LDAP server.
@@ -463,7 +502,27 @@ The SFTPPlus Authentication method can then configured as follows::
     type = ldap
     name = Authenticate from LDAP
 
-    multi_factor_authentication_attribute = totpSharedSecret
+    extension_entry_point = python:chevah.server.extension.ldap_mfa.AugmentedTOTP
+    extension_configuration = {
+        "mfa_attribute": "totpSharedSecret"
+        }
+
+`mfa_attribute` is the name of the LDAP attribute used to store the
+multi-factor authentication parameters for SFTPPlus users.
+The configuration above indicates that the MFA parameter for an SFTPPlus user
+is stored in an LDAP attribute named ``totpSharedSecret``.
+
+When
+`extension_entry_point = python:chevah.server.extension.ldap_mfa.AugmentedTOTP`
+is defined,
+MFA authentication is enforced by SFTPPlus for all LDAP users.
+
+For now, only the TOTP MFA method is supported.
+Values stored in LDAP for this attribute should use the
+Google Authenticator Key URI format.
+For example, an LDIF value to be stored by the LDAP server::
+
+    totpSharedSecret: otpauth://totp/FSrv:admin?secret=PRIVATE&issuer=FSrv
 
 An example of LDIF data for a user's entry on the LDAP server::
 

@@ -1,7 +1,7 @@
 Installation and Upgrade Instructions
 =====================================
 
-.. toctree::
+..  toctree::
     :maxdepth: 1
 
     requirements

@@ -10,11 +10,12 @@ If you are looking to implement bespoken functionality, see the
 :doc:`Developers documentation
 </developer/index>`.
 
-.. toctree::
+..  toctree::
     :maxdepth: 1
 
     authentication
     authorization
+    admin-authorization
     pki
     ftp
     sftp

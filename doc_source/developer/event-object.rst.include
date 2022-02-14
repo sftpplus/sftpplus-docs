@@ -1,35 +1,9 @@
 ..  This file is included in multiple places where we need to document the
 ..  event object
 
-The overall structure of the event object is::
+The overall structure of the event object is presented below.
 
-    id
-    message
-    timestamp:
-        cwa_14051
-        iso_8601
-        iso_8601_local
-        iso_8601_fractional
-        iso_8601_basic
-        iso_8601_compact
-        timestamp
-    account:
-        name
-        uuid
-        peer:
-            address
-            port
-            protocol
-            family
-    component:
-        name
-        uuid
-        type
-    server:
-        uuid
-        name
-    data_json
-    data
+..  include:: /configuration/event-context-variables.rst.include
 
 The members of `data` are specific to each event.
 See :doc:`Events page</events/index>` for more details regarding the

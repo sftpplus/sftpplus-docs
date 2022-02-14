@@ -129,12 +129,12 @@ username
 :Optional: Yes
 :Default value: ''
 :Values: * text
-         * `empty`
+         * empty
 :From version: 3.4.0
 :Description:
     Username used to connect to the server.
 
-    Leave it `empty` to disable SMTP authentication.
+    Leave it empty to disable SMTP authentication.
 
 
 password
@@ -164,7 +164,7 @@ email_from_address
 
     You can specify just an email address or a name and email address.
 
-    .. note::
+    ..  note::
         While you can configure any email address, including one which doesn't
         exist, it is recommended to set up a real email address.
 
@@ -343,7 +343,7 @@ contact_email
 redirect_url
 ^^^^^^^^^^^^
 
-:Default value: `empty`
+:Default value: empty
 :Optional: Yes
 :Values: * Absolute URL
 :From version: 3.52.0

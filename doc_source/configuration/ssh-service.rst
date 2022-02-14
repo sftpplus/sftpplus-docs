@@ -140,11 +140,11 @@ In text file configuration, the path can contain the `${USER}` value::
 When ``john`` is authenticated, the server will seek out the authorized SSH
 keys file ``/home/john/.ssh/authorized_keys/``.
 
-To disable SSH key-based authentication, set this value to `Disabled`,
+To disable SSH key-based authentication leave this value empty,
 as in the example below::
 
     [groups/DEFAULT_GROUP]
-    ssh_authorized_keys_path = Disabled
+    ssh_authorized_keys_path =
 
 
 Configuration options
@@ -237,7 +237,7 @@ ssh_host_private_keys
 rsa_private_key_password
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :Values: * Password for the RSA private key as text.
 :From version: 1.7.19
@@ -252,7 +252,7 @@ rsa_private_key_password
 dsa_private_key_password
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :Values: * Password for the DSA private key as text.
 :From version: 1.7.19

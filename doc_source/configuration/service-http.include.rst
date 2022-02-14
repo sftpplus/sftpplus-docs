@@ -1,7 +1,7 @@
 headers
 ^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: Yes
 :Values: * Single header with a name and at least one value.
          * Multiple headers, each header on a separate line.
@@ -37,7 +37,7 @@ headers
 accepted_origins
 ^^^^^^^^^^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: Yes
 :Values: * Comma-separated values of fully qualified domain names.
          * Comma-separated pairs of FQDN:PORT values.
@@ -61,7 +61,7 @@ accepted_origins
 client_forwarded_header
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: Yes
 :Values: * empty.
          * `Forwarded`.

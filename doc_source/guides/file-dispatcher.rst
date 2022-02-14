@@ -505,6 +505,26 @@ The `delete` action will delete the source path.
 It does not require any configured destinations.
 
 
+Ignore Operation Action
+=======================
+
+The `ignore` action will not perform any action on the path.
+It does not require any configured destinations.
+
+This action can be used to implement exceptions from a more generic rule
+that might be configured in the same event handler.
+
+
+For example, to have any XML file moved to another directory, with the
+exception of XML files starting with `test-` you can use
+something similar to following configuration::
+
+    [event-handlers/f040be6a-e158]
+    dispatch_rules =
+        ignore, /import/test-*.xml
+        move, /inbox/*.xml, /srv/db-app/import
+
+
 Execute Action
 ==============
 

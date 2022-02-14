@@ -132,11 +132,10 @@ active_source_port
 passive_address
 ^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :Values: * ``1.2.3.4``
-         * `Disabled` to automatically detect server address.
-         * Leave empty to automatically detect server address.
+         * Empty.
 :From version: 2.9.0
 :Description:
     IP address advertised by the FTP service in the passive PASV request.

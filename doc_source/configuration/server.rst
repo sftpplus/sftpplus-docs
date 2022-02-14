@@ -110,16 +110,15 @@ account
 :Default value: ``sftpplus``
 :Optional: Yes
 :Values: * A user under which the server will operate.
-         * `Disabled` - if the server should use the same user as the one
-           used to launch the server process.
+         * Empty
 :From version: 1.6.0
 :To version: None
 :Description:
     This is a system account used by the server to run its main operations with
     restricted privileges on Unix-like systems.
 
-    To disable running the server under a dedicated account, set this value
-    to `Disabled`.
+    To disable running the server under a dedicated account leave this
+    value empty.
 
 ..  note::
     This option is ignored on Windows systems, where the server will operate
@@ -295,7 +294,7 @@ ssl_certificate
 :Values: * Absolute path on the local filesystem.
          * Certificate in PEM text format.
          * Certificate in PKCS12 / PXF binary format.
-         * `Disabled`
+         * Empty
 :From version: 1.6.0
 :To version: None
 :Description:

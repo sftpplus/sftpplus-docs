@@ -1,7 +1,7 @@
 Accounts Authorization
 ######################
 
-.. contents:: :local:
+..  contents:: :local:
 
 
 Introduction

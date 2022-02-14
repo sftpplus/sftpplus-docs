@@ -44,7 +44,6 @@ created with the name `os_file_transfer`, and the specific OS account
     enabled = Yes
     type = group
     home_folder_path = ${OS_HOME}
-    ssh_authorized_keys_path = Disabled
     allow_certificate_authentication = No
 
     [accounts/df3b699a-1122-4257-aabe-437e21f37a14]

@@ -8,7 +8,7 @@ The managed file transfer functionality can be used by both
 client and server operations.
 
 
-.. toctree::
+..  toctree::
     :maxdepth: 1
 
     general

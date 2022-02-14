@@ -7,6 +7,146 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.16.0, 2022-02-10
+--------------------------
+
+This release includes a security fix for a denial of service of
+moderate severity affecting the SFTP and the SCP server-side protocols.
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure a role to restrict read access to parts of
+  the configuration for associated administrators. [manager][security] [#1164]
+* The LDAP authentication method provides a Python-based API for augmenting the
+  configuration for an account, after the account was successfully
+  authenticated. [server-side] [#1886]
+* You can now configure roles for restricting associated administrators, making
+  it possible to only allow certain operations. [manager][security] [#3397]
+* You can now associate an administrator with more than one role. [management]
+  [#3398]
+* You can now configure LDAP authentications to search in multiple base DNs.
+  [server-side][authentication] [#3631]
+* You can now configure a timeout for the requests made by the HTTP event
+  handler. [server-side][http] [#3779]
+* You can now configure a Windows Share / SMB server to not require encryption.
+  This allows SFTPPlus to connect to legacy servers such as Windows Server 2008
+  and older versions. [client-side][smb] [#4497]
+* The event with ID `20174`, emitted when failing to handle an event, now
+  contains the path of the associated file. [management] [#4800-1]
+* The HTTP POST / webhook API for event handles now emits the event with ID
+  `20189` after a successful operation. [management][api] [#4800]
+* The HTTPS AS2 server now accepts requests made using the HTTP PUT method.
+  [server-side][http] [#5509]
+* The `file-dispatcher` event handler now supports the `ignore` action, which
+  does nothing. It was added to make it possible to ignore files that might be
+  matched by more generic rules. [mft][events] [#5510]
+* The HTTP web file manager has a new login UI. For backward compatibility,
+  existing installations still use the old UI after upgrading. You can switch
+  to using the new UI via the `ui_version` configuration option.
+  [server-side][https] [#5514]
+* Each emitted event now has a unique identifier, formatted as an UUID
+  version 4 value. [#5516]
+* The `source_filter` configuration option for a transfer, when used with
+  globbing expressions, can now be used to match files based on their full path.
+  To do so, make sure the matching expression contains path separators.
+  [client-side] [#5548]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* You can now set the `password_lifetime` configuration option for a group
+  using the Local Manager web interface. Due to a defect, in previous versions
+  it was only possible to set it manually via the configuration file. [manager]
+  [#5500]
+* The HTTPS AS2 server can now receive multiple AS2 messages (files) over the
+  same connection. In previous versions, a single file was accepted per
+  connection. To accept another file, the previous connection had to be closed,
+  and a new one opened. [server-side][as2] [#5509]
+* A remote denial of service for SFTPPlus' SFTP / SCP servers and clients
+  was fixed. During SSH handshakes, SFTPPlus could have been forced to use all
+  available  memory. To mitigate this until upgrading, you should reject public
+  access to SFTP / SCP servers, only allowing connections from trusted sources.
+  [security][server-side][client-side][sftp][scp] [#5525]
+* The automatic archive clean-up now works with recursive transfers. This issue
+  was introduced in version 4.0.0. Older versions are not affected. [#5527]
+* When trying to generate a PGP RSA or DSA key using an unsupported key size,
+  the error message now lists the available sizes. In previous versions, an
+  internal server error was generated. [pgp] [#5533]
+* It is now possible to disable `delete_source_parent_delay` on a transfer,
+  by setting it to value 0 from Local Manager.
+  Due to a defect in previous GUI versions,
+  you could only set it to a minimum value of 1,
+  making it impossible to disable it from the GUI.
+  For previous versions, as a workaround, you can still disable it by manually
+  editing the configuration file. [#5493]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `multi_factor_authentication_attribute` configuration option from the
+  LDAP authentication method was removed. It was replaced with the
+  `python:chevah.server.extension.ldap_mfa.AugmentedTOTP` extension.
+  [server-side] [#1886]
+* To disable executing external commands for a transfer, you should now set the
+  `execute_before`, `execute_after_success`, `execute_after_failure`,
+  `execute_on_destination_before`, `execute_on_destination_after_success`, or
+  `execute_on_destination_after_failure` configuration options to empty
+  values.
+  Using `disable` is supported until the next major release. [#2090-10]
+* To disable filtering the source files for a transfer, you should now set the
+  `source_filter` configuration option to an empty value.
+  Using `disabled` is supported until the next major release. [#2090-11]
+* To disable the process service account on Linux or macOS, you should now set
+  the `account` configuration option to an empty value.
+  Using `disabled` is supported until the next major release. [#2090-12]
+* To disable log file rotation based on time, you should now set the `rotate_on`
+  configuration option to an empty value.
+  Using `disabled` is supported until the next major release. [#2090-13]
+* To disable the usage of PAM for Linux OS authentication, you should now set
+  the `pam_usage` option to an empty value.
+  Using `disabled` is supported until the next major release. [#2090-1]
+* To disable the SSH public key loading for a file, you should now set the
+  `ssh_authorized_keys_path` option to an empty value.
+  Using `disabled` is supported until the next major release. [#2090-2]
+* To disable archiving the files for a transfer, you should now set the
+  `archive_success_path` or `archive_failure_path` configuration options to
+  empty values.
+  Using `disabled` is supported until the next major release. [#2090-3]
+* To disable CCC FTPS for a transfer, you should now set the `ftps_ccc`
+  configuration option to an empty value.
+  Using `disabled` is supported until the next major release. [#2090-4]
+* To disable the usage of an explicit FTPS passive address for an FTP or FTPS
+  server, set `passive_address` configuration option to an empty value.
+  Using `disabled` is supported until the next major release. [#2090-5]
+* To disable uploading files with modified names for users, set
+  `amend_write_name` configuration option to an empty value.
+  Using `disabled` is supported until the next major release. [#2090-6]
+* To disable attaching associated files to an email, you should now set the
+  `email_associated_files` to an empty value.
+  Using `disabled` is supported until the next major release. [#2090-7]
+* To disable the creation of a destination folder for a file dispatcher, you
+  should now set the `create_destination_folder` to an empty value.
+  Using `disabled` is supported until the next major release. [#2090-8]
+* To disable authenticating an SFTP location with SSH keys, you should now set
+  the `ssh_private_key` to an empty value.
+  Using `disabled` is supported until the next major release. [#2090-9]
+* To disable the usage of a SSL certificate, CA, or CRL for a connection, you
+  should now set the `ssl_certificate`, `ssl_certificate_authority`, or
+  `ssl_certificate_revocation_list` to empty values.
+  Using `disabled` is supported until the next major release. [ssl] [#2090]
+* The `group_name` data attribute of event `20137` was updated to include a
+  comma-separated list of all the groups or roles associated to an account or
+  administrator. [server-side] [#3398-1]
+* The `role` configuration option for an administrator was renamed as `roles`.
+  The change is automatically migrated by SFTPPlus. [manager] [#3398]
+* The event with ID 30050 used for server-side SFTP timeout events was updated.
+  It is now used for generic SSH connection close events. [#5525]
+
+
 Version 4.15.0, 2021-10-29
 --------------------------
 

@@ -192,10 +192,11 @@ This is the default mode on Linux and macOS.
 The included unit, init, service, plist files are configured
 to start SFTPPlus as an unprivileged user.
 
-Also make sure the configuration file reads as follows::
+Also make sure the configuration file reads as follows
+(account value is empty)::
 
     [server]
-    account = Disabled
+    account =
 
 SFTPPlus will then operate under the same OS account that is used to launch it.
 
@@ -252,7 +253,7 @@ Disadvantages:
 ..  note::
     You can also start SFTPPlus under the privileged root account
     and keep running the SFTPPlus process as root
-    using ``account = Disabled`` in the server's configuration file.
+    using ``account =`` in the server's configuration file.
     For security reasons, we don't recommend this mode of operation.
 
 

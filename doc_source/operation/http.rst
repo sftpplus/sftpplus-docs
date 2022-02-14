@@ -71,6 +71,29 @@ Basic features, listed below, are supported:
 * Recursive deletion of a folder
 
 
+Legacy UI Appearance
+--------------------
+
+Latest versions of SFTPPlus include an updated web user interface that for
+added functionality convenience are using web browser capabilities only
+available in latest generation web browsers.
+
+For legacy purpose or to avoid disrupting existing web UI file transfer
+processes,
+you can configure the HTTP web file manager to use an older version of the
+user interface::
+
+    [services/9ac4-1054-f0e4]
+    name = HTTPS File Transfer Service
+    type = http
+
+    ui_version = ui-gen-1
+
+This will use the UI available in SFTPPlus version 4.15.0 or older.
+
+The latest UI version is `ui_version = ui-gen-2`.
+
+
 Custom Appearance
 -----------------
 

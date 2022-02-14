@@ -134,7 +134,7 @@ with `acct_` for the current month, where files are in the format of
 `acct_20_08.txt` for month of August 2020,
 you can use the following expression::
 
-    source_filter = t/*reports/acct_{year.decimal}-{month.padded}.txt/
+    source_filter = t/*reports/acct_{year.no_century}-{month.padded}.txt/
 
 The date and time substitution values are replaced with the current date and
 time when the filtering rule is executed or applied.
@@ -145,7 +145,7 @@ or `acct_19_08.txt`.
 You can also filter based on the date and time of the previous day.
 To do that use the following expression (note the `-1d` value at the end)::
 
-    source_filter = t/*reports/acct_{year.decimal}-{month.padded}.txt/-1d
+    source_filter = t/*reports/acct_{year.no_century}-{month.padded}.txt/-1d
 
 
 Regular Expressions
@@ -201,7 +201,7 @@ extensions are strictly ``*.pdf`` , use the following configuration::
     [services/27a31405-a963-4fb9-b4ee-09d415b1a30a]
     source_filter = m/.*\.pdf$/
 
-To exclude all files with the .pdf extension you can use the leading
+To **exclude** all files with the .pdf extension you can use the leading
 *e/* marker to negate the define expression.
 This avoids using the regex look-around zero-length assertion rules::
 

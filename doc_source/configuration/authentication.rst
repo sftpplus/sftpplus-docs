@@ -138,9 +138,9 @@ It will authenticate accounts of type `application`.
 allowed_groups
 ^^^^^^^^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: Yes
-:Values: * `empty`
+:Values: * Empty
          * Group UUID
          * Comma-separated list of group UUIDs.
 :From version: 4.0.0
@@ -213,7 +213,7 @@ pam_usage
 :Optional: Yes
 :Values: * `fallback`
          * `exclusive`
-         * `disabled`
+         * Empty
 :From version: 3.3.0
 :Description:
     Defines how to use PAM for for authenticating accounts using username and
@@ -228,10 +228,10 @@ pam_usage
     In `exclusive` mode, it will exclusively use PAM for username and password
     authentications.
 
-    Set it to `disabled` to completely disable PAM usage.
+    Leave it empty to completely disable PAM usage.
 
     ..  note::
-        On Windows, this option is always `disabled`, as SFTPPlus has no support
+        On Windows, this option is always disabled as SFTPPlus has no support
         for PAM on this platform.
 
 
@@ -249,9 +249,9 @@ pam_service
 allowed_groups
 ^^^^^^^^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: No
-:Values: * `empty`
+:Values: * Empty
          * OS group name
          * `${ALL_OS_GROUPS}`
          * Comma-separated list of OS group names.
@@ -311,9 +311,9 @@ group_association
 manager_allowed_groups
 ^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: Yes
-:Values: * `empty`
+:Values: * Empty
          * OS group name
          * Comma-separated list of OS group names.
 :From version: 3.37.0
@@ -554,6 +554,7 @@ bind_dn
 :Default value: ''
 :Optional: No
 :Values: * Base distinguished name.
+         * Multiple base DNs, one per line (Since 4.16.0)
 :From version: 3.13.0
 :Description:
     Base DN used to generate the distinguished name associated with the
@@ -566,6 +567,12 @@ bind_dn
 
     When `bind_dn_type` is set to `direct-username`, this is used as the
     base DN of the Active Directory group to which access is permitted.
+
+    Multiple base DNs can be defined, one per line.
+    This can be used for authenticating account from multiple organizations
+    inside the same LDAP tree or for a multi-tree / forest LDAP deployment.
+    They will be checked from top to bottom and the authentication will succeed
+    on the first base DN in which the account is found.
 
     This is ignored when `bind_dn_type` is set to `absolute`.
 
@@ -655,38 +662,45 @@ home_folder_attribute
         folder attribute.
 
 
-multi_factor_authentication_attribute
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+extension_entry_point
+^^^^^^^^^^^^^^^^^^^^^
 
 :Default value: Empty
 :Optional: Yes
-:Values: * Attribute name.
-         * `Empty`.
-:From version: 4.12.0
+:Values: * API extension expression.
+         * Empty.
+:From version: 4.16.0
 :Description:
-    Name of the LDAP attribute used to store the multi-factor
-    authentication parameters for SFTPPlus users.
-    For example, when the MFA parameter for an SFTPPlus user is stored in
-    an LDAP attribute named ``totpSharedSecret``, the configuration shows::
+    The API entry point is defined in the format `LANGUAGE:DOTTED.ENTRY.POINT`,
 
-        multi_factor_authentication_attribute = totpSharedSecret
+    `LANGUAGE` is the name of the language in which the extension is
+    written.
 
-    When `multi_factor_authentication_attribute` is defined, MFA
-    authentication is enforced in SFTPPlus for all LDAP users.
+    `DOTTED.ENTRY.POINT` as an expression defining the package, module, and
+    class name which will receive the event.
 
-    For now, only the TOTP MFA method is supported.
-    Values stored in LDAP for this attribute should use the
-    Google Authenticator Key URI format.
-    For example, an LDIF value to be stored by the LDAP server::
+    ..  note::
+        At this moment, the event handler API supports the development of
+        custom handlers based on the Python programming language.
 
-        totpSharedSecret: otpauth://totp/FSrv:admin?secret=PRIVATE&issuer=FSrv
+    As an example, for the file ``extension/auth_ldap_noop.py`` defining
+    the ``AuthLDAPNoop`` class, the configuration will be::
 
-    ..  danger::
-        This multi-factor authentication method should only be used when
-        end users don't have direct access to their MFA parameter
-        stored on the LDAP server.
-        Otherwise, an SFTPPlus user can retrieve their MFA
-        secret from LDAP, and bypass this security measure.
+        extension_entry_point = python:auth_ldap_noop.AuthLDAPNoop
+
+
+extension_configuration
+^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: Empty
+:Optional: Yes
+:Values: * JSON
+         * Empty
+:From version: 4.16.0
+:Description:
+    A JSON value which is passed to the extension.
+
+    This is ignored when `extension_entry_point` is not defined.
 
 
 search_filter

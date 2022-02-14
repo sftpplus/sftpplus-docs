@@ -48,8 +48,6 @@ Here is an example configuration for **DEFAULT_GROUP**::
     create_home_folder = No
     create_home_folder_owner = ${DEFAULT_OS_USER}
     create_home_folder_group = ${DEFAULT_OS_GROUP}
-    ; SSH key authentication is disabled by default
-    ssh_authorized_keys_path = Disabled
     allow_certificate_authentication = No
 
 
@@ -145,14 +143,14 @@ description
 home_folder_path
 ^^^^^^^^^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :From version: 1.6
 :Values: * A path to a folder located in the local file system.
          * `/some/path/${USER}/ftp-pub`
          * `${SHARED}/srv/accounting/`
          * `${OS_HOME}`
-         * `Disabled`
+         * Empty
 
 :Description:
     This option specifies the path to the base folder, where the files
@@ -185,7 +183,7 @@ home_folder_path
         [groups/92ad5b32-d8d7-4ed8-94e1-dbb9f01383f4]
         home_folder_path = ${OS_HOME}
 
-    When the option is `Disabled` it will require each account associated with
+    When the option is left empty it will require each account associated with
     the group to define its own home folder path.
 
     When defined, it should be defined as an absolute path.
@@ -319,12 +317,12 @@ required_credentials
 ssh_authorized_keys_path
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 1.7.0
 :Values: * Base path on the local directory.
          * `${SHARED}/srv/accounting_team_ssh_keys`
-         * Disabled
+         * Empty
 :Description:
     This option specifies whether or not the server will permit
     access using a list of known SSH keys for each user.
@@ -332,7 +330,7 @@ ssh_authorized_keys_path
     It is defined as a path to a folder containing files with allowed SSH keys,
     each file name being associated with an account name.
 
-    Set it to `Disabled` to disable SSH key-based authentication.
+    Set it to the empty value to disable SSH key-based authentication.
 
     More details about SSH key authentication can be found
     :ref:`in the dedicated section <ssh-key-authentication>`.
@@ -356,7 +354,7 @@ ssh_authorized_keys_path
 source_ip_filter
 ^^^^^^^^^^^^^^^^
 
-:Default value: `Empty`
+:Default value: Empty
 :Optional: Yes
 :From version: 3.45.0
 :Values: * IPv4 address
@@ -562,11 +560,11 @@ permissions
 amend_write_name
 ^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 3.30.0
 :Values: * `uuid-prefix`
-         * `Disabled`
+         * Empty
 :Description:
     This configuration allows the option to transparently amend the file name
     used during a file upload request.
@@ -574,7 +572,7 @@ amend_write_name
     Set it to `uuid-prefix` to have an UUID version 4
     prefixed to the file name.
 
-    Set it to `disabled` to not amend the file names for the upload requests.
+    Leave it empty to not amend the file names for the upload requests.
 
 
 virtual_folders

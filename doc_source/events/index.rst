@@ -19,7 +19,7 @@ For configuring the server to react when an event occurs, please see
 :doc:`the dedicated page</configuration/event-handlers>`.
 
 
-.. toctree::
+..  toctree::
     :maxdepth: 1
 
     events

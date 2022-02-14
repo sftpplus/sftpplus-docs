@@ -26,10 +26,11 @@ Python-based event handlers.
 Please contact us for C / Java code examples or for more HTTP / Python
 examples.
 
-.. toctree::
+..  toctree::
     :maxdepth: 1
 
     http-api
     http-api-authentication
     http-api-event-handler
     python-api-event-handler
+    python-api-ldap-authentication

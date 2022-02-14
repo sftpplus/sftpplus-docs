@@ -22,7 +22,7 @@ The information is written for experienced administrators of Windows or
 Unix-like systems, familiar with file transfer protocols.
 
 
-.. toctree::
+..  toctree::
     :titlesonly:
     :numbered:
     :maxdepth: 2
@@ -40,7 +40,7 @@ Unix-like systems, familiar with file transfer protocols.
 
 Reference
 
-.. toctree::
+..  toctree::
     :titlesonly:
     :maxdepth: 1
 
@@ -49,7 +49,7 @@ Reference
 
 Miscellaneous Topics
 
-.. toctree::
+..  toctree::
     :titlesonly:
     :maxdepth: 1
 

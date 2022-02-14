@@ -2,16 +2,17 @@ The following variables (case-insensitive) are provided as context data
 containing information about the event being triggered:
 
 * `id`
+* `uuid`
 * `message`
 * `account.name`
 * `account.peer.address`
 * `account.peer.port`
 * `account.peer.protocol`
+* `account.peer.family`
 * `account.uuid`
 * `component.name`
+* `component.type`
 * `component.uuid`
-* `data.DATA_MEMBER_NAME`
-* `data_json`
 * `timestamp.cwa_14051`
 * `timestamp.iso_8601`
 * `timestamp.iso_8601_fractional`
@@ -21,3 +22,5 @@ containing information about the event being triggered:
 * `timestamp.timestamp`
 * `server.name`
 * `server.uuid`
+* `data.DATA_MEMBER_NAME`
+* `data_json`

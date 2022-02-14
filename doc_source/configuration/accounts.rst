@@ -310,7 +310,7 @@ email
 created
 ^^^^^^^
 
-:Default value: `EMPTY`
+:Default value: Empty
 :Optional: Yes
 :From version: 4.12.0
 :Values: * ISO 8601 date
@@ -434,12 +434,12 @@ required_credentials
 ssh_authorized_keys_path
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 1.7.0
 :Values: * Path to a file on the local filesystem.
          * Path to a directory on the local filesystem.
-         * `Disabled`
+         * Empty
          * `Inherit`
 :Description:
     This option specifies whether or not the server will permit
@@ -464,7 +464,7 @@ ssh_authorized_keys_path
     More details about SSH key authentication can be found
     :ref:`in the dedicated section <ssh-key-authentication>`.
 
-    To disable reading SSH public keys from local files, set to `Disabled`.
+    To disable reading SSH public keys from local files let it empty.
 
     This feature is not available in Windows for local or domain accounts.
     Use application accounts for implementing SSH key-based authentication on
@@ -479,7 +479,7 @@ ssh_authorized_keys_path
 ssh_authorized_keys_content
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 2.9.0
 :Values: * SSH public key line in OpenSSH public key format.
@@ -693,12 +693,12 @@ expire_datetime
 amend_write_name
 ^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 3.30.0
 :Values: * `uuid-prefix`
          * `Inherit`
-         * `Disabled`
+         * Empty
 :Description:
     This configurations adds the option to transparently amend the file
     name used during a file write request (write new file or append).
@@ -725,7 +725,7 @@ amend_write_name
     When this option is set to `Inherit`, the value defined for the account's
     group will apply.
 
-    Set it to `disabled` to not amend the file names for the upload requests.
+    Leave it empty to not amend the file names for the upload requests.
 
 
 create_home_folder
@@ -774,11 +774,11 @@ Some configuration options are only available for application accounts.
 password
 ^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 1.6.0
 :Values: * Password stored as modular one-way cryptographic hash function.
-         * `Disabled` or empty field to disable the password.
+         * Empty field to disable the password.
 :Description:
     This option specifies the password used for authenticating this account.
 
@@ -787,17 +787,12 @@ password
     passwords using admin-commands
     <generate-encrypted-password>`.
 
-    When the password is set to `Disabled` or left blank, the account
-    will not be able to authenticate with an empty password,
+    When the password is left blank,
+    the account will not be able to authenticate with an empty password,
     even if the `enabled` option is set to `yes`.
 
     ..  note::
         The `password` is ignored for accounts of `type` `os`.
-
-    ..  note::
-        When FTPS SSL certificate-based authentication or key-based SFTP / SSH
-        authentication are enabled, the `password` value can be set to
-        `Disabled`.
 
 
 multi_factor_authentication

@@ -168,3 +168,17 @@ Windows, ``C:\Program Files\SFTPPlus\.ssh\authorized_keys``::
     `ssh_authorized_keys_path` is not expanded to
     ``/home/test_user/.ssh/authorized_keys`` or, on Windows, to
     ``C:\Users\test_user\.ssh\authorized_keys``.
+
+
+Configuration changes for active connections or users
+-----------------------------------------------------
+
+Many of the configuration changes are only applied to newly created
+connections or newly authenticated users.
+An active connection or a user will not be abruptly disconnected due to a
+configuration change.
+
+If you want to enforce a new configuration for all the active users, a full
+server restart is required.
+This will disconnect all the active connection and users will have to
+reconnect and re-authenticate using the new configuration.

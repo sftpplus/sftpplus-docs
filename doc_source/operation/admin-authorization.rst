@@ -1,7 +1,7 @@
 Identity and Access Management for administrators (IAM)
 #######################################################
 
-.. contents:: :local:
+..  contents:: :local:
 
 
 Introduction
@@ -92,24 +92,34 @@ member UUIDs, with or without an option name::
 * configuration/resources
 * configuration/services
 * configuration/transfers
+* authentications
+* locations
+* resources
+* services
+* transfers
+* status
 
 You can target a class of configurations,
 or any configuration of a certain type.
 The following examples are valid:
 
-* configuration/services/* - target any service
+* configuration/services/* - target the configuration of any service
 * configuration/services/FTPS-server-UUID/* - target any configuration for the
   service with UUID ``FTPS-service-UUID``
-* configuration/services/\*/name - target all the name options for any service
+* configuration/services/\*/name/ - target all the name options for any service
 * configuration/services/FTPS-server-UUID/* - target only the name
   option for the service with UUID ``FTPS-service-UUID``
+* services/* - target the status of any service
+* services/FTPS-service-UUID/* - target the status of the service with UUID
+  ``FTPS-service-UUID``.
 
 The following configurations do not have a member UUID, so they can only be
 targeted using the option name:
 
 * configuration/server
 * configuration/server/*
-* configuration/server/**OPTION-NAME**
+* configuration/server/**OPTION-NAME**/
+* status
 
 There is a special permission target named `sync_pull` used to configure
 synchronization.

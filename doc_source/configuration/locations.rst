@@ -68,7 +68,7 @@ Each location configuration section has the following configurations:
 name
 ^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :From version: 2.8.0
 :Values: * Any text.
@@ -79,7 +79,7 @@ name
 description
 ^^^^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :From version: 2.8.0
 :Values: * Any text.
@@ -251,7 +251,7 @@ ssh_server_identity
 address
 ^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :Values: * Host name or IP address of the SFTP server.
 :From version: 2.8.0
@@ -262,7 +262,7 @@ address
 port
 ^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :Values: * Number, greater than 0.
 :From version: 2.8.0
@@ -273,7 +273,7 @@ port
 username
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :From version: 2.8.0
 :Values: * Text.
@@ -284,11 +284,11 @@ username
 password
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :From version: 2.8.0
 :Values: * Plain text password.
-         * `Disabled` or empty.
+         * Empty.
 :Description:
     This option specifies the password used to connect to the remote SSH server.
     It is provided in plain text.
@@ -302,12 +302,12 @@ password
 ssh_private_key
 ^^^^^^^^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :From version: 3.0.0
 :Values: * Absolute path on the local filesystem.
          * Content of the SSH private key (Since 3.40.0).
-         * `Disabled` or empty.
+         * Empty.
 :Description:
     SSH private key used to authenticate to the remote SSH server.
     Leave it empty to disable SSH key authentication.
@@ -344,10 +344,11 @@ ssh_private_key
 proxy
 ^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :Values: * `URI` like expression.
          * `socks5://12.342.421.2:8899`
+         * Empty
 :From version: 3.31.0
 :Description:
     This option configures a proxy to be used when making connection
@@ -379,7 +380,7 @@ Only username and password credentials are supported.
 address
 ^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :Values: * Host name or IP address of the FTP server.
 :From version: 3.0.0
@@ -401,7 +402,7 @@ port
 username
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :From version: 3.0.0
 :Values: * Text.
@@ -412,11 +413,11 @@ username
 password
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :From version: 3.0.0
 :Values: * Plain text password.
-         * `Disabled` or empty.
+         * Empty.
 :Description:
     This option specifies the password used to connect to the FTP server.
 
@@ -453,7 +454,7 @@ An `explicit ftps location` provides access to an Explicit FTPS server.
 address
 ^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :Values: * Host name or IP address of the FTP server.
 :From version: 3.13.0
@@ -479,7 +480,7 @@ port
 username
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :From version: 3.13.0
 :Values: * Text.
@@ -490,11 +491,11 @@ username
 password
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :From version: 3.13.0
 :Values: * Plain text password.
-         * `Disabled` or empty.
+         * Empty.
 :Description:
     This option specifies the password used to connect to the server.
 
@@ -507,11 +508,10 @@ password
 ftps_ccc
 ^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :From version: 3.13.0
 :Values: * `Passive`
-         * `Disabled`
          * Empty
 :Description:
     This option specifies whether the security of the FTPS command connection
@@ -540,7 +540,7 @@ An ``implicit ftps location`` provides access to an Implicit FTPS server.
 address
 ^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :Values: * Host name or IP address of the FTP server.
 :From version: 3.13.0
@@ -566,7 +566,7 @@ port
 username
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :From version: 3.13.0
 :Values: * Text.
@@ -577,11 +577,11 @@ username
 password
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :From version: 3.13.0
 :Values: * Plain text password.
-         * `Disabled` or empty.
+         * Empty
 :Description:
     This option specifies the password used to connect to the server.
 
@@ -614,7 +614,7 @@ explicitly configure the list of trusted CA and the location of the CRLs.
 url
 ^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :Values: * URL
 :From version: 4.11.0
@@ -642,7 +642,7 @@ url
 username
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :From version: 3.20.0
 :Values: * Text.
@@ -653,11 +653,11 @@ username
 password
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :From version: 3.0.0
 :Values: * Plain text password.
-         * `Disabled` or empty.
+         * Empty.
 :Description:
     This option specifies the password used to connect to the WebDAV server.
 
@@ -668,7 +668,7 @@ password
 proxy
 ^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :Values: * `URI` like expression.
          * `connect://12.342.421.2:3128`
@@ -677,6 +677,8 @@ proxy
     This configuration adds the proxy used to connect to the final URL.
 
     For now, only the HTTP/1.1 CONNECT tunneling proxy method is supported.
+
+    Leave it empty to not use a proxy.
 
 
 authentication_method
@@ -738,7 +740,7 @@ the location of the CRLs.
 url
 ^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :Values: * .
 :From version: 4.5.0
@@ -754,7 +756,7 @@ url
 username
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :From version: 4.5.0
 :Values: * Text.
@@ -767,7 +769,7 @@ username
 password
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :From version: 4.5.0
 :Values: * Plain text password.
@@ -782,7 +784,7 @@ password
 as2_own_identifier
 ^^^^^^^^^^^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :From version: 4.5.0
 :Values: * Text.
@@ -830,7 +832,7 @@ as2_own_private_key
 as2_partner_identifier
 ^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :From version: 4.5.0
 :Values: * Text.
@@ -841,7 +843,7 @@ as2_partner_identifier
 as2_partner_certificates
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :From version: 4.5.0
 :Values: * PEM certificate
@@ -995,7 +997,7 @@ The request ID will look like::
 username
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :From version: 3.36.0
 :Values: * Text.
@@ -1006,7 +1008,7 @@ username
 password
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: Yes
 :From version: 3.36.0
 :Values: * Plain text.
@@ -1020,9 +1022,11 @@ password
 SMB / Windows Share Location
 ----------------------------
 
-An `smb` location provides access to an SMB version 3
+An `smb` location provides access to an SMB
 (Server Message Block or Windows Share) server over TCP.
-This does not include access over UDP or version 1 or 2.
+
+SMB versions 3 and 2 are supported, but version 1 is not.
+Access over UDP is not included either.
 
 The location only requires configuring the server address and credentials.
 The actual share names and paths used for a file transfer are defined as part
@@ -1050,7 +1054,7 @@ encryption or message signing.
 address
 ^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :Values: * Host name or IP address of the server.
 :From version: 4.13.0
@@ -1076,7 +1080,7 @@ port
 username
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :From version: 4.13.0
 :Values: * Text.
@@ -1091,12 +1095,32 @@ username
 password
 ^^^^^^^^
 
-:Default value: ''
+:Default value: Empty
 :Optional: No
 :From version: 4.13.0
 :Values: * Plain text password.
-         * `Disabled` or empty.
+         * Empty
 :Description:
     This option specifies the password or key used to connect to the remote
     server.
     It is provided in plain text.
+
+
+require_encryption
+^^^^^^^^^^^^^^^^^^
+
+:Default value: 'yes'
+:Optional: No
+:From version: 4.16.0
+:Values: * `yes`.
+         * `no`.
+:Description:
+    This option defines whether SFTPPlus requires SMB encryption when
+    connecting to the remote share.
+
+    With modern servers it is recommended to keep this option set to `yes` to
+    make use of the highest level of available security.
+
+    On Windows 2008 and Windows 7 or older version of Windows, SMB encryption
+    is not supported.
+    To connect to these shares you will need to set this configuration to `no`.

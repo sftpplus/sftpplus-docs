@@ -26,12 +26,12 @@ ssl_domains
 ssl_certificate
 ^^^^^^^^^^^^^^^
 
-:Default value: `no-certificate-defined`
+:Default value: Empty
 :Optional: Yes
 :Values: * Absolute path on the local filesystem.
          * Certificate in PEM text format (Since 3.40.0).
          * Certificate in PKCS12 / PXF binary format (Since 4.0.0).
-         * `Disabled`
+         * Empty
 :From version: 1.6.0
 :To version: None
 :Description:
@@ -102,8 +102,8 @@ ssl_certificate
     used.
 
     For the client-side component using TLS/SSL, you can disable sending the
-    certificate as part of the handshake, by setting this configuration
-    option to `Disabled`.
+    certificate as part of the handshake, by leaving this configuration
+    option empty.
 
 
 ssl_key
@@ -146,29 +146,29 @@ ssl_key
 ssl_key_password
 ^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :Values: * Password as plain text.
-         * `Disabled`
+         * Empty
 :From version: 1.7.19
 :Description:
     This is used to define the password of the private key, when the private
     X.509 key is stored as an encrypted file.
 
-    Set it to `Disabled` to not use a password for the private key file.
+    Leave it empty to not use a password for the private key file.
 
 
 ssl_certificate_authority
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :Values: * Absolute path on the local file.
          * Content of the CA chain (Since 3.40.0).
          * `${LETS_ENCRYPT_X3_CA}`
          * `${MICROSOFT_IT_CA}`
          * `${GO_DADDY_G2_G1}`
-         * `Disabled`
+         * Empty
 :From version: 1.6.0
 :Description:
     This can be defined as an absolute path on the local filesystem to a
@@ -223,12 +223,6 @@ ssl_certificate_authority
 
         ssl_certificate_authority = ${MICROSOFT_IT_CRL}
 
-    Set as `Disabled` to disable checking the issuer for peer's certificates.
-    When certificate authority check is disabled, connection peers are not
-    required to send a certificate and will result in a one-way SSL/TLS
-    authentication.
-    If the remote peer sends a certificate, it is ignored.
-
     This defines the path on the local filesystem to a file containing
     the certificate in PEM format for the single certificate authority
     or multiple authorities authorities with which this component
@@ -242,8 +236,7 @@ ssl_certificate_authority
     issued by multiple certificate authorities, put each CA certificate in
     PEM format inside a single file.
 
-    Leave it empty or set it as `Disabled` to disable checking the issuer of
-    the peer's certificates.
+    Leave it empty to disable checking the issuer of the peer's certificates.
 
     When certificate authority check is disabled, connection peers are not
     required to send a certificate.
@@ -253,12 +246,12 @@ ssl_certificate_authority
 ssl_certificate_revocation_list
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: Empty
 :Optional: Yes
 :Values: * Comma separated list of CRL paths or HTTP URLs.
          * `crl-distribution-points`
          * `${MICROSOFT_IT_CRL}`
-         * `Disabled`
+         * Empty
 :From version: 1.6.0
 :Description:
     It defines the locations from where one or more CRLs will be loaded.
@@ -294,7 +287,7 @@ ssl_certificate_revocation_list
         HTTP redirection is not yet supported for CRL URLs.
         You have to configure the exact URL for the CRL.
 
-    Set it to `Disabled`, to disable certificate revocation checks.
+    Leave it empty to disable certificate revocation checks.
 
     The certificate revocation list can only be used when the component is
     configured with CA certificates stored in a single file in PEM format.
@@ -370,12 +363,14 @@ ssl_cipher_list
     Connections are closed if the remote peer has no common cipher in its
     list of configured ciphers.
 
+    When left empty, it will default to the `secure` configuration.
+
     More information about the accepted values can be found at the
     :doc:`cryptography guide </standards/cryptography>`
 
     The format for this value is the same as the one used for defining the
     OpenSSL cipher list.
-    More information can be found on the `OpenSSL site <https://www.openssl.org/docs/man1.1.0/man1/ciphers.html>`_.
+    More information can be found on the `OpenSSL site <https://www.openssl.org/docs/man1.1.1/man1/ciphers.html>`_.
 
 
 ssl_allowed_methods

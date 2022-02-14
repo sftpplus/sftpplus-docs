@@ -459,7 +459,6 @@ To migrate the Syslog log handler, remove the `logs` handler section::
 
     type = syslog
 
-    path = Disabled
     url = udp://127.0.0.1:
     port = 514
 

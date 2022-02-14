@@ -1,4 +1,5 @@
-
+import os, sys
+sys.path.append(os.getcwd())
 
 extensions = [
     'sphinx.ext.intersphinx',
@@ -27,20 +28,26 @@ html_context = {
 }
 
 
-version = "4.15.0"
-release = "4.15.0"
+version = "4.16.0"
+release = "4.16.0"
 
 autodoc_default_flags = ['members']
 primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    u'SFTPPlus-4.16.0.dev0',
+    u'SFTPPlus-4.16.0',
     u'SFTPPlus Documentation',
     u'ProAtria Team',
     )]
 pdf_stylesheets = ['sphinx', 'kerning', 'a4']
 pdf_use_toc = False
 pdf_toc_depth = 2
+
+
+extensions = [
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.autodoc',
+    ]
 
 

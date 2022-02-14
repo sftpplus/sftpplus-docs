@@ -41,10 +41,27 @@ languages
     When left empty, it will default to English.
 
 
+ui_version
+^^^^^^^^^^
+
+:Default value: ui-gen-1
+:Optional: Yes
+:Values: * ui-gen-1
+         * ui-gen-2
+:From version: 4.16.0
+:Description:
+    This defined the UI variant to be used for the web file manager.
+
+    The latest version is `ui-gen-2`.
+
+    To use the legacy UI found in SFTPPlus version 4.15.0 or older, set this
+    to `ui-gen-1`.
+
+
 theme_path
 ^^^^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: Yes
 :Values: * Absolute path on the local filesystem.
 :From version: 3.42.0
@@ -60,11 +77,16 @@ theme_path
     You can find more information on the usage of a theme path on the
     :doc:`HTTP/HTTPS operations</operation/http>` page.
 
+    ..  note::
+        The `theme_path` configuration option is only valid with the legacy
+        web UI version `ui-gen-1`.
+        For any other configuration option, it is ignored.
+
 
 public_account_uuid
 ^^^^^^^^^^^^^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: Yes
 :Values: * UUID to application account.
          * Empty.
@@ -135,7 +157,7 @@ as2_receive_path
 :Default value: Empty
 :Optional: Yes
 :Values: * Path to a directory in the user's home folder.
-         * `Empty`
+         * Empty
 :From version: 4.5.0
 :Description:
     This defines the path used to store the files received via AS2 for each
@@ -176,6 +198,7 @@ as2_default_filename
     The following variables (case-insensitive) are provided as context data
     containing information about the event being triggered:
 
+    * `uuid`
     * `account.name`
     * `account.peer.address`
     * `account.peer.port`
@@ -196,7 +219,7 @@ as2_receive_certificate
 :Default value: Empty
 :Optional: Yes
 :Values: * Certificate key in PEM format.
-         * `Empty`
+         * Empty
 :From version: 4.5.0
 :Description:
     This defines the certificate associated with the private key used to
@@ -214,7 +237,7 @@ as2_receive_key
 :Default value: Empty
 :Optional: Yes
 :Values: * RSA private key in PEM format.
-         * `Empty`
+         * Empty
 :From version: 4.5.0
 :Description:
     This defines the private key used to decrypt the files received via AS2
@@ -226,7 +249,7 @@ as2_receive_key
 triggers
 ^^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: Yes
 :Values: * Comma-separated values.
          * Action name, Button Colour, Optional Group UUID
@@ -256,7 +279,7 @@ triggers
 metadata_fields
 ^^^^^^^^^^^^^^^
 
-:Default value: `empty`
+:Default value: Empty
 :Optional: Yes
 :Values: * Empty
          * Name of HTTP header.
