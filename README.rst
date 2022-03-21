@@ -38,3 +38,16 @@ Update doc_source/conf.py to load local theme files::
     templates_path = ['../sphinx']
     html_static_path = ['_static']
     html_theme_path = ['../sphinx']
+    html_theme = 'integrated'
+
+
+Generate PDF file
+-----------------
+
+Update doc_source/conf.py to load local theme files::
+
+    html_theme = 'sphinx_rtd_theme'
+
+Generate a single HTML page and then from a browser "print" it as PDF.::
+
+    sphinx-build -b singlehtml doc_source/ deploy

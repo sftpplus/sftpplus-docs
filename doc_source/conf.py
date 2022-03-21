@@ -19,7 +19,7 @@ intersphinx_mapping = {}
 templates_path = ['../sphinx']
 html_static_path = ['_static']
 html_theme_path = ['../sphinx']
-html_theme = 'integrated'
+html_theme = 'sphinx_rtd_theme'
 project = "SFTPPlus"
 copyright = "ProAtria Team"
 
@@ -37,7 +37,7 @@ primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    u'SFTPPlus-4.18.0.dev0',
+    u'SFTPPlus-4.17.0',
     u'SFTPPlus Documentation',
     u'ProAtria Team',
     )]
