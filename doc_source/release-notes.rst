@@ -7,6 +7,57 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.17.0, 2022-03-18
+--------------------------
+
+Version 4.17.0rc1 was released on 2022-02-28 as a release candidate.
+
+
+New Features
+^^^^^^^^^^^^
+
+* The Local Manager UI for selecting multiple component identifiers was updated
+  to allow selecting from a list of names. Copy-pasting identifiers is
+  no longer needed. [manager] [#5559]
+* The file browser for HTTP(s) clients has an updated UI which is enabled by
+  default for all new installations. Existing installations continue to use
+  the old UI, but you can manually update them to show the new UI by changing
+  the `ui_version = ui-gen-2` configuration option. [server-side][http] [#5563]
+* The LDAP authentication method now supports Security Account Manager (SAM)
+  usernames when connecting to an Active Directory LDAP server. This is done
+  using the sAMAccountName username attribute. [server-side][ldap][ad] [#5575]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The AS2 server can now receive encrypted files. In previous versions, the AS2
+  server was only able to receive non-encrypted AS2 files. [server-side][as2]
+  [#5499-1]
+* The user interface for configuring the AS2 MDN receipt for a location was
+  fixed to describe the methods as "Synchronous". In previous versions, the
+  description was "Asynchronous", but the configuration was always set as
+  synchronous. [manager][as2] [#5499]
+* An administrator now fails to be authenticated when
+  configured with a missing role. [manager] [#5573]
+* When sending files over AS2, SFTPPlus now encodes their names using
+  MIME encoding.
+  In previous versions, filenames were encoded using only UTF-8.
+  [client-side][as2] [#5499]
+* SFTPPlus can now receive AS2 files with Unicode names encoded using the
+  RFC 2047 or RFC 2231 standards.
+  [server-side][as2] [#5499]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The authentication for an administrator fails if any of the roles associated
+  with the admin is disabled. This is a change from the previous version 4.16.0,
+  where the authentication was denied only for the first (primary)
+  associated role of an administrator. [manager] [#5573]
+
+
 Version 4.16.0, 2022-02-10
 --------------------------
 

@@ -163,9 +163,15 @@ An FTP authentication session using the UPN as username looks like::
     Name: john.doe@ad.example.com
     Password: *****
 
-With this method, only usernames in UPN format (user@sub.domain.com)
-are supported.
-Down-Level Logon Name (USER\DOMAIN) is not supported.
+Down-Level Logon Name / Security Account Manager (SAM) names are also supported,
+as long as the domain is separated using a backslash.
+Authentications should employ usernames in the format `DOMAIN\USER` or `USER`.
+Configuration is done via the sAMAccountName LDAP attribute, for example::
+
+    [authentications/f691a41b-0eca-4135-8369-5b9f2600ebd6]
+    bind_dn_type = direct-username
+    bind_dn = cn=Users,dc=ad,dc=example,dc=com
+    username_attribute = sAMAccountName
 
 ..  warning::
     The Active Directory user logon name can be found inside the

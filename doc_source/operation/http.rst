@@ -78,7 +78,7 @@ Latest versions of SFTPPlus include an updated web user interface that for
 added functionality convenience are using web browser capabilities only
 available in latest generation web browsers.
 
-For legacy purpose or to avoid disrupting existing web UI file transfer
+For legacy purposes or to avoid disrupting existing web UI file transfer
 processes,
 you can configure the HTTP web file manager to use an older version of the
 user interface::

@@ -3,6 +3,7 @@ sys.path.append(os.getcwd())
 
 extensions = [
     'sphinx.ext.intersphinx',
+    'sphinx.ext.autodoc',
     ]
 suppress_warnings = ['toc.secnum']
 source_suffix = '.rst'
@@ -19,24 +20,24 @@ templates_path = ['../sphinx']
 html_static_path = ['_static']
 html_theme_path = ['../sphinx']
 html_theme = 'integrated'
-project = "SFTPPlus MFT"
+project = "SFTPPlus"
 copyright = "ProAtria Team"
 
 html_context = {
-    'robots': 'all',
+    'robots': 'noindex, nofollow',
     'canonical_site': 'https://www.sftpplus.com/documentation/sftpplus/latest/',
 }
 
 
-version = "4.16.0"
-release = "4.16.0"
+version = "4.17.0"
+release = "4.17.0"
 
 autodoc_default_flags = ['members']
 primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    u'SFTPPlus-4.16.0',
+    u'SFTPPlus-4.18.0.dev0',
     u'SFTPPlus Documentation',
     u'ProAtria Team',
     )]

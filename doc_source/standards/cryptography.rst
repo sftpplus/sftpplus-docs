@@ -55,7 +55,7 @@ This list provides maximum compatibility with existing
 deployments and does not contain ciphers which are considered weak.
 
 SFTPPlus uses the OpenSSL library provided by the operating system,
-with some exceptions, most notably Windows and generic Linux.
+with some exceptions, most notably Windows, macOS, AIX, and generic Linux.
 The OpenSSL version included in your operating system might not provide
 all the ciphers which are required by older SSL/TLS versions of the standard.
 This is valid especially for cryptographic methods which in recent years were
@@ -114,10 +114,15 @@ On macOS, SFTPPlus uses embedded OpenSSL 1.1.1 libraries.
 Please keep your SFTPPlus deployments on macOS always updated, to benefit
 from upstream security updates for the bundled OpenSSL libraries.
 
+The AIX version of SFTPPlus uses embedded OpenSSL 1.0.2 libraries,
+patched with latest security updates beyond the publicly-available fixes.
+Please keep your SFTPPlus deployments on AIX always updated, to benefit
+from upstream security updates for the bundled OpenSSL libraries.
+
 The above list is not comprehensive and comes with no guarantee. Please check
 with support@proatria.com for further info.
 
-Last updated for release 4.11.0 on April 6, 2021.
+Last updated for release 4.17.0 on February 22, 2022.
 
 
 File formats

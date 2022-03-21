@@ -134,11 +134,8 @@ enabled
 :Description:
     This option specifies whether or not this role is disabled.
 
-    When a role is disabled, the authentication is denied to all
-    administrators having the disabled role as the primary one.
-
-    If a disabled role is not the primary one, its configuration
-    is ignored.
+    When a role is disabled, authentication is denied to all
+    administrators associated with the disabled role.
 
 
 name
@@ -194,9 +191,6 @@ permissions
 :Description:
     This defines the permissions available to administrators associated to
     this role.
-
-    If the role is disabled, its permissions are not applied to an
-    administrator associated with it.
 
     When this option is empty, the role has full access.
 

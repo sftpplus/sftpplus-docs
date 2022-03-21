@@ -4,18 +4,11 @@ Known Issues
 This is the list of known issues for the current release of SFTPPlus.
 
 
-* [#1054] No support for non-ASCII characters in the server's installation
-  path.
+* [#3787] No support for non-ASCII characters in the server's installation
+  path, on the Windows operating system.
 
   In order to ensure correct operation of SFTPPlus, please
   avoid using special Unicode characters in the installation folder path.
-
-* [#1245] Events logged in Windows Event Logger are listed without
-  a specific Windows description.
-
-  Events logged in Windows Event Logger are listed without a human
-  friendly Windows description.
-  Nevertheless, the data exported as XML is detailed and complete.
 
 * Copying a Local Manager URL from within an authenticated session
   and pasting it in an unauthenticated session will prompt for the login page.
@@ -35,65 +28,17 @@ This is the list of known issues for the current release of SFTPPlus.
   The server itself and all systems with which it interacts
   should use ASCII domain names.
 
-* [#1400] When the server fails to start, it will only emit the general log
-  event `20002` to signal that the server is stopping, without sending dedicated
-  `20078` events for each service that was initially started.
-  Service stop events are still emitted when a service is stopped at running
-  time from the Local Manager or when the server is stopped in a normal way.
-
-* [#1470] The Local Manager will not warn when adding multiple services,
-  accounts, and groups with the same name.
-  No error is generated because internally the server uses UUIDs for addressing
-  these items.
-
-* [#1588] On service start/stop the audit
-  entries for these actions have no field mentioning the administrator
-  requesting the action.
-
-* [#1787] HTTP Post Request log handlers accept HTTPS URLs, but do not
-  validate the SSL connection.
-
-* [#1935] In the HTTP/HTTPS file service, actions can only be triggered by
-  explicitly clicking on buttons.
-  Actions cannot be triggered using the 'Enter' keyboard key.
-
 * [#1946] On Windows systems, the installation will not generate an
   install log file when running in silent mode.
 
 * [#2057] SFTP symbolic links on Windows systems only work when using
   absolute paths.
 
-* When the server does not have write permissions to the configuration file and
-  an administrator applies changes from the Local Manager, changes are applied,
-  but they do not persist in the configuration.
-  If you fix the permissions while the server is still running, there is no
-  option to force a new save to the configuration file, other than making
-  another change and applying it.
-  Then, all previous changes will also be saved.
-
-* [#2134] On Linux, SFTPPlus cannot detect if the OpenSSL libraries provided by
-  the operating system support TLS 1.0 or TLS 1.1.
-  If you configure one of them on an OS with no support,
-  the configured service will start and any connections will fail.
-
 * [#2383] On Windows systems, `execute_before`, `execute_after_success`, and
   `execute_after_failure` cannot be configured with a path containing space
   characters.
   Also, when any `execute_*` action is called for files containing
   non-ASCII characters, the passed file names are corrupted.
-
-* [#2547] When a password is used to import a private key which is not
-  password-protected, the Local Manager will still inform you that the key
-  is password-protected.
-
-* [#94] FTP session reinitialization command (`REIN`) is not yet implemented.
-
-* [#1160] FTP zlib compression command `MODE Z` is not yet implemented.
-
-* [#1161] FTP cyclic redundancy check using the CRC-32 algorithm `XCRC` is not
-  yet implemented.
-
-* [#2357] FTP unique store command (`STOU`) is not yet implemented.
 
 * [#3294] When the file was successfully transferred but failed to be removed
   from the source location, the transfer is considered failed but source file
@@ -201,33 +146,12 @@ This is the list of known issues for the current release of SFTPPlus.
   If changing timezone on a system running SFTPPlus you need to restart
   SFTPPlus in order to apply the changes.
 
-* Updated file transfer debug configuration is applied on new connections.
-  You will need to disconnect and reconnect to see the
-  debug configuration applied for your session.
-  Note that when using a web browser, the HTTP connections are persisted.
-  You will need to close the tab or the browser to force a disconnection.
-
-* [#5531] Private password-protected ECDSA / Ed25519 keys are not supported
-  yet.
-
-* [#5582] When the OS authentication method is configured with `group-name` or
+* [#5239] When the OS authentication method is configured with `group-name` or
   `group-name-with-default` the allowed source IP configuration and SSH
   public keys configuration are extracted from the default group.
 
-* [#5586] SCP file transfer protocol doesn't support transfers for files with
-  quotes in the path or filename.
-  This issue doesn't affect the SFTP protocol.
-
-* [#5598] When a transfer is configured to copy/move a file a destination
-  using a temporary name and the content of the file is copied to destination
-  but the rename operation fails, the transfer will fail, but the log will
-  show the file as succeeded.
-
-* [#5606] The WebDAVS protocol is not supported by the `client-shell` command
-  line tool.
-
-* [#5621] The LDAPS authentication only works with IPv4.
+* [#5189] The LDAPS authentication only works with IPv4.
   Only LDAP authentication is supported for IPv6 address literals.
 
-* [#5672] SMB/Windows Shares authenticated via Kerberos Domain method are not
+* [#5115] SMB/Windows Shares authenticated via Kerberos Domain method are not
   yet supported. NTLM authentication is supported.

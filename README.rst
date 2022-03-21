@@ -27,6 +27,14 @@ Sync with product development
 Generate the documentation source and template from the product repository::
 
     cd chevah-server
-    ./brink.sh documentation_integrated
-    cp -r build-server/docs_source ../sftpplus-docs/
-    cp -r build-server/lib/python/site-packages/sftpplus_website/sphinx ../sftpplus-docs/
+    ./brink.sh documentation_website
+    cp -r build-server/doc_source ../sftpplus-docs/
+    cp -r build-server/lib/python2/7/site-packages/sftpplus_website/sphinx ../sftpplus-docs/
+
+Copy any source file documented via API docs to `doc_source/chevah`.
+
+Update doc_source/conf.py to load local theme files::
+
+    templates_path = ['../sphinx']
+    html_static_path = ['_static']
+    html_theme_path = ['../sphinx']

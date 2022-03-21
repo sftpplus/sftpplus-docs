@@ -18326,7 +18326,7 @@ HTTP/HTTPS protocol
 
 
 :Message: HTTP/HTTPS connection closed on the client-side to %(hostname)s. Session fully established: %(session_established)s
-:Groups: http, session, informational, client-side
+:Groups: informational, authenticated, http, client-side
 :From version: 3.27.0
 :To version: None
 :Description: None
@@ -18351,7 +18351,7 @@ HTTP/HTTPS protocol
 
 
 :Message: HTTP/HTTPS connection created on the client-side as %(hostname)s. Server certificate: %(certificate)s. Used encryption: %(encryption)s.
-:Groups: http, session, informational, client-side
+:Groups: informational, authenticated, http, client-side
 :From version: 3.27.0
 :To version: None
 :Description: None
