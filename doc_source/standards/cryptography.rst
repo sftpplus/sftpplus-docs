@@ -27,12 +27,11 @@ the list of accepted ciphers might change between SFTPPlus or OpenSSL upgrades.
 Connections which are using cryptography which is no longer considers secured
 will stop working between such updates.
 
-..  note::
-    If you are concerned about legacy connections and don't want to disturb
-    existing transfers between updates, even when they are using weak
-    encryption, don't use the `secure` value.
-    Instead, configure an explicit list of ciphers.
-    In this way, the configuration will stay the same between SFTPPlus updates.
+If you are concerned about legacy connections and don't want to disturb
+existing transfers between updates, even when they are using weak
+encryption, don't use the `secure` value.
+Instead, configure an explicit list of ciphers.
+In this way, the configuration will stay the same between SFTPPlus updates.
 
 
 SSL/TLS protocol family

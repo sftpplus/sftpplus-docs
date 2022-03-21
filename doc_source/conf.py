@@ -19,7 +19,7 @@ intersphinx_mapping = {}
 templates_path = ['../sphinx']
 html_static_path = ['_static']
 html_theme_path = ['../sphinx']
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'integrated'
 project = "SFTPPlus"
 copyright = "ProAtria Team"
 
