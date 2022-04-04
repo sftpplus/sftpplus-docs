@@ -376,16 +376,26 @@ ssl_cipher_list
 ssl_allowed_methods
 ^^^^^^^^^^^^^^^^^^^
 
-:Default value: `tlsv1 tlsv1.1 tlsv1.2 tlsv1.3`
+:Default value: `secure`
 :Optional: Yes
-:Values: * `tlsv1.0`
+:Values: * `secure`
+         * `all`
+         * `tlsv1.0`
          * `tlsv1.1`
          * `tlsv1.2`
          * `tlsv1.3`
 :From version: 1.7.4
 :Description:
-    This defines the space separated list of SSL and TLS methods that are
+    This defines the comma-separated list of SSL and TLS methods that are
     accepted by this component during the secure communication handshake.
+
+    Set this to `secure` to allow only the TLS methods that are currently
+    considered secure. For now, this is TLS 1.2 and TLS 1.3 but this might
+    be changed in the future.
+    Any other configured value is ignored.
+
+    Set this to `all` to allow any supported SSL or TLS method.
+    Any other configured value is ignored.
 
     Currently, the following methods are officially supported:
 
@@ -412,3 +422,5 @@ ssl_allowed_methods
     `tlsv1.0` (alias for tlsv1), `tlsv1.1` and `tlsv1.2`
 
     Support for `tlsv1.3` was added in version 3.47.0.
+
+    Prior to version 4.17.0, this was configured as a space separated value.

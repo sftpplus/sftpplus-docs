@@ -27,11 +27,12 @@ the list of accepted ciphers might change between SFTPPlus or OpenSSL upgrades.
 Connections which are using cryptography which is no longer considers secured
 will stop working between such updates.
 
-If you are concerned about legacy connections and don't want to disturb
-existing transfers between updates, even when they are using weak
-encryption, don't use the `secure` value.
-Instead, configure an explicit list of ciphers.
-In this way, the configuration will stay the same between SFTPPlus updates.
+..  note::
+    If you are concerned about legacy connections and don't want to disturb
+    existing transfers between updates, even when they are using weak
+    encryption, don't use the `secure` value.
+    Instead, configure an explicit list of ciphers.
+    In this way, the configuration will stay the same between SFTPPlus updates.
 
 
 SSL/TLS protocol family
@@ -150,6 +151,19 @@ Public-key cryptographic systems
     the future release of TLS v1.3.
 
 
+Key agreement algorithms
+------------------------
+
+* DHE, EDH, DH - ephemeral prime factorization Diffie-Hellman (DH)
+  key agreement
+* EECDH, ECDHE, ECDH - ephemeral elliptic curve Diffie-Hellman (ECDH)
+  key agreement
+
+For the DH key agreement, SFTPPlus uses a DH parameter for the `2` generator
+with a size of 2048 bits.
+Contact us if you require a different DH parameter for your configuration.
+
+
 Hash functions
 --------------
 
@@ -248,7 +262,7 @@ Here is the list of supported SSH key exchanges,
 ordered on the preference of SFTPPlus during the negotiation phase:
 
 * curve25519-sha256
-* curve25519-sha256@libssh.org
+* curve25519-sha256\@libssh.org
 * ecdh-sha2-nistp521
 * ecdh-sha2-nistp384
 * ecdh-sha2-nistp256
@@ -295,16 +309,16 @@ AS2 protocol family
 ===================
 
 SFTPPlus can transfer files using the AS2 protocol as defined in the
-`RFC 4130 <https://tools.ietf.org/html/rfc4130>`
+`RFC 4130 <https://tools.ietf.org/html/rfc4130>`_
 MIME-Based Secure Peer-to-Peer Business Data Interchange Using HTTP,
 Applicability Statement 2 (AS2) standard.
 
 Signing and encrypting AS2 messages is implemented as defined in the
-`RFC 5652 <https://tools.ietf.org/html/rfc5652>`
+`RFC 5652 <https://tools.ietf.org/html/rfc5652>`_
 Cryptographic Message Syntax (CMS) standard.
 
 Signing and verifying Message Disposition Notification (MDN) is implemented
-as defined in the `RFC 5652 <https://tools.ietf.org/html/rfc3798>` standard.
+as defined in the `RFC 3798 <https://tools.ietf.org/html/rfc3798>`_ standard.
 
 Asynchronous MDN is not yet supported. It will be available in a future
 version.
@@ -507,7 +521,7 @@ started life under the Unix operating system.
 The basic format is `PREFIX + HASH`.
 For example, a PBKDF2 password with a salt of 8 characters::
 
-    '$pbkdf2-sha256$8000$XAuBMIYQ$tRRlz8hYn63B9LYiCd6PRo6FMiunY9ozmMMI3srxeRE'
+    $pbkdf2-sha256$8000$XAuBMIYQ$tRRlz8hYn63B9LYiCd6PRo6FMiunY9ozmMMI3srxeRE
 
 It has also been adopted by a number of application-specific
 hash algorithms used outside of the Unix/Linux operating systems.
@@ -523,7 +537,7 @@ corresponding modular prefixes / Scheme ID:
 All variants are publicly documented and widely reviewed algorithms.
 
 The PBKDF2 (Password-Based Key Derivation Function 2) key derivation function
-is standardized in `RFC 8018 <https://tools.ietf.org/html/rfc8018>` as
+is standardized in `RFC 8018 <https://tools.ietf.org/html/rfc8018>`_ as
 part of the RSA Lab PKCS #5 Password-Based Cryptography Specification
 Version 2.1 document. RFC 2898 is an older version of the same standard.
 

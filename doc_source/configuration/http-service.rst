@@ -246,6 +246,23 @@ as2_receive_key
     Leave it empty to use the general server private key.
 
 
+as2_no_mdn_success_text
+^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Any text
+:From version: 4.17.0
+:Description:
+    This defines the response sent by SFTPPlus AS2 server
+    when a message was successfully received but the client has not requested
+    a MDN response.
+
+    Leave it empty to not return any explicit message.
+    SFPPlus will use the standard HTTP `201 Created` status to let the client
+    know that the file was successfully created on the server.
+
+
 triggers
 ^^^^^^^^
 

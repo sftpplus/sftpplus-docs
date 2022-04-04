@@ -7,6 +7,52 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.18.0, 2022-04-04
+--------------------------
+
+The look and feel of Local Manager's login page was refreshed.
+This is the first step into updating the Local Manager web console interface
+over the coming releases.
+
+Version 4.18.0rc1 was released on 2022-04-01 as a release candidate.
+
+
+New Features
+^^^^^^^^^^^^
+
+* The `ssl_allowed_methods` configuration option now supports the `secure` and
+  `all` values, which can be used to configure a set of methods via a single
+  configuration value. [#4453]
+* The `as2_no_mdn_success_text` configuration option was added to allow
+  returning a custom text message on success when no MDN was requested. In
+  previous versions, the response was a fixed empty text. [server-side][as2]
+  [#5581]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* When serving a file via FTP fails before its entire data is sent,
+  the event with ID 10070 is emitted to signal the failure.
+  The event with ID 10069 is no longer emitted, this event is reserved
+  for successful operations.
+  [server-side][ftp] [#5588]
+* You can now enable DHE ciphers for server-side services. Previously, only
+  ECDHE-based ciphers were available. [server-side][ssl] [#5597]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `--ssl-allowed-methods` configuration option of the client shell now
+  requires a comma-separated list of TLS methods. In previous versions, it was
+  a space-separated list, requiring extra escaping when invoked from a shell.
+  [cli] [#4453-1]
+* The `ssl_allowed_methods` configuration option was updated from being a
+  space-separated value to a comma-separated value. The conversion is done
+  automatically, no manual changes required. [#4453]
+
+
 Version 4.17.0, 2022-03-18
 --------------------------
 

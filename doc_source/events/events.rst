@@ -7688,7 +7688,7 @@ FTP protocol
 ^^^^^
 
 
-:Message: Successfully received file &#34;%(path)s&#34;. Read %(total)s bytes at %(speed)s bytes/second in %(duration)s seconds.
+:Message: Successfully delivered file &#34;%(path)s&#34;. Read %(total)s bytes at %(speed)s bytes/second in %(duration)s seconds.
 :Groups: file-operation, ftp, authenticated, operation-read, success
 :From version: 1.6.0
 :To version: None
@@ -7706,7 +7706,7 @@ FTP protocol
 ^^^^^
 
 
-:Message: Failed to retrieve file &#34;%(path)s&#34;. %(details)s
+:Message: Failed to deliver file &#34;%(path)s&#34;. Read %(total)s bytes at %(speed)s bytes/second in %(duration)s seconds. %(details)s
 :Groups: file-operation, failure, authenticated, operation-read, ftp
 :From version: 1.6.0
 :To version: None
@@ -7884,7 +7884,7 @@ FTP protocol
 ^^^^^
 
 
-:Message: Successfully stored file &#34;%(path)s&#34;. Wrote %(total)s bytes at %(speed)s bytes/second in %(duration)s seconds.
+:Message: Successfully received file &#34;%(path)s&#34;. Wrote %(total)s bytes at %(speed)s bytes/second in %(duration)s seconds.
 :Groups: file-operation, ftp, authenticated, operation-write, success
 :From version: 1.6.0
 :To version: None
@@ -7902,7 +7902,7 @@ FTP protocol
 ^^^^^
 
 
-:Message: Failed to store file &#34;%(path)s&#34;. %(details)s
+:Message: Failed to receive file &#34;%(path)s&#34;. %(details)s
 :Groups: file-operation, failure, authenticated, operation-write, ftp
 :From version: 1.6.0
 :To version: None

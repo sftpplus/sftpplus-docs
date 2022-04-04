@@ -1,5 +1,4 @@
-import os, sys
-sys.path.append(os.getcwd())
+
 
 extensions = [
     'sphinx.ext.intersphinx',
@@ -29,15 +28,15 @@ html_context = {
 }
 
 
-version = "4.17.0"
-release = "4.17.0"
+version = "4.18.0"
+release = "4.18.0"
 
 autodoc_default_flags = ['members']
 primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    u'SFTPPlus-4.17.0',
+    u'SFTPPlus-4.18.0',
     u'SFTPPlus Documentation',
     u'ProAtria Team',
     )]
