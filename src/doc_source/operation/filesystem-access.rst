@@ -352,6 +352,34 @@ access controls.
     virtual folder.
 
 
+Virtual folders from multiple groups
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When an account is member of multiple groups, it will get access to
+all the virtual folders defined for the associated groups.
+
+For example, based on the configuration from below, user JohnD will have
+access to both `/sales-emea` and `/sales-uk` virtual folders::
+
+    [groups/d32e-653a-98da]
+    name = Sales EMEA
+    enabled = yes
+    virtual_folders =
+        /sales-emea, C:\Storage\sales\EMEA
+
+    [groups/2a2e-823a-76de]
+    name = Sales UK
+    enabled = yes
+    virtual_folders =
+        /sales-uk, C:\Storage\sales\UK
+
+    [accounts/7521-bb32-6cce]
+    name = JohnD
+    group = d32e-653a-98da, 2a2e-823a-76de
+    home_folder_path = C:\Users\JohnD
+    permissions = inherit
+
+
 Virtual folders and authentication
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -87,8 +87,9 @@ authenticated by the operating system::
 
     [accounts/745fff10-4370-4d75-a172-21819046c76f]
     name = anna
+    description = Account that is a member of multiple groups.
     type = os
-    group = 01d2e30b-05f7-40c3-a86d-58744995970d
+    group = 01d2e30b-05f7, 9e3c5562-9b86
     enabled = Yes
     home_folder_path = /path/to/anna/files
     permissions: inherit
@@ -270,12 +271,17 @@ group
 :Optional: No
 :From version: 1.8.2
 :Values: * UUID of the group associated with this account.
+         * Comma separated list of group UUID (Since 4.18.0)
 :Description:
-    This option specifies the group to which this account is associated.
+    This option specifies the group or the list of groups to which this account
+    is associated.
 
-    The value is the group's UUID and not the group's name.
-    This allows renaming the group without having to update the configuration
-    for all the accounts associated with the group.
+    The first configured group is considered the primary group.
+
+    ..  note::
+        The value is the group's UUID and not the group's name.
+        This allows renaming the group without having to update the
+        configuration for all the accounts associated with the group.
 
 
 description
@@ -344,7 +350,7 @@ home_folder_path
 :Values: * A path to a folder located in the operating system's file system.
          * `${OS_HOME}` - to use the home folder path provided by the
            operating system.
-         * `Inherit` - to get the value from the associated group.
+         * `Inherit`
 
 :Description:
     This option specifies the base path to the account's home folder.
@@ -353,7 +359,7 @@ home_folder_path
     When defined, it should be defined as an absolute path.
 
     When this option is set to `Inherit`, the value defined for the
-    account’s group will apply.
+    account’s primary group will apply.
     For a better understanding, please follow the :ref:`explanations
     and examples on proprieties inheritance <inherited-home-folder-path>`.
 
@@ -370,33 +376,6 @@ home_folder_path
         For domain accounts, a regular folder can be set as
         `home_folder_path`.
         The folder can be automatically created, just as for regular accounts.
-
-
-virtual_folders
-^^^^^^^^^^^^^^^
-
-:Default value: `inherit`
-:Optional: Yes
-:From version: 4.5.0
-:Values: * Comma-separated values of virtual path to real path mappings.
-         * List of virtual path rules, one mapping per line.
-         * `inherit`
-         * Empty.
-:Description:
-    By defining one or more virtual folders, you can allow access to
-    selected files which are located outside an account's locked home
-    folder.
-
-    This is a comma-separated list of values containing two elements -
-    the virtual path and the real path.
-
-    For more details and examples on how to configure virtual folders,
-    see the
-    :doc:`filesystem access documentation</operation/filesystem-access>`.
-
-    Leave it empty to not have any virtual folders.
-
-    Set it to `inherit` to use the virtual folders from the group.
 
 
 required_credentials
@@ -428,7 +407,7 @@ required_credentials
     any type of credentials, e.g. a valid password OR a valid SSH key.
 
     When this option is empty or set to `Inherit`,
-    the value defined for the account's group applies.
+    the value defined for the account's primary group applies.
 
 
 ssh_authorized_keys_path
@@ -471,7 +450,7 @@ ssh_authorized_keys_path
     Windows.
 
     When this option is set to `Inherit`, the value defined for the account's
-    group will apply.
+    primary group will apply.
     For a better understanding, please follow the :ref:`explanations
     and examples on proprieties inheritance <inherited-home-folder-path>`.
 
@@ -529,7 +508,7 @@ source_ip_filter
     comma-separated list or a range of IP addresses from the same subnet
     using the Classless Inter-Domain Routing (CIDR) notation.
 
-    Set it to `Inherit` to use the configuration defined for the group
+    Set it to `Inherit` to use the configuration defined for the primary group
     associated with this account.
 
     Leave it empty to allow this account to be authenticated from any source
@@ -559,7 +538,7 @@ allow_certificate_authentication
     to use other means of authentication.
 
     When this option is set to `Inherit`, the value defined for the account's
-    group will apply.
+    primary group will apply.
 
 
 as2_require_http_authentication
@@ -649,12 +628,50 @@ permissions
     operations permitted for this account.
 
     When this option is set to `Inherit`, the value defined for the account's
-    group will apply.
+    groups will apply.
     Any other value directly configured is ignored.
+
+    Accounts that inherit this configuration and are associated with
+    multiple groups will be configured by appending all the
+    permissions defined for each of the associated group.
+    The default permission is extracted from the primary group, while the
+    default permissions for the secondary groups is ignored.
 
     For more details see
     :ref:`the permission <configuration-groups-permissions>` documentation
     described for the group.
+
+
+virtual_folders
+^^^^^^^^^^^^^^^
+
+:Default value: `inherit`
+:Optional: Yes
+:From version: 4.5.0
+:Values: * Comma-separated values of virtual path to real path mappings.
+         * List of virtual path rules, one mapping per line.
+         * `inherit`
+         * Empty.
+:Description:
+    By defining one or more virtual folders, you can allow access to
+    selected files which are located outside an account's locked home
+    folder.
+
+    This is a comma-separated list of values containing two elements -
+    the virtual path and the real path.
+
+    For more details and examples on how to configure virtual folders,
+    see the
+    :doc:`filesystem access documentation</operation/filesystem-access>`.
+
+    Leave it empty to not have any virtual folders.
+
+    Set it to `inherit` to use the virtual folders from the associated
+    groups.
+
+    Accounts that inherit this configuration and are associated with
+    multiple groups will be configured by appending all the virtual
+    folders defined for each of the associated group.
 
 
 expire_datetime
@@ -717,13 +734,12 @@ amend_write_name
     If a file with the randomly generated name already exists, the write
     request will fail.
 
-
     When this is enabled, any request to write the file in any way
     (write new file, append, or write updates) will result in a new file
     being creating and the specific write request to be ignored.
 
     When this option is set to `Inherit`, the value defined for the account's
-    group will apply.
+    primary group will apply.
 
     Leave it empty to not amend the file names for the upload requests.
 
@@ -745,6 +761,9 @@ create_home_folder
     the home folder is not already created.
     When set to `Yes`, the server will try to create missing home folders for
     users that are successfully authenticated.
+
+    When this option is set to `Inherit`, the value defined for the account's
+    primary group will apply.
 
     For application accounts, new home folders are created using the
     same account under which the server is executed.
@@ -831,6 +850,9 @@ password_lifetime
     the account is automatically disabled.
     To re-enable it, a new password needs to be set by an administrator.
 
+    When this option is set to `Inherit`, the value defined for the account's
+    primary group will apply.
+
     ..  note::
         To allow users to change their own passwords, make sure
         `allow_own_password_change` is enabled in the associated group.
@@ -894,7 +916,7 @@ create_home_folder_owner
     set to the default value specified by the operating system.
 
     When this option is set to `Inherit`, the value defined for the account's
-    group will apply.
+    primary group will apply.
 
 
 create_home_folder_group
@@ -920,4 +942,4 @@ create_home_folder_group
         Please contact us in the case that you need different behaviour.
 
     When this option is set to `Inherit`, the value defined for the account's
-    group will apply.
+    primary group will apply.

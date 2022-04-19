@@ -15,9 +15,9 @@ smartquotes = False
 html4_writer = False
 html_experimental_html5_writer = True
 intersphinx_mapping = {}
-templates_path = ['../sphinx']
+templates_path = ["../../sphinx"]
 html_static_path = ['_static']
-html_theme_path = ['../sphinx']
+html_theme_path = ["../../sphinx"]
 html_theme = 'integrated'
 project = "SFTPPlus"
 copyright = "ProAtria Team"
@@ -28,15 +28,15 @@ html_context = {
 }
 
 
-version = "4.18.0"
-release = "4.18.0"
+version = "4.19.0"
+release = "4.19.0"
 
 autodoc_default_flags = ['members']
 primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    u'SFTPPlus-4.18.0',
+    u'SFTPPlus-4.19.0',
     u'SFTPPlus Documentation',
     u'ProAtria Team',
     )]

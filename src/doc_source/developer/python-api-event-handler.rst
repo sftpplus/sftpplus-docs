@@ -29,67 +29,13 @@ inside the `extension/` folder from the SFTPPlus installation folder.
 
 You can find an extensive example inside the `extension/demo_event_handler.py`
 folder of the default SFTPPlus installation.
-Below is a brief example::
 
-    class DemoEventHandler(object):
-        """
-        An event handler which just prints to standard output the ID of the
-        received events.
-        """
+Below is an example extension code that is also used to document the
+available API and functionalities.
 
-        def __init__(self):
-            """
-            Called when the event handler is started in each worker and
-            in the main process.
-            """
-
-        def onStart(self, parent):
-            """
-            Called in the main process when the event handler starts.
-
-            `parent.configuration` is the Unicode string defined in the
-            extension configuration option.
-
-            Any exception raised here will stop the event handler from
-            starting.
-            """
-            self._configuration = parent.configuration
-
-        def onStop(self):
-            """
-            Called in the main process when the event handler stops.
-            """
-            self._configuration = None
-
-        def getConfiguration(self, event):
-            """
-            Called in the main process before dispatching the event to
-            the worker process.
-
-            Return the configuration for the event as Unicode.
-
-            It can be used as validation for the event,
-            before handling the event in a separate CPU core    .
-
-            Any exception raised here will stop the handling of this
-            specific event instance by the extension.
-            """
-            return self._configuration
-
-        @staticmethod
-        def handle(event, configuration):
-            """
-            Called in a separate process when it should handle the event.
-
-            This function should work even when onStart and onStop were not
-            called.
-
-            `configuration` is the Unicode value returned by
-            getConfiguration(event).
-            """
-            print(b'Configuration %s' % (configuration,))
-            print(b'Received %s' % (event.id,))
-
+..  literalinclude:: ../../../extension/demo_event_handler.py
+    :language: python
+    :linenos:
 
 This event handler can be configured as::
 

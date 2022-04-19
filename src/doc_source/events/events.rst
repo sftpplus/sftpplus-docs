@@ -633,7 +633,7 @@ Generic and server-side common functionality
 ^^^^^
 
 
-:Message: DEBUG: %(details)s
+:Message: DEBUG: %(message)s
 :Groups: authenticated, informational
 :From version: 3.48.0
 :To version: None
@@ -3579,7 +3579,7 @@ Generic and server-side common functionality
 ^^^^^
 
 
-:Message: Account &#34;%(account_name)s&#34; of type &#34;%(account_type)s&#34; from &#34;%(group_name)s&#34;, authenticated as &#34;%(username)s&#34; by &#34;%(method_name)s&#34; of type &#34;%(method_type)s&#34; using %(credentials_type)s.
+:Message: Account &#34;%(account_name)s&#34; of type &#34;%(account_type)s&#34; from groups &#34;%(group_name)s&#34;, authenticated by &#34;%(method_name)s&#34; of type &#34;%(method_type)s&#34; using %(credentials_type)s as &#34;%(username)s&#34; .
 :Groups: session, informational, operational
 :From version: 2.10.0
 :To version: None
@@ -4896,6 +4896,24 @@ Generic and server-side common functionality
   :target_path: Path to a file associated with the HTTP post.
 
 
+
+
+
+
+
+
+
+
+
+20200
+^^^^^
+
+
+:Message: %(message)s
+:Groups: authenticated, informational
+:From version: 4.19.0
+:To version: None
+:Description: Event designed to be emitted by Python API extension.
 
 
 
@@ -10973,8 +10991,20 @@ FTP protocol
 
 
 
+
+
+
+
+
+
 SSH protocol
 ============
+
+
+
+
+
+
 
 
 
@@ -17641,6 +17671,12 @@ HTTP/HTTPS protocol
 
 
 
+
+
+
+
+
+
 40000
 ^^^^^
 
@@ -21938,6 +21974,12 @@ Management and Local Manager Events
 
 
 
+
+
+
+
+
+
 50000
 ^^^^^
 
@@ -23052,6 +23094,12 @@ Management and Local Manager Events
 
 Transfer and client-side functionality
 ======================================
+
+
+
+
+
+
 
 
 

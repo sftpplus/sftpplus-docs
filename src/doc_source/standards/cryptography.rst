@@ -529,8 +529,8 @@ hash algorithms used outside of the Unix/Linux operating systems.
 SFTPPlus support the following password hash standards with the
 corresponding modular prefixes / Scheme ID:
 
-* `crypt-sha512` - prefix `$5$` - Standard Unix SHA-512 Crypt
-* `crypt-sha256` - prefix `$6$` - Standard Unix SHA-256 Crypt
+* `crypt-sha512` - prefix `$6$` - Standard Unix SHA-512 Crypt
+* `crypt-sha256` - prefix `$5$` - Standard Unix SHA-256 Crypt
 * `pbkdf2_sha256` - prefix `$pbkdf2-sha256$` - RSA PKCS#5 based on SHA-512
 * `pbkdf2_sha512` - prefix `$pbkdf2-sha512$` - RSA PKCS#5 based on SHA-512
 

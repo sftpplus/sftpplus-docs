@@ -151,6 +151,10 @@ allowed_groups
     When this is empty, any account is accepted as long as it has valid
     credentials.
 
+    For an account that is a member of multiple groups,
+    the authentication succeeds when at least one of those groups is found
+    in the `allowed_groups` list.
+
     ..  note::
         This option applies to group UUID values, not group names.
         This makes it possible to rename a group without having to update
@@ -285,7 +289,9 @@ group_association
          * `group-name-with-default`
 :From version: 4.11.0
 :Description:
-    Defines the SFTPPlus group that is associated with authenticated users.
+    Defines the SFTPPlus group that is associated with authenticated users
+    for which no explicit association is defined inside the SFTPPlus
+    configuration.
 
     When set with the identifier (UUID) of a SFTPPlus group,
     it will associate any user with that SFTPPlus group.

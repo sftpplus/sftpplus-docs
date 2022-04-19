@@ -97,6 +97,7 @@ member UUIDs, with or without an option name::
 * resources
 * services
 * transfers
+* node_variables
 * status
 
 You can target a class of configurations,

@@ -116,10 +116,11 @@ enabled
 :Values: * `Yes`
          * `No`
 :Description:
-    This option specifies whether or not to disable all accounts belonging
-    to the group.
+    This option specifies whether or not to disable all accounts that are
+    associated with this group.
 
-    When set to `No`, all accounts from this group will be disabled.
+    When set to `No`, all accounts from this group will be disabled and
+    authentication will fail for these accounts.
 
 
 description
@@ -539,15 +540,19 @@ permissions
     the members of the group will have full access to any of their files.
 
     Different permissions can be set for different paths.
+
     The first set of permissions will apply to any path for which there is
     no explicit configuration.
+    They are called the *global permissions*.
+    The *global permissions* are only used for accounts for which this
+    group is the primary group.
 
     All the remaining sets of permissions will define per-path
     permissions.
     The first value in the list is a path matching expression,
     followed by the permissions for those paths.
 
-    The path expression are matched against the *virtual path*, that is
+    The path expressions are matched against the *virtual path*, that is
     the path as observed by the client-side and not the *real path* on the
     server's storage.
 
