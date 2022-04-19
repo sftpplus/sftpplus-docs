@@ -1,4 +1,4 @@
-.docs.sftpplus.com
+docs.sftpplus.com
 =================
 
 .. image:: https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png
@@ -6,8 +6,16 @@
 
 The documentation for the SFTPPlus product.
 
+There is an `update-docs.sh` script that should be called, while the
+`chevah/server` repo is checkout at the release branch.
+
+You should push the changes on the `main` branch.
+The main branch will be always updated with the latest release.
+You should also create a version dedicate branch with the format `v4-18-0`
+and push the changes for that version.
+
 To build the documentation you need a Python environment.
-(python3 upgrade soon)::
+(python3 upgrade coming soon)::
 
     virtualenv venv
     . venv/bin/activate
