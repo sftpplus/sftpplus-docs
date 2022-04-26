@@ -7,6 +7,41 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.19.0, 2022-04-18
+--------------------------
+
+You can now associate an account with multiple groups.
+This simplifies managing shared virtual folders across
+multiple users and groups.
+
+Version 4.19.0rc1 was released on 2022-04-07 as a release candidate.
+No changes were made to the final release since the release candidate.
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure an account to be associated with multiple groups. In
+  this way, an account has access to the virtual directories and inherited
+  permissions defined in all of the associated groups. [server-side] [#2184]
+* The Local Manager's user interface for configuring the list of SSL/TLS
+  ciphers to be used by HTTPS and FTPS services has been improved to allow
+  selecting from a list of available ciphers. [ssl] [#5600]
+* The Python API extension `handle` method can now return a string to
+  be emitted in an event and logged.
+  [api] [#5626-1]
+* The Python API extension `handle` method can now return a sequence of
+  Python dict instances containing the `message` attribute.
+  This sequence is used to emit events with specified messages.
+  A dict instance can contain other attributes to be made available to the
+  event handling mechanism of SFTPPlus.
+  [api] [#5626-2]
+* For the Python API Extension event handler,
+  the `getConfiguration` method can now return a scheduled
+  result to be used for delaying execution or for waiting for an
+  additional external condition before executing the event. [api] [#5626]
+
+
 Version 4.18.0, 2022-04-04
 --------------------------
 
@@ -15,6 +50,7 @@ This is the first step into updating the Local Manager web console interface
 over the coming releases.
 
 Version 4.18.0rc1 was released on 2022-04-01 as a release candidate.
+No changes were made to the final release since the release candidate.
 
 
 New Features
@@ -57,6 +93,7 @@ Version 4.17.0, 2022-03-18
 --------------------------
 
 Version 4.17.0rc1 was released on 2022-02-28 as a release candidate.
+No changes were made to the final release since the release candidate.
 
 
 New Features
