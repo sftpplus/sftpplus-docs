@@ -81,7 +81,7 @@ you can define the following event handler::
     target = 10092, 20024, 20033, 20058, 20059, 20102, 20106
 
 Leave `target` empty to log all events.
-Check out the :doc:`Event Handler Configuration</configuration/event-handlers>`
+Check out the :doc:`Event Handler Configuration</configuration-events/index>`
 for more details about the available filters.
 
 

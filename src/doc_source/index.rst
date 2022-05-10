@@ -31,6 +31,11 @@ Unix-like systems, familiar with file transfer protocols.
     installation/index
     quick-start/index
     configuration/index
+    configuration-server/index
+    configuration-client/index
+    configuration-events/index
+    configuration-identity/index
+    configuration-auth/index
     operation/index
     operation-client/index
     developer/index

@@ -44,7 +44,7 @@ Configuring administrators
 
 Administrators are only dedicated to accessing the Local Manager.
 For documentation around configuring administrators, please go to
-:doc:`the Administrators section</configuration/administrators>`.
+:doc:`the Administrators section</configuration-identity/administrators>`.
 
 
 Adding a new account via Local Manager

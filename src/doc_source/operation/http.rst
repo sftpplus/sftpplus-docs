@@ -30,7 +30,7 @@ More resources about the HTTP / HTTPS service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For more details about the configuration options, please go to the dedicated
-:doc:`HTTP/HTTPS configuration<../configuration/http-service>` page.
+:doc:`HTTP/HTTPS configuration</configuration-server/http-service>` page.
 
 For those interested in working with the HTTP Service JSON-based API, please
 refer to our :doc:`Developer Documentation </developer/index>`.

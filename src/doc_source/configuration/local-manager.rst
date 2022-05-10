@@ -31,7 +31,7 @@ By default the Local Manager provides a dedicated administrator account
 which is not tied to the operating system.
 More administrator accounts can be created using the Local Manager or by
 manually editing the configuration file, please see
-(:doc:`the page on configuring administrators </configuration/administrators>`).
+(:doc:`the page on configuring administrators </configuration-identity/administrators>`).
 
 ..  note::
     The default account name is `admin` and the default password is `pass`.
@@ -99,6 +99,6 @@ server, and configuration options are stored inside the
 `configuration/server.ini` configuration file.
 
 For general information about configuring a service, please see the
-:doc:`services configuration page</configuration/services>`.
+:doc:`services configuration page</configuration-server/services>`.
 
-.. include:: /configuration/service-http.include.rst
+.. include:: /configuration-server/service-http.include.rst

@@ -35,7 +35,7 @@ Below is another sample for the ``server`` section as a text configuration::
     description = Long text describing the server
     account = sftpplus
     umask = 022
-    authentications = 0022b17a-30a0-4b70, ffa17005-51c2-42f1
+    authentications = 0022b17a-30a0-4b70, ffa9-bd05-51c2-42f1
     manager_authentications = 65a1-41ce-fea1-8015
 
 

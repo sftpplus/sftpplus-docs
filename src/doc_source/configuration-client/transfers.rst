@@ -664,11 +664,13 @@ schedule
     Times are defined using a 24-hour based on the local time zone.
 
     Supported actions are:
+
     * `start`
     * `stop`
 
     Week day values were introduced in version 3.44.0.
     Here are the valid week day values, in ISO 8601 order:
+
     * Monday
     * Tuesday
     * Wednesday
@@ -781,8 +783,15 @@ destination_path_actions
 
     The supported actions are:
 
+    * `transform` - This is the generic operation based on which the
+      destination path can be defined as a different name in comparison with
+      the source path.
+      The whole path can be transformed, not only the filename.
+      It can be used for a rename operation,
+      as well as for inserting a timestamp.
     * `only-filename` - Use only the source file name and discard the source
-      path. This result in flatten destination. This action has no parameters.
+      path. This results in a flattened destination.
+      This action has no parameters.
     * `replace-separator` - Takes a single parameter, which is the character(s)
       used to replace the source path separator.
     * `lowercase` - Will use the same file path as source, but in all lower

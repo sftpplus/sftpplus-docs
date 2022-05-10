@@ -125,7 +125,7 @@ When no explicit data type is requested by the client-side, the server will
 consider the data type as IMAGE/BINARY.
 
 The default data type can be changed using
-:doc:`the FTP service configuration </configuration/ftp-service>`.
+:doc:`the FTP service configuration </configuration-server/ftp-service>`.
 
 ..  note::
     The RFC 959 defines the default type as ASCII but in SFTPPlus the default
@@ -368,7 +368,7 @@ your FTP / FTPS server from behind the NAT, the FTP service configuration
 provides the `passive_address` configuration option as a way to work around
 this problem.
 For more details please check the
-:doc:`FTP service configuration page </configuration/ftp-service>`.
+:doc:`FTP service configuration page </configuration-server/ftp-service>`.
 
 When `passive_address` is defined and you have FTP clients which connect
 from the same LAN (not passing the NAT), they will still get the NAT
@@ -400,7 +400,7 @@ should be filtered by the firewall.
 
 SFTPPlus can be configured to use a specific source port number.
 For more details please check the
-:doc:`FTP service configuration page </configuration/ftp-service>`.
+:doc:`FTP service configuration page </configuration-server/ftp-service>`.
 
 
 Restarting a transfer

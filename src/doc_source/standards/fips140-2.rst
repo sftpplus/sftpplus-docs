@@ -53,7 +53,7 @@ When FIPS 140-2 ciphers are enabled, any other configured cipher in the list is
 ignored.
 
 Further details are available at the `ssh_cipher_list` in the
-:doc:`SSH (SFTP and SCP) Service page</configuration/ssh-service>`.
+:doc:`SSH (SFTP and SCP) Service page</configuration-server/ssh-service>`.
 
 
 FIPS 140-2 compliance

@@ -16,7 +16,7 @@ To be further informed about the event ID's group (such as `informational` for
 the `20137` event ID), search for the name in the Server Event Group page.
 
 For configuring the server to react when an event occurs, please see
-:doc:`the dedicated page</configuration/event-handlers>`.
+:doc:`the dedicated page</configuration-events/index>`.
 
 
 ..  toctree::

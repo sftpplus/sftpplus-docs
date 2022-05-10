@@ -1,4 +1,4 @@
-Server side services
+Server-side services
 ====================
 
 ..  contents:: :local:

@@ -10,7 +10,7 @@ If no action is taken on installations experiencing high transfer volumes,
 this can lead to log files filling up available disk space.
 
 For further details on changing the log configuration, please go to the
-:doc:`Event Handlers </configuration/event-handlers>` section.
+:doc:`Event Handlers </configuration-events/local-file>` section.
 
 Please take the time to alter the log file configuration option to suit
 your needs.

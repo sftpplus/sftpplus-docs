@@ -397,4 +397,4 @@ announce_session_authentication
     web browsers should include an SSL certificate signed by the same
     certificate authority.
 
-.. include:: /configuration/service-http.include.rst
+.. include:: /configuration-server/service-http.include.rst

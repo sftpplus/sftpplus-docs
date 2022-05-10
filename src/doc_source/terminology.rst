@@ -46,17 +46,6 @@ A remote party initiating connections to the server and requesting file
 management operations.
 
 
-Cluster
--------
-
-A computer cluster is a set of computers that work together so that they can be viewed as a single system.
-
-Each computer that is member of the cluster is called a node.
-
-The nodes from a cluster are not directly accessible.
-The access to the nodes is done via a load balancer or firewall.
-
-
 Component
 ---------
 
@@ -200,36 +189,6 @@ By default, all accounts are locked into a dedicated home folder and access is
 restricted to files and folders within.
 
 
-High availability
------------------
-
-This is a cluster or load balancer deployment method in which two
-or more SFTPPlus installations are operating at the same time and
-visible to external connections as a single IP address.
-
-The goal is to avoid having a single point of failure.
-
-The cluster or load balancer management and monitoring software
-will initiate new connection on either of the cluster nodes.
-
-If a single node is unavailable, the cluster management software
-will direct all connection ta the remaining nodes.
-
-In this way, the file transfer server remains operational,
-even if for example one SFTPPlus instance is offline due to
-OS updates or application updates.
-
-
-Load Balancer
--------------
-
-Also referred to as Network Load Balancer or Server Load Balancer.
-Is a simplified cluster implementation in which multiple nodes
-are joined via an internal network.
-
-All nodes share the same external IP address.
-
-
 Location
 --------
 
@@ -249,26 +208,6 @@ MFT software is marketed to corporate enterprises as an alternative to
 using ad-hoc file transfer solutions such as FTP, HTTP, and others.
 MFT suites are often characterized by functionality for multiple protocols,
 encryption, automation, auditability, and integration.
-
-
-Node
-----
-
-A single SFTPPlus installation that operates as part of a cluster.
-The cluster can be used for high-availabilty, high-performance, or
-testing/production purposes.
-
-
-Node variable
--------------
-
-A configuration value that is applied to a single node from the
-cluster.
-When operating in a cluster,
-the SFTPPlus installation will use the majority of the cluster's
-shared configuration option.
-By using a node variable, you can adapt the generic configuration
-to a specific SFTPPlus node installation.
 
 
 Operating system service

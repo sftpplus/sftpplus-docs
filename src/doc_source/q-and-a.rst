@@ -225,7 +225,7 @@ How to enable / disable SSH key-based authentication?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Please refer to
-:doc:`the SSH service configuration page<configuration/ssh-service>`.
+:doc:`the SSH service configuration page</configuration-server/ssh-service>`.
 
 
 How to use PKI X.509 SSL certificates for authenticating over SFTP?
@@ -236,7 +236,7 @@ SSL certificate authentication.
 SSL certificate authentication, together with self-signed SSL certificates
 are supported using the FTPS protocol.
 For more information, please refer to
-:doc:`FTP/FTPS service configuration page<configuration/ftp-service>`.
+:doc:`FTP/FTPS service configuration page<configuration-server/ftp-service>`.
 
 The reason why SSL certificate authentication is not available for SFTP
 is that this is not a standard authentication method for the SSH and the SFTP

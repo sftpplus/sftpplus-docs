@@ -331,8 +331,8 @@ to groups for which the configuration is stored in SFTPPlus.
 This can be done without adding any extra LDAP attributes to the existing
 LDAP entries.
 
-In this way you, can augment the LDAP database with SFTPPlus specific
-configuration and a scalable configuration by the way of the inherited
+In this way you, can augment the LDAP database with SFTPPlus specific configuration.
+This achieves a scalable configuration by the way of the inherited
 configuration options.
 
 Without any explicit configuration, SFTPPlus associates any LDAP account
@@ -343,6 +343,10 @@ For the most basic configuration, you can specify a single SFTPPlus group UUID,
 and all the accounts from LDAP are associated with that group.
 The group configuration is managed and stored inside SFTPPlus.
 
+You can also specify a list of SFTPPlus group UUIDs,
+and all the accounts from LDAP are associated with those groups.
+The first configured group is considered the primary group for the LDAP accounts.
+
 For complex configurations, you can associate different SFTPPlus groups to
 LDAP accounts based on the values of existing attributes.
 
@@ -350,8 +354,7 @@ Below is a basic configuration syntax::
 
     group_mapping =
         FALLBACK-GROUP-UUID
-        ldapAttributeName, MATCHING_EXPRESSION, GROUP-UUID
-
+        ldapAttributeName, MATCHING_EXPRESSION, PRIMART-GROUP-UUID, OPIONAL-SECONDAY-GROUP_UUID
 
 A set of group mapping / group association rules are defined,
 each rule having 3 components:
@@ -360,21 +363,29 @@ each rule having 3 components:
   associated with the LDAP account
 * MATCHING_EXPRESSION - this is an exact value of the LDAP attribute,
   a globbing expression or regular expression.
-* GROUP-UUID - this is the UUID of a group of which configuration is stored
-  and managed by SFTPPlus.
+* remaining list of group UUID - these are the UUID of a SFTPPluls groups
+  associated with this account.
 
 For more details, see the :doc:`matching expression
 documentation</configuration/matching-expression>`.
 
 The first line contains the fallback group
 which is used when there is no match on any of the other rules.
-The other lines are defined as comma separated lines of 3 elements.
-The first element is the name of the LDAP attribute.
-The second element is the value of the LDAP attribute
-which can be matched based on a strict value (case-insensitive),
-globbing or on regular expressions.
-The third element is the UUID of the SFTPPlus group which should
-be associated on a match.
+
+The other lines are defined as comma separated lines of 4 elements:
+
+* The first element is the name of the LDAP attribute.
+
+* The second element is the value of the LDAP attribute
+  which can be matched based on a strict value (case-insensitive),
+  globbing or on regular expressions.
+
+* The remaining elements are the UUIDs of the SFTPPlus groups which should
+  be associated on a match.
+  The first in the list is the primary group for the authenticated account.
+
+* The first element is optional and defines if the matched should be the only
+  group for the account, of if the account is allowed to have multiple groups.
 
 Here is an example::
 
@@ -384,13 +395,17 @@ Here is an example::
 
     group_mapping =
         987d-54da-db3c
-        memberOf, *-apac-*, 54ae-987d-09ff
+        memberOf, *-apac-*, 54ae-987d-09ff, 987d-88de-4213, 8fde-54da-00aa
+        memberOf, *-it-*, 5b9f-2600-ebd6
         operationalUnit, m/sales-force-[1-3]/, 8fde-54da-00aa
 
 When an LDAP entry with the following LDIF is successfully authenticated,
-it gets associated with the SFTPPlus group with UUID `e232-ad2a-db3c`.
+it gets associated with the SFTPPlus group with UUID `54ae-987d-09ff`
+as the primary group and `987d-88de-4213` and `8fde-54da-00aa` as secondary
+groups.
 The group for `operationalUnit` is not matched because `memberOf` is defined
-first, and SFTPPlus uses that::
+first in the rules for `group_mapping`.
+Below is the LDAP LDIFF representation for the account::
 
     dn: cn=bob,ou=people,dc=example,dc=com
     uid: bob

@@ -730,7 +730,7 @@ Get in contact with us if you want a WebDAV feature which is not yet
 implemented.
 
 A WebDAV client-side implementation is available in SFTPPlus as
-: :doc:`a WebDAV location</configuration/locations>`
+: :doc:`a WebDAV location</configuration-client/locations>`
 
 In the context of the SFTPPlus server-side implementation,
 the WebDAV collection resources are folders/directories

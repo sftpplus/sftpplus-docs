@@ -7,6 +7,88 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.20.0, 2022-05-10
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* The configuration documentation pages were reorganized with separate
+  sections for server-side, client-side, and managed file transfer options.
+  [#1925]
+* SFTPPlus can now call up to 3 concurrent external processes. In previous
+  versions, the old limit was 2. The new limit of 3 is designed to reduce
+  the general operating system memory and process handlers usage. [#5308]
+* To allow the transfer of a source file to a dynamic destination path, the
+  `transform` option was added to `destination_path_actions`. The
+  destination can be defined based on current date and time, or based on parts
+  of the source file path. [client-side] [#5409]
+* You can now associate LDAP and RADIUS users with one or multiple SFTPPlus
+  groups UUIDs using the `group_mapping` configuration option.
+  [server-side][ldap][radius] [#5482]
+* Windows Server 2022 is now a supported platform. [#5653]
+* Amazon Linux 2022 is now supported on x86_64. [#5653-2]
+* Ubuntu Server 22.04 LTS is now supported on x86_64. [#5694]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* You can now configure the `external-executable` event handler and the
+  `execution` action of the `file-dispatcher` event handler with timeouts
+  greater than 30 seconds. In previous versions, there was a hard limit of
+  30 seconds. [events] [#5308]
+* A transfer now continues processing source files when restarted after a
+  failure. This is a regression introduced in version 4.3.0, for which a
+  complete product restart is required to recover from a failed transfer.
+  [client-side] [#5615]
+* When no explicit source or destination location UUIDs are defined for a
+  transfer, the DEFAULT-LOCAL-FILESYSTEM UUID is now explicitly used. In
+  previous versions, the value was left empty, which implicitly triggered the
+  usage of the default local filesystem. [client-side] [#5629]
+* Included zlib libraries were updated to version 1.2.12 to fix CVE-2018-25032
+  on all platforms except Windows. [#5653-2]
+* The OpenSSL 1.1.1 libraries used for Python's cryptography on Windows,
+  generic Linux, and macOS were updated to version 1.1.1n to fix CVE-2022-0778.
+  On generic Linux and macOS, this fix is also applied to Python's stdlib ssl.
+  The OpenSSL 1.0.2 libraries used on AIX for Python's cryptography and the
+  stdlib ssl module were patched for CVE-2022-0778. [#5653]
+* The documentation search was fixed to prevent stalling. [#5661]
+* The documentation for the events was updated to show double quotes characters
+  instead of HTML codes. [doc] [#5670]
+* The `admin-shell` command was fixed. The error was introduced in version
+  4.19.0. [cli] [#5681]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `disabled` value is no longer supported for the transfer's `source_uuid`
+  and `destination_uuid` configuration options. Previously, the `disabled`
+  values were accidentally supported instead of the default local filesystem.
+  [client] [#5629]
+* The event with ID 20034 emitted when a service is configured with an unknown
+  protocol was removed and replaced by the event with ID 20091. The event with
+  ID 20091 is now emitted for any component configured with an unknown type.
+  [server-side] [#5648]
+* The role permission targets for accounts, roles, groups, and administrators
+  were updated to deprecate the `identity` part. Access to accounts, roles,
+  groups, and administrators can now be granted and restricted based on the
+  `configuration/accounts`, `configuration/groups`, `configuration/roles`, and
+  `configuration/administrators` targets respectively. The old target
+  `configuration/identity/accounts` still works via the programmatic API.
+  For access to accounts, roles, groups, and administrators via the Local
+  Manager UI, you need to update the configuration to use the new paths.
+  The old path is planned to be removed in future version 5 of SFTPPlus.
+  [manager][security] [#5651-1]
+* The `configuration.identity` section from the server configuration JSON-RPC
+  API was removed. The accounts, groups, roles, and administrator configuration
+  are now accessible via `configuration.acccounts`, `configuration.groups`,
+  `configuration.roles`, and `configuration.administrators` options
+  respectively. [manager][api] [#5651]
+
+
 Version 4.19.0, 2022-04-18
 --------------------------
 
@@ -4865,7 +4947,7 @@ file:
       name = ftp-partners
       enabled = yes
 
-      ; Protocol options copied from configuration/ftp-service.config file.
+      ; Protocol options copied from configuration-server/ftp-service.config file.
       banner = Welcome to the FTP/FTPS Service.
       passive_port_range = 9000 - 9200
 
@@ -4972,7 +5054,7 @@ Upgrade information
 ^^^^^^^^^^^^^^^^^^^
 
 The following manual changes are required for the
-'configuration/ftp-service.config' file:
+'configuration-server/ftp-service.config' file:
 
  * ``service_dtp_timeout``, renamed to
    ``service_idle_data_connection_timeout``

@@ -50,7 +50,7 @@ To initialize a fresh SFTPPlus installation, execute the following command
 (where $ADMIN should be replaced with your favourite administrative username
 and $PASS with a password to be used for the SFTPPlus $ADMIN user)::
 
-    cd /opt/sftpplus
+    cd /Library/sftpplus
     ./bin/admin-commands.sh initialize --init-admin $ADMIN --init-password $PASS
 
 Default configuration allows external connections to the management web page.
@@ -100,42 +100,44 @@ In the following examples we will use the default configuration value of
 Configuring the process user and group on macOS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To create an `sftpplus` group and a corresponding user on macOS, replace the
-value of ``240`` from the following example with a unique ID for your system::
+To create an `sftpplus` group and a corresponding user on macOS,
+use the following commands.
+
+You can replace the value of ``299`` from the below example commands with
+a unique ID for your system.
+On macOS, you can use `dscacheutil -q user` or `dscacheutil -q group` to
+identify the used IDs and pick a unique ID.
+
+The below commands are included into an easy to use script which is
+available as
+`osx_useradd.sh <https://gist.github.com/adiroiban/80c8acc00b8957869f68>`_::
 
     # Create the group dedicated to the service account.
-    dscl . create /Groups/sftpplus
+    sudo dscl . create /Groups/sftpplus
     # Assign an unique ID to the group.
-    dscl . create /Groups/sftpplus PrimaryGroupID 240
+    sudo dscl . create /Groups/sftpplus PrimaryGroupID 299
     # Disable group password.
-    dscl . create /Groups/sftpplus Password '*'
+    sudo dscl . create /Groups/sftpplus Password '*'
     # Create a user for the service account.
-    dscl . create /Users/sftpplus
+    sudo dscl . create /Users/sftpplus
     # Assign a unique ID to the new user.
-    dscl . create /Users/sftpplus UniqueID 240
+    sudo dscl . create /Users/sftpplus UniqueID 299
     # Assign this account to the dedicated group.
-    dscl . create /Users/sftpplus PrimaryGroupID 240
+    sudo dscl . create /Users/sftpplus PrimaryGroupID 299
     # Disable shell access.
-    dscl . create /Users/sftpplus UserShell /usr/bin/false
+    sudo dscl . create /Users/sftpplus UserShell /usr/bin/false
     # Make sure it has a default empty home folder.
-    dscl . create /Users/sftpplus NFSHomeDirectory /var/empty
+    sudo dscl . create /Users/sftpplus NFSHomeDirectory /var/empty
     # Disable password to block any authentication request.
-    dscl . create /Users/sftpplus Password '*'
+    sudo dscl . create /Users/sftpplus Password '*'
     # Initialize blank password and authentication rules.
-    dscl . delete /Users/sftpplus PasswordPolicyOption
-    dscl . delete /Users/sftpplus AuthenticationAuthority
-
-On macOS, you can use `dscacheutil -q user` or `dscacheutil -q group` to
-identify the used IDs and pick a unique ID for the system.
-
-The above commands are included into an easy to use script which is
-available as
-`osx_useradd.sh <https://gist.github.com/adiroiban/80c8acc00b8957869f68>`_
+    sudo dscl . delete /Users/sftpplus PasswordPolicyOption
+    sudo dscl . delete /Users/sftpplus AuthenticationAuthority
 
 You need to adjust the ownership of the files, otherwise some of the
 functionality (logging and saving configuration changes) will not work::
 
-    cd /Library && chown -R root:root sftpplus
+    cd /Library && chown -R root:staff sftpplus
     cd /Library/sftpplus && chown -R sftpplus configuration/ log/ run/
 
 At the very least, SFTPPlus needs read access to all the files under

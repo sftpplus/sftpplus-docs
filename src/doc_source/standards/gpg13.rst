@@ -145,13 +145,13 @@ PMC-8 Recording on Data Backup Status
 Currently there is no option to remove/clean log entries stored in a database
 from within the SFTPPlus software.
 More details about the audit trail at the
-:doc:`event handlers</configuration/event-handlers>` page.
+:doc:`event handlers</configuration-events/local-file>` page.
 
 One thing to note is that if log rotation is not enabled, the log file can grow
 to an extremely large size.
 Log rotation can be enabled in this scenario. When log rotation is enabled,
 there is a value to keep all rotated files via `rotate_count` in the
-:doc:`event handlers</configuration/event-handlers>` page.
+:doc:`event handlers</configuration-events/local-file>` page.
 
 
 PMC-9 Alerting Critical Events

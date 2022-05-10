@@ -62,8 +62,8 @@ can be used::
     name = allow-name-updates
     permissions =
       configuration, read
-      configuration/identity/accounts/*/name, update
-      configuration/identity/groups/*/name, update
+      configuration/accounts/*/name, update
+      configuration/groups/*/name, update
 
 To only allow creating, deleting, and updating users and groups the following
 configuration can be used::
@@ -72,8 +72,8 @@ configuration can be used::
     name = user-group-administrators
     permissions =
       configuration, read
-      configuration/identity/accounts/*, all
-      configuration/identity/groups/*, all
+      configuration/accounts/*, all
+      configuration/groups/*, all
 
 
 Available permission targets
@@ -82,11 +82,10 @@ Available permission targets
 Below is a list of the target groups that can be targeted based on
 member UUIDs, with or without an option name::
 
-* configuration/identity/accounts
-* configuration/identity/accounts
-* configuration/identity/groups
-* configuration/identity/roles
-* configuration/identity/administrators
+* configuration/accounts
+* configuration/groups
+* configuration/roles
+* configuration/administrators
 * configuration/authentications
 * configuration/locations
 * configuration/resources
@@ -97,7 +96,6 @@ member UUIDs, with or without an option name::
 * resources
 * services
 * transfers
-* node_variables
 * status
 
 You can target a class of configurations,

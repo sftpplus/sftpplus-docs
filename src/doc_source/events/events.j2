@@ -1,20 +1,20 @@
-{#
+{#-
 This is the Jinja2 events ID documentation template.
-#}
+-#}
 
 
 Generic and server-side common functionality
 ============================================
 
-{#
+{#-
 Unpack the event_id and use Jinja dictsort
 #}
-{% for event_id, event in events | dictsort %}
-{%- if not event_id.startswith('__') %}
+{%- for event_id, event in events | dictsort -%}
+{%- if not event_id.startswith('__') -%}
 
-{#
+{#-
 Only show event ID that starts with a certain number
-#}
+-#}
 
 {% if event_id.startswith("2") %}
 
@@ -23,7 +23,7 @@ Only show event ID that starts with a certain number
 
 {#
 Add the events JSON as a table under each event ID
-#}
+-#}
 :Message: {{ event.message|indent(4) }}
 :Groups: {{ ", ".join(event.group_names) }}
 :From version: {{ event.version_added }}
@@ -37,8 +37,8 @@ Add the events JSON as a table under each event ID
 {% endfor %}
 {% endif %}
 {% endif %}
-{% endif %}
-{% endfor %}
+{%- endif %}
+{%- endfor %}
 
 
 FTP protocol

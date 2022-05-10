@@ -1,5 +1,5 @@
 ssl_domains
-^^^^^^^^^^^
+-----------
 
 :Default value: Empty
 :Optional: Yes
@@ -24,7 +24,7 @@ ssl_domains
 
 
 ssl_certificate
-^^^^^^^^^^^^^^^
+---------------
 
 :Default value: Empty
 :Optional: Yes
@@ -107,7 +107,7 @@ ssl_certificate
 
 
 ssl_key
-^^^^^^^
+-------
 
 :Default value: Empty
 :Optional: Yes
@@ -144,7 +144,7 @@ ssl_key
 
 
 ssl_key_password
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: Empty
 :Optional: Yes
@@ -159,7 +159,7 @@ ssl_key_password
 
 
 ssl_certificate_authority
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -244,7 +244,7 @@ ssl_certificate_authority
 
 
 ssl_certificate_revocation_list
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -312,7 +312,7 @@ ssl_certificate_revocation_list
 
 
 ssl_certificate_revocation_list_refresh
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------------
 
 :Default value: `0`
 :Optional: Yes
@@ -346,7 +346,7 @@ ssl_certificate_revocation_list_refresh
 
 
 ssl_cipher_list
-^^^^^^^^^^^^^^^
+---------------
 
 :Default value: `secure`
 :Optional: Yes
@@ -374,7 +374,7 @@ ssl_cipher_list
 
 
 ssl_allowed_methods
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 :Default value: `secure`
 :Optional: Yes

@@ -7,9 +7,6 @@ See basic/search.html to keep this up to date with latest sphinx version.
 {% set script_files = script_files + ['_static/searchtools.js'] %}
 
 {% block extrahead %}
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("{{ pathto('searchindex.js', 1) }}"); });
-  </script>
   <script type="text/javascript" src="{{ pathto('_static/language_data.js', 1) }}"></script>
   {# this is used when loading the search index using $.ajax fails,
   such as on Chrome for documents on localhost #}
@@ -21,7 +18,6 @@ See basic/search.html to keep this up to date with latest sphinx version.
   <div class="documentation-search">
 
     <div id="fallback" class="admonition warning">
-      <script type="text/javascript">$('#fallback').hide();</script>
       <p>
         {% trans %}Please activate JavaScript to enable the search
         functionality.{% endtrans %}
@@ -46,4 +42,6 @@ See basic/search.html to keep this up to date with latest sphinx version.
     </div>
 
   </div> <!-- end search -->
+
+  <script type="text/javascript" src="static/js/standalone.js"></script>
 {% endblock %}

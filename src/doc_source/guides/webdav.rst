@@ -67,7 +67,7 @@ Example of a transfer configuration
 -----------------------------------
 
 To get you started using the SFTPPlus
-:doc:`transfers </configuration/transfers>` functionality, we have included
+:doc:`transfers </configuration-client/transfers>` functionality, we have included
 example transfer configurations using WebDAV as the location.
 The SFTPPlus Local Manager can be used to configure transfers, but there is
 a text :doc:`configuration </configuration/configuration-file>` file available.
@@ -108,7 +108,7 @@ example, called ``webdavs-acme-location``::
 
 For further details about the rest of the transfer configuration options
 available in SFTPPlus, please go to the dedicated
-:doc:`Transfers page </configuration/transfers>`.
+:doc:`Transfers page </configuration-client/transfers>`.
 
 
 Securing connection to SharePoint Online

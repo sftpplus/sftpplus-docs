@@ -121,7 +121,7 @@ Enable the file transfer automations
 ------------------------------------
 
 SFTPPlus provides :doc:`a powerful framework for pre- and post-transfer
-operations </configuration/transfers>`.
+operations </configuration-client/transfers>`.
 In the SFTPPlus Local Manager, go to **Transfers**, and select **Add transfer**.
 Change the settings to the values below:
 

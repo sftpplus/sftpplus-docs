@@ -40,12 +40,12 @@ configuration file in which we enable a test account named
 The files for this account are stored in ``/tmp/test_user-files``.
 SFTPPlus comes with extensive documentation for all of the sections:
 
-* :doc:`accounts </configuration/accounts>` and
-  :doc:`groups </configuration/groups>`
+* :doc:`accounts </configuration-identity/accounts>` and
+  :doc:`groups </configuration-identity/groups>`
 
-* :doc:`authentication methods </configuration/authentication>`
+* :doc:`authentication methods </configuration-auth/authentication>`
 
-* :doc:`services </configuration/services>`
+* :doc:`services </configuration-server/services>`
 
 
 You can fully configure the SFTPPlus server using the configuration file

@@ -80,8 +80,7 @@ Since this testing is conducted on a new server key, a warning is
 presented.
 Please check the server key prior to accepting.
 To use your own SSH keys, please configure the
-`SFTP service </documentation/sftpplus/latest/configuration/ssh-service.html>`_
-accordingly.
+:doc:`SFTP service </configuration-server/ssh-service>` accordingly.
 
 ..  image:: /_static/guides/winscp-sftpplus-2.png
     :alt: Self-signed certificate for the SFTP service.
@@ -113,8 +112,7 @@ about the server certificate.
 The certificate being used in the default SFTPPlus installation is a
 self-signed.
 To use your own certificate, please configure the
-`FTPS service </documentation/sftpplus/latest/configuration/ftp-service.html>`_
-accordingly.
+:doc:`FTPS service </configuration-server/ftp-service>` accordingly.
 For production, we highly recommend using your own certificate.
 
 ..  image:: /_static/guides/winscp-sftpplus-5.png

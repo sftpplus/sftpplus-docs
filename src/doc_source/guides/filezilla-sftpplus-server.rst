@@ -79,8 +79,7 @@ After logging in for the first time, Filezilla will present details
 about the server certificate.
 The default certificate being used is a self-signed certificate.
 To use your own certificate, please configure the
-`FTPS service </documentation/sftpplus/latest/configuration/ftp-service.html>`_
-accordingly.
+:doc:`FTPS service </configuration-server/ftp-service>` accordingly.
 
 ..  image:: /_static/guides/filezilla-ftps-2.png
     :alt: Filezilla presenting the server certificate.
@@ -113,8 +112,7 @@ Since this testing is conducted on a new server key, a warning is
 presented.
 Please check the server key prior to accepting.
 To use your own SSH keys, please configure the
-`SFTP service </documentation/sftpplus/latest/configuration/ssh-service.html>`_
-accordingly.
+:doc:`SFTP service </configuration-server/ssh-service>` accordingly.
 
 ..  image:: /_static/guides/filezilla-ftps-6.png
     :alt: Filezilla drag and drop of files to be uploaded to the SFTP service.

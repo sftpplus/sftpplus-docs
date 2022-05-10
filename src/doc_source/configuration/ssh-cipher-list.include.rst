@@ -1,5 +1,5 @@
 ssh_cipher_list
-^^^^^^^^^^^^^^^
+---------------
 
 :Default value: `secure`
 :Optional: Yes

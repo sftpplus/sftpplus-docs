@@ -40,66 +40,15 @@ This is the list of known issues for the current release of SFTPPlus.
   Also, when any `execute_*` action is called for files containing
   non-ASCII characters, the passed file names are corrupted.
 
-* [#3294] When the file was successfully transferred but failed to be removed
-  from the source location, the transfer is considered failed but source file
-  is archived as a success.
-
-* [#3371] File dispatcher will not work for upload event for which the client
-  is making the initial upload request under a provisional file name which is
-  change once the file is successfully uploaded.
-
-* [#2135] SCP server implementation does not handle errors reported by the
-  client side during file get / download operations.
-
 * [#3412] Files which are uploaded to the SFTPPlus using FTP or FTPS and for
   which the data channel is closed before the file was completely uploaded are
   reported as successfully uploaded.
   This is because when the file was successfully uploaded the data channel is
   closed in the same way.
 
-* [#2975] When using Syslog over TCP and the TCP connection is lost, SFTPPlus
-  will try to reconnect, but all events emitted while trying to connect are
-  discarded.
-
-* [#3478] When certificate revocation lists are configured, they will only
-  work when the CA certificates are stored in a single file.
-  Storing CA certificates in a single directory is not yet supported.
-
-* [#3461] On Windows, it is not possible to load certificates and CA files
-  stored on paths containing non ASCII characters.
-
-* [#3494] When CRL distribution points (CDP) are configured only the first
-  advertised HTTP CRL is used.
-
-* [#4382] CRL distribution points (CDP) are not supported yet for client
-  side connections when the client does not identify itself with a
-  certificate.
-
-* [#2672] Locations for FTP, FTPS and SFTP protocols will perform the
-  connections using a fixed timeout of 10 seconds.
-
-* [#3583] Certificate distribution points are not yet supported for the client
-  side connections like FTPS locations, when no local certificate is configured.
-
 * [#3602] The rotation time is not automatically changed when the system clock
   is changed (for example with daylight saving time).
-  This leasds the roatation beying delayed when the clock is moved backwards.
-
-* [#3594] FTPS CCC command is only supported with Explicit FTPS for both
-  client and server side.
-  It is not yet supported for Implicit FTPS.
-
-* [#3599] FTPS CCC command is supported by the server-side only in
-  active mode, while on the client-side only passive mode is supported.
-  Please contact us if you need to communicate with a peer FTPS
-  implementation which don't support the above described modes.
-
-* [#3662] When using the components configuration option for an
-  Event Handler the UUIDs are not yet verified to exist yet.
-
-* [#3663] The event handler `target` configuration option is not yet
-  validated and accepts mixing ignored and allowed event ids.
-  When configured using both methods, it will behave as the `allow` method.
+  This leads the rotation being delayed when the clock is moved backwards.
 
 * [#2127] When SCP protocol is used, you can only download a single file
   as part of a SCP session.
@@ -107,6 +56,8 @@ This is the list of known issues for the current release of SFTPPlus.
 * [#4016] The FTP/FTPS client-side operation have no support for timezones.
   For a correct operation the client and server must use the same timezones and
   have the clock synchronized.
+
+* [#3577] The FTPS client-side transfer can't upload/push empty files.
 
 * [#4315] When uploading files to SharePoint online via the WebDAV client
   protocol, large files transfers (above 200MB) might fail with SharePoint
@@ -120,28 +71,13 @@ This is the list of known issues for the current release of SFTPPlus.
 * [#4869] When an HTTP file transfer service is closed for not being active,
   there is no explicit logout event.
 
-* [#5000] When a transfer is configured in any of the available batch modes,
-  SFTPPlus will no longer monitor it once a file is added to the queue.
-  If a file is added to the transfer batch queue and the file is removed
-  from the source,
-  SFTPPlus will still try to transfer it and the transfer will fail as the
-  source file is no longer there.
-
 * [#5071] For batch transfers, when using `execute_on_destination_before`,
   `execute_on_destination_after_success` and
   `execute_on_destination_after_failure` there is no way to define a command
   to be execute for each file from the batch.
   Only the last processed file is available as a variable.
 
-* [#5251] When the `external-executable` event handler is stopped, the external
-  processes which were already started are not cancelled and will continue
-  to execute.
-
-* The anonymous authentication method can only be used with accounts defined
-  in the main configuration. It does not support accounts from a separate
-  local file or accounts from other authentication methods.
-
-* SFTPPlus only detects daylight saving time changes while running.
+* SFTPPlus only detects daylight saving time changes while starting.
   Timezone changes at runtime are not detected.
   If changing timezone on a system running SFTPPlus you need to restart
   SFTPPlus in order to apply the changes.

@@ -5,7 +5,8 @@ System Requirements
 Supported Operating Systems
 ---------------------------
 
-* Windows 8, 10, 2012 Server, 2012R2 Server, 2016 Server, 2019 Server on x86_64.
+* Windows 8, 10, 2012 Server, 2012R2 Server, 2016 Server, 2019 Server,
+  2022 Server on x86_64.
   On request, we can provide an x86 build for 32-bit Windows.
 
 * Red Hat Enterprise Linux 5, 6, 7, 8 on x86_64.
@@ -14,9 +15,10 @@ Supported Operating Systems
   (x86, POWER8, S390x).
   Make sure the "libffi" package is installed on RHEL 8.
 
-* Amazon Linux 2 and Amazon Linux AMI 2018.03 on x86_64.
+* Amazon Linux AMI 2018.03, Amazon Linux 2, Amazon Linux 2022 on x86_64.
+  Make sure the "libxcrypt-compat" package is installed on Amazon Linux 2022.
 
-* Ubuntu Server 14.04 LTS, 16.04 LTS, 18.04 LTS, 20.04 LTS on x86_64.
+* Ubuntu Server 14.04 LTS, 16.04 LTS, 18.04 LTS, 20.04 LTS, 22.04 LTS on x86_64.
   Contact us if you need specific support for a different Ubuntu Linux version
   and/or another hardware platform.
   Alternatively, you can also try the generic Linux package
@@ -36,6 +38,8 @@ Supported Operating Systems
   Debian Linux, Slackware, Arch, etc.
   Contact us if you need support for a Linux distribution not based on GLIBC
   and/or another hardware platform.
+  Make sure the "libxcrypt-compat" package is installed on newer distributions
+  such as current Arch Linux.
 
 * Apple macOS 10.13 High Sierra or newer on x86_64.
   This version is statically-built against required libraries,

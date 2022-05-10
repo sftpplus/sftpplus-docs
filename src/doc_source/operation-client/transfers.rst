@@ -277,6 +277,115 @@ for certain file type and to transfer the file with the same path and name
 as is found on the source.
 
 
+transform
+^^^^^^^^^
+
+The `transform` action is the generic operation that can be used to
+define a destination path and name, different from the source path.
+
+The whole path can be transformed, not only the filename.
+
+------------
+
+It can be used for generic rename operations for which the result is
+defined based on regular expression groups.
+Each regex matching group is available via the `{group.N}` variable,
+where `{group.0}` is the whole source and `{group.1}` is the first
+matched group.
+
+Having the following configuration::
+
+    recursive: no
+    source_path: c:\out\sales
+    destination_path: /Outbox/
+    destination_path_actions:
+      m/(std-|prv-)(.*)/, transform, final_{group.2}
+
+the files will be transferred as follows::
+
+    c:\out\sales\std-Report.PDF      -> /Outbox/final_Report.PDF
+    c:\out\sales\prv-Outcome.txt     -> /Outbox/final_Outcome.txt
+
+------------
+
+The following placeholders are available based on the source file,
+relative to the base source path:
+
+* `{path.source}` - the path including file name, relative to the base source
+  path for this transfer.
+* `{path.directory_path}` - the path of the source file's directory,
+  relative to the configured base source path.
+* `{path.file_name}` - the file name, including the extension.
+* `{path.file_base}` - the file name without the extension.
+* `{path.file_extension}` - the file extension.
+
+Having the following configuration::
+
+    source_path: c:\out\sales
+    destination_path: /Outbox/
+    destination_path_actions:
+      *.pdf, transform, {path.directory_path}/Preview-{path.file_name}
+      *.txt, transform, {path.directory_path}/{path.file_base}-Estimation{path.file_extension}
+
+the files will be transferred as follows::
+
+    c:\out\sales\Report.PDF          -> /Outbox/Preview-Report.PDF
+    c:\out\sales\Report.txt          -> /Outbox/Report-Estimation.txt
+    c:\out\sales\EMEA\Income.PDF  -> /Outbox/EMEA/Preview-Income.PDF
+    c:\out\sales\EMEA\Income.txt  -> /Outbox/EMEA/Income-Estimation.txt
+
+----------
+
+It can be used for inserting a timestamp in an arbitrary position,
+based on current date and time.
+The following placeholders are available:
+
+    * `{now.cwa_14051}`
+    * `{now.iso_8601}`
+    * `{now.iso_8601_fractional}`
+    * `{now.iso_8601_local}`
+    * `{now.iso_8601_basic}`
+    * `{now.iso_8601_compact}`
+    * `{now.timestamp}`
+
+Having the following configuration::
+
+    source_path: c:\out\sales
+    destination_path: /Outbox/
+    destination_path_actions:
+      *.pdf, transform, {now.iso_8601_compact}-{group.0}
+      *.txt, transform, {path.directory_path}/{path.file_base}-{now.iso_8601_compact}{path.file_extension}
+
+the files will be transferred as follows::
+
+    c:\out\sales\Report.PDF          -> /Outbox/20210121T244503-Report.PDF
+    c:\out\sales\Report.txt          -> /Outbox/Report-20210121T244503.txt
+    c:\out\sales\EMEA\Income.PDF  -> /Outbox/EMEA/20210121T244503-Income.PDF
+    c:\out\sales\EMEA\Income.txt  -> /Outbox/EMEA/Income-20210121T244503.txt
+
+-----------
+
+The `transform` action can be used for transferring files into different
+destination paths,
+in which the destination path is selected based on the source path.
+To implement that, the transformed destination path should be absolute paths.
+
+Having the following configuration::
+
+    source_path: c:\out\sales
+    destination_path: /Out/
+    destination_path_actions:
+      *.pdf, transform, /Staging/{path.source}
+      *.txt, transform, final-{path.file_name}
+
+the files will be transferred as follows::
+
+    c:\out\sales\Report.PDF          -> /Staging/Report.PDF
+    c:\out\sales\Report.txt          -> /Out/final-Report.txt
+    c:\out\sales\EMEA\Income.PDF  -> /Staging/EMEA/Income.PDF
+    c:\out\sales\EMEA\Income.txt  -> /Out/EMEA/Income-20210121T244503.txt
+
+
 only-filename
 ^^^^^^^^^^^^^
 
@@ -320,13 +429,17 @@ temporary-suffix
 ^^^^^^^^^^^^^^^^
 
 The `temporary-suffix` action allows uploading a file using a temporary name,
-renaming to the initial name once all the file content was transferred.
+then renaming to the initial name once all the file content was transferred.
 
 ..  note::
-    The `temporary-suffix` action is required only when a selected set of
+    The `temporary-suffix` action is required only when a selected subset of
     files need to be transferred with temporary names.
-    When you want all files transferred with temporary names,
-    use the `destination_temporary_suffix` configuration option.
+
+    It can also be used in combination with other actions.
+
+    When you want all files transferred with temporary names
+    and no other actions are required for the files,
+    it is recommended to use the dedicated `destination_temporary_suffix` configuration option.
 
 It takes a single option consisting of the characters used as the temporary
 suffix.
@@ -479,8 +592,8 @@ It takes a single option, the full destination path.
 The `destination_path` configuration is ignored for the `fixed-path` action.
 
 ..  note::
-    If this transformation is enabled, the temporary suffix behaviour is
-    disabled.
+    If this action is enabled, the value defined at `destination_temporary_suffix` is ignored.
+    You can still enable the temporary file name functionality by using the dedicated `temporary-prefix` or `temporary-suffix` actions.
 
 Below is an example for the `fixed-path` transformation::
 

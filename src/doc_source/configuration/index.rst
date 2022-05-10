@@ -1,32 +1,20 @@
-Configuration Instructions
-==========================
+General Configuration
+=====================
 
-This section includes the reference documentation for both client-side and
-server-side configuration options available to SFTPPlus.
-
-The managed file transfer functionality can be used by both
-client and server operations.
-
+This section includes the reference documentation for general configuration
+options used by both client-side and server-side transfers.
 
 ..  toctree::
     :maxdepth: 1
 
     general
-    authentication
+    server
     local-manager
     configuration-file
     matching-expression
-    server
-    resources
-    accounts
-    groups
-    administrators
-    services
-    ftp-service
-    ssh-service
-    http-service
-    http-redirection-service
     monitor-service
-    locations
-    transfers
-    event-handlers
+    resources
+    email-client
+    analytics
+    lets-encrypt
+    sqlite

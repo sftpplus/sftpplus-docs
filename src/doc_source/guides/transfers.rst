@@ -16,7 +16,7 @@ types of file transfer scenarios.
 For those that have come across this guide and are new to SFTPPlus transfers
 features, the following resources will be of use:
 
-Read more about `configuration options here </configuration/transfers>`_.
+Read more about `configuration options here </configuration-client/transfers>`_.
 
 Read more about client-side `transfer operations here </operation/transfers>`_.
 
@@ -115,8 +115,8 @@ Below is a list of configuration options which trigger extra requests:
   file already exists.
 
 
-Stop / Cancel a transfered file
-===============================
+Stop / Cancel a transferred file
+================================
 
 When a transfer is stopped any pending file is canceled.
 

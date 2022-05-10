@@ -121,7 +121,7 @@ The Audit Trail
 This section describes how the audit trail works in order to help you use it
 and integrate it as per your requirements.
 For configuring the audit system, please see
-:doc:`event handlers configuration </configuration/event-handlers>`.
+:doc:`event handlers configuration </configuration-events/index>`.
 
 Each audit entry contains the following information:
 

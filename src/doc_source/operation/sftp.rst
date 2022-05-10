@@ -131,7 +131,7 @@ supported, but you can use the SSH key conversion tools provided by the
 Local Manager to convert those keys into OpenSSH public key format.
 
 Further details on :doc:`configuring SSH key-based authentication on the server
-</configuration/ssh-service>` is available.
+</configuration-server/ssh-service>` is available.
 
 
 User password change

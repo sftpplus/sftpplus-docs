@@ -21,7 +21,7 @@ while for the Accounting, check
 
 Here are a few methods / sources used to authenticate accounts.
 For a full list please check the
-:doc:`authentication methods configuration</configuration/authentication>`:
+:doc:`authentication methods configuration</configuration-auth/authentication>`:
 
 * Anonymous Account
 * Application Account (SFTPPlus accounts persisted in a configuration file)
