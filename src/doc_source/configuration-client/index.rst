@@ -1,5 +1,5 @@
-Client Protocols Configuration
-==============================
+Client-side protocols
+=====================
 
 This section includes the reference documentation for client-side configuration options.
 

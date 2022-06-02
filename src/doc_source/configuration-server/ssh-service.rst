@@ -1,17 +1,14 @@
-SSH (SFTP and SCP) Service
-==========================
-
-..  contents:: :local:
-
-
-Introduction
-------------
+SSH (SFTP and SCP)
+==================
 
 This page describes the configuration options available for the SSH service,
 using SFTP and SCP file transfer protocols.
 
 ..  contents:: :local:
 
+
+Introduction
+------------
 
 Both the SFTP and the SCP protocols make use of the SSH protocol for low-level
 encryption of transferred data.
@@ -20,12 +17,6 @@ support for both `sftp` and `scp` services.
 SFTP and SCP can be independently enabled.
 
 Multiple SSH services can share the same set of RSA and DSA host keys.
-
-
-Configuration Options
----------------------
-
-Below are the configuration options available for the SFTP and SCP protocols.
 
 .. _ssh-key-authentication:
 
@@ -147,12 +138,13 @@ as in the example below::
     ssh_authorized_keys_path =
 
 
-Configuration options
----------------------
+Below you can find the list of available configuration options.
+
+.. include:: /configuration-server/service-commons.include.rst
 
 
 sftp
-^^^^
+----
 
 :Default value: `Yes`
 :Optional: Yes
@@ -165,7 +157,7 @@ sftp
 
 
 scp
-^^^
+---
 
 :Default value: `No`
 :Optional: Yes
@@ -178,7 +170,7 @@ scp
 
 
 ssh_host_private_keys
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -235,7 +227,7 @@ ssh_host_private_keys
 
 
 rsa_private_key_password
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -250,7 +242,7 @@ rsa_private_key_password
 
 
 dsa_private_key_password
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -264,7 +256,7 @@ dsa_private_key_password
 
 
 dh_prime_size
-^^^^^^^^^^^^^
+-------------
 
 :Default value: `1024, ideal`
 :Optional: Yes
@@ -303,7 +295,7 @@ dh_prime_size
 
 
 banner
-^^^^^^
+------
 
 :Default value: `SFTPPlus`
 :Optional: Yes
@@ -315,7 +307,7 @@ banner
 
 
 ignore_create_permissions
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
 
 :Default value: `No`
 :Optional: Yes
@@ -346,4 +338,3 @@ ignore_create_permissions
         use the SFTP client's dedicated command for setting the permissions.
 
 .. include:: /configuration/ssh-cipher-list.include.rst
-.. include:: /configuration/service-commons.include.rst

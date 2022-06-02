@@ -1,10 +1,11 @@
-Implicit FTPS Location
-======================
+Implicit FTPS
+=============
 
-An ``implicit ftps location`` provides access to an Implicit FTPS server.
+An `ftpsi` location provides access to an Implicit FTPS server.
 
-..  note::
-    The implicit FTPS location is an experimental feature.
+..  contents:: :local:
+
+.. include:: /configuration-client/locations-commons.include.rst
 
 
 address
@@ -57,6 +58,23 @@ password
 
     It is defined in plain text format and sent over the network protected
     by the TLS protocol.
+
+
+debug
+-----
+
+:Default value: 'No'
+:Optional: Yes
+:Values: * `Yes`
+         * `No`
+:From version: 4.0.0
+:Description:
+    When enabled, the location will emit events with id `20000`,
+    containing low-level debug messages for the file transfer protocol.
+
+    ..  warning::
+        When this is enabled, emitted events may include used password
+        in plain text.
 
 
 .. include:: /configuration/ssl.include.rst

@@ -1,4 +1,4 @@
-Embedded Database
+Embedded database
 =================
 
 To configure an event handler which persists events using the embedded
@@ -6,6 +6,10 @@ SQLite database, use the type `database`.
 
 Multiple embedded databases can be configured for storing different type of
 events.
+
+..  contents:: :local:
+
+.. include:: /configuration-events/events-commons.include.rst
 
 
 path

@@ -1,9 +1,15 @@
-SFTP Location
-=============
+SFTP
+====
 
 An `sftp location` provides access to an SFTP (version 3) server over SSH
 (version 2).
 This does not include access over SCP.
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 As the connection is done in non-interactive mode, the identity of the remote
 SSH server needs to be verified, so that credentials are not sent to an
@@ -13,6 +19,8 @@ To validate the remote SSH server, the fingerprint of its public key is
 stored as a hexadecimal string in the `ssh_server_identity` option.
 
 An SSH server can authenticate users using either a password or an SSH key.
+
+.. include:: /configuration-client/locations-commons.include.rst
 
 
 ssh_server_identity

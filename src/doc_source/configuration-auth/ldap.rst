@@ -1,5 +1,5 @@
-LDAP Authentication Method
-==========================
+LDAP / Active Directory
+=======================
 
 The `ldap` authentication method can be used to authenticate
 `application` type accounts using the information provided by a remote LDAP
@@ -16,6 +16,12 @@ LDAP and Secure LDAP over TLS/SSL (LDAPS) protocols are supported.
 ..  note::
     LDAP StartTLS method is not yet supported.
     If you require it, contact our support team.
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 Simple BIND operation is used for authenticating an account against the
 LDAP server in order to validate the credentials received from a file
@@ -38,6 +44,8 @@ to the configured LDAP server for validation.
 
 Successfully authenticated accounts are associated to the default group,
 or to a specific group based on the `group_mapping` configuration.
+
+.. include:: /configuration-auth/authentication-commons.include.rst
 
 
 address

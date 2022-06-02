@@ -1,12 +1,6 @@
 Groups
 ======
 
-..  contents:: :local:
-
-
-Group configuration options
----------------------------
-
 Group configuration options are modified in a similar way to any account
 configuration option.
 
@@ -22,6 +16,8 @@ other than `Inherit`.
 
 There are few differences in changing groups configuration, and they are
 described on this page.
+
+..  contents:: :local:
 
 
 Default group
@@ -70,7 +66,7 @@ The group's UUID can be any unique string used to identify the group.
 Once defined, the UUID should not be changed.
 
 For more information about UUIDs, please see
-:doc:`the dedicated UUID documentation </configuration/general>`.
+:doc:`the dedicated UUID documentation </configuration/introduction>`.
 
 As another example, to add a new group named **partners** see below::
 
@@ -92,12 +88,8 @@ As another example, to add a new group named **partners** see below::
         /division, d:\storage\EMEA
 
 
-Group configuration options
----------------------------
-
-
 name
-^^^^
+----
 
 :Default value: ''
 :Optional: No
@@ -108,7 +100,7 @@ name
 
 
 enabled
-^^^^^^^
+-------
 
 :Default value: `Yes`
 :Optional: Yes
@@ -124,7 +116,7 @@ enabled
 
 
 description
-^^^^^^^^^^^
+-----------
 
 :Default value: ''
 :Optional: Yes
@@ -142,7 +134,7 @@ description
 
 
 home_folder_path
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: Empty
 :Optional: Yes
@@ -215,7 +207,7 @@ home_folder_path
 
 
 lock_in_home_folder
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 :Default value: `Yes`
 :Optional: Yes
@@ -230,7 +222,7 @@ lock_in_home_folder
 
 
 create_home_folder
-^^^^^^^^^^^^^^^^^^
+------------------
 
 :Default value: `No`
 :Optional: Yes
@@ -249,7 +241,7 @@ create_home_folder
 
 
 create_home_folder_owner
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
 :Default value: `${DEFAULT_OS_USER}`
 :Optional: Yes
@@ -266,7 +258,7 @@ create_home_folder_owner
 
 
 create_home_folder_group
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
 :Default value: `${DEFAULT_OS_GROUP}`
 :Optional: Yes
@@ -288,7 +280,7 @@ create_home_folder_group
 
 
 required_credentials
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 :Default value: `any`
 :Optional: Yes
@@ -316,7 +308,7 @@ required_credentials
 
 
 ssh_authorized_keys_path
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -353,7 +345,7 @@ ssh_authorized_keys_path
 
 
 source_ip_filter
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: Empty
 :Optional: Yes
@@ -385,7 +377,7 @@ source_ip_filter
 
 
 allow_certificate_authentication
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------
 
 :Default value: `Yes`
 :Optional: Yes
@@ -403,7 +395,7 @@ allow_certificate_authentication
 
 
 as2_require_http_authentication
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------
 
 :Default value: Yes
 :Optional: Yes
@@ -423,7 +415,7 @@ as2_require_http_authentication
 
 
 allow_own_password_change
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
 
 :Default value: `No`
 :Optional: Yes
@@ -438,7 +430,7 @@ allow_own_password_change
 
 
 password_lifetime
-^^^^^^^^^^^^^^^^^
+-----------------
 
 :Default value: `0`
 :Optional: Yes
@@ -460,7 +452,7 @@ password_lifetime
 
 
 home_folder_structure
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 :Default value: Empty folder
 :Optional: Yes
@@ -505,7 +497,7 @@ home_folder_structure
 .. _configuration-groups-permissions:
 
 permissions
-^^^^^^^^^^^
+-----------
 
 :Default value: `allow-full-control`
 :Optional: Yes
@@ -563,7 +555,7 @@ permissions
 
 
 amend_write_name
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: Empty
 :Optional: Yes
@@ -581,7 +573,7 @@ amend_write_name
 
 
 virtual_folders
-^^^^^^^^^^^^^^^
+---------------
 
 :Default value: Empty
 :Optional: Yes

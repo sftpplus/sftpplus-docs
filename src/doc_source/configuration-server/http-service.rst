@@ -1,14 +1,14 @@
-HTTP / HTTPS Service
-====================
+HTTP / HTTPS
+============
+
+The `http` / `https` service allows the same level of file access as the
+other available file transfer services, such as FTPS or SFTP.
 
 ..  contents:: :local:
 
 
-General description
--------------------
-
-The `http` / `https` service allows the same level of file access as the
-other available file transfer services, such as FTPS or SFTP.
+Introduction
+------------
 
 When configured for a ``some.example.com`` address and the ``18080`` port, the
 service will be available at the URL ``http://some.example.com:18080``, and it
@@ -18,14 +18,13 @@ As this page focuses on configuration options, please refer to the dedicated
 :doc:`HTTP/HTTPS operations</operation/http>` page.
 
 
-Configuration options
----------------------
-
 Below you can find the list of available configuration options.
+
+.. include:: /configuration-server/service-commons.include.rst
 
 
 languages
-^^^^^^^^^
+---------
 
 :Default value: `en`
 :Optional: Yes
@@ -42,7 +41,7 @@ languages
 
 
 ui_version
-^^^^^^^^^^
+----------
 
 :Default value: ui-gen-1
 :Optional: Yes
@@ -59,7 +58,7 @@ ui_version
 
 
 theme_path
-^^^^^^^^^^
+----------
 
 :Default value: Empty
 :Optional: Yes
@@ -84,7 +83,7 @@ theme_path
 
 
 public_account_uuid
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -115,7 +114,7 @@ public_account_uuid
 
 
 public_name
-^^^^^^^^^^^
+-----------
 
 :Default value: `public`
 :Optional: Yes
@@ -138,7 +137,7 @@ public_name
 
 
 as2_receive_name
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: `as2receive`
 :Optional: Yes
@@ -152,7 +151,7 @@ as2_receive_name
 
 
 as2_receive_path
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: Empty
 :Optional: Yes
@@ -173,7 +172,7 @@ as2_receive_path
 
 
 as2_default_filename
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -214,7 +213,7 @@ as2_default_filename
 
 
 as2_receive_certificate
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -232,7 +231,7 @@ as2_receive_certificate
 
 
 as2_receive_key
-^^^^^^^^^^^^^^^
+---------------
 
 :Default value: Empty
 :Optional: Yes
@@ -247,7 +246,7 @@ as2_receive_key
 
 
 as2_no_mdn_success_text
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -264,7 +263,7 @@ as2_no_mdn_success_text
 
 
 triggers
-^^^^^^^^
+--------
 
 :Default value: Empty
 :Optional: Yes
@@ -294,7 +293,7 @@ triggers
 
 
 metadata_fields
-^^^^^^^^^^^^^^^
+---------------
 
 :Default value: Empty
 :Optional: Yes
@@ -377,7 +376,7 @@ metadata_fields
 
 
 announce_session_authentication
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------
 
 :Default value: `yes`
 :Optional: Yes

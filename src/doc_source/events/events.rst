@@ -307,7 +307,7 @@ Generic and server-side common functionality
 :Message: Port value must be an integer.
 :Groups: process, failure, failure-specific, operational
 :From version: 1.6.0
-:To version: None
+:To version: 4.20.0
 :Description: None
 
 
@@ -3005,6 +3005,30 @@ Generic and server-side common functionality
 
 
   :target_path: Path to a file associated with the HTTP post.
+
+
+
+
+
+20190
+^^^^^
+
+:Message: Invalid value "%(invalid_value)s" defined for "%(option)s" in "%(section)s". Using "%(default)s" value. %(details)s
+:Groups: process, failure, failure-high, operational
+:From version: 4.21.0
+:To version: None
+:Description: None
+:Data:
+  :default: Value used instead of the invalid configuration.
+
+
+  :invalid_value: The value found in the configuration.
+
+
+  :option: The name of the configuration option.
+
+
+  :section: The section/component for which this option is defined.
 
 
 
@@ -7616,8 +7640,20 @@ FTP protocol
 
 
 
+
+
+
+
+
+
 SSH protocol
 ============
+
+
+
+
+
+
 
 
 
@@ -14296,6 +14332,12 @@ HTTP/HTTPS protocol
 
 
 
+
+
+
+
+
+
 40000
 ^^^^^
 
@@ -18599,6 +18641,12 @@ Management and Local Manager Events
 
 
 
+
+
+
+
+
+
 50000
 ^^^^^
 
@@ -19713,6 +19761,12 @@ Management and Local Manager Events
 
 Transfer and client-side functionality
 ======================================
+
+
+
+
+
+
 
 
 

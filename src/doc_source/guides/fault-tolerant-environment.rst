@@ -53,8 +53,8 @@ pre- and post- transfer processing, and so on.
 
 One method of achieving an active/active implementation is to manually set up
 the 2 nodes to rely on a
-`single external authentication </configuration-auth/authentication>`_ method
-(HTTP or LDAP).
+:doc:`single external authentication </configuration-auth/index>` method
+(HTTP, LDAP, or external file).
 In this way, accounts are managed in the single external system, and
 those accounts will be automatically available for both SFTPPlus instances.
 

@@ -1,12 +1,15 @@
-Event Handler Configuration
-===========================
+Event handlers
+==============
 
-This section includes the reference documentation for event handlers.
+Event handlers are triggered as a result of file transfer operations.
+They are triggered for server-side, client-side, configuration or
+administration operations.
+Below is the list with the configuration documentation for the supported event handlers.
 
 ..  toctree::
     :maxdepth: 1
 
-    event-handlers
+    introduction
     local-file
     file-dispatcher
     http

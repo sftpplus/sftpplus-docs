@@ -1,13 +1,10 @@
 Transfers
 =========
 
-..  contents:: :local:
-
 A transfer configuration defines the rules based on which files or folders
 are transferred between two locations or inside a location.
 
-Please consult the `type` configuration option to see the list of
-supported transfer types.
+..  contents:: :local:
 
 
 Adding a new transfer via Local Manager
@@ -32,7 +29,7 @@ The transfer's UUID can be any unique string used to identify the transfer.
 Once defined, the UUID should not be changed.
 
 For more information about UUIDs, please see
-:doc:`the dedicated UUID documentation </configuration/general>`.
+:doc:`the dedicated UUID documentation </configuration/introduction>`.
 
 For example, to add a new transfer configuration of type `monitor`
 called **Exported orders**::
@@ -46,14 +43,8 @@ called **Exported orders**::
     destination_path = path/to/exported_orders
 
 
-Transfer options
-----------------
-
-Each transfer configuration section has the following options:
-
-
 enabled
-^^^^^^^
+-------
 
 :Default value: 'Yes'
 :Optional: No
@@ -66,7 +57,7 @@ enabled
 
 
 name
-^^^^
+----
 
 :Default value: ''
 :Optional: No
@@ -77,7 +68,7 @@ name
 
 
 description
-^^^^^^^^^^^
+-----------
 
 :Default value: ''
 :Optional: Yes
@@ -91,7 +82,7 @@ description
 
 
 delete_source_on_success
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
 :Default value: `Yes`
 :Optional: yes
@@ -110,7 +101,7 @@ delete_source_on_success
 
 
 delete_source_parent_delay
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------
 
 :Default value: `0`
 :Optional: yes
@@ -141,7 +132,7 @@ delete_source_parent_delay
 
 
 source_filter_age
-^^^^^^^^^^^^^^^^^
+-----------------
 
 :Default value: Empty
 :Optional: Yes
@@ -159,7 +150,7 @@ source_filter_age
 
 
 transfer_memory_duration
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
 :Default value: `0`
 :Optional: Yes
@@ -177,7 +168,7 @@ transfer_memory_duration
 
 
 ignore_duplicate_paths
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 :Default value: `No`
 :Optional: Yes
@@ -197,7 +188,7 @@ ignore_duplicate_paths
 
 
 destination_uuid
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: `Local file system`
 :Optional: Yes
@@ -211,7 +202,7 @@ destination_uuid
 
 
 destination_path
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: Empty
 :Optional: Yes
@@ -224,7 +215,7 @@ destination_path
 
 
 destination_temporary_suffix
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -244,7 +235,7 @@ destination_temporary_suffix
 
 
 batch_interval
-^^^^^^^^^^^^^^
+--------------
 
 :Default value: `0`
 :Optional: Yes
@@ -287,7 +278,7 @@ batch_interval
 
 
 batch_marker_path
-^^^^^^^^^^^^^^^^^
+-----------------
 
 :Default value: ''
 :Optional: Yes
@@ -327,7 +318,7 @@ batch_marker_path
 
 
 execute_timeout
-^^^^^^^^^^^^^^^
+---------------
 
 :Default value: 30
 :Optional: Yes
@@ -344,7 +335,7 @@ execute_timeout
 
 
 execute_before
-^^^^^^^^^^^^^^
+--------------
 
 :Default value: Empty
 :Optional: Yes
@@ -391,7 +382,7 @@ execute_before
 
 
 execute_after_success
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -410,7 +401,7 @@ execute_after_success
 
 
 execute_after_failure
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -430,7 +421,7 @@ execute_after_failure
 
 
 execute_on_destination_before
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -469,7 +460,7 @@ execute_on_destination_before
 
 
 execute_on_destination_after_success
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -486,7 +477,7 @@ execute_on_destination_after_success
 
 
 execute_on_destination_after_failure
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -502,7 +493,7 @@ execute_on_destination_after_failure
 
 
 archive_success_path
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -537,7 +528,7 @@ archive_success_path
 
 
 archive_failure_path
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -574,7 +565,7 @@ archive_failure_path
 
 
 archive_format
-^^^^^^^^^^^^^^
+--------------
 
 :Default value: `timestamp-always`
 :Optional: Yes
@@ -595,7 +586,7 @@ archive_format
 
 
 archive_retention_period
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
 :Default value: `0`
 :Optional: Yes
@@ -614,7 +605,7 @@ archive_retention_period
 
 
 retry_count
-^^^^^^^^^^^
+-----------
 
 :Default value: `2`
 :Optional: Yes
@@ -632,7 +623,7 @@ retry_count
 
 
 retry_wait
-^^^^^^^^^^
+----------
 
 :Default value: `60`
 :Optional: Yes
@@ -648,7 +639,7 @@ retry_wait
 
 
 schedule
-^^^^^^^^
+--------
 
 :Default value: Empty
 :Optional: Yes
@@ -691,7 +682,7 @@ schedule
 
 
 overwrite_rule
-^^^^^^^^^^^^^^
+--------------
 
 :Default value: `fail`
 :Optional: Yes
@@ -734,7 +725,7 @@ overwrite_rule
 
 
 destination_path_actions
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
 :Default value: Empty
 :Optional: Yes

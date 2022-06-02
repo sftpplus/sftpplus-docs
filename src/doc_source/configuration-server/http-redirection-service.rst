@@ -1,14 +1,14 @@
-HTTP Redirection Service
-========================
+HTTP redirection
+================
+
+The `http-redirect` service allows to configure an HTTP server with the sole
+purpose of redirecting to another service on a different port.
 
 ..  contents:: :local:
 
 
-General description
--------------------
-
-The `http-redirect` service allows to configure an HTTP server with the sole
-purpose of redirecting to another service on a different port.
+Introduction
+------------
 
 This can be used to redirect HTTP requests to an HTTPS-only file transfer
 service.
@@ -23,15 +23,13 @@ Below is an example of such a redirection service::
     redirect_url = https://your.domain.tld/home/
     headers = Strict-Transport-Security: max-age=1607040; includeSubDomains
 
-
-Configuration options
----------------------
-
 Below you can find the list of available configuration options.
+
+.. include:: /configuration-server/service-commons.include.rst
 
 
 redirect_url
-^^^^^^^^^^^^
+------------
 
 :Default value: Empty
 :Optional: No
@@ -43,7 +41,7 @@ redirect_url
 
 
 headers
-^^^^^^^
+-------
 
 :Default value: Empty
 :Optional: Yes
@@ -59,7 +57,7 @@ headers
 
 
 accepted_origins
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: Empty
 :Optional: Yes

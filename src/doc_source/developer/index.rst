@@ -1,9 +1,16 @@
 Developer Documentation
 =======================
 
+..  toctree::
+    :maxdepth: 1
 
-Introduction
-------------
+    http-api
+    http-api-authentication
+    http-api-event-handler
+    python-api-event-handler
+    python-api-ldap-authentication
+
+This section documents using the SFTPPlus API and integrate SFTPPlus with HTTP microservices or Python applications.
 
 As part of the standard features, we provide public APIs to extend the identity
 management, file access, audit functionality and more of the SFTPPlus
@@ -25,12 +32,3 @@ We currently have documentation for HTTP-based micro-services / endpoints and
 Python-based event handlers.
 Please contact us for C / Java code examples or for more HTTP / Python
 examples.
-
-..  toctree::
-    :maxdepth: 1
-
-    http-api
-    http-api-authentication
-    http-api-event-handler
-    python-api-event-handler
-    python-api-ldap-authentication

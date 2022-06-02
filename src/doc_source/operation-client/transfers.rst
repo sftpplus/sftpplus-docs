@@ -1060,7 +1060,7 @@ With the configuration from above, assume that you have the following files::
     c:\jobs\reports\MON-542\response\report.pdf
     c:\jobs\reports\MON-542\done.desc
 
-then the following actions are taken on these files
+then the following actions are taken on these files::
 
     c:\jobs\reports\ACC-123\in.pdf               - Not transferred
     c:\jobs\reports\ACC-123\out.pdf              - Not transferred

@@ -1,5 +1,5 @@
-AS2 Location
-============
+AS2
+===
 
 An `as2` location allows sending files to a remote AS2 server.
 
@@ -12,6 +12,10 @@ configure the HTTP file transfer service.
 Unlike a typical web browser connection, to protect an AS2 HTTPS connection
 you will have to explicitly configure the list of trusted CAs and
 the location of the CRLs.
+
+..  contents:: :local:
+
+.. include:: /configuration-client/locations-commons.include.rst
 
 
 url

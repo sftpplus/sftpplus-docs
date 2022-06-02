@@ -1,5 +1,11 @@
-Let's Encrypt Client / CertBot
+Let's Encrypt client / CertBot
 ==============================
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 The `lets-encrypt` resource allows SFTPPlus to automatically
 request SSL / X.509 certificates from Let's Encrypt's Certificate

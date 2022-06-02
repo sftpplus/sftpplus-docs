@@ -43,9 +43,9 @@ SFTPPlus comes with extensive documentation for all of the sections:
 * :doc:`accounts </configuration-identity/accounts>` and
   :doc:`groups </configuration-identity/groups>`
 
-* :doc:`authentication methods </configuration-auth/authentication>`
+* :doc:`authentication methods </configuration-auth/index>`
 
-* :doc:`services </configuration-server/services>`
+* :doc:`services </configuration-server/index>`
 
 
 You can fully configure the SFTPPlus server using the configuration file

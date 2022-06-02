@@ -1,8 +1,14 @@
-Local File Authentication Method
-================================
+External local file
+===================
 
 A `local-file` authentication method allows defining accounts and groups in
 a separate configuration file.
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 The file uses the same format and configuration options as the main
 configuration file.
@@ -23,6 +29,8 @@ method.
 
 The external file is automatically reloaded every 5 minutes.
 This means that it can take up to 5 minutes for the changes to be visible.
+
+.. include:: /configuration-auth/authentication-commons.include.rst
 
 
 path

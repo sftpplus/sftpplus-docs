@@ -1,5 +1,14 @@
-Windows EventLog Event Handler
-==============================
+Windows EventLog
+================
+
+This is an event handler that send SFTPlus events to the Windows Eventlog
+service.
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 SFTPPlus can be configured with multiple Windows EventLog event handlers.
 
@@ -24,3 +33,5 @@ For more information on server events, please see :doc:`/events/index`.
     This is a bug in `Windows Event Log Viewer`, and does not affect
     the information stored in the log.
     The detailed view displays accurate data.
+
+.. include:: /configuration-events/events-commons.include.rst

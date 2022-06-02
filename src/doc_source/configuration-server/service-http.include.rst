@@ -1,5 +1,5 @@
 headers
-^^^^^^^
+-------
 
 :Default value: Empty
 :Optional: Yes
@@ -35,7 +35,7 @@ headers
 
 
 accepted_origins
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: Empty
 :Optional: Yes
@@ -59,7 +59,7 @@ accepted_origins
 
 
 client_forwarded_header
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -127,7 +127,7 @@ client_forwarded_header
 
 
 .. include:: /configuration/ssl.include.rst
-.. include:: /configuration/service-commons.include.rst
+.. include:: /configuration-server/service-commons.include.rst
 
 ..  note::
     When clients use a web browser, a single session might generate

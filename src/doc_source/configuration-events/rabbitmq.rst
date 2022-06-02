@@ -1,10 +1,14 @@
-RabbitMQ Publisher
+RabbitMQ publisher
 ==================
 
 The `rabbitmq` event handler is used to trigger an AMQP publish operation
 based on an audit event.
 
 It supports AMQP version 0-9-1.
+
+..  contents:: :local:
+
+.. include:: /configuration-events/events-commons.include.rst
 
 
 url

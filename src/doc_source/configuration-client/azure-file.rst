@@ -1,5 +1,5 @@
-Azure File Service Location
-===========================
+Azure File Service
+==================
 
 An `azure-file` location provides access over HTTPS to the
 Azure File Service of an Azure Storage account.
@@ -8,6 +8,12 @@ The files stored in Azure File Service shares are accessible via the
 SMB protocol and HTTP API.
 Azure Files is specifically a network file system.
 SFTPPlus will use the HTTPS-based API to manage the files.
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 The HTTPS connections will use the default list of `secure` ciphers and will
 accept TLS v1.0, TLS v1.1 and TLS v1.2 protocols.
@@ -38,6 +44,8 @@ done by this location.
 The request ID will look like::
 
     x-ms-client-request-id: sftpplus-azure-file-60ec1329-cc5d-416e-81b9-7c22
+
+.. include:: /configuration-client/locations-commons.include.rst
 
 
 username

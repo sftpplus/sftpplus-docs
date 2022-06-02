@@ -569,7 +569,7 @@ Services configurations are now defined using a new section marker in the
 Each service now has a universally unique identifier (UUID) and a human
 readable short name. This allows rename operations and operating multiple
 services in a cluster environment.
-For more details see :doc:`documentation<../configuration/general>`.
+For more details see :doc:`documentation</configuration/introduction>`.
 
 For example, to update the service configuration for a service named
 ``ftp-partners`` with the following configuration::

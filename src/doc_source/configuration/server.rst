@@ -1,6 +1,12 @@
 Server's process
 ================
 
+..  contents:: :local:
+
+
+Introduction
+------------
+
 When launched, the server starts a series of file transfer services, using
 various file transfer protocols.
 It also starts the internal services used by all file transfer services;
@@ -11,12 +17,6 @@ All services are executed under a single server process.
 This page describes general server configuration options and options
 affecting all file transfer services.
 
-
-..  contents:: :local:
-
-
-Configuration for the main server process
------------------------------------------
 
 You can access the section via the 'Server' page in Local Manager.
 
@@ -40,7 +40,7 @@ Below is another sample for the ``server`` section as a text configuration::
 
 
 uuid
-^^^^
+----
 
 :Default value: ``single-server-uuid``
 :Optional: No
@@ -73,7 +73,7 @@ uuid
 
 
 name
-^^^^
+----
 
 :Default value: ``single-server-name``
 :Optional: No
@@ -91,7 +91,7 @@ name
 
 
 description
-^^^^^^^^^^^
+-----------
 
 :Default value: ''
 :Optional: Yes
@@ -104,8 +104,32 @@ description
     or other details specific to the installation.
 
 
+product_key
+^^^^^^^^^^^
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Empty
+         * `server-only`
+         * `client-only`
+:From version: 4.21.0
+:Description:
+    The current version of SFTPPlus doesn't require any product key in order to operate.
+    Both server-side and client-side functionalities are available inside
+    the same product.
+    This configuration is here to prepare for the introduction of a `product key` in the next major release.
+
+    This configuration option can now be used to simplify the available configuration options from the web management interface.
+
+    Set this value to `server-only` to only see the configuration options relevant to file transfer servers operations.
+
+    Set this value to `client-only` to only see the configuration options relevant to automated client transfer operations.
+
+    Managed file transfer configuration options like the event handler or the activity audit are always available from the web console.
+
+
 account
-^^^^^^^
+-------
 
 :Default value: ``sftpplus``
 :Optional: Yes
@@ -126,7 +150,7 @@ account
 
 
 umask
-^^^^^
+-----
 
 :Default value: ``022``
 :Optional: Yes
@@ -149,7 +173,7 @@ umask
 
 
 authentications
-^^^^^^^^^^^^^^^
+---------------
 
 :Default value: `DEFAULT-AUTHENTICATION`
 :Optional: Yes
@@ -172,7 +196,7 @@ authentications
 
 
 manager_authentications
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 :Default value: `DEFAULT-AUTHENTICATION`
 :Optional: Yes
@@ -191,7 +215,7 @@ manager_authentications
 
 
 password_minimum_strength
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
 
 :Default value: `4`
 :Optional: Yes
@@ -222,7 +246,7 @@ password_minimum_strength
 
 
 password_minimum_length
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 :Default value: `8`
 :Optional: Yes
@@ -240,7 +264,7 @@ password_minimum_length
 
 
 password_history
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: `8`
 :Optional: Yes
@@ -259,7 +283,7 @@ password_history
 
 
 password_hashing_scheme
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 :Default value: `crypt-sha512`
 :Optional: Yes
@@ -287,7 +311,7 @@ password_hashing_scheme
 
 
 ssl_certificate
-^^^^^^^^^^^^^^^
+---------------
 
 :Default value: Empty
 :Optional: Yes
@@ -308,7 +332,7 @@ ssl_certificate
 
 
 ssl_key
-^^^^^^^
+-------
 
 :Default value: Empty
 :Optional: Yes
@@ -323,7 +347,7 @@ ssl_key
 
 
 ssh_host_private_keys
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 :Default value: Empty
 :Optional: Yes

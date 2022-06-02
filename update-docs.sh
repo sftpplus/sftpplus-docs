@@ -19,3 +19,8 @@ rm -rf venv/lib/python2.7/site-packages/chevah
 mv chevah venv/lib/python2.7/site-packages/
 sed 's/^templates_path.*/templates_path = ["..\/..\/sphinx"]/'g -i src/doc_source/conf.py
 sed 's/^html_theme_path.*/html_theme_path = ["..\/..\/sphinx"]/'g -i src/doc_source/conf.py
+
+rm -rf deploy
+. venv/bin/activate
+pip install -r requirements.txt
+sphinx-build -b html src/doc_source/ deploy

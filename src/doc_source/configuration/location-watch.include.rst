@@ -1,5 +1,5 @@
 source_path
-^^^^^^^^^^^
+-----------
 
 :Default value: Empty
 :Optional: Yes
@@ -12,7 +12,7 @@ source_path
 
 
 recursive
-^^^^^^^^^
+---------
 
 :Default value: `No`
 :Optional: Yes
@@ -25,7 +25,7 @@ recursive
 
 
 changes_poll_interval
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 :Default value: `10`
 :Optional: Yes
@@ -40,7 +40,7 @@ changes_poll_interval
 
 
 stable_interval
-^^^^^^^^^^^^^^^
+---------------
 
 :Default value: `10`
 :Optional: Yes
@@ -54,7 +54,7 @@ stable_interval
 
 
 source_filter
-^^^^^^^^^^^^^
+-------------
 
 :Default value: Empty
 :Optional: Yes

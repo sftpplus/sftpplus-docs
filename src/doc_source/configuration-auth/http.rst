@@ -1,8 +1,7 @@
-HTTP Authentication Method
-==========================
+HTTP web service
+================
 
-An `http` authentication method asks a remote HTTP resource to authenticate
-an account and provide the account's configuration.
+An `http` authentication method asks a remote HTTP server to authenticate an account and provide the account's configuration.
 
 ..  note::
     This authentication method can't be used with the Local Manager services.
@@ -11,6 +10,10 @@ To get more details about the request format and the expected result,
 see the dedicated
 :doc:`HTTP authentication protocol documentation
 </developer/http-api-authentication>`.
+
+..  contents:: :local:
+
+..  include:: /configuration-auth/authentication-commons.include.rst
 
 
 url

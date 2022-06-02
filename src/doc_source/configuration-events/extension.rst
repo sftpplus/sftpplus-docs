@@ -9,6 +9,10 @@ the SFTPPlus base installation folder.
 
 This event handler is targeted towards application developers.
 
+..  contents:: :local:
+
+.. include:: /configuration-events/events-commons.include.rst
+
 
 entry_point
 -----------

@@ -1,4 +1,4 @@
-File Dispatcher
+File dispatcher
 ===============
 
 The `file-dispatcher` event handler can be configured to handle files to one
@@ -7,6 +7,10 @@ or multiple directory paths based on a matching expression.
 This section describes the available configuration options.
 For more details about the scenarios in which you can use this event handler,
 check :doc:`the file dispatcher usage guide.</guides/file-dispatcher>`
+
+..  contents:: :local:
+
+.. include:: /configuration-events/events-commons.include.rst
 
 
 dispatch_rules

@@ -1,11 +1,17 @@
-SMB / Windows Share Location
-============================
+SMB / Windows Share
+===================
 
 An `smb` location provides access to an SMB
 (Server Message Block or Windows Share) server over TCP.
 
 SMB versions 3 and 2 are supported, but version 1 is not.
 Access over UDP is not included either.
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 The location only requires configuring the server address and credentials.
 The actual share names and paths used for a file transfer are defined as part
@@ -28,6 +34,29 @@ encryption or message signing.
     On-premises Active Directory Domain Services or
     Azure Active Directory Domain Services authentication methods via
     Kerberos are not yet supported.
+
+
+Windows Share UNC path handling
+-------------------------------
+
+The location only requires configuring the server address and credentials.
+
+The actual share name and path used for a file transfer are defined as part of the transfer's configuration.
+
+In this way, you can define multiple transfers to the same server without having to repeat
+the server name for each transfer.
+
+Direct usage of UNC format paths is not supported.
+UNC paths can be translated into a format that is supported by SFTPPlus.
+
+The goal is to handle Windows Share / SMB shares paths in a way that is consistent with accessing an FTP, SFTP or HTTP path.
+
+For example, for handling a path like `\\qafs1.smb.example.com\D$\user-files\johnD` the configuration will look like this:
+
+* `qafs1.smb.example.com` - defined as part of the location's "address"
+* `/D$/user-files/johnD` - defined as part of transfer's source or destination path
+
+.. include:: /configuration-client/locations-commons.include.rst
 
 
 address

@@ -1,7 +1,13 @@
 .. _conf-resource-email-client:
 
-Email Client
+Email client
 ============
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 An `email-client` is configured to allow SFTPPlus to send emails as an
 SMTP client via a remote SMTP server.

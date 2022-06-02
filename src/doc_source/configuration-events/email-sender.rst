@@ -1,6 +1,6 @@
 .. _conf-handler-email-sender:
 
-Email Sender
+Email sender
 ============
 
 To configure an event handler which sends emails to an SMTP server, use the
@@ -11,6 +11,10 @@ SMTP client.
 
 The emails will be sent using a resource of type
 :ref:`Email Client<conf-resource-email-client>`.
+
+..  contents:: :local:
+
+.. include:: /configuration-events/events-commons.include.rst
 
 
 email_to_recipients

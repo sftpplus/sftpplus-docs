@@ -1,18 +1,17 @@
 Local file system monitor service
 =================================
 
-This page describes the configuration options available for the local
-file system monitor service.
-
 ..  contents:: :local:
 
 
-General description
--------------------
+Introduction
+------------
 
-The local file system monitor service allows the server to monitor local
-file systems and emit audit log events once files or sub-directories are
-changed inside the monitored path.
+This page describes the configuration options available for the local
+file system monitor service.
+
+
+The service allows monitoring local file systems and emitting audit log events once files or sub-directories are changed inside the monitored path.
 
 If the configured path does not exist, the service will fail to start.
 
@@ -24,10 +23,6 @@ The service monitor will not stop or fail.
 
 .. include:: /operation/location-watch-about.include.rst
 
-
-Configuration options
----------------------
-
 Below you can find the list of available configuration options for services of
 the monitor type, other than the standard service configuration options.
 
@@ -35,7 +30,7 @@ the monitor type, other than the standard service configuration options.
 
 
 file_age_notification
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 :Default value: `0`
 :Optional: Yes
@@ -54,7 +49,7 @@ file_age_notification
 
 
 file_age_auto_delete
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 :Default value: `0`
 :Optional: Yes
@@ -73,7 +68,7 @@ file_age_auto_delete
 
 
 monitored_operations
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 :Default value: `all`
 :Optional: Yes

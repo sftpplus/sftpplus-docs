@@ -4,6 +4,12 @@ Execute external script or program
 The `external-executable` event handler can be configured to call an external
 script or program based on an event.
 
+..  contents:: :local:
+
+
+Introduction
+------------
+
 The following environment variables are available to the executed script or
 program:
 
@@ -36,6 +42,8 @@ nor for handling of long-running or extensive memory usage processes.
 If your external executable uses more than 100MB of memory or takes longer than 10 seconds to operate,
 consider redesigning your system.
 For example reduce run duration or reduce the run frequency by filtering events with the `target` and `data_filter` options).
+
+.. include:: /configuration-events/events-commons.include.rst
 
 
 executable_path

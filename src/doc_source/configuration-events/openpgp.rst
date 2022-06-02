@@ -1,4 +1,4 @@
-Encrypt / Decrypt using OpenPGP
+Encrypt / decrypt using OpenPGP
 ===============================
 
 The `openpgp` event handler can be configured to encrypt or decrypt
@@ -12,6 +12,10 @@ Encrypted files will have the `.pgp` extension appended to their filename.
 The handler can be associated with events containing a list of files.
 It will try to handle each file associated with the event and will stop at
 the first failure.
+
+..  contents:: :local:
+
+.. include:: /configuration-events/events-commons.include.rst
 
 
 encryption_public_keys

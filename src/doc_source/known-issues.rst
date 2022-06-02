@@ -57,6 +57,11 @@ This is the list of known issues for the current release of SFTPPlus.
   For a correct operation the client and server must use the same timezones and
   have the clock synchronized.
 
+* [#3570] When events are emitted before any event handler is started,
+  they are queued and sent only to the first event handler that will start.
+  These pre-startup events are not sent to all event handlers that
+  are expected to be launched at startup.
+
 * [#3577] The FTPS client-side transfer can't upload/push empty files.
 
 * [#4315] When uploading files to SharePoint online via the WebDAV client

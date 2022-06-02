@@ -1,5 +1,11 @@
-Analytics and Alerts
+Analytics and alerts
 ====================
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 The `analytics` resource is defined for monitoring and recording the
 activity of SFTPPlus.

@@ -1,4 +1,4 @@
-Create Archive / Compress
+Create archive / compress
 =========================
 
 The `create-archive` event handler can be configured to create an archive
@@ -12,6 +12,10 @@ event has multiple files, it will compress all files as a single archive.
 
 The create archive event handler only handles direct file paths.
 Recursive directory paths are not yet supported.
+
+..  contents:: :local:
+
+.. include:: /configuration-events/events-commons.include.rst
 
 
 archive_format

@@ -246,9 +246,8 @@ as well as remote Windows Shares using UNC paths as target.
 Virtual folders
 ---------------
 
-Virtual folders are directories which can be found outside of
-the account's locked home folder,
-but mapped as paths listed inside the home folder.
+Virtual folders are directories which can be accessed outside of the account's locked home folder,
+but available as paths inside the user's home folder.
 
 Virtual folders act as symbolic links.
 

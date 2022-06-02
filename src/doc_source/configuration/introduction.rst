@@ -1,5 +1,5 @@
-General
-=======
+Configuration principles
+========================
 
 ..  contents:: :local:
 

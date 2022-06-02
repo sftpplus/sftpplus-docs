@@ -1,4 +1,4 @@
-WebDAV over HTTPS Location
+WebDAV / SharePoint Online
 ==========================
 
 A `webdavs` location provides access to a WebDAV server over a protected HTTPS
@@ -15,6 +15,10 @@ Please get in touch if your WebDAV server is case-sensitive.
 
 Unlike a web browser, to protect the HTTPS connection you will have to
 explicitly configure the list of trusted CA and the location of the CRLs.
+
+..  contents:: :local:
+
+.. include:: /configuration-client/locations-commons.include.rst
 
 
 url

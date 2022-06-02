@@ -1,8 +1,14 @@
-OS-level Authentication Method
-==============================
+Operating system / Domain users
+===============================
 
 An `os` authentication method can be used to authenticate users
 based on the authentication methods provided by the operating system.
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 It can also be used to authenticate administrators for the Local Manager
 service.
@@ -45,6 +51,8 @@ The account configuration is retrieved using the same generic OS API.
     PAM is not used for managing accounts, sessions, or passwords.
     Please get in touch with us if you need to integrate PAM accounts and
     session management with SFTPPlus.
+
+.. include:: /configuration-auth/authentication-commons.include.rst
 
 
 pam_usage

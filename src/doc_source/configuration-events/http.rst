@@ -1,5 +1,5 @@
-HTTP POST Event Handlers
-========================
+HTTP POST / Webhooks
+====================
 
 The HTTP POST Event Handler is where you can integrate SFTPPlus with your
 web resource.
@@ -8,6 +8,10 @@ To read more, please go to
 
 In this section you will find the configuration option available to the
 `http` event handler.
+
+..  contents:: :local:
+
+.. include:: /configuration-events/events-commons.include.rst
 
 
 url

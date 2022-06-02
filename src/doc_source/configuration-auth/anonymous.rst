@@ -1,9 +1,15 @@
-Anonymous Authentication Method
--------------------------------
+Anonymous users
+===============
 
 An `anonymous` authentication method can be used to authenticate a specific
 `application type` account by ignoring the provided password or any other
 credential.
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 This authentication is implemented based on the
 `RFC 1635 <https://tools.ietf.org/html/rfc1635>`_ but it can also be used
@@ -23,9 +29,11 @@ a normal application account.
 
 ..  image:: /_static/gallery/gallery-add-anon-auth.png
 
+.. include:: /configuration-auth/authentication-commons.include.rst
+
 
 anonymous_account_uuid
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 :Default value: ''
 :Optional: No

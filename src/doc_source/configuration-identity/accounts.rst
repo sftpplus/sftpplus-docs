@@ -1,14 +1,14 @@
 Accounts
 ========
 
+SFTPPlus can be configured to allow both `application` and
+`operating system` accounts supplied by third party identity providers.
+
 ..  contents:: :local:
 
 
 Introduction
 ------------
-
-SFTPPlus can be configured to allow both `application` and
-`operating system` accounts supplied by third party identity providers.
 
 The account's configuration, as defined at login time,
 is used during the entire file transfer session.
@@ -70,7 +70,7 @@ The account's UUID can be any unique string used to identify the account.
 Once defined, the UUID should not be changed.
 
 For more information about UUIDs, please see
-:doc:`the dedicated UUID documentation </configuration/general>`.
+:doc:`the dedicated UUID documentation </configuration/introduction>`.
 
 The following example defines two accounts, one called ``john``, which
 is an application type account, and another named ``anna``, which is an account

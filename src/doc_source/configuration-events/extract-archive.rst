@@ -1,8 +1,14 @@
-Extract Archive / Uncompress
+Extract archive / uncompress
 ============================
 
 The `extract-archive` event handler can be configured to extract
 archive / compressed files to a specific destination.
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 The event handler will automatically detect the format of the source
 file based on its extension.
@@ -29,6 +35,8 @@ Symbolic links, device and character files are not supported.
 The handler can be associated with events containing a list of files.
 It will try to handle each file associated with the event and will stop at
 the first failure.
+
+.. include:: /configuration-events/events-commons.include.rst
 
 
 source_attribute

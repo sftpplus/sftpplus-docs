@@ -1,10 +1,14 @@
-Application-level Authentication Method
-=======================================
+SFTPPlus embedded users
+=======================
 
 An `application` authentication method can be used to authenticate users
 based on accounts defined in the configuration file of SFTPPlus.
 
 It will authenticate accounts of type `application`.
+
+..  contents:: :local:
+
+.. include:: /configuration-auth/authentication-commons.include.rst
 
 
 allowed_groups

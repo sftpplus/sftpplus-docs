@@ -13,4 +13,3 @@ of the SFTPPlus solely based on the available configuration.
     filesystem-access
     ftp
     http
-    ../guides/event-handlers

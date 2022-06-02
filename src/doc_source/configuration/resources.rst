@@ -3,6 +3,10 @@ Resources
 
 ..  contents:: :local:
 
+
+Introduction
+------------
+
 SFTPPlus can interact with various external resources in order to execute
 related operations, such as sending emails on errors.
 

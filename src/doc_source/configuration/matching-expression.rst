@@ -3,6 +3,10 @@ Matching expressions
 
 ..  contents:: :local:
 
+
+Introduction
+------------
+
 `Globbing expression
 <http://en.wikipedia.org/wiki/Glob_%28programming%29>`_ or
 `regular expression <http://en.wikipedia.org/wiki/Regular_expression>`_

@@ -1,5 +1,5 @@
-Local Configuration Manager
-===========================
+Web administration console
+==========================
 
 ..  contents:: :local:
 
@@ -7,8 +7,10 @@ Local Configuration Manager
 Introduction
 ------------
 
-The Local Configuration Manager can be configured in a similar way to any
-other service provided by SFTPPlus.
+A web console is available for configuration and administration.
+This service is available via the `local-manager` service.
+
+The web console can be configured in a similar way to any other service provided by SFTPPlus.
 
 This page describes configuring the Local Manager service. For information
 about using the service, please see
@@ -99,6 +101,6 @@ server, and configuration options are stored inside the
 `configuration/server.ini` configuration file.
 
 For general information about configuring a service, please see the
-:doc:`services configuration page</configuration-server/services>`.
+:doc:`services configuration page</configuration-server/index>`.
 
 .. include:: /configuration-server/service-http.include.rst

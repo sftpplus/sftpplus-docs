@@ -7,6 +7,48 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.21.0, 2022-05-31
+--------------------------
+
+In this release, we continue to redesign the user interface and to improve
+user interaction for the web management console.
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure the Local Manager web console to only show server-side
+  configuration options, client-side configuration options, or both. [manager]
+  [#2795]
+* The rules for defining virtual folders were relaxed to allow defining virtual
+  folder names without using absolute paths. [server-side] [#5680]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The main process no longer fails to start when configured with invalid
+  values for numeric configuration options. The process now automatically
+  recovers from such an error by using default values for the affected
+  configuration options. The event with ID 20190 is emitted to inform about this
+  error. [#1926]
+* On Windows, operating system accounts with unlocked / full access to all the
+  local drives are working again. This is a regression introduced in version
+  3.17.0. [windows][server-side] [#5680-1]
+* When SFTPPlus runs on Windows, you can now set the home folder path using an
+  UNC path to a directory inside a Windows Share. [server-side] [#5680]
+* When the configuration is changed for a Python API event handler, the handler
+  is now highlighted as requiring restart. [#5722]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The event with ID 20020, emitted when an invalid value is configured for the
+  `port` number, was removed. It was replaced by the generic event with ID
+  `20190`, emitted when any configuration option has invalid values. [#1926]
+
+
 Version 4.20.0, 2022-05-10
 --------------------------
 
@@ -483,7 +525,7 @@ Defect Fixes
   when no username is defined. In previous versions, an internal server error
   was generated. As workarounds for previous versions, you can either
   explicitly disable the password or you can define the username as
-  two double quotes: `""`. [smtp][email] [#5714]
+  two double quotes: `""`. [smtp][email] [#4977]
 * The AS2 file transfer service can now receive data for UTF-8 encoded
   filenames. [server-side][as2] [#5717]
 

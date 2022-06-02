@@ -1,10 +1,11 @@
-Explicit FTPS Location
-======================
+Explicit FTPS
+=============
 
-An `explicit ftps location` provides access to an Explicit FTPS server.
+An `ftps` location provides access to an Explicit FTPS server.
 
-..  note::
-    The explicit FTPS location is an experimental feature.
+..  contents:: :local:
+
+.. include:: /configuration-client/locations-commons.include.rst
 
 
 address
@@ -82,3 +83,20 @@ ftps_ccc
 
     For more details about using this configuration option please check the
     dedicated documentation for the :ref:`FTPS CCC modes <operation-ftps-ccc>`.
+
+
+debug
+-----
+
+:Default value: 'No'
+:Optional: Yes
+:Values: * `Yes`
+         * `No`
+:From version: 4.0.0
+:Description:
+    When enabled, the location will emit events with id `20000`,
+    containing low-level debug messages for the file transfer protocol.
+
+    ..  warning::
+        When this is enabled, emitted events may include used password
+        in plain text.

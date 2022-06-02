@@ -1,6 +1,12 @@
 Configuration file
 ==================
 
+..  contents:: :local:
+
+
+Introduction
+------------
+
 The server is distributed with a configuration file, located
 inside the server installation folder at `configuration/server.ini`.
 

@@ -1,7 +1,7 @@
 Roles
 =====
 
-The roles represent a collection of permissions for Local Manager
+A role represents a collection of permissions for Local Manager
 administrators that can be individually turned on and off.
 
 An administrator can have one or more roles.
@@ -20,6 +20,8 @@ administrators.
 ..  note::
      The name ``role`` is used to avoid confusion with groups of regular
      accounts.
+
+..  contents:: :local:
 
 
 Adding a new role via Local Manager
@@ -42,7 +44,7 @@ The role's UUID can be any unique string used to identify the role.
 Once defined, the UUID should not be changed.
 
 For more information, please see
-:doc:`the dedicated UUID documentation </configuration/general>`.
+:doc:`the dedicated UUID documentation </configuration/introduction>`.
 
 For example, to add a new role named **SuperAdmins**::
 
@@ -52,14 +54,8 @@ For example, to add a new role named **SuperAdmins**::
     description = Administrators having unrestricted access to Local Manager.
 
 
-Configuration options for roles
--------------------------------
-
-The following configuration options are available for roles:
-
-
 enabled
-^^^^^^^
+-------
 
 :Default value: `Yes`
 :Optional: Yes
@@ -74,7 +70,7 @@ enabled
 
 
 name
-^^^^
+----
 
 :Default value: ''
 :Optional: No
@@ -86,7 +82,7 @@ name
 
 
 description
-^^^^^^^^^^^
+-----------
 
 :Default value: ''
 :Optional: Yes
@@ -97,7 +93,7 @@ description
 
 
 source_ip_filter
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: Empty
 :Optional: Yes
@@ -116,7 +112,7 @@ source_ip_filter
 
 
 permissions
-^^^^^^^^^^^
+-----------
 
 :Default value: `*, all`
 :Optional: Yes

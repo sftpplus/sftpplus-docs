@@ -1,8 +1,14 @@
-Syslog Event Handler
-====================
+Syslog
+======
 
 To configure an event handler which sends events to a Syslog server, use
 the type `syslog`.
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 It can send logs to a local Unix socket, for example ``/dev/log``, or to a
 remote ``IP:PORT`` address.
@@ -17,6 +23,8 @@ The process name used when formatting the message is configurable via the
 
 When using TCP and the connection to the server is lost, it will try to
 reconnect and will not handle any event until the connection is established.
+
+.. include:: /configuration-events/events-commons.include.rst
 
 
 url

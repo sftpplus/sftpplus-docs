@@ -1,12 +1,11 @@
-FTP / Explicit FTPS / Implicit FTPS Service
-===========================================
+FTP / Explicit FTPS / Implicit FTPS
+===================================
 
 This page describes the configuration options available for the FTP / FTPS
 service.
 
 SFTPPlus provides two ways for securing FTP transfers - explicit FTPS and
 implicit FTPS.
-
 
 ..  contents:: :local:
 
@@ -42,13 +41,11 @@ For more details, please check
 `the dedicated FTPS article from Wikipedia
 <http://en.wikipedia.org/wiki/FTPS>`_.
 
-
-Configuration options
----------------------
+.. include:: /configuration-server/service-commons.include.rst
 
 
 banner
-^^^^^^
+------
 
 :Default value: `Welcome to the FTP service.`
 :Optional: Yes
@@ -61,7 +58,7 @@ banner
 
 
 passive_port_range
-^^^^^^^^^^^^^^^^^^
+------------------
 
 :Default value: All available ports provided by the operating system.
 :Optional: Yes
@@ -99,7 +96,7 @@ passive_port_range
 
 
 active_source_port
-^^^^^^^^^^^^^^^^^^
+------------------
 
 :Default value: `0`
 :Optional: Yes
@@ -130,7 +127,7 @@ active_source_port
 
 
 passive_address
-^^^^^^^^^^^^^^^
+---------------
 
 :Default value: Empty
 :Optional: Yes
@@ -150,7 +147,7 @@ passive_address
 
 
 idle_data_connection_timeout
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 :Default value: `30`
 :Optional: Yes
@@ -167,11 +164,10 @@ idle_data_connection_timeout
 
 
 .. include:: /configuration/ssl.include.rst
-.. include:: /configuration/service-commons.include.rst
 
 
 ftps_explicit_enabled
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 :Default value: `No`
 :Optional: Yes
@@ -190,7 +186,7 @@ ftps_explicit_enabled
 
 
 enable_password_authentication
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 :Default value: `Yes`
 :Optional: Yes
@@ -203,7 +199,7 @@ enable_password_authentication
 
 
 enable_ssl_certificate_authentication
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------
 
 :Default value: `Yes`
 :Optional: Yes
@@ -222,7 +218,7 @@ enable_ssl_certificate_authentication
 
 
 ftps_force_secured_authentication
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------
 
 :Default value: `Yes`
 :Optional: Yes
@@ -248,7 +244,7 @@ ftps_force_secured_authentication
 
 
 ftps_force_secured_command_channel
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
 :Default value: `No`
 :Optional: Yes
@@ -271,7 +267,7 @@ ftps_force_secured_command_channel
 
 
 ftps_force_secured_data_channel
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------
 
 :Default value: `Yes`
 :Optional: Yes
@@ -290,7 +286,7 @@ ftps_force_secured_data_channel
 
 
 ignore_ascii_data_type
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 :Default value: `No`
 :Optional: Yes
@@ -303,7 +299,7 @@ ignore_ascii_data_type
 
 
 ascii_data_type_as_default
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------
 
 :Default value: `No`
 :Optional: Yes

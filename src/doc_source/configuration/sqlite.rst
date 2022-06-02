@@ -1,10 +1,12 @@
-SQLite Database
+SQLite database
 ===============
 
 An `sqlite` resource is configured to allow SFTPPlus to store application data
 in an embedded database.
 
 You will need to specify the path.
+
+..  contents:: :local:
 
 
 path

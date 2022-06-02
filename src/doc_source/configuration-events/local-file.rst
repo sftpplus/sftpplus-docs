@@ -1,8 +1,14 @@
-Local File
+Local file
 ==========
 
 To configure an event handler which sends events to a local file system,
 use the type `local-file`.
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 Event entries are appended to the file, and the file can be configured to be
 rotated by external tools or automatically rotated by the server, based on
@@ -13,6 +19,8 @@ option.
 ..  warning::
    Please enable rotation, otherwise the log file can grow to an extremely
    large file.
+
+.. include:: /configuration-events/events-commons.include.rst
 
 
 path

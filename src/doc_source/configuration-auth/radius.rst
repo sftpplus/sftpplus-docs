@@ -1,9 +1,14 @@
-RADIUS Authentication Method
-============================
+RADIUS
+======
 
 The `radius` authentication method can be used to authenticate
-`application` type accounts by delegating the authentication to a remote
-RADIUS UDP server.
+`application` type accounts by delegating the authentication to a remote RADIUS UDP server.
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 When an authentication request is made for a file transfer session,
 SFTPPlus will use the provided credentials (username and password)
@@ -32,6 +37,8 @@ by `RFC 5080 <https://tools.ietf.org/html/rfc5080>`_.
 ..  warning::
     Only use RADIUS over internal networks.
     RADIUS relies on MD5 and is not FIPS compliant.
+
+.. include:: /configuration-auth/authentication-commons.include.rst
 
 
 address

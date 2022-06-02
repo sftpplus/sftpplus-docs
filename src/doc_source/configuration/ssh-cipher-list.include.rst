@@ -3,7 +3,7 @@ ssh_cipher_list
 
 :Default value: `secure`
 :Optional: Yes
-:Values: * List of accepted key exchanges, HMACs and ciphers names.
+:Values: * List of accepted key exchanges, HMACs and cipher names.
          * `all`
          * `secure`
          * `fips`
@@ -11,7 +11,7 @@ ssh_cipher_list
 :To version: None
 :Description:
     The full name for each key exchange, HMAC or cipher should be used
-    as comma separated values.
+    as comma-separated values.
 
     You can find all the names of the supported algorithms on
     :ref:`SSH cryptography page <standards-crypto-ssh>`.

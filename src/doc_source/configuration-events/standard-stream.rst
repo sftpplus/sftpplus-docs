@@ -1,8 +1,12 @@
-Standard Stream
-===============
+Standard output stream
+======================
 
 The `standard-stream` event handler can be used for formatting the events
 for the standard output.
+
+..  contents:: :local:
+
+.. include:: /configuration-events/events-commons.include.rst
 
 
 entry_content

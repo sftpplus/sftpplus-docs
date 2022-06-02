@@ -1,8 +1,6 @@
 Administrators
 ==============
 
-..  contents:: :local:
-
 Administrators are dedicated to accessing the
 :doc:`Local Manager administration service </configuration/local-manager>`.
 They cannot be used for file transfer operations.
@@ -13,6 +11,8 @@ administrators, the administrators are associated to a role.
 This allows, for example, to easily disable access for all administrators
 associated to a particular role by simply disabling the role instead of having
 to disable every administrator.
+
+..  contents:: :local:
 
 
 Adding a new administrator via Local Manager
@@ -36,7 +36,7 @@ administrator.
 Once defined, the UUID should not be changed.
 
 For more information, please see
-:doc:`the dedicated UUID documentation </configuration/general>`.
+:doc:`the dedicated UUID documentation </configuration/introduction>`.
 
 An administrator can be an application-level account defined for accessing the
 Local Manager or a local operating system account belonging to an
