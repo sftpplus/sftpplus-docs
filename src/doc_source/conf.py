@@ -23,7 +23,7 @@ project = "SFTPPlus"
 copyright = "ProAtria Team"
 
 html_context = {
-    'robots': 'all',
+    'robots': 'noindex, nofollow',
     'canonical_site': 'https://www.sftpplus.com/documentation/sftpplus/latest/',
 }
 
