@@ -1,5 +1,10 @@
 DOCS_ROOT=`pwd`
 
+if [ "$1" == "" ]; then
+    echo "Call the script with the path to the server repo."
+    exit 1
+fi
+
 cd $1
 SERVER_ROOT=`pwd`
 

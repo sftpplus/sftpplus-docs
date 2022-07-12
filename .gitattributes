@@ -1,1 +1,2 @@
-doc_source/**/*.png filter=lfs diff=lfs merge=lfs -text
+src/**/*.png filter=lfs diff=lfs merge=lfs -text
+src/**/*.jpg filter=lfs diff=lfs merge=lfs -text
