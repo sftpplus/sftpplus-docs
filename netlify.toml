@@ -18,7 +18,7 @@
   # Netlify will auto install the deps.
   # https://docs.netlify.com/configure-builds/manage-dependencies/#python
   # https://github.com/netlify/build-image/blob/focal/included_software.md
-  command = 'sphinx-build -b html -D html_theme=integrated -A robots="$DOCS_ROBOT" src/doc_source/ deploy'
+  command = 'bash netlify_build.sh'
 
 [build.processing.html]
   # The automatic redirection from /path/folder-> /path/folder/ is disabled
