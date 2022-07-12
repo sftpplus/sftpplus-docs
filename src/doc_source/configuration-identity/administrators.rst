@@ -140,23 +140,29 @@ password
 source_ip_filter
 ^^^^^^^^^^^^^^^^
 
-:Default value: `inherit`
+:Default value: Empty
 :Optional: Yes
 :From version: 4.14.0
-:Values: * IPv4 address
-         * IPv6 address
-         * Classless Inter-Domain Routing subnet notation.
-         * Comma-separated list of IPv4, IPv6 addresses, or CIDR values.
+:Values: * Source IP/CIDR access control rules (since 4.22.0)
          * Empty
-         * `inherit`
 
 :Description:
-    This option defines the source IP addresses (v4 or v6) from which
-    administrators are allowed to authenticate.
+    This option defines the access control rules based on which administrators are allowed or denied authentication.
 
-    Leave it empty to allow any IP address.
+    Allowed IP/CIDR (IPv4 or IPv6) addresses are defined using access control rules, one rule per line.
+    All rules use this format: `ACTION IP-OR-CIDR`
 
-    Set it to `inherit` to use the value from the role.
+    `ACTION` is any of the following values:
+
+    * `allow` - allows access from IP or CIDR
+    * `deny` - denies access from IP or CIDR
+
+    The administrator configuration option is similar to the account configuration.
+    For more details, see the
+    :doc:`account configuration </configuration-identity/accounts>` documentation page.
+
+    For examples on how to use the access controler rules see the
+    :doc:`authentication </operation/authentication>` documentation page.
 
 
 multi_factor_authentication

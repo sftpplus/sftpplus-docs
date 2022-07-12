@@ -7,6 +7,88 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.22.0, 2022-07-11
+--------------------------
+
+The 4.22.0 final version was preceded by a series of release candidates.
+In addition to the release candidates, the final version contains an updated
+user interface for configuring accounts.
+
+Version 4.22.0rc5 was released on 2022-07-08 as a release candidate. It added
+support for defining virtual folders containing a `${USER}` placeholder.
+
+Version 4.22.0rc4 was released on 2022-06-14 as a release candidate.
+Version 4.22.0rc3 was released on 2022-06-08 as a release candidate.
+Version 4.22.0rc2 was released on 2022-06-07 as a release candidate.
+Version 4.22.0rc1 was released on 2022-06-06 as a release candidate.
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+This release includes a security related backward-incompatible change.
+This change is designed to improve the security of SFTPPlus and to discourage
+insecure or ambiguous configurations.
+
+When the account or administrator `source_ip_filter` configuration is empty,
+it now uses the access rules defined in the associated groups or roles.
+
+In previous versions, the rules from the associated groups or roles were
+ignored.
+With an empty `source_ip_filter` configuration at the account or admin level,
+the authentication was always successful,
+even when the source IP was not allowed by associated groups or roles.
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure groups with dynamic virtual folders using permissions
+  based on the authenticated username. [server-side] [#2786]
+* SFTPPlus Web File Browser can authenticate users via Azure Active Directory.
+  [server-side][http] [#3250]
+* Virtual folders defined for a group that contains the `${USER}`
+  placeholder are considered user home paths. They are automatically created
+  when the `create_home_folder` configuration option is enabled. [server-side]
+  [#4600]
+* The `source_ip_filter` configuration option now supports defining both
+  allowed and denied IP addresses for an account. [server-side] [#5751]
+* You can now configure a transfer to wait for multiple files before
+  transferring the files as a batch. [client-side] [#5772]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* An internal error is no longer triggered when a message encrypted for an
+  unknown partner/certificate is received over AS2. The event with ID 40044 is
+  now emitted with an informative error message. The remote AS2 partner is
+  informed that the transfer failed. [server-side][as2] [#5704]
+* The JQuery library used by SFTPPlus Local Manager web console and the legacy
+  web pages was updated to use the latest version. [server-http] [#5799]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The account or administrator `source_ip_filter` configuration option no longer
+  supports the `inherit` value. Inheriting is now always set.
+  [#5751-1]
+* The `source_ip_filter` configuration options were changed from a
+  comma-separated value to a space-separated one spanning multiple lines. This
+  makes it possible to explicitly list both allowed and denied IP addresses.
+  The previous configuration format only supported allowed IP addresses. The
+  `source_ip_filter` configuration is automatically converted to allow the
+  selected IPs while denying all other IPs. [server-side] [#5751]
+* New SFTPPlus installations no longer automatically generate SSH DSA/DSS host
+  keys. SSH DSA is considered a less secure legacy cryptographic algorithm.
+  Customers may still manually enable SSH DSA/DSS host keys, they are still
+  supported. [server-side] [#5800-1]
+* The following ciphers were removed from our `secure` list of SSH ciphers:
+  diffie-hellman-group-exchange-sha1, diffie-hellman-group14-sha1, hmac-sha1.
+  SHA1 is no longer considered a secure algorithm. [#5800]
+
+
 Version 4.21.0, 2022-05-31
 --------------------------
 

@@ -51,8 +51,7 @@ the following algorithms are enabled::
 
     HIGH:!PSK:!RSP:!eNULL:!aNULL:!RC4:!MD5:!DES:!3DES:!aDH:!kDH:!DSS
 
-This list provides maximum compatibility with existing
-deployments and does not contain ciphers which are considered weak.
+This list provides maximum compatibility with existing deployments while avoiding deprecated ciphers.
 
 SFTPPlus uses the OpenSSL library provided by the operating system,
 with some exceptions, most notably Windows, macOS, AIX, and generic Linux.
@@ -227,16 +226,13 @@ These are listed below according to preference::
     ecdh-sha2-nistp384
     ecdh-sha2-nistp256
     diffie-hellman-group-exchange-sha256
-    diffie-hellman-group-exchange-sha1
     diffie-hellman-group18-sha512
     diffie-hellman-group17-sha512
     diffie-hellman-group16-sha512
     diffie-hellman-group15-sha512
     diffie-hellman-group14-sha256
-    diffie-hellman-group14-sha1
 
-This list provides maximum compatibility with existing
-deployments and does not contain ciphers which are considered weak.
+This list provides maximum compatibility with existing deployments while avoiding deprecated ciphers.
 
 
 Public-key cryptographic systems

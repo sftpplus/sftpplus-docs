@@ -28,15 +28,15 @@ html_context = {
 }
 
 
-version = "4.21.0"
-release = "4.21.0"
+version = "4.23.0.dev0"
+release = "4.23.0.dev0"
 
 autodoc_default_flags = ['members']
 primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    u'SFTPPlus-4.21.0',
+    u'SFTPPlus-4.23.0.dev0',
     u'SFTPPlus Documentation',
     u'ProAtria Team',
     )]

@@ -62,8 +62,8 @@ And finally enable SFTPPlus to create the missing new home folder.
 You can find all the options we need to change below:
 
 * Enabled: **Yes**
-* Account home folder: ``C:\Users\«YOUR_USERNAME»\Documents\sftpplus-test``
-* Create missing home folder: **Yes**
+* File access -> Path: ``C:\Users\«YOUR_USERNAME»\Documents\sftpplus-test``
+* Advanced account configurations -> Create missing home folder: **Yes**
 
 ..  figure:: /_static/guides/2_account.png
     :alt: SFTPPlus Account Configuration

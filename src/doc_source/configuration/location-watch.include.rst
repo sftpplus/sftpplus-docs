@@ -50,7 +50,7 @@ stable_interval
     This is the interval after which a file is considered stable if no changes
     are made to it.
 
-    This values should be greater than the value of `changes_poll_interval`.
+    These values should be greater than the value of `changes_poll_interval`.
 
 
 source_filter
@@ -63,20 +63,23 @@ source_filter
          * `Regular expression`
          * Empty
 :Description:
+    It can be configured using a
     `Globbing expression
     <http://en.wikipedia.org/wiki/Glob_%28programming%29>`_ or
-    `regular expression <http://en.wikipedia.org/wiki/Regular_expression>`_
-    used to select source files to be transferred.
-    For more details see the :doc:`matching expression
-    documentation</configuration/matching-expression>`
+    `regular expression <http://en.wikipedia.org/wiki/Regular_expression>`_.
+
+    It defines the pattern used to select source files to be transferred.
+    For more details about the syntax used by this configuration option see the
+    :doc:`matching expression documentation.</configuration/matching-expression>`
 
     Only files matching the expression will be transferred.
 
-    A globbing expression can contain multiple filemask filtering rules,
+    A globbing expression can contain multiple file mask filtering rules,
     separated by the pipe character `|`.
 
-    If a globbing expressions doesn't include path separators, it only
-    matches the file name. The parent path is ignored.
+    If a globbing expression doesn't include path separators,
+    it only matches the file name.
+    The parent path is ignored.
 
     When using regular expressions, only file names are matched.
 

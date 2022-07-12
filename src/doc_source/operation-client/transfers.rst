@@ -25,15 +25,14 @@ Source Location
 Source location changes are detected by regularly checking the source folder
 for changes.
 
-When a change is observed on the monitored source location, the monitor emits
-one of the following event types:
+When a change is observed in the monitored source location, the monitor emits one of the following event types:
 
 * File modified
 * File/folder created
 * File/folder deleted
 * File/folder moved
 
-Here is a list of file system changes which are **ignored**:
+Here is a list of file system changes that are **ignored**:
 
 * **Folder modified** (since they are emitted whenever a member is
   created / removed / moved inside that folder)
@@ -45,7 +44,7 @@ prior transfer command.
 The same behaviour is present when a file is removed.
 
 For transfers of type `other than` `Local filesystem only`, folder events
-and file removed event are ignored, and no informational event is emitted.
+and file removed events are ignored, and no informational event is emitted.
 
 Source events are observed **only inside the configured path**, and the server
 will ignore events outside the configured path.
@@ -60,8 +59,7 @@ A transfer can monitor only direct ancestors of a folder, for **non-recursive**
 monitors, or all ancestors for **recursive** ones.
 
 When the source location is not available (for example, its connection failed
-after all retries) the transfer will become `stalled` and no files will be
-transfered.
+after all retries) the transfer will become `stalled` and no files will be transferred.
 
 
 File Content Transfer
@@ -70,20 +68,18 @@ File Content Transfer
 Once changes are observed in the source, SFTPPlus will start doing the actual
 transfer of the file's content.
 
-Multiple files might be created at the source in the same time.
+Multiple files might be created at the source at the same time.
 All of them are observed as soon as they are stable.
 
-To limit the load to the remote destination, SFTPPlus will only transfer one
-file at a time.
-Multiple files are not transferred in parallel in the same time.
+To limit the load to the remote destination, SFTPPlus will only transfer one file at a time.
+Multiple files are not transferred in parallel at the same time.
 
 All the files detected in the source folder of a transfer are placed into a
 queue.
 As soon as the current file is transferred, a new file is picked from the
 queue.
 
-To thwart erroneous behaviour, SFTPPlus will only keep files into the queue
-up to 100 000 files.
+To thwart erroneous behaviour, SFTPPlus will only keep files in the queue up to 100 000 files.
 If more files are created and not transferred, the transfer will fail and stop.
 
 
@@ -114,8 +110,7 @@ The full source path hierarchy is not preserved.
 
 For a recursive source transfer, there is a performance issue to consider.
 For each sub-folder, SFTPPlus will need to make a separate request
-(local or remote) to get the content and attributes of each members of that
-folder.
+(local or remote) to get the content and attributes of each member of that folder.
 When you have 1000 sub-folders, SFTPPlus will make at least 1000 requests.
 
 In contrast, if you set up a non-recursive file transfer scenario,
@@ -151,8 +146,8 @@ the transfer rule and more.
 Delete Source Directories
 -------------------------
 
-For recursive transfers you can configure SFTPPlus to automatically delete
-the parent source directory, if becomes empty.
+For recursive transfers, you can configure SFTPPlus to automatically delete the parent source directory,
+when that directory becomes empty.
 
 Below is an example in which, after successfully transferring a file from path
 ``E:\\Reports\\2020-12-28\\sales.pdf``, the file is removed right away
@@ -175,14 +170,13 @@ Destination Location
 The destination's locations are accessed only when a file which needs to be
 transferred is detected on the source location.
 
-When the destination location is not available, the changes detected on the
-source location are still observed but no transfer is attempted.
+When the destination location is not available, the changes detected on the source location are still observed but no transfer is attempted.
 As soon as the destination location is available again, new changes observed
 on the destination will be processed.
 
 The transfer will automatically start or resume the destination location
 when needed.
-It will not try to start the destination location, when the location has
+It will not try to start the destination location when the location has
 failed.
 
 
@@ -196,7 +190,7 @@ data was received by the server.
 This is done using the `destination_temporary_suffix` configuration option.
 
 In the example below, the content of the file `E:\Reports\INV-2019-08-23.pdf`
-is send to the remote server as a file `/inbox/INV-2019-08-23.pdf.tmp`.
+is sent to the remote server as a file `/inbox/INV-2019-08-23.pdf.tmp`.
 Once the file was received on the server, it is renamed from
 `/inbox/INV-2019-08-23.pdf.tmp` to `/inbox/INV-2019-08-23.pdf`::
 
@@ -263,8 +257,7 @@ the files will be transferred as follows::
     c:\out\sales\Report.PDF          -> /Outbox/report.pdf
     c:\out\sales\18\Jan\Outcome.PDF  -> /Outbox/outcome.pdf
 
-In the following sections you will find detailed information for each of the
-available actions.
+In the following sections, you will find detailed information for each of the available actions.
 
 
 no-action
@@ -273,7 +266,7 @@ no-action
 The `no-action` rule does not change the transferred path or name.
 
 It is used to explicitly inform SFTPPus that you don't want a transformation
-for certain file type and to transfer the file with the same path and name
+for certain file types and to transfer the file with the same path and name
 as is found on the source.
 
 
@@ -337,7 +330,7 @@ the files will be transferred as follows::
 ----------
 
 It can be used for inserting a timestamp in an arbitrary position,
-based on current date and time.
+based on the current date and time.
 The following placeholders are available:
 
     * `{now.cwa_14051}`
@@ -392,10 +385,9 @@ only-filename
 The `only-filename` transformation is used to flatten a path defined
 across multiple directories by using only the file name.
 
-The parent path as found on the source is ignored.
+The parent path as found in the source is ignored.
 
-This can be used to transfer a recursive transfer on source to a non-recursive
-transfer on destination.
+This can be used to transfer a recursive transfer on the source to a non-recursive transfer on the destination.
 
 Having the following configuration::
 
@@ -463,7 +455,7 @@ be first transferred to ``/Outbox/report.pdf.tmp``, then finally renamed to
       *.pdf, temporary-suffix, .tmp
 
 When a transfer fails before completing the transfer of the file's content,
-the incompletely transferred file on destination keeps the temporary suffix.
+the incompletely transferred file on the destination keeps the temporary suffix.
 
 
 temporary-prefix
@@ -495,14 +487,13 @@ be first transferred to ``/Outbox/TEMP_report.pdf``, then finally renamed to
       *.pdf, temporary-prefix, TEMP_
 
 When a transfer fails before completing the transfer of the file's content,
-the incompletely transferred file on destination keeps the temporary prefix.
+the incompletely transferred file on the destination keeps the temporary prefix.
 
 
 replace-separator
 ^^^^^^^^^^^^^^^^^
 
-The `replace-separator` transformation is used to flatten a path defined
-across multiple directories and to convert it into a simple file name.
+The `replace-separator` transformation is used to flatten a path defined across multiple directories and convert it into a simple file name.
 
 It takes a single option which is the character or characters used to
 substitute the path separators.
@@ -543,8 +534,7 @@ the files will be transferred as follows::
 lowercase
 ^^^^^^^^^
 
-The `lowercase` is a simple transformation which will transfer the file
-using destination file path and file name all in lower case.
+The `lowercase` is a simple transformation that will transfer the file using destination file path and file name all in lower case.
 It takes no options.
 
 ..  note::
@@ -569,8 +559,7 @@ Below is an example for the `lowercase` transformation::
       *.pdf, lowercase
       *, no-action
 
-With the above configuration the following files will be transferred
-as exemplified below.
+With the above configuration, the following files will be transferred as exemplified below.
 Note that the base destination path as defined in the transfer configuration,
 is not affected by the file path and file name transformation.
 Files like ``report.txt`` are transferred since they match the
@@ -586,8 +575,7 @@ Files like ``report.txt`` are transferred since they match the
 fixed-path
 ^^^^^^^^^^
 
-The `fixed-path` action is a simple transformation which will transfer the file
-using a fixed destination.
+The `fixed-path` action is a simple transformation that will transfer the file using a fixed destination.
 It takes a single option, the full destination path.
 The `destination_path` configuration is ignored for the `fixed-path` action.
 
@@ -634,8 +622,7 @@ A transfer can be in one of the following states:
 * `Started` - the transfer is active and processing files from the source.
 * `suspended` - the transfer was started, but it is outside of its activity
   schedule.
-* `Source failed` - the source location is not available and files at source
-  are not processed.
+* `Source failed` - the source location is not available and files at the source are not processed.
   Processing will be started as soon as the source location is available,
   either by fixing the errors and manually starting it or by an automated
   location reconnection process.
@@ -664,8 +651,7 @@ A location can be in one of the following states:
 Fault-tolerant transfers
 ------------------------
 
-SFTPPlus will do its best to perform the requested transfers and under
-certain circumstance will retry on transfer failures.
+SFTPPlus will do its best to perform the requested transfers and under certain circumstances will retry on transfer failures.
 
 From the configuration, you can define the number of times to retry and the
 time interval to wait after retries.
@@ -673,35 +659,32 @@ time interval to wait after retries.
 Once all retries are exhausted, the transfer will fail and SFTPPlus will no
 longer try to process/transfer that file.
 
-Files which were previously failed to be transferred,
-can be processed/transfered again by restarting the transfer.
+Files that were previously failed to be transferred,
+can be processed/transferred again by restarting the transfer.
 
 
 Fault-tolerant source monitoring
 --------------------------------
 
 When a transfer is started, SFTPPlus will check for the required
-permissions to monitor the source path for changes, the configured
-path exists and that this path is valid.
+permissions to monitor the source path for changes, the configured path exists and this path is valid.
 
 If the source path is no longer available after the transfer was started and
 the initial check operations were successful,
 SFTPPlus will not consider the transfer failed.
 It will wait for the next configured `changes_poll_interval` to pass and will
 try again.
-This is done for an unlimited number of times and an event is emitted on each
-failure.
+This is done an unlimited number of times and an event is emitted on each failure.
 Once the source path is available again, the transfer is resumed and new or
 changed files will be transferred.
 
-The type of source path errors which are considered not critical for the
-purpose of source monitoring varies based on the file transfer protocol.
+The type of source path errors that are considered not critical for source monitoring varies based on the file transfer protocol.
 
 The most common errors found on all supported protocols are:
 
 * Source path not found.
-* Source path without read or listing permissions.
-* Connection closed while source was checked.
+* Source path without reading or listing permissions.
+* Connection closed while the source was checked.
 
 For the HTTP and WebDAV protocol, below is a non-exhaustive list of HTTP codes
 for which source monitoring will continue:
@@ -733,8 +716,7 @@ across available file transfer protocols as follows:
 ..  note::
     Our roadmap includes adding support for resuming transfers across all
     available protocols.
-    In the case that resume support is not available for your preferred
-    transfer protocol, please contact us.
+    In the case that resume support is not available for your preferred transfer protocol, please contact us.
 
 
 Hard Links and Symbolic Links
@@ -746,8 +728,7 @@ When both the link and original are monitored, changes to the link will trigger
 notifications for the original file as well as any other hard links pointing
 to it.
 
-When only the link is monitored, changes to the original source will also
-trigger notifications.
+When only the link is monitored, changes to the source will also trigger notifications.
 
 
 Resolving duplicate / successive events
@@ -767,16 +748,16 @@ If no event occurs for the same source, the event is emitted.
 Otherwise, the event is merged and the time interval is extended by another
 second in which it can be further merged with another event, or emitted.
 
-Here is the list of events which are emitted.
+Here is the list of events that are emitted.
 Path is used as a generic reference to a file or a folder:
 
-* Existing - for paths which are already present when the process is started.
-* Modify - for a path which has a changed size or modify time.
-* Delete - for a path which is no longer in the monitored path.
-  Either removed from there or moved to a path which is not monitored.
-* Create - for a path which has appeared in the monitored path.
-  Either created there or moved from a path which is not monitored.
-* Moved - for a path which was renamed / moved inside the monitored path.
+* Existing - for paths that are already present when the process is started.
+* Modify - for a path that has a changed size or modify time.
+* Delete - for a path that is no longer in the monitored path.
+  Either removed from there or moved to a path that is not monitored.
+* Create - for a path that has appeared in the monitored path.
+  Either created there or moved from a path that is not monitored.
+* Moved - for a path that was renamed / moved inside the monitored path.
 
 Here are the rules based on which events are resolved:
 
@@ -805,8 +786,8 @@ Executing commands using pre/post transfer executables or scripts
 SFTPPlus allows configuring a transfer to execute at certain transfer steps:
 
 * Execute before processing a source file
-* Execute after success of a file transfer
-* Execute after failure of a file transfer
+* Execute after the success of a file transfer
+* Execute after the failure of a file transfer
 
 The configuration from this example,
 will copy (indicated by `delete_source_on_success: No`) files from a source
@@ -889,7 +870,7 @@ Manager GUI and it can be added in the configuration text file like below::
     rename /path-to/  /path2
     delete /path3
 
-Transfers can executed either a single command or multiple commands.
+Transfers can execute either a single command or multiple commands.
 
 Multiple commands are separated by a semicolon (;) or on a separate line.
 
@@ -902,15 +883,12 @@ Transfer scheduling
 A transfer can be configured to be active all the time
 or be active based on a simple scheduler.
 
-The scheduler available in SFTPPlus allows you to define transfer start and
-transfer stop events in a 24 hour interval or weekly interval.
-The current scheduler has no knowledge of the exact day of month or year.
-It only knows about current time inside the day and current day inside the
-week.
+The scheduler available in SFTPPlus allows you to define transfer start and transfer stop events in a 24-hour interval or weekly interval.
+The current scheduler does not know the exact day of the month or year.
+It only knows about the current time of the day and the current day of the week.
 
 To create a scheduled transfer,
-you will to define start and stop action on different hours across a day or
-week.
+you will have to define the start and stop actions at different hours across a day or week.
 
 For example, to have the transfer started daily at 10:00, and stopped at
 14:00, you can use the short notation::
@@ -942,7 +920,7 @@ at 01:00, use::
     [transfers/6b775eec-f98b-4527-811f-fd8c5c71a028]
     schedule = 23:00-start, 01:00-stop
 
-For defining actions at different days throughout the week, you can add the
+For defining actions on different days throughout the week, you can add the
 name of the day before the time value.
 To have a transfer started at 10:00, stopped at 14:00 every Monday,
 Wednesday, and Friday, use::
@@ -953,7 +931,7 @@ Wednesday, and Friday, use::
                Friday-10:00-start, Friday-14:00-stop
 
 You can also have start and stop events spanning different days.
-To have a transfer which is active from Monday to Wednesday and then again
+To have a transfer that is active from Monday to Wednesday and then again
 active from Friday to Saturday, use::
 
     [transfers/6b775eec-f98b-4527-811f-fd8c5c71a028]
@@ -979,7 +957,7 @@ If the transfer was started at ``13:35``, it will do a check at ``13:35``
 instead of what you might expect to be done at ``14:00``
 The next check will be scheduled for ``15:35``.
 
-Please get in touch if you want a transfer with a complex scheduling rules.
+Please get in touch if you want a transfer with complex scheduling rules.
 
 
 Batch transfer operation
@@ -991,45 +969,41 @@ Each file will be processed as an independent transfer.
 The pre/post command hooks and events are executed
 as a separate process for each file.
 
-By using the `batch_interval` configuration option,
-you can instruct SFTPPlus to only start transferring files once no new files
-are detected in the specified time interval.
 
-All the files detected during this interval will be transferred together as a
-single transfer.
-The pre/post command hooks and events are executed once for the batch of files.
+File name or path-based batch
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can also configure SFTPPlus to wait and batch/group the files
-based on a file with a specific path.
+You can configure SFTPPlus to wait and batch/group the files based on a file with a specific path or name.
 This is done by using the `batch_marker_path` configuration option.
-You can configure an exact file path or a pattern of file paths which
-can trigger the transfer.
+You can configure an exact file path,
+a pattern matching a path,
+or a list of exact file paths or path matching expressions.
 
-Once a file with a path matching the `batch_marker_path` is detected,
-SFTPPlus will wait for 15 seconds before it begins transferring all the
-previous files.
-Should there be new files created within the 15 seconds interval after the
-marker, it will be included in the batch transfer.
+The transfer will start only after the source contains all the files matching configured `batch_marker_path`.
+The transfer can wait for one file or a fixed number of multiple files.
+
+There is a 15 seconds delay before it begins transferring all the previous files.
+Should there be new files created within the 15 seconds interval after the marker,
+these files will be included in the batch transfer.
+
+When filtering source files that are to be transferred,
+the filtering rules should also include the file marker.
+That is, when the `source_filter` option is used,
+the batch marker file should be included in both `source_filter` and `batch_marker_path` expressions.
 
 ..  note::
-    The matching expression is for the file path and not for the file name.
-    If you want to match a file name `complete.txt` located in any
-    directory, you should configure it as `*complete.txt`.
+    The matching expression is for the full file path and not only for the file name.
+    If you want to match a file name `complete.txt` located in any directory you should configure it as `*complete.txt`.
 
-The marker file is also transferred.
+The marker file or files are also transferred.
 
 For more details about defining a file marker,
 see the :doc:`matching expression documentation
 </configuration/matching-expression>`.
 
-When filtering source files which are to be transferred,
-the filtering rules should also include the file marker.
-The following example will filter the source for both `.pdf` and `.desc`
-files.
-The transfer will start 15 seconds after a `report.desc` files is
-generated in any of the subdirectories for ``c:\jobs\reports``.
-For example, in ``c:\jobs\reports\ACC-2018-09-23\report.desc`` or
-``c:\jobs\reports\ACC-2018-09-24\report.desc`` ::
+The following example will filter the source for both `.pdf` and `.desc` files.
+The transfer will start 15 seconds after a `report.desc` file is generated in any of the subdirectories for ``c:\jobs\reports``.
+For example, in ``c:\jobs\reports\ACC-2018-09-23\report.desc`` or ``c:\jobs\reports\ACC-2018-09-24\report.desc`` ::
 
     [transfers/a4747959-25de-470a-b76e-afe08071a70d]
     enabled: yes
@@ -1093,6 +1067,62 @@ is triggered by both ``MON-542\response\done.desc`` and
                                                and MON-542\resp\done.desc
 
 
+Multiple batch markers
+^^^^^^^^^^^^^^^^^^^^^^
+
+A transfer can be configured to delay starting the batch files only after a specific set of files are present in the source directory.
+
+The following example will filter the source for both `.pdf` and `.desc` files.
+The transfer will start after a `report.desc` file is generated in any of the subdirectories for ``c:\jobs\reports``.
+The start is delayed by `stable_interval` plus 3 seconds after no other file is added to the batch.
+Files added after the marker will still be included in the same batch and will delay the start of the batch.
+
+For example, in ``c:\jobs\reports\ACC-2018-09-23\report.desc`` or ``c:\jobs\reports\ACC-2018-09-24\report.desc`` ::
+
+    [transfers/a4747959-25de-470a-b76e-afe08071a70d]
+    enabled: yes
+    name: Move report set.
+    recursive: No
+    source_uuid: c4b74ed0-b952-4edc-be24-7d8e1e6d8068
+    source_path: c:\jobs\reports
+    source_filter: *.pdf | *.marker
+    delete_source_on_success: Yes
+    destination_uuid: 92eb50d4-bfc2-4b15-a369-f0d74dc68dac
+    destination_path: /dropbox/
+
+    batch_interval: 0
+    batch_marker_path:
+      *expenses.done
+      *orders.done
+
+Having the above configuration, assuming the following files are present in the source,
+the transfer will not start just yet, since the ``orders.done`` marker file is not yet detected::
+
+    c:\jobs\reports\June-expenses.pdf
+    c:\jobs\reports\June-expenses.done
+    c:\jobs\reports\June-orders.pdf
+
+The transfer will start as soon as the ``c:\\jobs\\reports\\June-orders.done`` file is detected
+and all the files are transferred together::
+
+    c:\jobs\reports\June-expenses.pdf
+    c:\jobs\reports\June-expenses.done
+    c:\jobs\reports\June-orders.pdf
+    c:\jobs\reports\June-orders.done
+
+
+Time-based batch transfers
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By using the `batch_interval` configuration option,
+you can instruct SFTPPlus to only start transferring files once no new files
+are detected in the specified time interval.
+
+All the files detected during this interval will be transferred together as a
+single transfer.
+The pre/post command hooks and events are executed once for the batch of files.
+
+
 Batch transfer and scheduling
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1100,7 +1130,7 @@ When a transfer is stopped and there are files queued for a batch transfer,
 SFTPPlus will not transfer the files but will instead emit a warning to
 inform the user of this action.
 
-When a transfer is suspended, and there are files in a batch which are not yet
+When a transfer is suspended, and there are files in a batch that are not yet
 triggered, the files are not transferred and no warning info is emitted.
 The files will be transferred once the transfer is resumed and the batch
 is triggered by one of the batch triggering conditions.

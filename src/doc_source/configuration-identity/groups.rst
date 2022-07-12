@@ -231,13 +231,14 @@ create_home_folder
          * `No`
 :Description:
     This option specifies whether or not the server should create
-    the home folders for the accounts belonging to the group,
+    the home folders for the accounts associated to this group as the primary group,
     in the case that they are missing.
 
-    If this option is set to `No` the server will deny access to users
-    for which the home folder is not already created.
-    When set to `Yes` the server will try to create missing home folders for
-    users that have been successfully authenticated.
+    If this option is set to `No` the server will deny access to users for which the home folder is not already created.
+    When set to `Yes` the server will try to create missing home folders for users that have been successfully authenticated.
+
+    When set to `Yes`, and this is a primary group,
+    it will also try to create the missing path for any virtual folder that is defined using the `${USER}` placeholder.
 
 
 create_home_folder_owner
@@ -321,7 +322,7 @@ ssh_authorized_keys_path
     access using a list of known SSH keys for each user.
 
     It is defined as a path to a folder containing files with allowed SSH keys,
-    each file name being associated with an account name.
+    where each file name is associated with an account name.
 
     Set it to the empty value to disable SSH key-based authentication.
 
@@ -330,9 +331,9 @@ ssh_authorized_keys_path
 
     When the defined value does not contain the
     `${USER}` placeholder, the placeholder is automatically appended
-    at the end of the path. In this way all users from the group will have
-    different SSH authorized files.
-    This is why for example setting the value to ``c:\\Path`` has the same
+    at the end of the path.
+    In this way, all users from the group have different SSH authorized files.
+    This is why setting the value to ``c:\\Path`` has the same
     effect as ``c:\\Path\\${USER}``
 
     Use the `${SHARED}` prefix when you want all users from the group to
@@ -350,30 +351,47 @@ source_ip_filter
 :Default value: Empty
 :Optional: Yes
 :From version: 3.45.0
-:Values: * IPv4 address
-         * IPv6 address
-         * Classless Inter-Domain Routing subnet notation.
-         * Comma-separated list of IPv4, IPv6 addresses, or CIDR values.
+:Values: * Source IP/CIDR access control rules (since 4.22.0)
          * Empty
 
 :Description:
-    This option defines the source IP addresses (v4 or v6) from which
-    file transfer clients are allowed to authenticate for the accounts
-    from this group.
+    This option defines the access control rules based on which groups are associated with an authenticated account.
 
-    You can configure a single source IP for which to allow authentication
-    for this account.
+    ..  warning::
+        The account's access is blocked only when the account's source IP address is not allowed by any rule,
+        from any of the associated groups.
 
-    To allow authentication from multiple source IPs, define them as a
-    comma-separated list or a range of IP addresses from the same subnet
-    using the Classless Inter-Domain Routing (CIDR) notation.
+        When an account is associated with multiple groups,
+        as long as the account source IP address is allowed by at least one of the associated groups,
+        the account is allowed to authenticate and gets access to the resources configured for the allowed groups only.
+        In this situation, when an account is not explicitly allowed by another one of its associated groups,
+        the account's access is not blocked.
 
-    Leave it empty to allow this account to be authenticated from any source
-    IP address.
+    Allowed IP/CIDR (IPv4 or IPv6) addresses are defined using access control rules, one rule per line.
+    All rules use this format: `ACTION IP-OR-CIDR`
 
-    ..  note::
-        Host names or FQDN are not supported.
-        Only IP addresses are supported.
+    `ACTION` is any of the following values:
+
+    * `allow` - allows association of this group for accounts connected from IP/CIDR source IP addresses.
+      If the connection source IP/CIDR is not matched, the group is not associated with the account.
+    * `deny` - denies group association from IP or CIDR
+
+    `IP-OR-CIDR` is a single IP or a CIDR notation.
+    Hostnames and FQDNs are not supported.
+    To allow authentication from an IP range, define it using the Classless Inter-Domain Routing (CIDR) notation.
+
+    The rules are applied from top to bottom.
+    The first matching source IP/CIDR determines the action to be performed, either allowing or denying associating the account to this group.
+    The remaining rules are ignored for a matched source IP/CIDR.
+
+    When, after checking all the access control rules,
+    an account is still not associated with any group,
+    the authentication request is rejected (login fails).
+
+    Leave it empty to not impose source IP/CIDR restrictions for the associated accounts.
+
+    For examples on how to use the access controler rules see the
+    :doc:`authentication </operation/authentication>` documentation page.
 
 
 allow_certificate_authentication
@@ -390,8 +408,7 @@ allow_certificate_authentication
     Certificates need to be issued using the same Common Name field (CN) as
     the account name.
 
-    If SSL certificate base authentication is not enabled, accounts belonging
-    to this group will have to use other means of authentication.
+    If SSL certificate-based authentication is not enabled, accounts belonging to this group will have to use other means of authentication.
 
 
 as2_require_http_authentication
@@ -408,8 +425,7 @@ as2_require_http_authentication
 
     Set it to `No` to allow receiving AS2 from non-authenticated HTTP
     connections.
-    SFTPPlus will still validated the signature and encryption of the
-    received AS2 message.
+    SFTPPlus will still validate the signature and encryption of the received AS2 message.
 
     For increased security, we recommend setting this to `Yes`.
 
@@ -461,7 +477,7 @@ home_folder_structure
          * List of directories, separated by newlines.
 :Description:
     A directory or a list of directories to be automatically created for
-    accounts which were successfully authenticated.
+    accounts that were successfully authenticated.
 
     The configured directories can't be defined outside of the home folder
     path.
@@ -536,22 +552,29 @@ permissions
     The first set of permissions will apply to any path for which there is
     no explicit configuration.
     They are called the *global permissions*.
-    The *global permissions* are only used for accounts for which this
-    group is the primary group.
+    The *global permissions* are only used for accounts for which this group is the primary group.
 
-    All the remaining sets of permissions will define per-path
-    permissions.
-    The first value in the list is a path matching expression,
+    All the remaining sets of permissions define per-path permissions.
+    The first value in the list is a path-matching expression,
     followed by the permissions for those paths.
 
-    The path expressions are matched against the *virtual path*, that is
-    the path as observed by the client-side and not the *real path* on the
-    server's storage.
+    The path expressions are matched against the *virtual path*,
+    which is the path as observed client-side, not the *real path* on the server's storage.
 
-    For more detailed information and examples on how to configure the
-    permissions,
-    see the
-    :doc:`dedicated authorization documentation</operation/authorization>`.
+    The path expressions can contain the `${USER}` placeholder (case-sensitive),
+    which gets replaced with the name of each authenticated user.
+    (Since 4.22.0)
+
+    Below is an example of configuring permissions::
+
+        permissions =
+            allow-list, allow-write
+            /inbox/*, allow-full-control
+            /queue/${USER}/*, allow-read, allow-write
+
+
+    For more detailed information and examples on how to configure the permissions,
+    see the :doc:`dedicated authorization documentation</operation/authorization>`.
 
 
 amend_write_name
@@ -578,31 +601,37 @@ virtual_folders
 :Default value: Empty
 :Optional: Yes
 :From version: 3.35.0
-:Values: * Comma-separated values of virtual path to real path mappings.
-         * List of virtual path rules, one mapping per line.
+:Values: * Comma-separated values defining the virtual path to real path mappings.
+         * List of virtual path rules, one rule per line.
 :Description:
-    By defining one or more virtual folders, you can allow access to
-    selected files which are located outside an account's locked home
-    folder.
+    By defining one or more virtual folders,
+    you can allow access to selected files that are located outside an account's locked home folder.
 
-    This is a comma-separated list of values containing two elements -
-    the virtual path and the real path.
+    This is a comma-separated list of values containing two elements: the virtual path and the real path.
 
-    The virtual path is always in Unix-like format (slash separators) and
-    should be an absolute path, relative to the account's home folder.
+    The virtual path is always in Unix-like format (uses slash separators), and should be an absolute path, relative to the account's home folder.
 
-    The real path can be a Unix-like or Windows path and should be an
-    absolute path to an existing folder on the local filesystem.
+    The real path can be a Unix-like or Windows path, and should be an absolute path to an existing folder on the local filesystem.
 
-    For example, to allow access to a folder ``D:\pull\invoices`` as
-    ``/team-invoices`` and to a folder ``E:\storage\company`` as
-    ``/company/storage`` for an account which is locked in ``c:\Users\Johnd``::
+    The virtual path and real path can contain the `${USER}` placeholder (case-sensitive),
+    which gets replaced with the name of each authenticated user.
+    These paths are considered as being similar to the account's home folder path.
+    This means that they can be automatically created, if missing.
+    (Since 4.22.0)
 
-        [groups/92ad5b32-d8d7-4ed8-94e1-dbb9f01383f4]
-        home_folder_path = C:\users
+    Below is an example of virtual paths defined for Windows::
+
         virtual_folders =
-            /team/invoices, D:\pull\invoices
-            /company/storage, E:\storage\company
+            /invoices, D:\pull\invoices
+            /teams/sales, E:\storage\teams\sales-share
+
+    Below is another example of virtual paths defined for Linux/Unix,
+    containing a username placeholder::
+
+        virtual_folders =
+            /${USER}, /srv/file-server/users/${USER}
+            /support, /srv/file-server/support
+            /infrastructure, /srv/file-server/infrastructure
 
     For more details and examples on how to configure virtual folders,
     see the

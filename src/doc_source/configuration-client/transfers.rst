@@ -245,8 +245,12 @@ batch_interval
 :To version: None
 :Description:
     You can configure the transfer to send each file as an independent transfer,
-    or group multiple files into a single transfer;
-    what is called a batch mode.
+    or group multiple files into a single transfer.
+    This is called a time-based batch transfer.
+
+    ..  note::
+        This option is ignored when `batch_marker_path` is defined.
+        A transfer can only run as time-based batching or file marker batching.
 
     If the transfer of one or more files from the batch fails in batch mode,
     the whole transfer is considered to have failed.
@@ -271,7 +275,7 @@ batch_interval
     and `execute_after_failure` commands are executed for each individual
     file.
 
-    When batch mode is enabled, `execute_before` is called before
+    When the batch mode is enabled, `execute_before` is called before
     transferring the first file from the batch, while the
     `execute_after_success` and `execute_after_failure` commands are called
     after the last file from the batch was transferred.
@@ -285,36 +289,36 @@ batch_marker_path
 :Values: * Name of a file.
          * Globbing expression.
          * Regular expression.
+         * Multiple name of files or expressions. One per line. (Since 4.22.0)
 :From version: 3.36.0
-:To version: None
 :Description:
     You can configure the transfer to wait for a file with a specific
     file path or file path pattern before transferring the files.
 
+    This is called a file marker-based batch transfer.
+
     The marker file needs to be located inside the source path.
 
-    The matching expression should be defined in such a way to match the
-    whole path of the targeted file, and not just the file name.
+    The matching expression should be defined in such a way to match the whole path of the targeted file,
+    and not just the file name.
 
-    A single file should be matched by the expression.
-    When the expression is matching multiple files, the transfer will fail.
-    Please get in touch with us if you want to have a transfer waiting
-    for multiple files.
+    Multiple expressions can be defined to configure the transfer to wait for multiple files.
+    Each expression should match a single file.
+
+    When one expression is matching multiple files, the transfer will fail.
+    This indicates a likely misconfiguration, which could cause non-deterministic transfers.
 
     For transfer with recursive source, you can configure the marker at any
     place inside the source sub-directories.
     The batch transfer will include any files located in the same directory as
     the batch marker as well as any files in the sub-directories.
 
-    The transfer will start 15 seconds after the marker file was
-    detected.
+    The transfer will start 15 seconds after the marker file was detected.
 
-    Leave it empty to not delay the transfer based on a marker/flag
-    file path.
+    Leave it empty to not delay the transfer based on a marker/flag file path.
 
     For more details about defining a transfer with a file marker,
-    see the :doc:`transfer operation guide
-    </operation-client/transfers>`.
+    see the :doc:`transfer operation guide </operation-client/transfers>`.
 
 
 execute_timeout

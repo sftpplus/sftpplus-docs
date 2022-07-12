@@ -21,6 +21,7 @@ Below is the list of supported authentication methods.
     http
     local-file
     ldap
+    azure-ad
     radius
     deny-username
     ip-time-ban

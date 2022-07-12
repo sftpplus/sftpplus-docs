@@ -487,36 +487,50 @@ ssh_authorized_keys_content
 source_ip_filter
 ^^^^^^^^^^^^^^^^
 
-:Default value: `Inherit`
+:Default value: Empty
 :Optional: Yes
 :From version: 3.45.0
-:Values: * IPv4 address
-         * IPv6 address
-         * Classless Inter-Domain Routing subnet notation.
-         * Comma-separated list of IPv4, IPv6 addresses, or CIDR values.
-         * `Inherit`
+:Values: * Source IP/CIDR access control rules (since 4.22.0)
          * Empty
 
 :Description:
-    This option defines the source IP addresses (v4 or v6) from which
-    file transfer clients are allowed to authenticate.
+    This option defines the access control rules based on which file transfer clients are allowed or denied authentication.
 
-    You can configure a single source IP for which to allow authentication
-    for this account.
+    Allowed IP/CIDR (IPv4 or IPv6) addresses are defined using access control rules, one rule per line.
+    All rules use this format: `ACTION IP-OR-CIDR`
 
-    To allow authentication from multiple source IPs, define them as a
-    comma-separated list or a range of IP addresses from the same subnet
-    using the Classless Inter-Domain Routing (CIDR) notation.
+    `ACTION` is any of the following values:
 
-    Set it to `Inherit` to use the configuration defined for the primary group
-    associated with this account.
+    * `allow` - allows access from IP or CIDR
+    * `deny` - denies access from IP or CIDR
 
-    Leave it empty to allow this account to be authenticated from any source
-    IP address.
+    `IP-OR-CIDR` is a single IP or a CIDR notation.
+    Hostnames and FQDNs are not supported.
+    To allow authentication from an IP range, define it using the Classless Inter-Domain Routing (CIDR) notation.
 
-    ..  note::
-        Host names or FQDN are not supported.
-        Only IP addresses are supported.
+    The rules are applied from top to bottom.
+    The first matching source IP/CIDR determines the action to be performed, either deny or allow authentication for the account.
+    The remaining rules are ignored for a matched source IP.
+    If the source IP/CIDR is not allowed by any configured rule, the access is denied.
+
+    Leave it empty to allow this account to be authenticated only based on the rules defined in the associated groups.
+
+    When configuring the account's filtering rules,
+    the explicit final `deny` everything rules are not needed.
+    The following two configuration options have the same result::
+
+        source_ip_filter =
+            allow 192.168.124.23
+            allow 10.2.2.23
+
+        source_ip_filter =
+            allow 192.168.124.23
+            allow 10.2.2.23
+            deny 0.0.0.0/0
+            deny ::/0
+
+    For examples on how to use the access controler rules see the
+    :doc:`authentication </operation/authentication>` documentation page.
 
 
 allow_certificate_authentication
@@ -653,12 +667,10 @@ virtual_folders
          * `inherit`
          * Empty.
 :Description:
-    By defining one or more virtual folders, you can allow access to
-    selected files which are located outside an account's locked home
-    folder.
+    By defining one or more virtual folders,
+    you can allow access to selected files that are located outside an account's locked home folder.
 
-    This is a comma-separated list of values containing two elements -
-    the virtual path and the real path.
+    This is a comma-separated list of values containing two elements - the virtual path and the real path.
 
     For more details and examples on how to configure virtual folders,
     see the
@@ -666,12 +678,11 @@ virtual_folders
 
     Leave it empty to not have any virtual folders.
 
-    Set it to `inherit` to use the virtual folders from the associated
-    groups.
+    Set it to `inherit` to use the virtual folders from the associated groups.
 
     Accounts that inherit this configuration and are associated with
     multiple groups will be configured by appending all the virtual
-    folders defined for each of the associated group.
+    folders defined for each of the associated groups.
 
 
 expire_datetime

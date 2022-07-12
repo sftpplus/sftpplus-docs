@@ -98,17 +98,32 @@ source_ip_filter
 :Default value: Empty
 :Optional: Yes
 :From version: 4.14.0
-:Values: * IPv4 address
-         * IPv6 address
-         * Classless Inter-Domain Routing subnet notation.
-         * Comma-separated list of IPv4, IPv6 addresses, or CIDR values.
+:Values: * Source IP/CIDR access control rules (since 4.22.0)
          * Empty
 
 :Description:
-    This option defines the source IP addresses (v4 or v6) from which
-    administrators in this role are allowed to authenticate.
+    This option defines the access control rules based on which groups are associated with an authenticated account.
 
-    Leave empty to allow any IP address.
+    ..  warning::
+        The role's access is blocked only when the role's source IP address is not allowed by any rule,
+        from any of the associated roles.
+
+    Allowed IP/CIDR (IPv4 or IPv6) addresses are defined using access control rules, one rule per line.
+    All rules use this format: `ACTION IP-OR-CIDR`
+
+    `ACTION` is any of the following values:
+
+    * `allow` - allows association of this role for accounts connected from IP/CIDR source IP addresses.
+    * `deny` - denies role association from IP or CIDR
+
+    Leave it empty to not impose source IP/CIDR restrictions for the associated administrators.
+
+    The role configuration option is similar to the group configuration.
+    For more details, see the
+    :doc:`group configuration </configuration-identity/groups>` documentation page.
+
+    For examples on how to use the access controler rules see the
+    :doc:`authentication </operation/authentication>` documentation page.
 
 
 permissions

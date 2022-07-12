@@ -88,8 +88,8 @@ And finally enable SFTPPlus to create the missing new home folder.
 You can find all the options we need to change below:
 
 * Enabled: **Yes**
-* Account home folder: ``/tmp/test_user-files/``
-* Create missing home folder: **Yes**
+* File access -> Path: ``/tmp/test_user-files/``
+* Advanced account configurations -> Create missing home folder: **Yes**
 
 ..  figure:: /_static/guides/2_account.png
     :alt: SFTPPlus Account Configuration
@@ -148,7 +148,7 @@ open a new console window::
     $ sftp -P 10022 test_user@127.0.0.1
     test_user@127.0.0.1's password:
     Connected to 127.0.0.1.
-    sftp> put docs/README README-sftp-test
+    sftp> put doc/README README-sftp-test
     sftp> quit
     $ ls -l /tmp/test_user-files/
 

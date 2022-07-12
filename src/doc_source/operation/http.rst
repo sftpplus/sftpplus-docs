@@ -363,7 +363,7 @@ just by knowing the name of the trading partner::
     home_folder_path = C:/Users/JohnD
 
     as2_require_http_authentication = No
-    source_ip_filter = 24.12.231.0/24
+    source_ip_filter = allow 24.12.231.0/24
 
 When filtering by source IP is not possible and your requirement is to
 receive AS2 messages without authentication, we recommend to add a

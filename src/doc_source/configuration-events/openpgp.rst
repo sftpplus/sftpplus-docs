@@ -1,8 +1,8 @@
-Encrypt / decrypt using OpenPGP
-===============================
+Encrypt / decrypt using OpenPGP / GPG
+=====================================
 
 The `openpgp` event handler can be configured to encrypt or decrypt
-files using the OpenPGP standard.
+files using the OpenPGP standard (tools like PGP or GPG).
 
 All files with the `.pgp` or `.gpg` extensions are decrypted,
 all the other files are encrypted.

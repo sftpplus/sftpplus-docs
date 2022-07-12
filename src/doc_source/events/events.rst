@@ -640,11 +640,11 @@ Generic and server-side common functionality
 20042
 ^^^^^
 
-:Message: Created missing folder in home "%(path)s" with owner "%(owner)s" and group "%(group)s".
+:Message: Created missing account folder "%(path)s" with owner "%(owner)s" and group "%(group)s".
 :Groups: authenticated, success, operational
 :From version: 1.8.3
 :To version: None
-:Description: A note that the account had a missing home folder, and it was created by the server.
+:Description: A note that the account had a missing required folder, and it was automatically created after a successful authentication.
 :Data:
   :group: Name of the group for the new folder
 
@@ -2047,7 +2047,7 @@ Generic and server-side common functionality
 20137
 ^^^^^
 
-:Message: Account "%(account_name)s" of type "%(account_type)s" from groups "%(group_name)s", authenticated by "%(method_name)s" of type "%(method_type)s" using %(credentials_type)s as "%(username)s" .
+:Message: Account "%(account_name)s" of type "%(account_type)s" from groups "%(group_name)s", authenticated by "%(method_name)s" of type "%(method_type)s" using %(credentials_type)s as "%(username)s". %(ignored_groups)s
 :Groups: session, informational, operational
 :From version: 2.10.0
 :To version: None
@@ -2069,6 +2069,9 @@ Generic and server-side common functionality
 
 
   :group_names: List with name of the group/role associated to this account. (Since 4.16.0)
+
+
+  :ignored_groups: Human readable description of the groups or roles not associated with the account due to source IP. (Since 4.22.0)
 
 
   :method_name: Name of the method used for authentication.
@@ -22552,13 +22555,13 @@ Transfer and client-side functionality
 ^^^^^
 
 
-:Message: Transfer delayed for "%(path)s". Will be transfered together with marker "%(marker)s".
+:Message: Transfer delayed for "%(path)s". Will be transfered together with markers "%(markers)s".
 :Groups: transfer, informational, client-side
 :From version: 3.36.0
 :To version: None
 :Description: None
 :Data:
-  :marker: Expression used to detect the file marker.
+  :markers: Expression used to detect the file marker.
 
 
   :path: Path to the file for which a transfer was delayed.
@@ -23226,13 +23229,16 @@ Transfer and client-side functionality
   :count: Number of files in the batch.
 
 
-  :files: List of the scheduled files
+  :files: Human readable list of the scheduled files
 
 
   :kind: The type of this transfer
 
 
   :name: Name of the transfer.
+
+
+  :queue: List of the scheduled files
 
 
 

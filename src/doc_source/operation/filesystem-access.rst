@@ -246,7 +246,7 @@ as well as remote Windows Shares using UNC paths as target.
 Virtual folders
 ---------------
 
-Virtual folders are directories which can be accessed outside of the account's locked home folder,
+Virtual folders are directories that can be accessed outside of the account's locked home folder,
 but available as paths inside the user's home folder.
 
 Virtual folders act as symbolic links.
@@ -354,8 +354,8 @@ access controls.
 Virtual folders from multiple groups
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When an account is member of multiple groups, it will get access to
-all the virtual folders defined for the associated groups.
+When an account is a member of multiple groups,
+it gets access to all the virtual folders defined for the associated groups.
 
 For example, based on the configuration from below, user JohnD will have
 access to both `/sales-emea` and `/sales-uk` virtual folders::
@@ -376,6 +376,38 @@ access to both `/sales-emea` and `/sales-uk` virtual folders::
     name = JohnD
     group = d32e-653a-98da, 2a2e-823a-76de
     home_folder_path = C:\Users\JohnD
+    permissions = inherit
+
+
+Virtual folders with dynamic username-based paths
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When configuring the virtual folders of a group, you can define some using the name of the authenticated user.
+The username placeholder can be used for both virtual paths and real paths.
+
+With the below example, user ``JohnD`` will see the following files:
+
+* / (root) -> D:/file-server/uk-office
+* /JohnD ->  D:/users/JohnD
+* /support-JohnD ->  D:/file-server/JohnD-support-queue
+* /infrastructure - D:/file-server/infrastructure
+
+Note that the `${USER}` placeholder can be inserted in any part of the path.
+Here is the configuration::
+
+    [groups/2a2e-823a-76de]
+    name = UK Office
+    enabled = yes
+    home_folder_path = ${SHARED}D:\file-server\uk-office
+    virtual_folders =
+        /${USER}, D:\users\${USER}
+        /support-${USER}, D:\file-server\${USER}-support-queue
+        /infrastructure, D:\file-server\infrastructure
+
+    [accounts/7521-bb32-6cce]
+    name = JohnD
+    group = 2a2e-823a-76de
+    home_folder_path = inherit
     permissions = inherit
 
 

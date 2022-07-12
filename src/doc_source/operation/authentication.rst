@@ -271,42 +271,262 @@ If you are intending to use another type of authentication, such as an LDAP
 bind, make sure that this authentication method UUID is added to the service.
 
 
-Per-account access restrictions based on source IP address
-==========================================================
+Source IP address-based access
+==============================
 
-Using a firewall, you can configure the networking layer to only allow
-connections to the file transfer service from a set of IP addresses.
+SFTPPlus source IP-based access is designed to augment the firewall rules.
+For improved security and performance, it's recommended to setup both firewall and SFTPPlus source IP access rules.
 
-Once a source IP passes the firewall, connections originating from it
-can be associated to and authenticated against any available account.
+The configuration examples from this section use accounts and groups to explain the source IP-based access.
+The same configuration is used for administrators and roles.
 
-Using the account or group `source_ip_filter` configuration though,
+Using a firewall, you can configure the networking layer to only allow connections to the file transfer service from a set of IP addresses.
+Once a source IP is allowed by firewall rules, connections originating from that IP can be used by any available accounts/users.
+
+Using the SFTPPlus account or group `source_ip_filter` rules,
 you can restrict the access of a source IP to only a specific account or group.
 
-Below is an example in which the ``automation`` group configuration
-doesn't allow the account to be authenticated from any source IP address,
-while account ``billing-sap`` is configured to explicitly allow
-authentication from source IPs ``10.0.2.45`` or any IP from the
-192.168.2.0/24 subnet::
+The `source_ip_filter` rules can be used for 2 main purposes:
 
-    [groups/87dc321-87dc-aedf-1123-cd5328aef4]
-    name = automation
-    enabled = Yes
-    source_ip_filter = block-all
+* Define the list of authorized account source IP addresses.
+  This is done using the `source_ip_filter` configured directly at the account level.
+* Define conditional group association for an account, based on the account source IP address.
+  This is done at the group configuration level.
 
+The rules define `deny` or `allow` actions.
+They can be associated with a single IP or an IP range (using CIDR notation).
+
+Multiple `deny` or `allow` rules can be defined to accommodate even the most complex requirements.
+
+When defining the `source_ip_filter` rules the `ACTION IP-OR-CIDR` format is used.
+There is an implicit order-based priority, the rules are applied from top to bottom.
+
+The account's `source_ip_filter` defines the conditional source IP/CIDR allowed for authentication.
+
+At the group level, the filtering defines the conditional source IP/CIDR for which the group is associated with the authenticating account.
+
+..  warning::
+    When implementing source IP based restrictions for accounts associated with multiple groups
+    or administrators associated with multiple roles,
+    the permissions should be designed using additive rules.
+
+    Each group or role should add additional access permissions.
+
+    They should not be designed to remove/restrict access to resources.
+    If designed to remove/restrict access to resources and the source IP doesn't match a role or group,
+    those restrictions will not be applied.
+
+
+Account-level configuration
+---------------------------
+
+The `source_ip_filter` can be defined for the account's configuration.
+
+For the following examples, there is no source IP filtering rule defined in the group associated with the account.
+Further in this section, there are examples with source IP filtering rules defined at the group level.
+
+When set with an empty value, no extra source IP restrictions are defined for the account.
+The source IP rules defined in the associated groups will still apply.
+
+
+In the example below, there is no `source_ip_filter` rule directly defined for the account.
+There is a restriction for ``10.3.4.0/24`` IP range defined in the group.
+This is why this account can only authenticate from a source IP within that range::
 
     [accounts/5432ca3-bbd5-9432-be31-b4318ddea4]
-    name = billing-sap
+    name = john-d
     enabled = yes
     type = application
-    group = 87dc321-87dc-aedf-1123-cd5328aef4
-    description = Account used by billing automation system to pull reports.
+    description = Allow access from anywhere.
+    group = 87dc321-87dc
+    source_ip_filter =
 
-    source_ip_filter = 10.0.2.45, 192.168.2.0/24
+    [groups/87dc321-87dc]
+    name = sales-team
+    enabled = Yes
+    description = Allow association from anywhere.
+    source_ip_filter = allow 10.3.4.0/24
+
+When `source_ip_filter` is not empty, and the source IP of the connection does not match any rule, an implicit `deny` rule is applied as a fallback.
+
+In the simplest configuration, exemplified below, the user is allowed access from a single IP address.
+All IPs other than ``10.3.4.1`` are implicitly denied authentication::
+
+    [accounts/5432ca3-bbd5-9432-be31-b4318ddea4]
+    name = john-d
+    enabled = yes
+    type = application
+    description = Allow access only from own VPN.
+    group = 87dc321-87dc
+    source_ip_filter = allow 10.3.4.1
+
+    [groups/87dc321-87dc]
+    name = sales-team
+    enabled = Yes
+    description = Allow association from anywhere.
+    source_ip_filter =
+
+In a slightly more complex configuration, the user is allowed to authenticate from a set of IP addresses.
+All source IP addresses not matching the configured `allow` rules are implicitly denied authentication::
+
+    [accounts/5432ca3-bbd5-9432-be31-b4318ddea4]
+    name = john-d
+    enabled = yes
+    type = application
+    description = Access from own VPN or internal network.
+
+    source_ip_filter =
+      allow 10.3.4.1
+      allow 192.168.0.0/24
+
+In a more complex configuration, the user is allowed from a single source IP address associated with a VPN client.
+Any other IP address from the range allocated to the VPN is denied authentication.
+At the same time, authentication from any other private or public IP address is allowed.
+Below is an example in which `deny` and `allow` rules can be used with overlapping IP ranges.
+There are two explicit rules at the end to allow any source IP not matched by any of the previous rules::
+
+    [administrators/762dea-81bc-7321-ade3-9721134]
+    name = jane-r
+    enabled = yes
+    type = application
+    description = Access from own VPN, explicitly deny other VPN IPs
+      and allow from anywhere else.
+
+    source_ip_filter =
+      allow 10.3.4.1
+      deny 10.3.4.0/24
+      allow 0.0.0.0/0
+      allow ::/0
 
 
-Allowing users to change their own password
-===========================================
+Single group inheritance
+------------------------
+
+Accounts don't have to define their own `source_ip_filter` rules.
+Accounts can inherit the rules as defined in the associated groups.
+
+Below is a simple example in which two accounts are associated with a single group.
+The group has a simple configuration that allows any IP address from the ``10.23.0.0/24`` or ``172.27.0.0/16`` ranges.
+Source IPs outside of these ranges are implicitly denied.
+The semantic is similar to account-level configuration.
+Multiple accounts can share the same source IP access list via the group association::
+
+    [accounts/5432ca3-bbd5-9432-be31-b4318ddea4]
+    name = john-d
+    enabled = yes
+    type = application
+    group = 87dc321-87dc
+    description = Sales team member without explicit IP filtering.
+    source_ip_filter =
+
+    [accounts/762dea-81bc-7321-ade3-9721134]
+    name = jane-r
+    enabled = yes
+    type = application
+    group = 87dc321-87dc
+    description = Another team member without explicit IP filtering.
+    source_ip_filter =
+
+    [groups/87dc321-87dc]
+    name = sales-team
+    enabled = Yes
+    description = Sales team can authenticate from the VPN and internal IP ranges.
+    source_ip_filter =
+      deny 10.23.0.1
+      allow 10.23.0.0/24
+      allow 172.27.0.0/16
+
+Accounts ``john-d`` and ``jane-r`` are allowed from IPs such as ``10.23.0.173`` or ``172.27.3.21``,
+but denied from any other IP, for example from ``10.23.0.1`` or ``35.12.4.142``.
+
+The source IP filtering inheritance is implicit.
+The account's `source_ip_filter` can be left empty.
+
+
+Multiple group association
+--------------------------
+
+When the account is associated with multiple groups,
+you can conditionally associate a group based on the account's source IP address.
+
+In the example below, account ``john-d`` is associated either with the ``sales team``, when connecting from the IP range ``172.27.0.0/16``,
+or with the ``support`` team, when connected from source IP ``10.2.2.0/24``.
+Connections from other IP addresses are rejected for ``john-d``, as the account is associated with groups that only allow connections from defined IP ranges::
+
+    [accounts/5432ca3-bbd5-9432-be31-b4318ddea4]
+    name = john-d
+    enabled = yes
+    type = application
+    group = 87dc321-87dc, be21982a-3423
+    description = Account inheriting from multiple groups.
+      There is no explicit IP filtering at account level configuration.
+    source_ip_filter =
+
+    [groups/87dc321-87dc]
+    name = sales-team
+    enabled = Yes
+    description = Sales team authenticates from the VPN IP range.
+    source_ip_filter =
+      allow 192.168.124.0/16
+
+    [groups/be21982a-3423]
+    name = support-team
+    enabled = Yes
+    description = Support team authenticates from the internal IP range.
+    source_ip_filter =
+      allow 10.2.2.0/24
+
+
+Account-specific filtering with multiple group association
+----------------------------------------------------------
+
+When the account is associated with multiple groups,
+the source IP filtering rules for the associate groups are used.
+However, the account can define its specific source IP access rules,
+that take priority over the group rules.
+
+In this case, the list of source IPs allowed for the groups is no longer used for the account authentication step.
+The list of source IPs configured at the group-level are used only for controller the conditions under which the account is associated with that group.
+
+In the example below, account ``john-d`` is associated with the ``sales team`` and the ``support team``.
+The ``sales`` team allows connections from the IP range ``172.27.0.0/16``, representing the VPN range.
+The ``support`` team allows connections from the source IP range ``10.2.2.0/24``, representing the internal IP range.
+The account has an explicit source IP filter to allow authenticating only from the IP addresses allocated to this user.
+Any other IP address is rejected for the account.
+
+With this configuration, when the account connects from source IP ``192.168.124.23``,
+it is associated with the ``sales`` team.
+When connecting from source IP ``10.2.2.23``, the account is associated with both the ``support`` and the ``sales`` teams::
+
+    [accounts/5432ca3-bbd5-9432-be31-b4318ddea4]
+    name = john-d
+    enabled = yes
+    type = application
+    group = 87dc321-87dc, be21982a-3423
+    description = Account inheriting from multiple groups.
+      There is no explicit IP filtering at account level configuration.
+    source_ip_filter =
+      allow 192.168.124.23
+      allow 10.2.2.23
+
+    [groups/87dc321-87dc]
+    name = sales-team
+    enabled = Yes
+    description = Sales team can access from any VPN IP or internal range.
+    source_ip_filter =
+      allow 192.168.124.0/16
+      allow 10.2.2.0/24
+
+    [groups/be21982a-3423]
+    name = support-team
+    enabled = Yes
+    description = Support team can access from internal IP range.
+    source_ip_filter =
+      allow 10.2.2.0/24
+
+
+Allowing users to change their password
+=======================================
 
 You can configure whether to allow file transfer users to change their own
 password, or whether to have their password updated only by administrators.
@@ -317,7 +537,7 @@ their password changed.
 Operating system accounts, domain accounts, LDAP accounts, and other accounts
 defined in external systems can't have their password changed via SFTPPlus.
 
-When an account is allowed to change its own password, it can do this using
+When an account is allowed to change its password, it can do this using
 the password update command available for each transfer protocol.
 
 FTP/FTPS, SFTP/SCP, and HTTP/HTTPS protocols,

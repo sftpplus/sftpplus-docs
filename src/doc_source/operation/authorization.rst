@@ -178,6 +178,22 @@ For more details about the available expressions, see the
 </configuration/matching-expression>`
 
 
+Permissions for dynamic username-based paths
+============================================
+
+When configuring the permissions of a group, you can target paths that include the name of the authenticated user.
+
+In the below example, when the account ``JohnD`` is authenticated,
+it gets full access to the path ``/queue/JohnD/pending``.
+Note that the `${USER}` placeholder can be used anywhere in the path's name::
+
+    [groups/202da724-a73d-4590-abfb-0717cded0d86]
+    permissions =
+        allow-list, allow-write
+        /inbox/*, allow-read
+        /queue/${USER}/pending*, allow-full-control
+
+
 Folders and their members
 =========================
 
@@ -253,7 +269,7 @@ in the targeted folder.
 allow-traverse Permission
 =========================
 
-The `allow-travere` permission allows
+The `allow-traverse` permission allows
 an account to only see the folders during a normal listing operations.
 
 It behaves like the `allow-list` permission, but non-folder members are hidden.

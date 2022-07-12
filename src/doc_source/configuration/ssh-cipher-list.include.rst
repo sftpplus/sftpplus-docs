@@ -22,26 +22,28 @@ ssh_cipher_list
     * HMACs
     * key exchanges
 
-    For example, to only allow AES256 in CTR mode with SHA1 HMAC hash and
-    Diffie-hellman group 14 key exchange with sha256 algorithms,
-    the configuration will be::
+    For example,
+    to only allow AES256 in CTR mode with SHA256 HMAC hash and Diffie-Hellman group 14 key exchange with sha256 algorithms,
+    the configuration is::
 
-        ssh_cipher_list = aes256-ctr, hmac-sha1, diffie-hellman-group14-sha256
+        ssh_cipher_list = aes256-ctr, hmac-sha2-256, diffie-hellman-group14-sha256
 
     The special keyword `secure` contains all the algorithms that we
     currently consider secure.
-    Should this list of algorithms be updated to exclude any new ciphers
-    that have been considered weak,
-    SFTPPlus will need to be upgraded to the version that
-    contains the updated `secure` list of algorithms.
+
+    We recommend using the latest version of SFTPPlus,
+    for automatic enforcement of any newly-deprecated ciphers via the `secure` list.
+
+    When we update this list of algorithms to exclude any newly-deprecated ciphers,
+    your SFTPPlus installations automatically enforce our changes when upgraded
+    to a version that contains the updated `secure` list of algorithms.
 
     The keyword `all` is available for configuring all the supported
-    algorithms.
-    This is provided mainly to help with backward compatibility and will
-    also enable **weak ciphers**.
+    algorithms, including **weak ciphers**.
+    This is provided mainly to help with backward compatibility.
 
     ..  warning::
-        Configuring `all` ciphers will also enabled ciphers which are no
+        Configuring `all` ciphers also enables ciphers no
         longer considered secure by modern standards.
 
     A pre-defined set of FIPS 140-2 approved ciphers is available by using the
@@ -49,7 +51,7 @@ ssh_cipher_list
     When FIPS 140-s ciphers are enabled, any other configured cipher in the
     list is ignored.
 
-    If an unsupported name is used, the component will fail to start.
+    If an unsupported name is used, the component fails to start.
 
     When the `all` keyword is used, all other values are ignored.
     When the `secure` keyword is used, all other values are ignored,
