@@ -9,11 +9,14 @@ Supported Operating Systems
   2022 Server on x86_64.
   On request, we can provide an x86 build for 32-bit Windows.
 
-* Red Hat Enterprise Linux 5, 6, 7, 8 on x86_64.
+* Red Hat Enterprise Linux 5, 6, 7, 8, 9 on x86_64.
   Version 5.11 (Final) is required on RHEL 5.
+  Clones such as CentOS, Oracle Linux, Rocky Linux, etc. are also supported.
   On request, we provide builds for different architectures
   (x86, POWER8, S390x).
-  Make sure the "libffi" package is installed on RHEL 8.
+  Make sure the "libffi" package is installed on RHEL 8 and its clones.
+  Make sure the "libxcrypt-compat" package is installed on RHEL 9
+  and its clones.
 
 * Amazon Linux AMI 2018.03, Amazon Linux 2, Amazon Linux 2022 on x86_64.
   Make sure the "libxcrypt-compat" package is installed on Amazon Linux 2022.
@@ -24,20 +27,24 @@ Supported Operating Systems
   Alternatively, you can also try the generic Linux package
   featuring static OpenSSL libraries.
 
-* Alpine Linux 3.14 on x86_64.
-  Contact us if you need support for a different Alpine Linux version
+* Alpine Linux 3.12 and newer on x86_64.
+  Contact us if you need support for an older Alpine Linux version
   and/or another hardware platform.
+  This version is statically-built against required libraries,
+  including OpenSSL 1.1.1.
+  This package should work on other musl-based Linux distributions,
+  provided musl 1.1.24 or newer is available.
 
 * Generic Linux distributions on x86_64.
   This version is statically-built against required libraries,
   including OpenSSL 1.1.1.
   It is designed to work on any modern Linux distribution with
-  GLIBC version 2.5 or newer:
+  glibc version 2.5 or newer:
   Ubuntu Server older than 14.04 LTS, non-LTS Ubuntu,
   SUSE Linux Enterprise Server (SLES) 11 and newer, OpenSUSE,
   Debian Linux, Slackware, Arch, etc.
-  Contact us if you need support for a Linux distribution not based on GLIBC
-  and/or another hardware platform.
+  Contact us if you need support for a Linux distribution not based on
+  either glibc or musl. Or for hardware platforms other than x86_64/amd64.
   Make sure the "libxcrypt-compat" package is installed on newer distributions
   such as current Arch Linux.
 
@@ -75,7 +82,8 @@ are distributed together with the installation package.
 On Linux, the product typically uses the OpenSSL libraries available on the OS.
 As such, we recommend that a recent version of the OpenSSL libraries
 are installed to benefit from the latest security fixes.
-However, the generic Linux package is bundled with its own OpenSSL libraries.
+However, the generic Linux package and the Alpine Linux one
+are bundled with their own OpenSSL 1.1.1 libraries.
 
 On macOS, there are no 3rd party dependencies, as the OpenSSL libraries
 are distributed together with the installation package.

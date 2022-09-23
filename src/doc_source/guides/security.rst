@@ -36,8 +36,13 @@ To read more about the Public Key Infrastructure (PKI), please go to our
 Key Management
 --------------
 
-The default server installation will generate a self-signed SSL certificate,
-and pairs of 2048-bit RSA and 1024-bit DSA private/public keys.
+The default server installation generates a self-signed SSL certificate
+and pairs of private/public SSH keys. Currently, the default-generated
+SSH keys have the following types and key sizes:
+
+* RSA: 3072-bit
+* ECDSA: 256-bit, 384-bit, 521-bit
+* Ed25519: 256-bit.
 
 To change the certificates used by the SSL/TLS service, you need to generate
 a new key and an associated certificate signing request.
@@ -57,11 +62,11 @@ dedicated to
 :ref:`SSH Key Authentication <operation-sftp-ssh-key-authentication>`
 
 
-Protecting private keys, public keys and certificates
------------------------------------------------------
+Protecting private keys, public keys, and certificates
+------------------------------------------------------
 
-The server handles private/public keys and certificates as normal files
-in the local file system.
+SFTPPlus handles private/public keys and certificates as normal files
+on the local file system.
 
 The operating system's file system security features should be used to protect
 private keys from being read by other parties.
@@ -78,12 +83,11 @@ If private keys are breached, they can be used to impersonate the identity
 of the endpoint associated to them.
 
 If the server's private key is breached, it can be used to create a rogue
-server instance, which will look identical to the original instance for any
-remote endpoint.
+server instance impersonating the original instance.
 
-Besides getting the private key, the attacker will also need to change the
+Besides getting the private key, the attacker also needs to change the
 TCP/IP routing or the DNS server in use for the endpoint, so that the rogue
-server is accessible using the same IP or DNS name for the remote client.
+server is accessed using the same IP or DNS name by the remote client.
 
 If the client's private key is breached, it can be used to impersonate
 the identity of the remote endpoint associated with that private key.
@@ -130,56 +134,55 @@ but rather the transfer speed of the disk or the network bandwidth.
 Weak ciphers and protocols
 --------------------------
 
-TLS/SSL and SSH protocols were introduced a long time ago, SSL 3.0 being
-introduced in 1996.
+TLS/SSL and SSH protocols were introduced a long time ago, for example SSL 3.0
+was introduced in 1996.
 Over time, some of the protocols or cryptographic algorithms
 proved to have design weaknesses or to be less secure.
 
 The following cryptographic algorithms and protocols are not considered secure:
 
-* SSL at any version
+* SSL, all versions
 * RC4
 * MD5 message-digest algorithm
 * DES Data Encryption Standard symmetric-key algorithm
 * Export grade algorithms.
 
-SSL version 2.0 is not supported as it contains a number of security flaws
+SSL version 2.0 is not supported because it contains a number of security flaws
 which ultimately led to the design of SSL version 3.0.
 
 SSL version 3.0 is supported, but its usage is highly discouraged.
 As of 2014, the 3.0 version of SSL is considered insecure.
 
-RC4 in SSL and TLS was at one time considered secure but as of March 2013,
+RC4 in SSL and TLS was some time ago considered secure. As of March 2013,
 using RC4 in SSL and TLS is considered insecure.
 
-The MD5 message-digest algorithm is a widely used cryptographic hash function,
-but with modern computers the security of the MD5 hash function is severely
+The MD5 message-digest algorithm is a widely used cryptographic hash function.
+However, on modern computers, the security of the MD5 hash function is severely
 compromised.
 The algorithm is not included in the list of approved FIPS 140-2 hash
 functions.
 
-The DES symmetric-key algorithm is vulnerable to brute force attack, and is not
+The DES symmetric-key algorithm is vulnerable to brute force attack, thus is not
 considered secure.
 
 While the 3DES algorithm is approved by FIPS 140-2,
 it is no longer considered secure
-due to the vulnerability associated with the SWEET32 attack
+due to the vulnerability associated with the SWEET32 attack.
 
-U.S. cryptography export regulations define a set of algorithms with the
-intention of allowing them to be broken easily by the NSA, but not by other
+U.S. cryptography export regulations define a set of algorithms
+easily broken by the NSA, but not by other
 organizations with fewer computing resources.
-Nowadays, NSA capabilities from the 1990s can be matched by any personal
-computer, making those algorithms insecure.
+Nowadays, NSA capabilities from the 1990s can be matched by personal
+computers, making those algorithms insecure.
 
-While for some, FIPS 140-2 compliance is the gold standard for security,
-it was released in December 2002.
-With the fast pace at which the computer security landscape is evolving,
+For a long time, FIPS 140-2 compliance was the gold standard for security.
+However, it was released in December 2002.
+With the fast pace of the computer security landscape,
 a standard defined in 2002 should not be considered up to date.
 
-FIPS 140-3 update was not yet released due to disagreement in the US
-government and the updated document is not yet ready for consumption
-as of this writing.
-Meanwhile, use the guidance from PCI and ISO/IEC 24759:2017 standards.
+The updated FIPS 140-3 was released on March 22, 2019.
+
+Alternatively, use the guidance from the PCI and ISO/IEC 24759:2017 standards.
 
 
 NULL ciphers
@@ -190,18 +193,18 @@ These modes are disabled by default as they provide degraded security.
 
 Non-encryption mode (`eNULL`) can be used in special cases when the remote peer
 is required to be authenticated, but the transmitted data is already encrypted
-using another method like a PGP encrypted file.
+using another method, for example encrypted through PGP.
 
-Non-authentication mode (`aNULL`) is vulnerable to a "man in the middle" attack
-and its use is highly discouraged.
-In this mode, the connection will not validate the remote peer.
-Data sent in this mode is encrypted.
+Non-authentication mode (`aNULL`) is vulnerable to a "man in the middle" attack,
+so its use is highly discouraged.
+In this mode, the connection does not validate the remote peer.
+Data sent in this mode is encrypted though.
 
 
 Certificate Revocation List Loading
 -----------------------------------
 
-When the CRL fails to be loaded for the first time, it is considered a
+When the CRL fails to load for the first time, it is considered a
 critical failure and the component using the CRL is stopped.
 
 This is done to help detecting configuration errors.
@@ -213,23 +216,23 @@ at the scheduled date and time, the loading will be retried with a delay of
 The current loaded CRL is still considered valid, as long as the
 `Next Update` date and time is not reached.
 
-If reloading the CRL still fails after the Next Update date and time is reached
+If reloading the CRL still fails after the Next Update time is reached,
 the current cached CRL is no longer valid and a new CRL reloading is scheduled
 in 4 hours.
 
-In some special cases the current loaded CRL is considered invalid, even
+In some special cases, the current loaded CRL is considered invalid even
 if the `Next Update` is not reached.
 The error messages will indicate whether the CRL is no longer valid.
 
 When a service using SSL/TLS is started and CRL or CDP configuration is
-defined it will try to pre-cache the CRL by loading the CRL, even if no
+defined, it will try to pre-cache the CRL by loading the CRL even if no
 client has yet made a connection.
-In this way, when a client will later initiate a connection, the connection is
+In this way, when a client later initiates a connection, the connection is
 not delayed while waiting for the CRL to be loaded.
 
 A cached CRL is considered valid as long as the date and time
 advertised in the `Next Update` is not reached.
 
-Redirection is not supported for the CRL URLs in order to mitigate
-redirection attacks or miss-configurations.
-Administrator need to always configure the final location of a CRL.
+To mitigate redirection attacks and miss-configuration,
+redirection is not supported for the CRL URLs.
+The administrator has to always configure the final location of a CRL.

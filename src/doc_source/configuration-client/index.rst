@@ -14,6 +14,7 @@ This section includes the reference documentation for client-side configuration 
     ftp
     ftps-explicit
     ftps-implicit
+    http-pull
     webdav
     as2
     azure-file

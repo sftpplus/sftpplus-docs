@@ -595,6 +595,28 @@ amend_write_name
     Leave it empty to not amend the file names for the upload requests.
 
 
+ssh_delete_delay
+----------------
+
+:Default value: 0
+:Optional: Yes
+:From version: 4.23.0
+:Values: * Number of seconds
+:Description:
+    This allows configuring the SFTP server to delay the delete operation while reporting to the client that the operation was successful.
+    The delete operation is executed with a delay and the success or error is recorded in the event logs.
+
+    This is designed to work around a compatibility issue with Azure Data Factory,
+    in which Azure Data Factory SFTP connector requested the file to be deleted,
+    before confirming that a previous download request was finalized.
+
+    Set it to `0` to not delay the delete operation and perform the delete operation right away,
+    as requested by the client.
+    This is the standard behaviour, and on errors, the SFTP client is informed of the error.
+
+    If this is not the primary group for an account, this configuration is ignored.
+
+
 virtual_folders
 ---------------
 

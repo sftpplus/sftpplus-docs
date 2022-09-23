@@ -21,6 +21,9 @@ after starting up.
 
 To have SFTPPlus launched at boot, you may use the included SysV init script.
 
+All steps beyond unpacking the archive can be handled by the shell script
+found at ``./bin/install.sh`` in the hierarchy of SFTPPlus files.
+
 
 Unpacking the archive
 ---------------------
@@ -36,6 +39,23 @@ preferred installation path, for example: ``/opt/sftpplus``.
 SFTPPlus may be installed in any location on the local file system.
 In this documentation page we assume that SFTPPlus is unpacked in the
 ``/opt/sftpplus`` directory (we discuss INSTALL_ROOT more later).
+Avoid using spaces or special characters in the SFTPPlus installation path.
+
+
+Shell script installer
+----------------------
+
+The easiest way to install SFTPPlus is to execute the shell script
+found at ``bin/install.sh`` in the hierarchy of SFTPPlus files,
+for example::
+
+    /opt/sftpplus/bin/install.sh
+
+After a successful installation using the shell script, jump to
+`Listening on privileged ports`_
+to learn how to enable SFTPPlus to listen on privileged ports.
+This would be needed if SFTPPlus is not started with superuser privileges,
+which would mean it cannot bind ports below 1024.
 
 
 Initializing the configuration

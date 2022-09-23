@@ -87,7 +87,7 @@ Alternatively, to create an ``sftpplus`` group and user on Alpine Linux
 with the default-installed tools, use::
 
     addgroup sftpplus
-    adduser -G sftpplus -s /bin/sh -h /opt/sftpplus -H -D sftpplus
+    adduser -G sftpplus -g "SFTPPlus" -s /bin/sh -h /opt/sftpplus -H -D sftpplus
 
 
 SFTPPlus directory hierarchy and permissions

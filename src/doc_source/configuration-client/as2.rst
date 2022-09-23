@@ -5,9 +5,11 @@ An `as2` location allows sending files to a remote AS2 server.
 
 The AS2 protocol can use HTTP or HTTPS (secure) connections.
 
-The `as2` location can only be used for sending files over AS2.
-If you need to receive files over the AS2 protocol, you will need to
-configure the HTTP file transfer service.
+..  note::
+    The `as2` location can only be used as the destination for a transfer,
+    only for sending files over AS2.
+    If you need to receive files over the AS2 protocol, you will need to
+    configure the HTTP file transfer service.
 
 Unlike a typical web browser connection, to protect an AS2 HTTPS connection
 you will have to explicitly configure the list of trusted CAs and
@@ -23,7 +25,7 @@ url
 
 :Default value: Empty
 :Optional: No
-:Values: * .
+:Values: * text
 :From version: 4.5.0
 :Description:
     Receiving URL for your partner.

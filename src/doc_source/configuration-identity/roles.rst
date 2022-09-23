@@ -152,7 +152,7 @@ permissions
     The following element target classes are available:
 
     * `configuration` - includes all the configuration elements
-    * `sync_pull` - allows reading full configuration by a secondary instance
+    * `sync` - allows reading full configuration by a secondary instance
       for synchronization.
 
     The following actions are available:

@@ -16,17 +16,16 @@ SFTPPlus package.
     sftpplus-lnx-x64-trial.tar.gz
     $ tar -xf sftpplus-lnx-x64-trial.tar.gz
 
-To complete the installation, SFTPPlus will generate an initial
-configuration file.
-This initialization only needs to be done once and is not required for
+To complete the installation, you need to generate an initial SFTPPlus
+configuration file through the provided ``bin/install.sh`` script.
+This initialization is only needed once and is not required for
 future upgrades.
-Choose a secure administrator password.
+Make sure to choose a secure administrator password when prompted.
 
 ..  code-block:: bash
 
-    $ cd sftpplus-lnx-x64-trial
-    $ ./bin/admin-commands.sh initialize --init-password «ADMIN_PASSWORD»
-
+    $ mv sftpplus-lnx-x64-trial /opt/sftpplus
+    $ /opt/sftpplus/bin/install.sh
 
 .. include:: /quick-start/admin-credentials.include.rst
 

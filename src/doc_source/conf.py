@@ -22,21 +22,15 @@ html_theme = 'integrated'
 project = "SFTPPlus"
 copyright = "ProAtria Team"
 
-html_context = {
-    'robots': 'noindex, nofollow',
-    'canonical_site': 'https://www.sftpplus.com/documentation/sftpplus/latest/',
-}
-
-
-version = "4.22.0"
-release = "4.22.0"
+version = "4.23.0"
+release = "4.23.0"
 
 autodoc_default_flags = ['members']
 primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    u'SFTPPlus-4.22.0',
+    u'SFTPPlus-4.23.0',
     u'SFTPPlus Documentation',
     u'ProAtria Team',
     )]
@@ -44,6 +38,11 @@ pdf_stylesheets = ['sphinx', 'kerning', 'a4']
 pdf_use_toc = False
 pdf_toc_depth = 2
 
+html_context = {
+"canonical_site": "https://www.sftpplus.com/documentation/sftpplus/latest/",
+"wip_redirect": "",
+"robots": "noindex, nofollow",
+}
 
 extensions = [
     'sphinx.ext.intersphinx',

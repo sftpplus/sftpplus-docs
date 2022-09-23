@@ -55,7 +55,7 @@ Here is a sample UUID::
 
     550e8400-e29b-41d4-a716-446655440000
 
-UUIDs are used by the server to support renaming of accounts, services,
+UUIDs are used by the server to support the renaming of accounts, services,
 servers, etc., and to provide a detailed audit of all activities performed by
 an entity, even before or after renaming it.
 
@@ -68,7 +68,7 @@ etc.
 In the context of distributed systems, the usage of UUIDs enables
 identifying information without significant central coordination.
 This allows the server to participate in a distributed cluster for high
-performance or high availability / resilience architectures.
+performance or high availability/resilience architectures.
 
 For simple deployments, you can also use any string as a universally unique
 identifier, as long as you make sure it is not used for another entity.
@@ -78,9 +78,12 @@ rename operations.
 
 We recommend using ``UUIDs`` as per the standard RFC4122 format.
 
+..  note::
+    UUID value should not include the forward slash `/` or the vertical bar `|` characters.
 
-Default values
---------------
+
+Default configuration values
+----------------------------
 
 Inside the configuration file, when a configuration option is missing
 from a section, the default value is applied.
@@ -96,8 +99,10 @@ is `Yes`, in the following configurations both `implicit_section` and
     enabled = Yes
     name = 'defined_section'
 
-The default values of each configuration option is documented in the
-following pages.
+The default value of each configuration option is included as part of the documentation for that option.
+
+When an option is defined as required (`Optional: No`),
+it will not have a default value and SFTPPlus will fail to process the component associated with that option.
 
 
 Comma-separated values

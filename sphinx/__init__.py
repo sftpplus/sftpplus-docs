@@ -39,8 +39,7 @@ def _create_configuration(
         destination, project, version, themes_path,
         theme_name='standalone', intersphinx_mapping=None,
         copyright='Chevah Team',
-        robots=None,
-        canonical_site='https://www.sftpplus.com/documentation/sftpplus/latest/',
+        html_context=None,
         extra_configuration='',
         ):
     """
@@ -53,8 +52,19 @@ def _create_configuration(
     if intersphinx_mapping is None:
         intersphinx_mapping = "{}"
 
-    if robots is None:
-        robots = 'noindex, nofollow'
+    # These are the variables injected in the Jinja template.
+    html_context_values = {
+        'wip_redirect': '',
+        'robots': 'noindex, nofollow',
+        'canonical_site': 'https://www.sftpplus.com/documentation/sftpplus/latest/',
+    }
+    if html_context:
+        html_context_values.update(html_context)
+    html_context_parts = ['html_context = {']
+    for key, value in html_context_values.items():
+        html_context_parts.append('"%s": "%s",' % (key, value))
+    html_context_parts.append('}')
+    html_context_raw = '\n'.join(html_context_parts)
 
     content = """
 
@@ -80,12 +90,6 @@ html_theme = '%(theme_name)s'
 project = "%(project)s"
 copyright = "%(copyright)s"
 
-html_context = {
-    'robots': '%(robots)s',
-    'canonical_site': '%(canonical_site)s',
-}
-
-
 version = "%(version)s"
 release = "%(version)s"
 
@@ -102,6 +106,7 @@ pdf_stylesheets = ['sphinx', 'kerning', 'a4']
 pdf_use_toc = False
 pdf_toc_depth = 2
 
+%(html_context)s
 %(extra_configuration)s
 """ % (  # Indentation here is strange, since we use multi-line string.
         {
@@ -111,9 +116,8 @@ pdf_toc_depth = 2
             'intersphinx_mapping': intersphinx_mapping,
             'copyright': copyright,
             'themes_path': themes_path,
+            'html_context': html_context_raw,
             'extra_configuration': extra_configuration,
-            'robots': robots,
-            'canonical_site': canonical_site,
             }
         )
 
@@ -128,8 +132,7 @@ def generate_documentation(
     arguments=None,
     theme='standalone',
     extra_configuration='',
-    website_package='sftpplus.website',
-    robots=None,
+    html_context=None,
         ):
     """
     Generate project documentation and return exit code.
@@ -147,7 +150,7 @@ def generate_documentation(
         copyright=copyright,
         themes_path=pave.fs.join([MODULE_PATH, 'sphinx']),
         theme_name=theme,
-        robots=robots,
+        html_context=html_context,
         extra_configuration=extra_configuration,
         )
 

@@ -36,3 +36,98 @@ Where:
 * ``/S`` - makes the uninstallation process silent
 
 * ``_?`` - defines the installation directory.
+
+
+Uninstalling SFTPPlus on Linux, macOS, AIX
+==========================================
+
+To uninstall SFTPPlus on Linux / Unix systems, first make sure it is stopped.
+Then save its configuration and logs, if relevant.
+
+You may use the ``bin/uninstall.sh`` script in the hierarchy of SFTPPlus files.
+Following examples assume paths typical for a default SFTPPlus installation.
+
+On Linux and AIX::
+
+    /opt/sftpplus/bin/uninstall.sh
+
+On macOS::
+
+    /Library/sftpplus/bin/uninstall.sh
+
+If you prefer to uninstall SFTPPlus manually, after stopping the SFTPPlus server
+(and optionally saving its configuration and logs), follow the sections below.
+
+
+Removing unit, init, service files
+----------------------------------
+
+The init-related SFTPPlus files are specific to the local operating system.
+Use the following exemplified commands as a guide.
+They assume your init-related SFTPPlus files are using
+the generic names suggested in the installation documentation.
+
+On systemd-based Linux systems::
+
+    systemctl disable sftpplus-mft.service
+    rm /etc/systemd/system/sftpplus-mft.service
+
+On SysV-based Linux systems such as RHEL 5/6, SLES 11,
+Amazon Linux AMI 2018.03::
+
+    chkconfig --del sftpplus-mft
+    rm /etc/init/sftpplus-mft
+
+On Alpine Linux::
+
+    rc-update del sftpplus-mft
+    rm /etc/init.d/sftpplus-mft
+
+On macOS::
+
+    launchctl unload /Library/LaunchDaemons/sftpplus.plist
+    rm /Library/LaunchDaemons/sftpplus.plist
+
+On AIX::
+
+    rm /etc/rc.d/rc2.d/S99sftpplus-mft /etc/rc.d/init.d/sftpplus-mft
+
+
+Removing SFTPPlus files
+-----------------------
+
+First of all, make sure you have backed up any SFTPPlus configuration and log
+files that might be useful later.
+
+The following commands remove all remaining SFTPPlus-related files
+from a typical installation path.
+
+On Linux and AIX::
+
+    rm -rf /opt/sftpplus
+
+On macOS::
+
+    rm -rf /Library/sftpplus
+
+
+Removing SFTPPlus user and group
+--------------------------------
+
+Assuming the ``sftpplus`` user and group were added for running SFTPPlus,
+the following commands remove them.
+
+On Linux and macOS::
+
+    userdel sftpplus
+
+..  note::
+    On Alpine Linux, the shadow package might not be installed.
+    In that case, use::
+
+        deluser sftpplus
+
+On AIX::
+
+    userdel sftpplus
+    rmgroup sftpplus

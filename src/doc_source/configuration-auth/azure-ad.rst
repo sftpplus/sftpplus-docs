@@ -45,6 +45,16 @@ For example, you might need to confirm a multi-factor authentication request.
 The Azure AD authentication process should finalize in less than 2 minutes.
 For security reasons, SFTPPlus will reject delayed authentication requests.
 
+For SFTPPlus to integrate with the Azure AD authentication,
+it needs to be able to initiate **outgoing connections** to the Microsoft/Azure Cloud over HTTPS port 443.
+Make sure your firewall allows outgoing connections.
+An HTTP proxy can be used by SFTPPlus to connect to the Azure Cloud.
+Below is the list of services used by SFTPPlus to communicate with Azure Cloud:
+
+* login.microsoftonline.com
+* graph.microsoft.com
+
+
 ..  note::
     Only HTTPS file transfer user authentication is supported.
     Get in touch if you need to authenticate SFTP users, FTPS users, or administrators using Azure AD.
@@ -140,7 +150,7 @@ base_groups
 :Optional: yes
 :Values: * Empty
          * Group UUID.
-         * Comma separated list of group UUIDs.
+         * Comma-separated list of group UUIDs.
 :From version: 4.22.0
 :Description:
     Defines the SFTPPlus groups that are associated with any authenticated users.
@@ -172,3 +182,38 @@ group_association
     If the authenticated user has no associated SFTPPlus group in Azure AD and `base_groups` is empty, the authentication fails.
     The Azure AD groups are associated with SFTPPlus groups if they have the same name.
     The matching is case-sensitive.
+
+
+proxy
+-----
+
+:Default value: ''
+:Optional: Yes
+:Values: * `URI` like expression.
+         * `connect://12.342.421.2:3128`
+:From version: 4.23.0
+:Description:
+    This configures the proxy used by SFTPPlus to connect to the cloud services required by Azure AD.
+
+    For now, only the HTTP/1.1 CONNECT tunneling proxy method is supported.
+
+
+remove_username_suffix
+----------------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Text
+         * Multiple values, one value per line.
+:From version: 4.23.0
+:Description:
+    Suffix of the Azure AD username to be removed by SFTPlus when generating the username used for file transfer operations.
+
+    You can configure SFTPPlus to remove multiple suffixes.
+    Define each suffix that should be removed on a separate line.
+    The first suffix matching the Azure AD username is used,
+    while the remaining are ignored.
+
+    For example, if the Azure AD username is ``Jane.R@sftpplus.onmicrosoft.com``,
+    and you want SFTPPlus to handle the user as Jane.R, you can configure
+    this as ``remove_username_suffix = @sftpplus.onmicrosoft.com``.

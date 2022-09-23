@@ -124,34 +124,49 @@ allowed_groups
         SFTPPlus group names.
 
 
+base_groups
+-----------
+
+:Default value: Empty
+:Optional: yes
+:Values: * Empty
+         * Group UUID.
+         * Comma separated list of group UUIDs.
+:From version: 4.23.0
+:Description:
+    Defines the SFTPPlus groups that are associated with any authenticated user.
+
+    Leave empty to not have any default group and only use the groups associated via OS configuration.
+
+    The first configured base group is also the primary group.
+
+
 group_association
 -----------------
 
-:Default value: `DEFAULT_GROUP`
+:Default value: `base-groups`
 :Optional: No
-:Values: * GROUP-UUID
+:Values: * `base-groups` (since 4.23.0)
+         * `base-and-os-groups` (since 4.23.0)
          * `group-name`
          * `group-name-with-default`
 :From version: 4.11.0
 :Description:
-    Defines the SFTPPlus group that is associated with authenticated users
+    Defines how the SFTPPlus groups are associated with authenticated users
     for which no explicit association is defined inside the SFTPPlus
     configuration.
 
-    When set with the identifier (UUID) of a SFTPPlus group,
-    it will associate any user with that SFTPPlus group.
+    When set to `base-groups` it will associate an OS user to the list of groups defined by the `base_groups` option.
 
-    When set to `group-name`, it will associate the user with the
-    SFTPPlus group having the same name as the operating system group of
-    this user.
-    If the user is a member of multiple groups,
+    When set to `base-and-os-groups` it will associate an OS user to the list of groups defined by the `base_groups` option and any other group that has the same name as one of the groups defined by the `allowed_groups` option.
+
+    When set to `group-name`, it will associate the user with the SFTPPlus group having the same name as the operating system group of this user.
+    If the user is a member of multiple OS groups,
     the first group defined in `allowed_groups` will be used.
     If no SFTPPlus group is found with the same name, the authentication fails.
 
-    When set to `group-name-with-default`, it will try to associate the user
-    with a SFTPPlus group having the same name as the OS group.
-    It will use the default SFTPPlus group if no SFTPPlus group is found having
-    the same name as the OS group.
+    When set to `group-name-with-default`, it will try to associate the user with an SFTPPlus group having the same name as the first OS group.
+    It will use the default SFTPPlus group if no SFTPPlus group is found to have the same name as the OS group.
 
     ..  note::
         When an OS account is explicitly defined inside SFTPPlus configuration

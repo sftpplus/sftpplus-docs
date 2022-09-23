@@ -7649,6 +7649,12 @@ FTP protocol
 
 
 
+
+
+
+
+
+
 SSH protocol
 ============
 
@@ -11126,6 +11132,12 @@ SSH protocol
 :From version: 3.51.0
 :To version: None
 :Description: None
+
+
+
+
+
+
 
 
 
@@ -16138,6 +16150,12 @@ HTTP/HTTPS protocol
 
 
 
+
+
+
+
+
+
 Management and Local Manager Events
 ===================================
 
@@ -19219,6 +19237,12 @@ Management and Local Manager Events
 :Description: None
 :Data:
   :database_uuid: UUID of the database.
+
+
+
+
+
+
 
 
 
@@ -24420,6 +24444,28 @@ Transfer and client-side functionality
 :From version: 4.10.0
 :To version: None
 :Description: None
+
+
+
+
+
+
+
+
+
+60085
+^^^^^
+
+
+:Message: Failed to start monitoring "%(path)s" on "%(location)s". Will automatically retry when the location is connected. %(details)s
+:Groups: failure, client-side, transfer
+:From version: 4.23.0
+:To version: None
+:Description: None
+:Data:
+  :location: Name of the location on which this operation was performed.
+
+
 
 
 

@@ -26,6 +26,9 @@ These service initialization files have been tested on
 all supported distributions,
 but they should work on other systems as well.
 
+All steps beyond unpacking the archive can be handled by the shell script
+found at ``./bin/install.sh`` in the hierarchy of SFTPPlus files.
+
 
 Unpacking the archive
 ---------------------
@@ -41,6 +44,20 @@ preferred installation path, for example: ``/opt/sftpplus``.
 SFTPPlus may be installed in any location on the local file system.
 In this documentation page we assume that SFTPPlus is unpacked in the
 ``/opt/sftpplus`` directory (we discuss INSTALL_ROOT more later).
+Avoid using spaces or special characters in the SFTPPlus installation path.
+
+
+Shell script installer
+----------------------
+
+The easiest way to install SFTPPlus is to execute the shell script
+found at ``./bin/install.sh`` in the hierarchy of SFTPPlus files,
+for example::
+
+    /opt/sftpplus/bin/install.sh
+
+The ``./bin/install.sh`` script will guide you through all the necessary steps.
+Only go further down this page for manual installation or debugging.
 
 
 Initializing the configuration
@@ -90,7 +107,7 @@ In the following examples, we use the default configuration value of
 To create an ``sftpplus`` group and user::
 
     groupadd sftpplus
-    useradd -g sftpplus -c "SFTPPlus" -s /bin/sh -d /opt/sftpplus sftpplus
+    useradd -g sftpplus -c "SFTPPlus" -s /bin/sh -d /opt/sftpplus -M sftpplus
 
 ..  note::
     On Alpine Linux, these tools might be missing, for more instructions check
@@ -191,7 +208,7 @@ will look similar to the following example::
 
     $ sudo setcap 'cap_net_bind_service=+ep' SFTPPLUS_INSTALL_PATH/bin/python
 
-You can then start SFTPPlus as non-root user and listen on ports below 1024.
+You can then start SFTPPlus as a non-root user and listen on ports below 1024.
 
 For more details, see `man 7 capabilities` on your Linux distribution.
 

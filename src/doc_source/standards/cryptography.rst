@@ -143,7 +143,7 @@ Public-key cryptographic systems
 ..  note::
     DSS/DSA key support is provided for backward compatibility.
 
-    Newer deployments should be based on RSA, use a key size of 4096 or
+    Newer deployments should be based on RSA with a key size of 3072 or
     greater.
 
     DSS/DSA key support is scheduled to be removed/deprecated with
@@ -248,7 +248,7 @@ ordered by SFTPPlus' preference during the negotiation phase:
 
 ..  warning::
     Newer deployments should use Ed25519 when available,
-    or RSA with a key size of at least 4096.
+    or RSA with a key size of at least 3072.
 
 
 SSH Key Exchange

@@ -21,6 +21,9 @@ after starting up.
 
 To have SFTPPlus launched at boot, you may use the included plist file.
 
+All steps beyond unpacking the archive can be handled by the shell script
+found at ``./bin/install.sh`` in the hierarchy of SFTPPlus files.
+
 
 Unpacking the archive
 ---------------------
@@ -36,6 +39,25 @@ preferred installation path, for example: ``/Library/sftpplus``.
 SFTPPlus may be installed in any location on the local file system.
 In this documentation page we assume that SFTPPlus is unpacked in the
 ``/Library/sftpplus`` directory (we discuss INSTALL_ROOT more later).
+Avoid using spaces or special characters in the SFTPPlus installation path.
+
+
+Shell script installer
+----------------------
+
+The easiest way to install SFTPPlus is to execute the shell script
+found at ``./bin/install.sh`` in the hierarchy of SFTPPlus files,
+for example::
+
+    /Library/sftpplus/bin/install.sh
+
+The ``install.sh`` script will guide you through all the necessary steps.
+
+After a successful installation using the shell script, jump to
+`Listening on privileged ports`_
+to learn how to enable SFTPPlus to listen on privileged ports.
+This would be needed if SFTPPlus is not started with superuser privileges,
+which would mean it cannot bind ports below 1024.
 
 
 Initializing the configuration
@@ -137,7 +159,7 @@ available as
 You need to adjust the ownership of the files, otherwise some of the
 functionality (logging and saving configuration changes) will not work::
 
-    cd /Library && chown -R root:staff sftpplus
+    cd /Library && chown -R root:admin sftpplus
     cd /Library/sftpplus && chown -R sftpplus configuration/ log/ run/
 
 At the very least, SFTPPlus needs read access to all the files under
@@ -169,12 +191,12 @@ daemon or an agent.
 In order to have SFTPPlus act as a global daemon, launching each
 time the macOS system starts, you need to copy it in the appropriate place::
 
-    cp bin/sftpplus-mft.plist /Library/LaunchDaemons/sftpplus.plist
+    sudo cp bin/sftpplus-mft.plist /Library/LaunchDaemons/sftpplus.plist
 
 After the file is copied, you need to instruct `launchd` to load/read the new
 job definition file using the command::
 
-    launchctl load /Library/LaunchDaemons/sftpplus.plist
+    sudo launchctl load /Library/LaunchDaemons/sftpplus.plist
 
 ..  note::
     During startup, the `launchd` process will scan and automatically load job
@@ -182,7 +204,7 @@ job definition file using the command::
 
 To stop SFTPPlus, use the following command::
 
-    launchctl unload /Library/LaunchDaemons/sftpplus.plist
+    sudo pkill sftpplus-service
 
 In the case that there are problems starting the server, you can check
 the log files at ``/var/log/system.log`` and

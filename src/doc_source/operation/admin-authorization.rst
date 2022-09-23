@@ -96,6 +96,7 @@ member UUIDs, with or without an option name::
 * resources
 * services
 * transfers
+* node_variables
 * status
 
 You can target a class of configurations,
@@ -120,6 +121,6 @@ targeted using the option name:
 * configuration/server/**OPTION-NAME**/
 * status
 
-There is a special permission target named `sync_pull` used to configure
-synchronization.
+There is a special permission target named `sync` used to configure
+synchronization between the cluster controller and the cluster nodes.
 Administrative roles assigned to real persons should not use this target.

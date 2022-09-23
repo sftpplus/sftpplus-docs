@@ -121,7 +121,7 @@ from the command line, use the following command::
     $ ./bin/admin-commands.sh generate-self-signed \
         --common-name=localhost \
         --alternative-name=DNS:localhost,IP:127.0.0.1 \
-        --key-size=2048 \
+        --key-size=3072 \
         --sign-algorithm=sha256
 
 The certificate and the private key are then generated on the standard
@@ -148,7 +148,7 @@ To generate a new SSL key and an associated certificate signing request::
     ./bin/admin-commands.sh \
         generate-csr \
         --common-name=fs.domain.tld \
-        --key-size=2048 \
+        --key-size=3072 \
         --key-file=KEY_FILENAME.key \
         --alternative-name="IP:192.168.7.1,DNS:www.fs.domain.tld" \
         --email="admin@domain.tld" \
