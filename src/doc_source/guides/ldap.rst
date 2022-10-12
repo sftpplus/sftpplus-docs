@@ -354,10 +354,10 @@ Below is a basic configuration syntax::
 
     group_mapping =
         FALLBACK-GROUP-UUID
-        ldapAttributeName, MATCHING_EXPRESSION, PRIMART-GROUP-UUID, OPIONAL-SECONDAY-GROUP_UUID
+        ldapAttributeName, MATCHING_EXPRESSION, PRIMARY-GROUP-UUID, OPIONAL-SECONDAY-GROUP_UUID
 
 A set of group mapping / group association rules are defined,
-each rule having 3 components:
+each rule has 3 components:
 
 * ldapAttributeName - this is the exact name of an LDAP attribute which is
   associated with the LDAP account
@@ -418,15 +418,14 @@ Below is the LDAP LDIFF representation for the account::
     memberOf: sales-apac-oceania
     memberOf: syadmin
 
-The matching rules are executed in a top-down fashion, stopping at first match.
+The matching rules are executed in a top-down fashion, stopping at the first match.
 
 When the entry has none of the attributes used for matching,
 the fallback group is used.
 
 When the LDAP entry for the account has multiple values for the same
-LDAP attributes used as part of group mapping expression, and multiple
-values matches multiple group mapping expression, then the exact result may
-different based on the LDAP server implementation.
+LDAP attributes used as part of group mapping expression,
+and multiple values match multiple group mapping expressions, then the exact result may different based on the LDAP server implementation.
 
 
 TOTP Multi-Factor Authentication integrations with LDAP servers
@@ -472,8 +471,7 @@ separating the actual password from the ephemeral TOTP code appended to it.
 
 ..  note::
     You don't need to use the SFTPPlus LDAP MFA extension via the
-    `extension_entry_point = python:chevah.server.extension.ldap_mfa.AugmentedTOTP`
-    configuration option in this scenario.
+    `extension_entry_point = python:chevah.server.extension.ldap_mfa.AugmentedTOTP` configuration option in this scenario.
 
 
 LDAP servers with external TOTP support script
@@ -517,7 +515,7 @@ their corresponding LDAP entry using an attribute name of your choice.
 For the purpose of this documentation, we assume the TOTP shared
 secret is stored using a ``totpSharedSecret`` LDAP attribute.
 
-The SFTPPlus Authentication method can then configured as follows::
+The SFTPPlus Authentication method can then be configured as follows::
 
     [authentications/d87d-4a3c-d732]
     type = ldap

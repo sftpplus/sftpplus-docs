@@ -18,6 +18,21 @@ This page also documents advanced installation setups for all supported
 Linux distributions.
 
 
+Running the service under Security-Enhanced Linux
+-------------------------------------------------
+
+Some distributions such as Red Hat Enterprise Linux come with Security-Enhanced
+enabled and enforced by default. SELinux doesn't allow a system service to
+run a script from a user's home.
+
+To work around this limitation, use a home directory under ``/var/lib``
+for the dedicated SFTPPlus user, for example::
+
+    mkdir /var/lib/sftpplus
+    groupadd sftpplus
+    useradd -g sftpplus -c "SFTPPlus" s /bin/sh -d /var/lib/sftpplus -M sftpplus
+
+
 Init system configuration for Linux distributions not using systemd
 -------------------------------------------------------------------
 

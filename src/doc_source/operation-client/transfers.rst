@@ -218,6 +218,7 @@ Configuring the Destination File Name and Path
 The `destination_path_actions` option can be defined for a transfer
 and will allow using a destination path and file name different than the
 source path and file name.
+In this way, you can define transfers to dynamic destination paths.
 
 This is configured using a set of rules which are applied based on
 expression matching the source path.
@@ -610,6 +611,63 @@ is ignored::
 
     /out/sales/Jan/Report.PDF      -> //'PDEB.OU11.DRSAFG(+1)'
     /out/sales/Jan/Report.txt      -> //'PDEB.OU11.DRSAFG(+1)'
+
+
+Fallback destination path
+-------------------------
+
+When using the `destination_path_actions` to define a transfer with dynamic destination path,
+some transfer might fail as the *computed* destination path doesn't exist.
+
+The `destination_fallback_path` configuration can be used as a *catchall* method to ensure the remote files are transferred to the destination location.
+
+For example, if you want to pull reports from a server,
+and automatically route them into directories using `destination_path_actions`,
+and one of the route targets does not exist,
+you can route them to a fallback folder.
+
+A transfer can have multiple actions defined for the same path, and the
+actions will be applied in series.
+The result from one action will be passed to the next one.
+
+.. code-block:: ini
+   :emphasize-lines: 10
+
+    [transfers/313a9679-bc15-42e9-80ef-e2305959a3d1]
+    enabled: yes
+    name: pull-partner-reports
+
+    recursive: no
+    source_uuid: 5f304286-8d56-41f9-ba57-420a2303e90c
+    source_path: /remote/partner/
+
+    destination_path: D:\reports\acme-inc\others
+    destination_fallback_path: D:\reports\acme-inc\unknown
+
+    destination_path_actions:
+      m/.*report_(.*).pdf/, transfer, D:\reports\acme-inc\{group.1}\{path.file_name}
+      *, no-action
+
+Assuming that the following directories exist on the local filesystem,
+which is the destination::
+
+    D:\reports\acme-inc\sales\    -> receives sales reports
+    D:\reports\acme-inc\stocks\   -> receives stocks reports
+    D:\reports\acme-inc\unknown\  -> catchall for other report files
+    D:\reports\acme-inc\others\   -> catchall for any non-report file.
+
+the files will be transferred as follows::
+
+    /remote/partner/report_sales_Jan.pdf    -> D:\reports\acme-inc\sales\report_sales_Jan.pdf
+    /remote/partner/report_stocks_Jan.pdf   -> D:\reports\acme-inc\stocks\report_stocks_Jan.pdf
+    /remote/partner/report_toys_Jan.pdf     -> D:\reports\acme-inc\unknown\report_toys_Jan.pdf
+    /remote/partner/returns_Jan.pdf         -> D:\reports\acme-inc\others\returns_Jan.pdf
+
+Note that `report_toys_Jan.pdf` is not copied into the ``others`` directory.
+It's copied into the ``unknown`` directory.
+It has the pattern of a *report* file,
+but there is no dedicated report folder named `toys` on the destination
+to receive it.
 
 
 Transfer States

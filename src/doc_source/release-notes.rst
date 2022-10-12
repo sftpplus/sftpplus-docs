@@ -7,6 +7,75 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.24.0, 2022-10-12
+--------------------------
+
+The final release contains a bugfix for the "Reports" page of the web console.
+This bug was introduced in 4.24.0rc1.
+
+The final release also contains a bugfix for the pagination of the
+"Activity Log" page of the web console.
+This bug was introduced in 4.23.0.
+
+
+Version 4.24.0rc2 was released on 2022-10-11
+and adds more bug fixes on top of the first release candidate.
+
+Version 4.24.0rc1 was released on 2022-09-30 as the first release candidate.
+
+
+New Features
+^^^^^^^^^^^^
+
+* The event with ID `20192` is now emitted at the start of each day with a
+  summary of the transfer activity for the last day. [#3459]
+* You can now configure a transfer with a fallback destination path using the
+  `destination_fallback_path` configuration option. This is used when the main
+  configured destination path doesn't exist. It can be used together with
+  dynamically-defined destination paths. For now, this configuration is
+  only designed to work with non-recursive transfers. Support for fallback in
+  recursive transfers will be added in a future release. Get in touch with us
+  if you need the fallback functionality for recursive transfers. [client-side]
+  [#3478]
+* AIX version 7.1 and newer is again a supported platform. Service Pack
+  7100-05-09 is required on AIX 7.1 [#5931]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* When installing with Security-Enhanced Linux enabled, the dedicated
+  SFTPPlus operating system user is assigned a sub-directory under
+  ``/var/lib/`` to allow the SFTPPlus system service to run scripts
+  from the installation directory. [#5771]
+* The FTP `ALLO` command is now handled as an operation that is not required,
+  returning code `202`, which is associated with a successful event. There was a
+  regression introduced in version 4, which returned code `502`,
+  associated with an error event. [server-side][ftp] [#5909]
+* The web management console now keeps the session active as long as the
+  web page is active in the web browser. In version 4.23.0, a regression was
+  introduced, letting the session expire 5 minutes after login.
+  [manager] [#5926]
+* The web manager UI was fixed for `source_ip_filter` configuration. This is a
+  regression introduced in version 4.23.0. [manager] [#5929]
+* The retry for a failed file no longer blocks the whole transfer processing
+  queue. This is a regression introduced in version 4.20.0. [client-side]
+  [#5938]
+* The pagination now works for the "Activity Log" page of the web console.
+  This was a bug introduced in version 4.23.0. [manager][#5947]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `session_username` cookie is no longer used by the Local Manager web
+  interface. [manager] [#5900]
+* The OAuth2 redirection URL for Azure AD was changed from
+  `https://SITE-ADDRESS/__chsps__/login?redirect-AUTH-UUID` to
+  `https://SITE-ADDRESS/?redirect-AUTH-UUID`. You need to manually update the
+  Azure AD Application Registration Redirect URIs. [server-side][http] [#5903]
+
+
 Version 4.23.0, 2022-09-23
 --------------------------
 

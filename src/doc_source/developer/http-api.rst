@@ -142,7 +142,7 @@ login page. Here we have the HTML format of the response.::
                 <meta http-equiv="refresh" content="0;URL=/__chsps__/login">
             </head>
             <body bgcolor="#FFFFFF" text="#000000">
-            <a href="/__chsps__/login">click here</a>
+            <a href="/__chsps__/login">Click here to continue.</a>
             </body>
         </html>
 

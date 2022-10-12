@@ -75,7 +75,7 @@ Use `New registration`, define a name (ex SFTPPlus) and select `Single tenant`.
 `Redirect URI` is required for SFTPPlus operation. Select `Web` and define the URL using the following format,
 where `SERVER:PORT` will be replaced with the address for your HTTPS web file browser,
 and `AUTH-UUID` with the unique ID of this authentication method:
-`https://SERVER.COM:PORT/__chsps__/login?redirect-AUTH-UUID`
+`https://SERVER.COM:PORT/?redirect-AUTH-UUID`
 
 ..  note::
     Only single-tenant authentication is supported.

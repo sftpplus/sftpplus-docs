@@ -802,3 +802,29 @@ destination_path_actions
     For more details and examples on the available actions,
     see :doc:`the client-side file transfer usage guide.
     </operation-client/transfers>`
+
+
+destination_fallback_path
+-------------------------
+
+:Default value: Empty
+:Optional: Yes
+:From version: 4.24.0
+:Values: * Empty.
+         * Path on destination.
+:Description:
+    This option allows defining a destination path that is used when failing to copy the file to the normal destination path.
+
+    This option is designed to be used with non-recursive transfers.
+    When used with recursive transfers the functionality of this option is limited.
+    SFTPPlus will not try to create a missing destination sub directory.
+    It will also not try to create the missing sub-directories inside the fallback path.
+    Instead, files for missing sub-directories are attempted to be delivered to the fallback path,
+    without creating the source directory structure in the fallback directory.
+    Get in touch with our support team,
+    if you want SFTPPlus to create the source directory structure inside the fallback directory.
+
+    This is designed to be used together with `destination_path_actions`,
+    when the destination path is dynamic.
+
+    See also the `operation guide here <../operation-client/transfers.html#fallback-destination-path>`_.

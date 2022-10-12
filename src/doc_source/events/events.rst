@@ -3037,6 +3037,47 @@ Generic and server-side common functionality
 
 
 
+20191
+^^^^^
+
+:Message: Failure on %(operation)s operation for file transfer analytics. %(details)s
+:Groups: process, failure
+:From version: 4.24.0
+:To version: None
+:Description: Emitted when failed to perform a transfer analytics operation.
+
+
+
+20192
+^^^^^
+
+:Message: Last day transfer statistics. Successful files %(success_files)s, retried files %(retried_files)s, success jobs %(success_jobs)s, failed jobs %(failure_jobs)s, total size %(total_size)s bytes, total duration %(total_duration)s seconds.
+:Groups: process, informational
+:From version: 4.24.0
+:To version: None
+:Description: Emitted to inform the statistic for transferred files.
+:Data:
+  :failure_jobs: Number of transfer jobs that failed after all retries.
+
+
+  :retried_files: Number of files that were retried
+
+
+  :success_files: Number of files that were successfully transfers, include those that succeed after a retry.
+
+
+  :success_jobs: Number of transfer jobs that success for all files.
+
+
+  :total_duration: Total duration, in seconds, of the files that were succesfully transfered
+
+
+  :total_size: Total size in bytes of the files that were succesfully transferred.
+
+
+
+
+
 20200
 ^^^^^
 
@@ -7655,8 +7696,32 @@ FTP protocol
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 SSH protocol
 ============
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14353,6 +14418,18 @@ HTTP/HTTPS protocol
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 40000
 ^^^^^
 
@@ -18668,6 +18745,18 @@ Management and Local Manager Events
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 50000
 ^^^^^
 
@@ -19788,6 +19877,18 @@ Management and Local Manager Events
 
 Transfer and client-side functionality
 ======================================
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

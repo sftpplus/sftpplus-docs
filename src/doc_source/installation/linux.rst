@@ -41,6 +41,13 @@ the following command::
 To install SFTPPlus, move (or copy/link) the unpacked directory to your
 preferred installation path, for example: ``/opt/sftpplus``.
 
+..  note::
+    If ``/opt/sftpplus`` already exists from a previous cycle of
+    installation and uninstallation, make sure you don't put the files
+    into ``/opt/sftpplus/sftpplus-os-arch-version`` when issuing::
+
+        mv sftpplus-os-arch-version /opt/sftpplus
+
 SFTPPlus may be installed in any location on the local file system.
 In this documentation page we assume that SFTPPlus is unpacked in the
 ``/opt/sftpplus`` directory (we discuss INSTALL_ROOT more later).
