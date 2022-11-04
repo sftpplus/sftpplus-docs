@@ -176,8 +176,7 @@ home_folder_path
         [groups/92ad5b32-d8d7-4ed8-94e1-dbb9f01383f4]
         home_folder_path = ${OS_HOME}
 
-    When the option is left empty it will require each account associated with
-    the group to define its own home folder path.
+    When the option is left empty it will require each account associated with the group to define its home folder path.
 
     When defined, it should be defined as an absolute path.
 
@@ -189,9 +188,12 @@ home_folder_path
     ``/home/${USER}/reports`` will be mapped as
     ``/home/some_user/reports`` for the account named ``some_user``.
 
-    When defining the ``home_folder_path`` for a group, the accounts belonging
-    to it should use the `Inherit` value, otherwise the group values will not
-    be applied.
+    ..  note::
+        When using the `${USER}` placeholder, usernames containing the following characters will have them replaced with the dot (.) character.
+        The following characters are escaped: ``\ / : * ? " < > |``
+
+    When defining the ``home_folder_path`` for a group, the accounts belonging to it should use the `Inherit` value,
+    otherwise, the group values will not be applied.
     For a better understanding, please follow the :ref:`explanations
     and examples on properties inheritance <inherited-home-folder-path>`.
 
@@ -316,6 +318,7 @@ ssh_authorized_keys_path
 :From version: 1.7.0
 :Values: * Base path on the local directory.
          * `${SHARED}/srv/accounting_team_ssh_keys`
+         * `/srv/ssh_keys/${USER}_authorized_keys`
          * Empty
 :Description:
     This option specifies whether or not the server will permit
@@ -633,12 +636,12 @@ virtual_folders
 
     The virtual path is always in Unix-like format (uses slash separators), and should be an absolute path, relative to the account's home folder.
 
-    The real path can be a Unix-like or Windows path, and should be an absolute path to an existing folder on the local filesystem.
+    The real path can be a Unix-like or Windows path and should be an absolute path to an existing folder on the local filesystem.
 
     The virtual path and real path can contain the `${USER}` placeholder (case-sensitive),
     which gets replaced with the name of each authenticated user.
     These paths are considered as being similar to the account's home folder path.
-    This means that they can be automatically created, if missing.
+    This means that they can be automatically created if missing.
     (Since 4.22.0)
 
     Below is an example of virtual paths defined for Windows::

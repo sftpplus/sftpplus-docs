@@ -5,6 +5,7 @@ containing information about the event being triggered:
 * `uuid`
 * `message`
 * `account.name`
+* `account.email`
 * `account.peer.address`
 * `account.peer.port`
 * `account.peer.protocol`

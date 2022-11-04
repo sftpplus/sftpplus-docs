@@ -223,11 +223,9 @@ overwrite_rule
     * `skip` - don't dispatch the source file when destination exists.
 
 :Description:
-    Rule used to decide how to handle the overwriting of an
-    existing file at the destination.
+    This configuration option is used to decide how to handle the overwriting of an existing file at the destination.
 
-    When set to `overwrite` it will emit an event when the destination
-    file is overwritten.
+    When set to `overwrite` it will emit an event when the destination file is overwritten.
 
     When set to `skip` it will not handle the file and the source file
     is not removed.
@@ -254,5 +252,4 @@ create_destination_folder
 
     Set it to `parent` to create the parent directory of the destination file.
 
-    Leave it empty to not have the destination automatically created and
-    fail when destination does not exist.
+    Leave it empty to not have the destination automatically created and fail when the destination does not exist.

@@ -3078,6 +3078,30 @@ Generic and server-side common functionality
 
 
 
+20193
+^^^^^
+
+:Message: File %(operation)s for %(account_name)s at "%(account_path)s".
+:Groups: authenticated, informational
+:From version: 4.25.0
+:To version: None
+:Description: Emitted when one account perfroms a file transfer operation on a file accesible to another account.
+:Data:
+  :account_name: The name of the other account that also has access to this file.
+
+
+  :account_path: Path to the file as available ot the other account.
+
+
+  :account_uuid: The UUID of the other account that also has access to this file.
+
+
+  :operation: The file operation that was performed
+
+
+
+
+
 20200
 ^^^^^
 
@@ -7708,8 +7732,20 @@ FTP protocol
 
 
 
+
+
+
+
+
+
 SSH protocol
 ============
+
+
+
+
+
+
 
 
 
@@ -14430,6 +14466,12 @@ HTTP/HTTPS protocol
 
 
 
+
+
+
+
+
+
 40000
 ^^^^^
 
@@ -18757,6 +18799,12 @@ Management and Local Manager Events
 
 
 
+
+
+
+
+
+
 50000
 ^^^^^
 
@@ -19877,6 +19925,12 @@ Management and Local Manager Events
 
 Transfer and client-side functionality
 ======================================
+
+
+
+
+
+
 
 
 

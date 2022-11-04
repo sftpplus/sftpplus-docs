@@ -72,7 +72,7 @@ monitored_operations
 
 :Default value: `all`
 :Optional: Yes
-:Values: * Comma separated values.
+:Values: * Comma-separated values.
          * `disable`
          * `all`
          * `exist`

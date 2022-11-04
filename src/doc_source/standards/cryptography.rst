@@ -91,37 +91,34 @@ SSL/TLS versions
 OpenSSL versions used in supported operating systems
 ----------------------------------------------------
 
-The Microsoft Windows operating system is distributed
-without including OpenSSL libraries or a compatible alternative.
 On Windows, SFTPPlus uses embedded OpenSSL 1.1.1 libraries.
-Please keep your SFTPPlus deployments on Windows always updated, to benefit
-from upstream security updates for the bundled OpenSSL libraries.
+We highly recommend keeping your SFTPPlus deployments on Windows always updated,
+to benefit from upstream security updates for the bundled OpenSSL libraries.
+The Microsoft Windows operating system is distributed without including OpenSSL libraries or a compatible alternative.
 
 Modern Linux distributions are distributed with OpenSSL version 1.1.1 or newer.
 On supported Linux distributions, SFTPPlus makes use of these system libraries.
-Please keep system OpenSSL libraries always up to date through your system
-updates, to benefit from upstream security updates.
+Keep system OpenSSL libraries always up to date through your system updates,
+to benefit from upstream security updates.
 
 The generic Linux version of SFTPPlus uses embedded OpenSSL 1.1.1 libraries.
 Please keep your generic Linux SFTPPlus deployments always updated,
 to benefit from upstream security updates for the bundled OpenSSL libraries.
 
-The macOS operating system includes OpenSSL-compatible LibreSSL libraries
-starting with version 10.13 High Sierra, but their support for
-latest cryptographic standards is lacking on some versions of macOS.
+The macOS operating system includes OpenSSL-compatible LibreSSL libraries starting with version 10.13 High Sierra, but their support for the latest cryptographic standards is lacking on some versions of macOS.
 On macOS, SFTPPlus uses embedded OpenSSL 1.1.1 libraries.
-Please keep your SFTPPlus deployments on macOS always updated, to benefit
-from upstream security updates for the bundled OpenSSL libraries.
+Keep your SFTPPlus deployments on macOS always updated,
+to benefit from upstream security updates for the bundled OpenSSL libraries.
 
 The AIX version of SFTPPlus uses embedded OpenSSL 1.0.2 libraries,
-patched with latest security updates beyond the publicly-available fixes.
-Please keep your SFTPPlus deployments on AIX always updated, to benefit
-from upstream security updates for the bundled OpenSSL libraries.
+patched with the latest security updates beyond the publicly-available fixes.
+Keep your SFTPPlus deployments on AIX always updated,
+to benefit from upstream security updates for the bundled OpenSSL libraries.
 
-The above list is not comprehensive and comes with no guarantee. Please check
-with support@proatria.com for further info.
+The above list is not comprehensive and comes with no guarantee.
+Check with support@proatria.com for further info.
 
-Last updated for release 4.17.0 on February 22, 2022.
+Last updated for release 4.25.0 on November 04, 2022.
 
 
 File formats

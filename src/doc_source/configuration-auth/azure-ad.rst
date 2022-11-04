@@ -97,7 +97,7 @@ From the `Implicit grant and hybrid flows` section:
 * Access tokens (used for implicit flows)
 * ID tokens (used for implicit and hybrid flows)
 
-To associate Azure AD groups with SFTPPlus groups, the `Directory.Read.All` API permissions will be requested.
+To associate Azure AD groups with SFTPPlus groups, the `GroupMember.Read.All` API permissions will be requested.
 No explicit `API permissions` configuration is required.
 Azure AD will ask each user to confirm the permissions.
 
@@ -106,7 +106,7 @@ All permissions are `Delegated`:
 
 * openid - for generic authentication
 * User.Read - for generic authentication
-* Directory.Read.All - Delegated (for Azure AD group association)
+* GroupMember.Read.All - Delegated (for Azure AD group association)
 
 Other configuration options are available in Azure AD via the `Enterprise applications` page.
 On the `Enterprise applications -> Properties` you can configure a general 'Enable/Disable' option for the SFTPPlus application.
@@ -217,3 +217,36 @@ remove_username_suffix
     For example, if the Azure AD username is ``Jane.R@sftpplus.onmicrosoft.com``,
     and you want SFTPPlus to handle the user as Jane.R, you can configure
     this as ``remove_username_suffix = @sftpplus.onmicrosoft.com``.
+
+
+api_scopes
+----------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Azure API scope name
+         * Multiple scope names, one scope per line.
+:From version: 4.24.0
+    This allows SFTPPlus to ask the Azure AD for extra API permissions when an account is authenticated.
+
+    The extra API access token is available to the SFTPPlus Python API extensions.
+    It is used for implementing custom extensions that integrate with Azure AD.
+
+    You can leave this empty if you don't plan to use custom SFTPPlus extensions.
+
+    Multiple API scopes can be defined.
+    Each scope should be defined on a separate line.
+
+
+password
+--------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * plain text
+:From version: 4.24.0
+    This is the Azure client secret generated for the SFTPPlus application.
+
+    This is only required if you configure `api_scopes`.
+
+    When `api_scopes` is not configured, this value is ignored and not used.

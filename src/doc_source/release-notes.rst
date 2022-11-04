@@ -7,6 +7,61 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.25.0, 2022-11-04
+--------------------------
+
+Version 4.24.0rc1 was released on 2022-11-03 as the first release candidate,
+and other than changes to the text of the release note itself,
+there are no other changes.
+
+
+New Features
+^^^^^^^^^^^^
+
+* The Azure AD authentication method now supports configuring extra API access
+  scopes to be requested by SFTPPlus during authentication. They can be used to
+  implement custom extensions that integrate with Azure AD and Azure API.
+  [server-side] [#2196]
+* You can now configure the `email-sender` event handler to send emails
+  using data attached to an event. [#5906-1]
+* The email address associated with an account is now available in the event
+  handlers. [#5906]
+* You can now configure the email event handler to send emails to an account or
+  all accounts in a group (if they have a configured email address).
+  [server-side] [#5917]
+* A new event handler was added that can detect the accounts associated with a
+  file that was created, modified, or removed. [server-side] [#5954]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* When executing external scripts or commands on Linux and macOS, SFTPPlus now
+  automatically sets the `PWD` and `PATH` environment variables. In previous
+  versions, for security considerations, external commands were executed in
+  a restricted environment with no default variables. [linux][macos]
+  [#5923-1]
+* When executing external scripts or commands on Windows, SFTPPlus now
+  automatically sets the `SystemDrive` and `SystemRoot` environment variables.
+  In previous versions, for security considerations, external commands were
+  executed in a restricted environment with no default variables. [windows]
+  [#5923]
+* FTP and FTPS locations no longer fail to perform a password-less TLS
+  certificate-based authentication for servers returning FTP code 232. Previous
+  versions had support for password-less authentication only for servers
+  returning FTP code 230. [client-side][ftp][ftps] [#5950]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* When the name of the user is used to dynamically define the
+  `home_folder_path` or `ssh_authorized_keys_path` from the group
+  configuration, the following characters are now replaced with the dot (.)
+  character: `\ / : * ? " < > |`. This change was made to prevent creating
+  invalid path names. [#5959]
+
+
 Version 4.24.0, 2022-10-12
 --------------------------
 

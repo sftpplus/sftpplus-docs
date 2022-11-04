@@ -22,13 +22,33 @@ email_to_recipients
 
 :Default value: ''
 :Optional: Yes
-:Values: * Comma separated list of email addresses.
+:Values: * Email address
+         * UUID of a group (Since 4.25.0)
+         * UUID of an account (Since 4.25.0)
+         * Event-based template (Since 4.25.0)
+         * Comma-separated list of emails
+         * Comma-separated list of emails, group UUIDs, account UUIDs or templates. (Since 4.25.0)
 :From version: 3.4.0
 :Description:
-    Comma separated list of addresses where to send emails.
+    Comma-separated list of addresses where to send emails.
 
     If this list is not defined, emails will be sent using the general
     email resource recipients configuration.
+
+    The list can also be configured using UUIDs of accounts and groups.
+    For an account uuid, the email is sent to the address configured for that account.
+    For a group uuid, the email is sent to all the users from the group that have an email address configured.
+    If the account has no email address configured, the email message is skipped.
+    (Since 4.25.0)
+
+    A template can be used to generate the email address, based on the values found in the event.
+    For example, `{account.email}` is replaced with the email address configured for an account.
+    The template can combine variable values with fixed values.
+    For example, `{account.name}@example.com` for an event triggered by user `john-d` will generate the email address `john-d@example.com`.
+    If the event data is an UUID, it is resolved to an account email or all the emails from the group.
+    If the resulting value is empty, the email message is skipped.
+    For more details about the available template variables, see the `email_body` configuration.
+    (Since 4.25.0)
 
 
 email_cc
@@ -36,10 +56,15 @@ email_cc
 
 :Default value: ''
 :Optional: Yes
-:Values: * Comma separated list of email addresses.
+:Values: * Email address
+         * UUID of a group (Since 4.25.0)
+         * UUID of an account (Since 4.25.0)
+         * Event-based template (Since 4.25.0)
+         * Comma-separated list of emails
+         * Comma-separated list of emails, group UUIDs, account UUIDs or templates. (Since 4.25.0)
 :From version: 3.44.0
 :Description:
-    Comma separated list of secondary recipients whose names are visible
+    Comma-separated list of secondary recipients whose names are visible
     to one another and to the primary recipients.
 
     Leave it empty to not use CC.
@@ -50,11 +75,16 @@ email_bcc
 
 :Default value: ''
 :Optional: Yes
-:Values: * Comma separated list of email addresses.
+:Values: * Email address
+         * UUID of a group (Since 4.25.0)
+         * UUID of an account (Since 4.25.0)
+         * Event-based template (Since 4.25.0)
+         * Comma-separated list of emails
+         * Comma-separated list of emails, group UUIDs, account UUIDs or templates. (Since 4.25.0)
 :From version: 3.44.0
 :To version: None
 :Description:
-    Comma separated list of tertiary recipients whose names are invisible
+    Comma-separated list of tertiary recipients whose names are invisible
     to each other and to the primary and secondary recipients.
 
     Leave it empty to not use BCC.

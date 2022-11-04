@@ -23,4 +23,5 @@ Below is the list with the configuration documentation for the supported event h
     external-executable
     openpgp
     rabbitmq
+    account-interaction
     extension
