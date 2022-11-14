@@ -10,7 +10,7 @@ number (not by release date).
 Version 4.25.0, 2022-11-04
 --------------------------
 
-Version 4.24.0rc1 was released on 2022-11-03 as the first release candidate,
+Version 4.25.0rc1 was released on 2022-11-03 as the first release candidate,
 and other than changes to the text of the release note itself,
 there are no other changes.
 
