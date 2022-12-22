@@ -142,12 +142,18 @@ as2_receive_name
 :Default value: `as2receive`
 :Optional: Yes
 :Values: * Name of the URL fragment for AS2 receive requests.
+         * /path-name
+         * /parent/path-name (Since version 4.26.0)
 :From version: 4.5.0
 :Description:
-    This defines the URL name used to receive AS2 requests.
+    This defines the URL path used to receive AS2 requests.
 
-    For example, when `as2_receive_name = as2receive`, AS2 files should be
-    sent to URL like: `https://www.domain.com/as2receive`.
+    For example, when `as2_receive_name = as2receive`,
+    AS2 files will be accepted on the URL `https://www.domain.com/as2receive`.
+
+    It can also be configured using a sub-path.
+    For example, when `as2_receive_name = /as2/receive.in`,
+    AS2 files will be accepted on the URL `https://www.domain.com/as2/receive.in`.
 
 
 as2_receive_path

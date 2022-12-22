@@ -74,6 +74,16 @@ The `account` contains the following attributes:
 
 ----
 
+:name: token
+:type: string
+:optional: Yes
+:description: For Windows local or domain accounts a token that can be use to impersonate the account.
+    For Azure AD accounts, when extra `api_scopes` are configured,
+    this is the latest OAuth2 token that can be use to obtain acccess to an extra API
+    or refresh a token.
+
+----
+
 :name: peer
 :type: JSON Object
 :optional: No

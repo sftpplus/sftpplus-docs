@@ -51,6 +51,8 @@ for example::
 
     /opt/sftpplus/bin/install.sh
 
+The automated installation requires 500 MB of free space in ``/tmp``.
+
 After a successful installation using the shell script, jump to
 `Listening on privileged ports`_
 to learn how to enable SFTPPlus to listen on privileged ports.

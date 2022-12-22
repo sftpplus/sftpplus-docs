@@ -272,8 +272,31 @@ Disadvantages:
     For security reasons, we don't recommend this mode of operation.
 
 
-Running multiple concurrent instances on the same machine / VM
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Running SFTPPlus on a Security-Enhanced Linux system
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Some Linux distributions, such as Red Hat Enterprise Linux and its derivatives,
+are installed with SELinux set up in "enforcing" mode.
+That doesn't allow the execution of shell scripts from a user home directory.
+
+To avoid this limitation, when creating the dedicated SFTPPlus OS user manually,
+use a home directory other than the installation directory of SFTPPlus.
+For example, assuming that SFTPPlus is being set up at ``/opt/sftpplus``,
+use these commands to add a dedicated operating system user named ``sftpplus``::
+
+    groupadd sftpplus
+    useradd -g sftpplus -c SFTPPlus -s /bin/sh -d /var/lib/sftpplus -M sftpplus
+
+On top of the above, you'll have to restore the SELinux context
+for the script SFTPPlus uses to start itself: ``admin-commands.sh``.
+
+For example, assuming the SFTPPlus is being set up at ``/opt/sftpplus``::
+
+    restorecon -v /opt/sftpplus/bin/admin-commands.sh
+
+
+Running multiple concurrent instances on the same system
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can run multiple independent SFTPPlus instances on the same machine or VM
 to achieve one of the following requirements:
@@ -283,11 +306,30 @@ to achieve one of the following requirements:
 * create a pre-production system which is hosted by the same VM as the
   production to allow easy rollback to older version
 
-On systemd (modern Linux) and OpenRC init system this can be achieved
-by creating multiple service file with different names
+On systemd (modern Linux) and OpenRC init systems, this can be achieved
+by creating multiple service files with different names
 and setting specific configuration files per SFTPPlus instance.
 
-Each instance must be configured with specific paths for log and cache files.
+When using the supplied ``bin/install.sh`` script to set up these instances,
+it's as simple as providing a custom name for the SFTPPlus service
+of the instance to be set up when installing from multiple locations.
+For example::
+
+    /opt/sftpplus-production/install.sh --service-name=sftpplus-prod
+    /opt/sftpplus-testing/install.sh --service-name=sftpplus-test
+
+This takes care of all the needed system configuration. You can still use
+the provided shell scripts to safely update or uninstall these instances
+individually. Just make sure the concurrent instances are configured
+to use different ports for their services.
+For example, considering the default-enabled FTP / SSH / HTTPS / Local Manager
+services, you might use the 21/22/443/8443 ports for the production instance,
+while using the default 10021/10022/10443/10020 ports for the testing instance.
+Only install a new SFTPPlus instance this way after making sure
+the default SFTPPlus ports are free, to have both fully working side by side.
+
+If you prefer to set up multiple SFTPPlus instances manually,
+each instance must be configured with specific paths for log and cache files.
 For example, when using a production instance and a testing one,
 `log/server-production.log` and `log/server-testing.log`
 for the log handler's file paths, and

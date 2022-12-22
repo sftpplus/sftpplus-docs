@@ -287,17 +287,18 @@ to Syslog you can define the following configuration::
 
     usernames: mcr_adm, acct_aut
 
-If you want to send all the events to Syslog, with the exception of the
-users ``mcr_adm`` or ``acct_aut``, the configuration will look like::
+If you want to send all the events to Syslog, except the users ``mcr_adm`` or ``acct_aut``,
+the configuration will look like this.
+If you prefer, you can add a space between the exclamation mark and the username::
 
     [event-handlers/7db823d8-05f8-4481-be98-b87a826ded28]
     enabled: Yes
     name: Syslog Notification
-    description: Sends notification to Syslog server.
+    description: Sends a notification to the Syslog server.
     type: syslog
     url: file:///dev/log
 
-    usernames: !mcr_adm, !acct_aut
+    usernames: !mcr_adm, ! acct_aut
 
 
 Components

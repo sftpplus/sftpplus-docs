@@ -92,9 +92,7 @@ delete_source_on_success
 :Description:
     Whether to delete the source file after a successful transfer.
 
-    You can use the `archive_success_path` configuration option to have
-    the file removed from the source directory and moved into another
-    directory.
+    You can use the `archive_success_path` configuration option to have the file removed from the source directory and moved into another directory.
 
     If the transfer fails, the source is not removed,
     even when this is set to `Yes`.
@@ -119,8 +117,7 @@ delete_source_parent_delay
     application to write all the required files for that directory.
 
     The base source directory is never removed.
-    This configuration only removes the direct parent directory of the
-    file that was transferred.
+    This configuration only removes the direct parent directory of the file that was transferred.
     The directory is not removed if it contains other files or directories.
 
     The configuration is valid for both local and remote source locations.
@@ -157,7 +154,7 @@ transfer_memory_duration
 :Values: * Number of days
 :From version: 4.0.0
 :Description:
-    Number of days to keep track of files transfered in the past.
+    The number of days to keep track of files transferred in the past.
 
     Already transferred files are not re-transferred as long as
     they have the same name, size, and modified timestamp.
@@ -182,7 +179,7 @@ ignore_duplicate_paths
     The file is not re-transferred, even when it has a new size or modified
     date.
 
-    In order for duplicated files to be recognized,
+    For duplicated files to be recognized,
     the `transfer_memory_duration` needs to be enabled.
     This configuration is ignored when `transfer_memory_duration = 0`.
 
@@ -197,8 +194,7 @@ destination_uuid
 :From version: 2.10.0
 :To version: None
 :Description:
-    UUID of the location used as destination for this transfer or empty to
-    use the local file system location.
+    UUID of the location used as the destination for this transfer or empty to use the local file system location.
 
 
 destination_path
@@ -206,8 +202,8 @@ destination_path
 
 :Default value: Empty
 :Optional: Yes
-:Values: * Absolute path on local file system.
-         * Relative path to server installation folder.
+:Values: * Absolute path on the local file system.
+         * Relative path to the server installation folder.
 :From version: 2.10.0
 :To version: None
 :Description:
@@ -289,7 +285,7 @@ batch_marker_path
 :Values: * Name of a file.
          * Globbing expression.
          * Regular expression.
-         * Multiple name of files or expressions. One per line. (Since 4.22.0)
+         * Multiple names of files or expressions. One per line. (Since 4.22.0)
 :From version: 3.36.0
 :Description:
     You can configure the transfer to wait for a file with a specific
@@ -299,7 +295,7 @@ batch_marker_path
 
     The marker file needs to be located inside the source path.
 
-    The matching expression should be defined in such a way to match the whole path of the targeted file,
+    The matching expression should be defined in such a way as to match the whole path of the targeted file,
     and not just the file name.
 
     Multiple expressions can be defined to configure the transfer to wait for multiple files.
@@ -308,10 +304,8 @@ batch_marker_path
     When one expression is matching multiple files, the transfer will fail.
     This indicates a likely misconfiguration, which could cause non-deterministic transfers.
 
-    For transfer with recursive source, you can configure the marker at any
-    place inside the source sub-directories.
-    The batch transfer will include any files located in the same directory as
-    the batch marker as well as any files in the sub-directories.
+    For transfer with a recursive source, you can configure the marker at any place inside the source sub-directories.
+    The batch transfer will include any files located in the same directory as the batch marker as well as any files in the sub-directories.
 
     The transfer will start 15 seconds after the marker file was detected.
 
@@ -352,10 +346,8 @@ execute_before
     The executable is called with the full path to the file that is about to
     be transferred.
 
-    This should be configured only with the path, and without any other command
-    line arguments.
-    You can use a wrapping script/batch file to have the executable called with
-    a set of default arguments, or to call multiple executables.
+    This should be configured only with the path and without any other command line arguments.
+    You can use a wrapping script/batch file to have the executable called with a set of default arguments or to call multiple executables.
 
     The following environment variables are also set:
 
@@ -380,7 +372,7 @@ execute_before
         paths are not yet supported.
 
     ..  note::
-        Remote to remote transfers are not supported.
+        Remote-to-remote transfers are not supported.
 
     Leave it empty to not execute any command before a transfer.
 
@@ -458,9 +450,8 @@ execute_on_destination_before
     moved / etc.), and no other actions are completed for this transfer.
 
     ..  note:
-        In the case that you need to execute more commands in the remote
-        location, or you cannot implement your workflow using the available
-        commands, please contact us.
+        In the case that you need to execute more commands in the remote location,
+        or you cannot implement your workflow using the available commands, contact us.
 
 
 execute_on_destination_after_success
@@ -476,8 +467,7 @@ execute_on_destination_after_success
     See description of the `execute_on_destination_before` configuration
     option.
 
-    The commands are executed if the file or the batch have been successfully
-    transferred.
+    The commands are executed if the file or the batch has been successfully transferred.
 
 
 execute_on_destination_after_failure
@@ -493,7 +483,7 @@ execute_on_destination_after_failure
     See description of the `execute_on_destination_before` configuration
     option.
 
-    The commands are executed if the file or the batch transfer have failed.
+    The commands are executed if the file or the batch transfer has failed.
 
 
 archive_success_path
@@ -541,8 +531,7 @@ archive_failure_path
     * Path in the local file system.
     * Empty
 :Description:
-    Path to local folder in the local file system used to keep a copy of
-    unsuccessful started file transfers.
+    Path to the local folder in the local file system used to keep a copy of unsuccessful started file transfers.
 
     To disable archiving, leave this option empty.
 
@@ -552,16 +541,13 @@ archive_failure_path
 
     To prevent overwriting previous files, new files are copied to the archive
     folder with timestamps inserted in their names.
-    See `archive_success_path` for more details about the timestamp's
-    format.
+    See `archive_success_path` for more details about the timestamp format.
 
     When the remote file is partially transferred, the partial file is
     archived.
 
     ..  note::
-        When the source is a remote location and the file has not yet been
-        copied to the local file system, an empty file is copied
-        in the archive.
+        When the source is in a remote location and the file has not yet been copied to the local file system, an empty file is copied to the archive.
 
     ..  note::
         Archiving is disabled when a transfer has both source and destination
@@ -583,10 +569,8 @@ archive_format
     `timestamp-always` will archive all files using a timestamp.
     It will mirror the directory structure from the source folder.
 
-    `exact` will store the files using the exact same name and will mirror the
-    directory structure from the source folder.
-    If a file with the same name already exits, the new file is archived
-    with a timestamp.
+    `exact` will store the files using the same name and will mirror the directory structure from the source folder.
+    If a file with the same name already exists, the new file is archived with a timestamp.
 
 
 archive_retention_period
@@ -680,7 +664,7 @@ schedule
     Time resolution is one minute.
     Please contact us if you need a higher resolution.
 
-    For more details about defining a transfer with scheduler,
+    For more details about defining a transfer with a scheduler,
     see the :doc:`transfer operation guide
     </operation-client/transfers>`.
 
@@ -692,12 +676,11 @@ overwrite_rule
 :Optional: Yes
 :From version: 3.0.0
 :Values:
-    * `fail` - abort transfer if destination file already exists.
+    * `fail` - abort transfer if the destination file already exists.
     * `overwrite` - always overwrite existing files with the content
       of the new source files.
-    * `disable` - don't check for existing file and always try to transfer the
-      file.
-    * `skip` - don't transfer the source file when destination exists.
+    * `disable` - don't check for existing files and always try to transfer the file.
+    * `skip` - don't transfer the source file when the destination exists.
     * `timestamp-always` - always transfer the source file with an amended
       timestamp and prevent accidental overwriting on the destination.
     * `timestamp-to-new-file` - transfer the source file with a timestamp
@@ -707,18 +690,14 @@ overwrite_rule
       destination, rename the existing file at the destination.
 
 :Description:
-    Rule used to decide how a transfer handles the overwriting of an
-    existing file at the destination.
+    The rule used to decide how a transfer handles the overwriting of an existing file at the destination.
 
-    When the file is transferred with `temporary-suffix`, it will check for
-    the existence of the final file name on destination,
+    When the file is transferred with `temporary-suffix`, it will check for the existence of the final file name on the destination,
     not the file name with the temporary suffix.
 
-    When set to `overwrite` it will emit an event when the destination
-    file is overwritten.
+    When set to `overwrite` it will emit an event when the destination file is overwritten.
 
-    When set to `skip` it will not transfer the source file and source file
-    is not removed from the source directory.
+    When set to `skip` it will not transfer the source file and the source file is not removed from the source directory.
     An event is emitted to inform that the file was skipped.
 
     ..  note::
@@ -741,10 +720,9 @@ destination_path_actions
     Rules defining the action taken to the destination path and file name,
     as transferred to the destination location.
 
-    This is a comma separated configuration value.
+    This is a comma-separated configuration value.
 
-    The first value is the full source path matching expression for the
-    source file with a path relative to the configured `source_path`.
+    The first value is the full source path-matching expression for the source file with a path relative to the configured `source_path`.
     `Globbing expression
     <http://en.wikipedia.org/wiki/Glob_%28programming%29>`_ or
     `regular expression <http://en.wikipedia.org/wiki/Regular_expression>`_
@@ -778,9 +756,7 @@ destination_path_actions
 
     The supported actions are:
 
-    * `transform` - This is the generic operation based on which the
-      destination path can be defined as a different name in comparison with
-      the source path.
+    * `transform` - This is the generic operation based on which the destination path can be defined as a different name in comparison with the source path.
       The whole path can be transformed, not only the filename.
       It can be used for a rename operation,
       as well as for inserting a timestamp.
@@ -817,7 +793,7 @@ destination_fallback_path
 
     This option is designed to be used with non-recursive transfers.
     When used with recursive transfers the functionality of this option is limited.
-    SFTPPlus will not try to create a missing destination sub directory.
+    SFTPPlus will not try to create a missing destination sub-directory.
     It will also not try to create the missing sub-directories inside the fallback path.
     Instead, files for missing sub-directories are attempted to be delivered to the fallback path,
     without creating the source directory structure in the fallback directory.

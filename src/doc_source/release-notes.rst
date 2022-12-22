@@ -7,6 +7,90 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.26.2, 2022-12-19
+--------------------------
+
+Version 4.26.0 was released on 2022-12-12 as the first release candidate.
+Version 4.26.1 was released on 2022-12-14 as the second release candidate,
+in which further work was done to fix defect #5982.
+Version 4.26.2 was released on 2022-12-19 as the third release candidate,
+in which the fix for defect #6017 was added.
+
+
+New Features
+^^^^^^^^^^^^
+
+* The configuration for general authentication methods was moved from the
+  `General Configuration` page to the `Authentications` page. [manager] [#5879]
+* The shell scripts ``bin/update.sh`` and ``bin/rollback.sh`` were added to help
+  with updating SFTPPlus on Linux, macOS, and AIX. The update script backs up
+  the current installation before proceeding. Rolling back to this backup is
+  also possible in an automated way. [#5899]
+* When configuring the Azure AD authentication method with extra API scopes,
+  the OAuth2 token is available as part of the user avatar exposed to the
+  Python API extensions. [api] [#5961]
+* When defining a negative filter for the event handler, you can now have a
+  space between the exclamation mark and the negated value. [#5986]
+* The `${MICROSOFT_IT_CA}` root CA certificates were updated to include the
+  `Microsoft RSA TLS CA 01` and `Microsoft RSA TLS CA 02`
+  certificate authorities. [security] [#6002]
+* You can now configure SFTPPlus to receive AS2 files in a sub-path of the
+  server's root.
+  In previous versions, SFTPPlus was only able to receive AS2 files in a path
+  that is a direct child of the server's root. [server-side][as2] [#6004]
+* Is is now possible to automatically install multiple instances of SFTPPlus
+  on the same Linux system through the included ``bin/install.sh`` script
+  by providing a custom service name as an argument. [#5995]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* When sending files to HTTPS-based locations (SharePoint, WebDAV, Azure Files,
+  AS2) the transfer now waits for TLS renegotiation before sending more
+  data. In previous versions, the transfer failed because SFTPPlus
+  sent more data, but the TLS connection was not yet ready.
+  [client-side][https][as2] [#5279-1]
+* When sending files over AS2 encrypted using 3DES, the encryption is now
+  using 192-bit keys. In previous versions, it used 128-bit keys.
+  [client-side][as2] [#5279-2]
+* When sending AS2 files, the algorithm names from MDNs are normalized.
+  For example, `sha-256` is the same as `sha256`. [client-side][as2]
+  [#5279]
+* It is now possible to configure the operating system authentication method to
+  allow all users from all OS groups. You can associate them to a fixed
+  set of SFTPPlus groups. [server-side] [#5955]
+* When SFTPPlus has an ongoing file download operation on Windows, it no
+  longer blocks the file from being deleted.
+  [server-side][windows][sftp][ftps][https] [#5982]
+* The HTTP(s) server session now expires based on the
+  `idle_connection_timeout` configuration defined for each service. In previous
+  versions, the session expiration was ignoring the configuration. A fixed
+  value of 15 minutes was used instead. [server-side][http][manager] [#5983]
+* The standard output and the error output generated when calling external
+  commands using the `external-executable` event handler are no longer
+  truncated at 100 characters. [#5991]
+* You can now use TLS/SSL certificates with subjects or subject alternative
+  names using Unicode characters outside of the ASCII range.
+  In previous versions, an internal error was raised when SFTPPlus
+  was configured with such a certificate, or when connecting to
+  remote servers that were using such a certificate. [ftps][https][#6017]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `manager_authentications` configuration of the `server` section was
+  removed. The manager web console now uses the authentication defined directly
+  in the manager service configuration. The old configuration is automatically
+  migrated, no manual configuration changes are required. [manager] [#5879]
+* The CRL digital signature extension no longer supports validating the
+  configured certificate against a certificate revocation list. [#5961-1]
+* The Python API event handler extension no longer allows emitting events
+  directly via the `parent.emitEvent` method. The extension should now return a
+  list of event data to be emitted by the event handler. [api] [#5961]
+
+
 Version 4.25.0, 2022-11-04
 --------------------------
 

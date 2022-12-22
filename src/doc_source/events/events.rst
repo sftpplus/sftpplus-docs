@@ -794,7 +794,7 @@ Generic and server-side common functionality
 20053
 ^^^^^
 
-:Message: Successfully executed "%(command)s". Exit code "%(exit_code)s". Output "%(output)s". Error "%(error)s".
+:Message: Successfully executed "%(command)s". Exit code "%(exit_code)s". Output "%(output_log)s". Error "%(error_log)s".
 :Groups: process, success, operational
 :From version: 3.47.0
 :To version: None
@@ -803,13 +803,19 @@ Generic and server-side common functionality
   :command: Executed command.
 
 
-  :error: First part of the standard error produced by the command.
+  :error: The full the standard error produced by the command.
+
+
+  :error_log: First part of the standard error produced by the command, with newlines replaced by spaces.
 
 
   :exit_code: Exit code of the executed command.
 
 
-  :ouput: First part of the standard output produced by the command.
+  :ouput: The full standard output produced by the command.
+
+
+  :ouput_log: First part of the standard output produced by the command, with newlines replaced by spaces.
 
 
 
@@ -1238,7 +1244,7 @@ Generic and server-side common functionality
 :Message: No configured authentication for "%(username)s" of type "%(credentials_type)s".
 :Groups: failure, session, failure-high, failure-specific, operational
 :From version: 4.0.0
-:To version: None
+:To version: 4.26.0
 :Description: None
 :Data:
   :credentials_type: Type of the authentication request.
@@ -2047,7 +2053,7 @@ Generic and server-side common functionality
 20137
 ^^^^^
 
-:Message: Account "%(account_name)s" of type "%(account_type)s" from groups "%(group_name)s", authenticated by "%(method_name)s" of type "%(method_type)s" using %(credentials_type)s as "%(username)s". %(ignored_groups)s
+:Message: Account "%(account_name)s" of type "%(account_type)s" from groups/roles "%(group_name)s", authenticated by "%(method_name)s" of type "%(method_type)s" using %(credentials_type)s credentials as "%(username)s". %(ignored_groups)s
 :Groups: session, informational, operational
 :From version: 2.10.0
 :To version: None
@@ -2722,7 +2728,7 @@ Generic and server-side common functionality
 20174
 ^^^^^
 
-:Message: Failed to handle event %(id)s by "%(name)s" for "%(target_path)s". %(details)s
+:Message: Failed to handle event %(id)s by "%(name)s" for "%(target_path)s". %(details)s %(traceback)s
 :Groups: failure, failure-high, authenticated
 :From version: 2.10.0
 :To version: None
@@ -18827,8 +18833,8 @@ Management and Local Manager Events
 ^^^^^
 
 
-:Message: Authentication failed.
-:Groups: failure, session, failure-specific, local-manager
+:Message: Authentication failed. %(details)s
+:Groups: failure, session, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None

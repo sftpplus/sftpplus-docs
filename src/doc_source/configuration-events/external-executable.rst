@@ -75,8 +75,7 @@ executable_arguments
 :Description:
     This configuration defines the arguments used to call the executable.
 
-    Make sure the arguments that might contain spaces are enclosed in
-    quotes.
+    Make sure the arguments that might contain spaces are enclosed in quotes.
 
     .. include:: /configuration/event-context-variables.rst.include
 

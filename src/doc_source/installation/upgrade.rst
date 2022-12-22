@@ -13,7 +13,33 @@ transfer services, are stopped.
 Initializing the configuration or the service account and groups
 is not required for an upgrade.
 
-There are different procedures that you can follow, depending
+When upgrading from version 4.26.0 or newer to the latest version
+on Linux, macOS, and AIX,
+you can use the included ``bin/update.sh`` script
+providing as a parameter the latest SFTPPlus package for your OS.
+This takes care of all the necessary steps
+while backing up your current installation.
+If you wish to rollback the update, the backed-up installation can be used
+to revert to the previous version through the ``bin/rollback.sh`` script.
+
+The following directories are used for backing up the existing installation
+when updating to the latest version or rolling back to a previous version using
+the provided shell scripts (assuming the default ``sftpplus-mft`` service name):
+
+* ``/opt/sftpplus_backups/sftpplus-mft_UPDATE_AUTO_BACKUP``
+
+* ``/opt/sftpplus_backups/sftpplus-mft_ROLLBACK_AUTO_BACKUP``
+
+Contact us if you need to store in a location other than
+``/opt/sftpplus_backups`` the automatic backups saved
+when updating and rolling back the current installation of SFTPPlus.
+
+In the case that you need to rollback to a backup other than the one
+automatically saved by the ``bin/update.sh`` script, you can provide
+the path to its directory as a parameter to the ``bin/rollback.sh`` script.
+
+If upgrading on Windows or from a previous version,
+there are different procedures that you can follow, depending
 on the version to be upgraded:
 
 * When upgrading from versions 4.x to latest version,

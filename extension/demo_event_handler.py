@@ -77,20 +77,28 @@ class DemoEventHandler(object):
         if event.account.name == 'skip-user':
             # When `None` is returned the handling is skipped and the
             # `handle` function will not be called.
-            self._parent.emitEvent(
-                '20200', data={'message': 'Handling skipped.'})
             return None
+
+        if event.account.name == 'skip-emit':
+            # When skipping, you can trigger emitting an event with custom
+            # message and attached data.
+            return None, {'message': 'Handling skipped.', 'extra': 'skip-emit'}
 
         if event.account.name == 'delay-user':
             # For username `delay-user` we delay processing of the event
             # for 0.5 seconds.
             return self._parent.delay(0.5, lambda: 'delayed-configuration')
 
-        # Events can be emitted here via the parent.emitEvent API
-        # to generate an event before the start of event processing.
-        self._parent.emitEvent('20000', data={'message': 'Handling starts.'})
-
-        return self._configuration
+        # Events can be triggered as part of the event handling configuration.
+        # You can have one for more events.
+        # Event can have custom ID or use default ID.
+        events = [
+            {'event_id': '20000', 'message': 'Handling starts.'},
+            {'message': 'Default ID is 20200.'},
+            ]
+        # There is also the option of returning just the configuration,
+        # without any extra events.
+        return self._configuration, events
 
     @staticmethod
     def handle(event, configuration):
@@ -112,6 +120,10 @@ class DemoEventHandler(object):
         if event.account.name == 'inactive-user':
             # The extension can return a text that is logged as an event.
             return 'Extension is not active from this user.'
+
+        if event.account.name == 'test@proatria.onmicrosoft.com':
+            # The extension has access to the Azure AD OAuth2 token.
+            return 'Azure AD token: {}'.format(event.account.token)
 
         if event.account.name == 'ignored-user':
             # Don't handle events from a certain username.
@@ -150,5 +162,7 @@ class DemoEventHandler(object):
             # Explicit Event ID is also supported
             # For this case the attributes should match the attributes
             # required by the requested Event ID.
-            ('20000', {'message': output, 'configuration': configuration})
+            # Event '20000' requires the `message` attribute.
+            # Any extra attributes are allowed.
+            {'event_id': '20000', 'message': output, 'extra': configuration},
             ]

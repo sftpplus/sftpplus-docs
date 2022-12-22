@@ -36,7 +36,6 @@ Below is another sample for the ``server`` section as a text configuration::
     account = sftpplus
     umask = 022
     authentications = 0022b17a-30a0-4b70, ffa9-bd05-51c2-42f1
-    manager_authentications = 65a1-41ce-fea1-8015
 
 
 uuid
@@ -193,25 +192,6 @@ authentications
 ..  note::
     When a service defines its own authentication list, this global
     configuration is ignored.
-
-
-manager_authentications
------------------------
-
-:Default value: `DEFAULT-AUTHENTICATION`
-:Optional: Yes
-:Values: * List of authentication UUIDs.
-:From version: 3.37.0
-:To version:
-:Description:
-    Comma-separated list of UUIDs with authentication methods to be used
-    for authenticating the administrators for the Local Manager service.
-
-    The list should be ordered by priority.
-    The server will try to use the first authentication from the list, and
-    continue with the next method if the user is not accepted.
-
-    When not present, it defaults to the SFTPPlus embedded authentication.
 
 
 password_minimum_strength

@@ -58,7 +58,7 @@ The request body can be formatted as JSON, XML, or using a custom template.
 
 Each event from the `events` array contains the following attributes.
 
-.. include:: /developer/event-object.rst.include
+.. include:: /developer/event-object.include.rst
 
 Below is an example for a `POST` request containing two JSON events::
 

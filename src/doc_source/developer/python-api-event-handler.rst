@@ -69,4 +69,4 @@ Event data members
 
 The event object received in the handler has the following structure.
 
-.. include:: /developer/event-object.rst.include
+.. include:: /developer/event-object.include.rst

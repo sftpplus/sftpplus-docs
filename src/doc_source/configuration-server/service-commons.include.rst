@@ -162,13 +162,15 @@ idle_connection_timeout
 
 :Default value: `300`
 :Optional: Yes
-:Values: * Number of seconds after which idle connections are disconnected.
-         * `0` - To disable timeouts.
+:Values: * Positive number
 :From version: 1.7.19
-:To version: None
 :Description:
-    The service will close the connection if a client connection is idle for
-    a configurable amount of time.
+    This is defined as the number of seconds after which idle connections are disconnected.
+
+    The service will close the connection if a client connection is idle for a configurable amount of time.
+    Any authenticated connections are automatically logged out.
+
+    When set to `0` or a negative number, it will use the default value.
 
 
 maximum_concurrent_connections
