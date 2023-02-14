@@ -16,7 +16,7 @@ while others are just design principles without any standardization body.
 The following variants of HTTP APIs are available:
 
 * RESTful with JSON representation (not JSON-RPC).
-* WebDAV, which is well standardized.
+* WebDAV, which is well-standardized.
 * GET and POST with HTML integration, for managing files via any web browser.
 
 To have SFTPPlus respond via the JSON API, make the request using the
@@ -177,9 +177,7 @@ A JSON-formatted request and the corresponding response::
     < Content-Type: application/json
     {"results": [{"session": "8539cc3e424c0040bd87fba41e106d0c"}]}
 
-If you don't specify that you want the response as JSON, the session will
-be return as a web browser compatible cookie header named
-`CHEVAH_HTTP_SESSION`::
+If you don't specify that you want the response as JSON, the session will be returned as a web-browser compatible cookie header named `CHEVAH_HTTP_SESSION`::
 
     curl --data 'username=JohnD' --data 'password=my-secret' \
         -H 'Accept: application/json' \

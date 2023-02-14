@@ -7,6 +7,83 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.27.0, 2023-02-14
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* The administration web console now allows authentication using the Azure AD
+  method. [manager] [#4155]
+* The `permissions` configuration options for roles now allow defining a
+  read-only permission for SFTPPlus components such as services, transfers, and
+  locations. The `update` permission can be used to allow
+  starting/stopping/restarting a component. [manager] [#5465]
+* The management UI for the event handlers filter was updated to allow
+  configuring event groups, usernames, and components by selecting
+  from a list of available items. [#5726]
+* The HTTP authentication API now supports the `public_error` key in the
+  response to allow displaying authentication errors when logging into
+  the HTTP service via the web browser GUI or through the programmatic
+  HTTP file transfer API. [http][https][server-side] [#6035-1]
+* The HTTP authentication API now supports the `public_response` key in the
+  response to allow displaying a structured JSON for the JSON API when the
+  authentication is rejected. [authentication][api][server-side] [#6035-2]
+* You can now associate operating system groups to SFTPPlus roles for the
+  authenticated administrators. [manager] [#6036]
+* The FTP and FTPS client locations can now be configured to use the IP address
+  returned by the PASV command. In previous versions, the IP address for the
+  data channel was ignored. Instead, the address configured for the command
+  channel was used. [ftp][ftps][client-side] [#6042]
+* The SFTP/SCP server-side and client-side transfers now support the
+  `rsa-sha2-256` and `rsa-sha2-512` algorithms.
+  [sftp][server-side][client-side] [#6044]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The HTTP and HTTPS connections are now disconnected by the SFTPPlus server
+  with a timeout when no data is requested by the client after
+  `idle_connection_timeout`. [http][https][server-side] [#2630]
+* The font features used for the SFTPPlus web-based user interfaces were
+  updated for increased legibility. For example, lowercase l and capital I
+  should now be easily distinguishable. [#6009]
+* The configuration of the Operating System authentication method is now
+  successfully migrated from version 4.22.0 or older. In previous versions, the
+  OS authentication method failed to start because the new `base_roles` and
+  `role_association` values were not correctly migrated. [manager] [#6036]
+* The web management console can now be used to manage accounts and groups with
+  access only to the external local file authentication method. In previous
+  versions, managing the external local file authentication required access to
+  at least one account or group from the main configuration file. [manager]
+  [#6047]
+* The web management console now enforces unique names for accounts,
+  groups, administrators, and roles. [server-side] [#6048]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `idle_connection_timeout` service configuration option no longer accepts
+  the `Disable` value. Using `Disable` results in setting it back to the default
+  value. By disabling this timeout, the server is vulnerable to denial of
+  service attacks. [server-side] [#2630-1]
+* Events with ID `40009` and `40029`, emitted when an HTTPS connection is closed
+  due to a TLS error, were replaced by the general event with ID `40054`,
+  emitted when closing HTTP or HTTPS connections. [server-side][https] [#2630]
+* The role permissions for component targets now have to be prefixed by
+  "operation/". The existing non-prefixed targets are automatically migrated.
+  [manager] [#5465]
+* The `home_folder_structure` value, returned by the remote HTTP authentication
+  server as part of the SFTPPlus HTTP authentication method, was changed from
+  being a `list of lists` to a `list of strings/paths`. This is a regression
+  introduced in SFTPPlus version 4.23.0. The current version of SFTPPlus has
+  support for both value types, but you are encouraged to update your HTTP API
+  response format. [server-side][api] [#6035]
+
+
 Version 4.26.2, 2022-12-19
 --------------------------
 

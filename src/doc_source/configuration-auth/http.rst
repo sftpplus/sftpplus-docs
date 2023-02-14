@@ -95,11 +95,11 @@ headers
 test_at_start
 -------------
 
-:Default value: 'Yes'
+:Default value: `Yes`
 :Optional: Yes
 :From version: 4.5.0
-:Values: * Yes
-         * No
+:Values: * `Yes`
+         * `No`
 :Description:
     When set to `Yes` it will check at startup that the configured URL
     can be reached and fail to start if the URL is not available to respond

@@ -131,3 +131,9 @@ On AIX::
 
     userdel sftpplus
     rmgroup sftpplus
+
+
+On macOS::
+
+   dscl . delete /Users/sftpplus
+   dscl . delete /Groups/sftpplus

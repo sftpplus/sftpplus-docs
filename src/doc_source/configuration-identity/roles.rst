@@ -152,6 +152,7 @@ permissions
     The following element target classes are available:
 
     * `configuration` - includes all the configuration elements
+    * `operation` - includes all the components/processes inside SFTPPlus
     * `sync` - allows reading full configuration by a secondary instance
       for synchronization.
 
@@ -160,7 +161,7 @@ permissions
     * `all` - allow any action
     * `read` - allow reading the current configuration value or the state of a
       component
-    * `update` - allow modifying / updating the value of a configuration or
+    * `update` - allow modifying/updating the value of a configuration or
       the state (start/stop) of a component
     * `create` - allow creating new configuration values
     * `delete` - allow removing existing configuration values
@@ -177,7 +178,7 @@ permissions
     It takes precedence over any other configured action.
 
     When the `all` action is configured together with other actions like
-    `create` or `update`, they are ignored and only the `all` action is used.
+    `create` or `update`, are ignored and only the `all` action is used.
 
     To allow an action, it must be matched with an explicit permission rule.
 
@@ -185,7 +186,7 @@ permissions
     unless your configuration contains a rule using the `deny` action.
 
     The rules are checked from top to bottom.
-    If an action is not explicitly allowed by permissions rule,
+    If an action is not explicitly allowed by the permissions rule,
     the process continues to check following defined permissions rules.
 
     For example, to create a role in which administrators are

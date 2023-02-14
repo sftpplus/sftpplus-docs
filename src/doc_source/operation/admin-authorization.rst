@@ -87,15 +87,17 @@ member UUIDs, with or without an option name::
 * configuration/roles
 * configuration/administrators
 * configuration/authentications
-* configuration/locations
 * configuration/resources
+* configuration/event_handlers
 * configuration/services
+* configuration/locations
 * configuration/transfers
-* authentications
-* locations
-* resources
-* services
-* transfers
+* operation/authentications
+* operation/resources
+* operation/event_handlers
+* operation/services
+* operation/locations
+* operation/transfers
 * node_variables
 * status
 
@@ -104,14 +106,11 @@ or any configuration of a certain type.
 The following examples are valid:
 
 * configuration/services/* - target the configuration of any service
-* configuration/services/FTPS-server-UUID/* - target any configuration for the
-  service with UUID ``FTPS-service-UUID``
+* configuration/services/FTPS-server-UUID/* - target any configuration for the service with UUID ``FTPS-service-UUID``
 * configuration/services/\*/name/ - target all the name options for any service
-* configuration/services/FTPS-server-UUID/* - target only the name
-  option for the service with UUID ``FTPS-service-UUID``
-* services/* - target the status of any service
-* services/FTPS-service-UUID/* - target the status of the service with UUID
-  ``FTPS-service-UUID``.
+* configuration/services/FTPS-server-UUID/name - target only the `name` option for the service with UUID ``FTPS-service-UUID``
+* operation/services/* - target the status of any service
+* operation/services/FTPS-service-UUID/* - target the status of the service with UUID ``FTPS-service-UUID``.
 
 The following configurations do not have a member UUID, so they can only be
 targeted using the option name:

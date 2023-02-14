@@ -2044,6 +2044,9 @@ Generic and server-side common functionality
   :method_type: Type of the method used for authentication.
 
 
+  :response: More details from the authentication rejection response.
+
+
   :username: Name of the account which requested to authenticate.
 
 
@@ -5034,6 +5037,31 @@ FTP protocol
 
 
 
+10099
+^^^^^
+
+
+:Message: Connected to passive data port %(host)s:%(port)s.
+:Groups: ftp, session, informational, client-side
+:From version: 4.27.0
+:To version: None
+:Description: None
+:Data:
+  :host: The address of the remote FTP server used to connect to the passive port.
+
+
+  :port: The remote server port number used for the FTP passive connection.
+
+
+
+
+
+
+
+
+
+
+
 10102
 ^^^^^
 
@@ -5131,6 +5159,24 @@ FTP protocol
 
 
   :encryption: The cipher suite used to protect the command channel.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9488,6 +9534,12 @@ SSH protocol
 
 
 
+
+
+
+
+
+
 30004
 ^^^^^
 
@@ -11125,12 +11177,15 @@ SSH protocol
 ^^^^^
 
 
-:Message: Client SFTP subsystem initialized for location %(name)s.
+:Message: Client SFTP started for "%(name)s" using "%(credentials_type)s".
 :Groups: informational, authenticated, ssh, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
 :Data:
+  :credentials_type: The type of authenticated used. (Since 4.27.0)
+
+
   :name: Name of the location associated with this event
 
 
@@ -11239,6 +11294,24 @@ SSH protocol
 :From version: 3.51.0
 :To version: None
 :Description: None
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14478,6 +14551,12 @@ HTTP/HTTPS protocol
 
 
 
+
+
+
+
+
+
 40000
 ^^^^^
 
@@ -14673,10 +14752,10 @@ HTTP/HTTPS protocol
 ^^^^^
 
 
-:Message: Client HTTPS did not sent a valid certificate. "%(details)s".
+:Message: Client HTTPS did not send a valid certificate. "%(details)s".
 :Groups: failure, session, http
 :From version: 1.8.0
-:To version: None
+:To version: 4.27.0
 :Description: None
 
 
@@ -15111,7 +15190,7 @@ HTTP/HTTPS protocol
 :Message: HTTP/HTTPS connection closed on the server-side due to a failure. "%(details)s"
 :Groups: failure, session, http
 :From version: 3.6.0
-:To version: None
+:To version: 4.27.0
 :Description: None
 
 
@@ -15572,6 +15651,58 @@ HTTP/HTTPS protocol
 :From version: 4.9.0
 :To version: None
 :Description: None
+
+
+
+
+
+
+
+
+
+40053
+^^^^^
+
+
+:Message: HTTP/HTTPS connection created.
+:Groups: http, session, informational
+:From version: 4.27.0
+:To version: None
+:Description: None
+
+
+
+
+
+
+
+
+
+40054
+^^^^^
+
+
+:Message: HTTP/HTTPS connection closed. Client certificate: %(certificate)s. Used encryption: %(encryption)s. %(details)s
+:Groups: http, session, informational
+:From version: 4.27.0
+:To version: None
+:Description: None
+:Data:
+  :certificate: Certificate sent by the client over the connection.
+
+
+  :details: Details about the reason the connection was closed.
+
+
+  :encryption: The cipher suite used to protect the connection.
+
+
+
+
+
+
+
+
 
 
 
@@ -18811,6 +18942,24 @@ Management and Local Manager Events
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 50000
 ^^^^^
 
@@ -18870,7 +19019,7 @@ Management and Local Manager Events
 
 
 :Message: Internal error while applying the requested change from local manager. "%(details)s".
-:Groups: failure, failure-high, administration, local-manager
+:Groups: failure-critical, failure, administration, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -19184,6 +19333,31 @@ Management and Local Manager Events
 :From version: 4.14.0
 :To version: None
 :Description: None
+
+
+
+
+
+
+
+
+
+50018
+^^^^^
+
+
+:Message: Failed to apply the "%(operation)s" configuration change for "%(target)s": %(details)s
+:Groups: failure, failure-high, administration, local-manager, operational
+:From version: 4.27.0
+:To version: None
+:Description: None
+:Data:
+  :operation: The configuration operation that was performed,
+
+
+  :target: The identification of the component for which the configuration was attempted.
+
+
 
 
 
@@ -19931,6 +20105,30 @@ Management and Local Manager Events
 
 Transfer and client-side functionality
 ======================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

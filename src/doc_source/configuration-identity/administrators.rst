@@ -5,12 +5,10 @@ Administrators are dedicated to accessing the
 :doc:`Local Manager administration service </configuration/local-manager>`.
 They cannot be used for file transfer operations.
 
-In order to simplify configuration management for a large number of
-administrators, the administrators are associated to a role.
+To simplify configuration management for a large number of administrators,
+the administrators are associated with one or more roles.
 
-This allows, for example, to easily disable access for all administrators
-associated to a particular role by simply disabling the role instead of having
-to disable every administrator.
+This allows, for example, to easily disable access for all administrators associated with a particular role by simply disabling the role instead of having to disable every administrator.
 
 ..  contents:: :local:
 
@@ -26,21 +24,16 @@ Administrators can be added or changed via Local Manager below.
 Adding a new administrator via text configuration
 -------------------------------------------------
 
-Adding a new administrator is done by creating a new section inside the
-configuration file.
-The name of the section should be prefixed with ``administrators/`` and
-followed by the administrator's UUID.
+Adding a new administrator is done by creating a new section inside the configuration file.
+The name of the section should be prefixed with ``administrators/`` and followed by the administrator's UUID.
 
-The administrator's UUID can be any unique string used to identify the
-administrator.
+The administrator's UUID can be any unique string used to identify the administrator.
 Once defined, the UUID should not be changed.
 
 For more information, please see
 :doc:`the dedicated UUID documentation </configuration/introduction>`.
 
-An administrator can be an application-level account defined for accessing the
-Local Manager or a local operating system account belonging to an
-operating system group associated to a role.
+An administrator can be an application-level account defined for accessing the Local Manager or a local operating system account belonging to an operating system group associated with a role.
 
 For example, to add a new administrator named **sa-admin**::
 
@@ -52,13 +45,11 @@ For example, to add a new administrator named **sa-admin**::
     role = 404aab78-70c0-4e1d-8480-4979e169a0a4
 
 ..  note::
-    The server does not support authentication of operating system
-    administrators that are used for multiple roles.
+    The server does not support authenticating operating system administrators that are used for multiple roles.
     In this case, the result is undefined.
 
 ..  note::
-    Administrator names and passwords longer than 150 characters
-    are not allowed by SFTPPlus.
+    Administrator names and passwords longer than 150 characters are not allowed by SFTPPlus.
     Generating passwords longer than 128 characters is not possible either.
     These restrictions prevent denial of service attacks.
 
@@ -132,9 +123,9 @@ password
     To get the hashed password please check how to :ref:`generate encrypted
     passwords using admin-commands <generate-encrypted-password>`.
 
-    When the password left empty, the administrator
-    will not be able to authenticate, even if the `enabled` option is set to
-    `yes`.
+    When the password is left empty,
+    the administrator will not be able to authenticate,
+    even if the `enabled` option is set to `yes`.
 
 
 source_ip_filter
@@ -161,8 +152,7 @@ source_ip_filter
     For more details, see the
     :doc:`account configuration </configuration-identity/accounts>` documentation page.
 
-    For examples on how to use the access controler rules see the
-    :doc:`authentication </operation/authentication>` documentation page.
+    For examples of how to use the access control rules see the :doc:`authentication </operation/authentication>` documentation page.
 
 
 multi_factor_authentication
@@ -174,13 +164,11 @@ multi_factor_authentication
 :Values: * OTP Authentication URL
          * Empty.
 :Description:
-    This option specifies the One-Time Password shared secret associated
-    with this administrator, stored as an `otpauth://` URL, as defined by
-    the `Google Authenticator
-    <https://github.com/google/google-authenticator/wiki/Key-Uri-Format>`_
+    This option specifies the One-Time Password shared secret associated with this administrator,
+    stored as an `otpauth://` URL,
+    as defined by the `Google Authenticator <https://github.com/google/google-authenticator/wiki/Key-Uri-Format>`_
 
-    More information on 2-step authentication is available in the
-    :doc:`cryptography guide </standards/cryptography>` page.
+    More information on 2-step authentication is available on the :doc:`cryptography guide </standards/cryptography>` page.
 
 
 roles
@@ -198,7 +186,18 @@ roles
 
     The first UUID is the primary role of this administrator.
 
-    Updating this configuration doesn't impact the sessions of
-    already authenticated administrators, which continue to use
-    the old configuration value.
+    Updating this configuration doesn't impact the sessions of already authenticated administrators, which continue to use the old configuration value.
     The new value is only used for new authentications.
+
+
+node_variables
+^^^^^^^^^^^^^^
+
+:Default value: Empty
+:Optional: Yes
+:From version: 2.26.0
+:Values: * INI text
+:Description:
+    This is designed to be used when this administrator is used to synchronize the configuration to a remote node.
+
+    The value from here is used to overwrite any configuration when applied to the remote node.

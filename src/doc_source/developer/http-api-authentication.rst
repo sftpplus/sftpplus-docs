@@ -156,7 +156,7 @@ configuration option::
         "create_home_folder": true,
         "create_home_folder_owner": "ude_team",
         "create_home_folder_group": "partners",
-        "home_folder_structure": [["/some-child"], ["/another-child"]],
+        "home_folder_structure": ["/some-child", "/another-child"],
         "virtual_folders":[
           ["/shared-sales", "/home/shared/sales"],
           ["/shared-teams/emea-uploads", "/home/shared/teams/emea"],
@@ -225,11 +225,10 @@ Below you can find the description of each member from the response.
 ----
 
 :name: home_folder_structure
-:type: List of lists.
+:type: List of strings.
 :optional: Yes
 :default: Empty list.
-:description: List of lists, each contain a path which should be created inside
-  home folder.
+:description: List of strings, each containing a relative path which should be created inside the home folder.
 
 ----
 
@@ -255,33 +254,86 @@ Below you can find the description of each member from the response.
     described for the group.
 
 
-Failure Response (401 / 403)
-----------------------------
+Unknown user (401)
+------------------
 
-Rejected credentials or disallowed accounts
-
-When an account or its credentials are not accepted,
+When an account or its credentials are not recognized by the HTTP API authentication method,
 but can be authenticated using other methods,
-the server should respond with the
-HTTP code `401` and a short error message::
+the server should respond with the HTTP code `401` and a short error message::
 
     Status: 401 Unauthorized or Human readable text for the error.
 
-When an account or its credentials are rejected, the server should **not** try
-to authenticate using another method.
-The response should display HTTP code `403` and a short error message::
+The account is not authenticated by the HTTP API.
+SFTPPlus will try to authenticate the credentials using one of the other configured authentication methods.
 
-    Status: 403 Forbidden or Human readable text for the error.
+
+Failure Response (403)
+----------------------
+
+When an account or its credentials are rejected the response should be HTTP code `403` and contain a short error message::
+
+    403 Forbidden
+
+    or
+
+    403 Human readable text for the error.
+
+The response can also contain an optional body as text::
+
+    403 Forbidden
+    Username disabled. More details can be sent in the response body.
+
+Or it can contain an optional body as JSON, that can contain an optional `message` member.
+SFTPPlus can be configured to display the content of the `message` value to end users,
+as the authentication error response::
+
+    403 Forbidden
+    {
+      "code": 1234,
+      "message": "Custom detailed public error message",
+      "extra": "Any extra private value is found only in the audit logs",
+      }
+
+For programmatic interaction with SFTPPlus over the JSON API,
+the response can contain the `public_response` key.
+This value is advertised to HTTP clients.
+The value of `public_response` is only available to end users over the SFTPPlus HTTP JSON API.
+It is not available over the HTML web GUI.
+Only the value of the `message` key is available over the web GUI.
+
+When your HTTP authentication server returns this response::
+
+    403 Forbidden
+    {
+      "code": 1234,
+      "message": "Custom detailed public error message.",
+      "public_response": {
+        "customKey": "Any key/value, that it sent to clients over JSON API.",
+        "anotherKey": {"key": "Nested JSON is allowed."}
+      }
+
+With the SFTPPlus HTTP server `public_error` configuration enabled,
+end users will see the following authentication failed response::
+
+    $ curl https://user:pass@sftpplus.server.com/home/
+    {"errors": [{
+      "message": "Custom detailed public error message.",
+      "response": {
+        "customKey": "Any key/value, that it sent to clients over JSON API.",
+        "anotherKey": {"key": "Nested JSON is allowed."}
+        },
+      "title": "Unauthorized"
+      }]
 
 
 Other Response Codes
 --------------------
 
-When the remote HTTP server responds with a code which is not documented in
-this page, SFTPPlus will consider the account `disallowed`.
+When the remote HTTP server responds with a code that is not documented on this page,
+SFTPPlus will consider the account `rejected`.
 
 In this case, it will not try to authenticate the account using other methods.
-The behavior is similar to an `403 Forbidden` response.
+The behavior is similar to a `403 Forbidden` response.
 
 
 Connection failures and invalid response
@@ -336,12 +388,10 @@ using an HTTP API Gateway which has a general authentication policy
 or you want extra security to make sure that authentication requests
 only originate from authorized SFTPPlus sources.
 
-The request can be authentication using HTTP Basic Authentication or with
-a custom `Authorization` header or any other HTTP header.
+The request can be authenticated using HTTP Basic Authentication or with a custom `Authorization` header or any other HTTP header.
 
 Below is an example using the HTTP Basic Auth in which all the request
-from the configured SFTPPlus server are authenticated with an username and
-password::
+from the configured SFTPPlus server are authenticated with a username and password::
 
     [event-handlers/6d32ee50-b2d2-93e5-caf4-c70a7]
     type = http
@@ -350,8 +400,7 @@ password::
     password = API-passord-or-token
 
 
-Another example is when the remote HTTP API endpoing required an API key
-or some other type of authentication.
+Another example is when the remote HTTP API endpoint requires an API key or some other type of authentication.
 This can be implemented by configuring a custom header that is sent with
 each HTTP authentication request::
 
@@ -369,8 +418,7 @@ with a file transfer software, in this case SFTPPlus.
 In addition, the team was constrained in the web application domain and instead
 opted to integrate using the SFTPPlus HTTP API.
 
-The system involved internal partners using SFTP for authentication and an
-external customer base that is authenticating via the web application.
+The system involved internal partners using SFTP for authentication and an external customer base that is authenticating via the web application.
 
 In this case, a server has been set up to act both as an SFTPPlus File Server -
 this server covers the file transfer process for the internal systems that
@@ -379,5 +427,4 @@ In addition, the server also acts as the HTTP Server which utilizes the HTTP
 AUTH logic.
 When the HTTP authentication is confirmed, the HTTP worker then processes the
 files and fed into a database.
-After processing, the data is made ready for retrieval by the external customer
-though an external facing web page.
+After processing, the data is made ready for retrieval by the external customer though an external-facing web page.

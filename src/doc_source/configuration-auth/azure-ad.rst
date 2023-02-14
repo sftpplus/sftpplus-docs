@@ -54,9 +54,8 @@ Below is the list of services used by SFTPPlus to communicate with Azure Cloud:
 * login.microsoftonline.com
 * graph.microsoft.com
 
-
 ..  note::
-    Only HTTPS file transfer user authentication is supported.
+    Only HTTPS file transfer user authentication and web management console are supported.
     Get in touch if you need to authenticate SFTP users, FTPS users, or administrators using Azure AD.
 
 
@@ -182,6 +181,32 @@ group_association
     If the authenticated user has no associated SFTPPlus group in Azure AD and `base_groups` is empty, the authentication fails.
     The Azure AD groups are associated with SFTPPlus groups if they have the same name.
     The matching is case-sensitive.
+
+
+base_roles
+----------
+
+:Default value: Empty
+:Optional: yes
+:Values: * Empty
+         * Role UUID.
+         * Comma-separated list of role UUIDs.
+:From version: 4.27.0
+:Description:
+    Defines the SFTPPlus roles that are associated with any authenticated administrator.
+
+    The first configured base role is also the primary role.
+
+    ..  danger::
+        When this option is defined (not empty),
+        any Azure AD user that is accepted as part of the SFTPPlus Azure AD app registration is allowed to connect to the SFTPPlus management web console.
+
+        We recommend creating an Azure AD app registration dedicated to the SFTPPlus management web console,
+        **separate** from the Azure AD app dedicated to file transfers.
+
+        You can then configure access to SFTPPlus management, via the Azure Portal.
+        From `Azure AD -> Enterprise applications` search for the registered SFTPPlus Azure AD app,
+        and from the `Users and Groups` configure the access.
 
 
 proxy

@@ -82,6 +82,28 @@ theme_path
         For any other configuration option, it is ignored.
 
 
+public_error
+------------
+
+:Default value: `No`
+:Optional: Yes
+:From version: 4.27.0
+:Values: * `Yes`
+         * `No`
+:Description:
+    When set to `Yes` it will advertise to the end users the reason why
+    the authentication failed.
+
+    When set to `No`, end users will receive a generic authentication
+    failure message.
+
+    ..  warning::
+        Exposing the error details can weaken the security of your server.
+        For example, when receiving a detailed error "Invalid password",
+        an attacker will know that the username is valid and in this way
+        discover the name of valid usernames.
+
+
 public_account_uuid
 -------------------
 

@@ -202,7 +202,7 @@ ssl_certificate_authority
     in initiating the two-way SSL/TLS authentication/handshake validation.
     For a successful connection, make sure the remote peer sends a valid
     certificate.
-    If the connection fails, the event with ID `40009` is emitted.
+    If the connection fails, the event with ID `40054` is emitted.
 
     The certificate authority file should be stored as a file in PEM format.
     For multiple CA, place all certificates in the same file.

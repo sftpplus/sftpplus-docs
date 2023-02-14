@@ -22,15 +22,15 @@ html_theme = 'integrated'
 project = "SFTPPlus"
 copyright = "ProAtria Team"
 
-version = "4.26.2"
-release = "4.26.2"
+version = "4.27.0"
+release = "4.27.0"
 
 autodoc_default_flags = ['members']
 primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    u'SFTPPlus-4.26.2',
+    u'SFTPPlus-4.27.0',
     u'SFTPPlus Documentation',
     u'ProAtria Team',
     )]

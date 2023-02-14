@@ -49,7 +49,7 @@ The easiest way to install SFTPPlus is to execute the shell script
 found at ``./bin/install.sh`` in the hierarchy of SFTPPlus files,
 for example::
 
-    /Library/sftpplus/bin/install.sh
+    sudo /Library/sftpplus/bin/install.sh
 
 The ``install.sh`` script will guide you through all the necessary steps.
 

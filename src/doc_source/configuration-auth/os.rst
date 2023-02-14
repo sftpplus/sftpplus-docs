@@ -194,6 +194,39 @@ manager_allowed_groups
         SFTPPlus group names.
 
 
+base_roles
+----------
+
+:Default value: Empty
+:Optional: yes
+:Values: * Empty
+         * Role UUID.
+         * Comma-separated list of role UUIDs.
+:From version: 4.27.0
+:Description:
+    Defines the SFTPPlus roles that are associated with any authenticated administrator.
+
+    Leave empty to not have any default role and only use the roles associated via OS configuration.
+
+    The first configured role is also the primary role.
+
+
+role_association
+----------------
+
+:Default value: `base-roles`
+:Optional: No
+:Values: * `base-roles`
+         * `base-and-os-groups`
+:From version: 4.11.0
+:Description:
+    Defines how the SFTPPlus roles are associated with authenticated administrators.
+
+    When set to `base-roles` it will associate the administrator to the list of roles defined by the `base_roles` option.
+
+    When set to `base-and-os-groups` it will associate an administrator to the list of roles defined by the `base_roles` option and any other role that has the same name as one of the groups defined by the `manager_allowed_groups` option.
+
+
 Windows Domain Accounts
 -----------------------
 

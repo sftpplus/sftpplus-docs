@@ -667,7 +667,7 @@ SFTPPlus requires no extra configuration when using a layer 4 TCP balancer
 with active data connections.
 
 When functioning behind a DNS load balancer,
-each FTP/FTPS node needs to have the `passive_ip_address` configured to its
+each FTP/FTPS node needs to have the `passive_address` configured to its
 own IP.
 
 You can't use a layer 4 TCP load balancer with **passive data connections**.
