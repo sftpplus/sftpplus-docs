@@ -7,6 +7,56 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.28.0, 2023-03-08
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* The FTP/FTPS server now accepts the `STRU F` and `MODE S` FTP commands.
+  [server-side][ftp][ftps] [#6067-1]
+* The web file browser now preserves the directory structure when uploading
+  a hierarchy of files using drag and drop. In previous versions, all files from
+  the hierarchy of a source directory were uploaded into the target directory,
+  ignoring the structure of sub-directories in the source directory.
+  [https][server-side] [#6067]
+* When transferring files using the `batch_interval`, the files from the same
+  batch are now transferred in alphabetical order. [client-side] [#6069]
+* When receiving AS2 files for which the filename is set by the remote AS2
+  partner to either `smime.s7m` or `smime.p7z`, SFTPPlus now handles the AS2
+  transfer as if the filename is not set, using the configured default
+  filename instead. [server-side][as2] [#6071]
+* The FTP/FTPS locations now support sending the `ACCT` command after
+  a successful login. [client-side][ftp][ftps] [#6074]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* SFTPPlus now stores the AS2 files that have not yet been validated
+  in a separate pending folder.
+  This avoids having invalid files in the final destination path at any point.
+  [server-side][as2][security] [#6011]
+* When receiving AS2 files, the algorithm names for the payload and MDN are now
+  normalized. For example, `sha-256` will have the same meaning as `sha256`.
+  [server-side][as2] [#6071]
+* The Python runtime has been patched with the latest security patches from
+  ActiveState to fix CVE-2015-20107. On Linux, AIX, and macOS, CVE-2020-10735
+  was also patched. [#6062-2]
+* The OpenSSL 1.1.1 libraries used for Python's cryptography on Windows,
+  generic Linux, Alpine Linux, and macOS were updated to version 1.1.1t to fix
+  CVE-2023-0286, CVE-2023-0215, CVE-2022-4450, and CVE-2022-4450. [#6062]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `markers` data attribute from event with ID `60006` was removed. It was
+  replaced by the generic `details` attribute containg the details for the
+  delay of a transfer. [client-side] [#6067]
+
+
 Version 4.27.0, 2023-02-14
 --------------------------
 
@@ -35,7 +85,9 @@ New Features
 * The FTP and FTPS client locations can now be configured to use the IP address
   returned by the PASV command. In previous versions, the IP address for the
   data channel was ignored. Instead, the address configured for the command
-  channel was used. [ftp][ftps][client-side] [#6042]
+  channel was used.
+  This was a regression introduced in version 3.52.0.
+  [ftp][ftps][client-side] [#6042]
 * The SFTP/SCP server-side and client-side transfers now support the
   `rsa-sha2-256` and `rsa-sha2-512` algorithms.
   [sftp][server-side][client-side] [#6044]

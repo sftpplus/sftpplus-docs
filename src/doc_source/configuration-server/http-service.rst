@@ -199,6 +199,30 @@ as2_receive_path
     Leave it empty to store the files in the account's root home directory.
 
 
+as2_pending_path
+----------------
+
+:Default value: `_as2_pending`
+:Optional: Yes
+:Values: * Path to a directory in the user's home folder.
+         * Empty
+:From version: 4.28.0
+:Description:
+    This defines the path inside each user's home folder,
+    used to temporarily store the files received via AS2 before they are validated.
+
+    This is a path relative to the home path of each user.
+
+    For example, when `as2_pending_path = /as2/pending`,
+    and an account has `home_folder_path = C:/Users/JohnD`,
+    pending files are stored in `C:/Users/JohnD/as2/pending`.
+
+    ..  note::
+        The path configured at `as2_pending_path` should be on the same filesystem as the path configured at `as2_receive_path`.
+        This is because the files are moved from the temporary pending folder to the final folder using an internal filesystem rename operation,
+        and moving across filesystems does not atomically create the destination with the full content.
+
+
 as2_default_filename
 --------------------
 

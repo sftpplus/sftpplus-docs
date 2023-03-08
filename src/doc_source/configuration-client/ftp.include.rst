@@ -53,6 +53,22 @@ password
     For `FTPS` (explicit or implicit) it is sent over the network protected by the TLS protocol.
 
 
+acct
+----
+
+:Default value: `empty`
+:Optional: Yes
+:Values: * text
+:From version: 4.28.0
+:Description:
+    Extra account value sent via the `ACCT` command if requested by the FTP server.
+
+    Most FTP servers don't need the extra account (ACCT) information.
+    This is empty by default.
+
+    The location will fail to authenticate if this is empty and extra ACCT information is required.
+
+
 debug
 -----
 

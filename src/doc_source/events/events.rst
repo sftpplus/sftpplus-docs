@@ -7790,6 +7790,18 @@ FTP protocol
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 SSH protocol
 ============
 
@@ -12339,6 +12351,18 @@ SSH protocol
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 HTTP/HTTPS protocol
 ===================
 
@@ -15706,6 +15730,62 @@ HTTP/HTTPS protocol
 
 
 
+40055
+^^^^^
+
+
+:Message: Successfully renamed file from "%(from)s" to "%(to)s".
+:Groups: file-operation, http, operation-rename, authenticated, success
+:From version: 2.3.0
+:To version: None
+:Description: None
+:Data:
+  :from: Old file/folder path.
+
+
+  :path: New file/folder path.
+
+
+  :to: New file/folder path.
+
+
+
+
+
+
+
+
+
+
+
+40056
+^^^^^
+
+
+:Message: Failed to rename file from "%(from)s" to "%(to)s". "%(details)s"
+:Groups: file-operation, failure, operation-rename, authenticated, http
+:From version: 2.3.0
+:To version: None
+:Description: None
+:Data:
+  :from: Old file/folder path.
+
+
+  :path: New file/folder path.
+
+
+  :to: New file/folder path.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16414,6 +16494,18 @@ HTTP/HTTPS protocol
 
 Management and Local Manager Events
 ===================================
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -22819,6 +22911,18 @@ Transfer and client-side functionality
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 60000
 ^^^^^
 
@@ -22938,15 +23042,12 @@ Transfer and client-side functionality
 ^^^^^
 
 
-:Message: Transfer delayed for "%(path)s". Will be transfered together with markers "%(markers)s".
+:Message: Transfer delayed for "%(path)s". %(details)s
 :Groups: transfer, informational, client-side
 :From version: 3.36.0
 :To version: None
 :Description: None
 :Data:
-  :markers: Expression used to detect the file marker.
-
-
   :path: Path to the file for which a transfer was delayed.
 
 
@@ -23578,7 +23679,7 @@ Transfer and client-side functionality
 ^^^^^
 
 
-:Message: Start collecting files for batch transfer "%(name)s" with an interval of %(seconds)s seconds.
+:Message: Start collecting files for batch transfer "%(name)s" with an interval of %(seconds)s seconds starting with "%(path)s".
 :Groups: transfer, informational, client-side
 :From version: 3.0.0
 :To version: None

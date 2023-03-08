@@ -276,9 +276,13 @@ but it is required in all messages by the AS2 standard.
 
 You add an AS2 partner by creating a normal SFTPPlus file transfer account.
 
-The files from the AS2 messages are stored in the home path as configured
-for each user, in a sub-directory defined by the `as2_receive_path`
-configuration.
+
+While the AS2 messages are received, the partial files are stored in the home path as configured
+for each user, in a sub-directory defined by the `as2_pending_path` configuration.
+
+After the AS2 message is fully received and validated,
+the files from the AS2 messages are stored in the home path as configured for each user,
+in a sub-directory defined by the `as2_receive_path` configuration.
 
 If no `Content-Disposition` header is found in the AS2 request describing
 the name of the required file, SFTPPlus will store the received data using
@@ -300,6 +304,7 @@ configuration option::
 
     as2_organization = ACME Org
     as2_receive_name = as2receive
+    as2_pending_path = /as2/pending
     as2_receive_path = /as2/receive
     as2_receive_key = -----BEGIN RSA PRIVATE KEY-----
         MIICXgIBAAKBgQDOoZUYd8KMYbre5zZIwR+V6dO2+cCYVS46BHbRbqt7gczkoIWh
@@ -336,15 +341,16 @@ configuration option::
         *.exe, deny-full-control
 
 With the above configuration, files received via AS2 for account `johnd` are
-stored inside `C:/Users/JohnD/as2/receive` and files for account
-`janer` are stored inside `C:/Users/JaneR/as2/receive`.
+temporarily stored in `C:/Users/JohnD/as2/pending`.
+Once the AS2 transfer is complete, the files are moved to `C:/Users/JohnD/as2/receive`
 
-At the same time, any file with the name ending with `.exe` uploaded by
-account `janer` is rejected.
+The files received by the `janer` account are temporarily stored in `C:/Users/JaneR/as2/pending` and then moved into `C:/Users/JaneR/as2/receive`.
+
+At the same time, any file with a name ending in `.exe` uploaded by account `janer` is rejected.
 
 ..  note::
     Encrypted received messages should be encrypted using an RSA key.
-    DSA public key based encryption is not supported.
+    DSA public key-based encryption is not supported.
     Contact us if you need to encrypt AS2 messages using DSA.
 
 Non-authenticated AS2 messages are supported and the account name will match
