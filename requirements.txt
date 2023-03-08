@@ -2,3 +2,5 @@ sphinx-rtd-theme == 1.0.0
 sphinx == 1.8.5
 # With versin 0.18.1 the admonitions are overlapping.
 docutils == 0.17.1
+markupsafe == 1.1.1
+jinja2 == 2.11.3
