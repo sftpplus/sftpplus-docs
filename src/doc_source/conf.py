@@ -1,4 +1,8 @@
+import os
+import sys
 
+# This is needed to get access to the chevah/server example code.
+sys.path.append(os.path.abspath('../../'))
 
 extensions = [
     'sphinx.ext.intersphinx',
