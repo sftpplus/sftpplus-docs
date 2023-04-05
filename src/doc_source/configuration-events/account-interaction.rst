@@ -6,7 +6,8 @@ The `account-interaction` event handler is used to detect when one account opera
 It can detect files that are directly configured to an account or inherited from the group.
 It detects any file, recursively, both in the home folder path as well as in any shared virtual directories.
 
-It will emit the event with ID `20193` for each operation on any file available to other accounts.
+It will emit the event with ID `20193` for each operation on any file available to other accounts,
+as long as those accounts are enabled.
 It will not emit the event `20193` for itself.
 
 Events are only emitted for file operations.

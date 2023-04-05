@@ -26,7 +26,7 @@ SFTPPlus can also be executed in Windows Server native container and we will
 update this documentation soon.
 
 As the Docker container environment is a bit different than a normal Unix
-daemon, minor configuration changes are required to make full use of the
+environment, minor configuration changes are required to make full use of the
 infrastructure provided by a Docker container.
 
 The SFTPPlus process can be started in the foreground,

@@ -1260,7 +1260,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File %(path)s was successfully removed as it was older than %(age)s seconds.
-:Groups: process, file-operation, success
+:Groups: file-operation, monitor, success
 :From version: 3.52.0
 :To version: None
 :Description: None
@@ -1275,7 +1275,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to remove %(path)s, which was older than %(age)s seconds. %(details)s
-:Groups: process, failure, file-operation
+:Groups: file-operation, failure, monitor
 :From version: 3.52.0
 :To version: None
 :Description: None
@@ -1701,7 +1701,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File %(path)s was not modified in the last %(age)s seconds.
-:Groups: process, file-operation, informational
+:Groups: file-operation, informational, monitor
 :From version: 3.5.0
 :To version: None
 :Description: None
@@ -2607,7 +2607,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File "%(path)s" was modified in monitor %(name)s.
-:Groups: file-operation, process, informational, monitor
+:Groups: file-operation, informational, monitor
 :From version: 2.10.0
 :To version: None
 :Description: None.
@@ -2622,7 +2622,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File "%(from_path)s" was renamed in monitor %(name)s to "%(to_path)s".
-:Groups: file-operation, process, informational, monitor
+:Groups: file-operation, informational, monitor
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -2640,7 +2640,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Folder "%(from_path)s" was renamed in monitor %(name)s to "%(to_path)s".
-:Groups: file-operation, process, informational, monitor
+:Groups: file-operation, informational, monitor
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -2661,7 +2661,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File "%(path)s" was created in monitor %(name)s.
-:Groups: file-operation, process, informational, monitor
+:Groups: file-operation, informational, monitor
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -2676,7 +2676,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Folder "%(path)s" was created in monitor %(name)s.
-:Groups: file-operation, process, informational, monitor
+:Groups: file-operation, informational, monitor
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -2691,7 +2691,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File "%(path)s" was deleted in monitor %(name)s.
-:Groups: file-operation, process, informational, monitor
+:Groups: file-operation, informational, monitor
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -2706,7 +2706,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Folder "%(path)s" was deleted in monitor %(name)s.
-:Groups: file-operation, process, informational, monitor
+:Groups: file-operation, informational, monitor
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -2825,7 +2825,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File "%(path)s" exists in the monitor %(name)s.
-:Groups: file-operation, process, informational, monitor
+:Groups: file-operation, informational, monitor
 :From version: 3.6.0
 :To version: None
 :Description: None
@@ -2840,7 +2840,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Folder "%(path)s" exists in the monitor %(name)s.
-:Groups: file-operation, process, informational, monitor
+:Groups: file-operation, informational, monitor
 :From version: 3.6.0
 :To version: None
 :Description: None
@@ -3094,7 +3094,7 @@ Generic and server-side common functionality
 :Groups: authenticated, informational
 :From version: 4.25.0
 :To version: None
-:Description: Emitted when one account perfroms a file transfer operation on a file accesible to another account.
+:Description: Emitted when one account performs a file transfer operation on a file accessible to another account.
 :Data:
   :account_name: The name of the other account that also has access to this file.
 
@@ -5159,6 +5159,12 @@ FTP protocol
 
 
   :encryption: The cipher suite used to protect the command channel.
+
+
+
+
+
+
 
 
 
@@ -12363,6 +12369,12 @@ SSH protocol
 
 
 
+
+
+
+
+
+
 HTTP/HTTPS protocol
 ===================
 
@@ -15786,6 +15798,28 @@ HTTP/HTTPS protocol
 
 
 
+40057
+^^^^^
+
+
+:Message: Internal error during HTTP/HTTP service processing for "%(uri)s". "%(details)s"
+:Groups: failure-critical, failure, session
+:From version: 4.29.0
+:To version: None
+:Description: None
+:Data:
+  :uri: The page that generated this error.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16494,6 +16528,12 @@ HTTP/HTTPS protocol
 
 Management and Local Manager Events
 ===================================
+
+
+
+
+
+
 
 
 
@@ -20197,6 +20237,12 @@ Management and Local Manager Events
 
 Transfer and client-side functionality
 ======================================
+
+
+
+
+
+
 
 
 

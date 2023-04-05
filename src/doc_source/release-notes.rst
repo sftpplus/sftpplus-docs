@@ -7,6 +7,46 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.29.0, 2023-04-06
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure the event handler `data_filter` option using multiple
+  filtering rules. The configured rules are applied in conjunction (all of
+  them have to match). [#6152]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* When the `ssl_certificate_authority` is configured with an expired
+  certificate, the component using the configured CA now fails to start and an
+  explicit error message is returned. [tls] [#6102-1]
+* The expired root CA certificates from the SFTPPlus predefined list of CA
+  certificates like `${MICROSOFT_IT_CA}`, `${LETS_ENCRYPT_X3_CA}`, or
+  `${GO_DADDY_G2_G1}` are now ignored. This allows you to continue using the
+  predefined list, even if one of the root certificates is now expired. [tls]
+  [#6102]
+* The events emitted by the local filesystem monitor service are now associated
+  with the service that triggered them. In previous versions, the events
+  weren't associated to any SFTPPlus component. [#6126-1]
+* The account interaction event handler no longer emits events for accounts
+  that are disabled. [server-side] [#6126]
+* The FTP/FTPS location/client can now handle multi-line authentication
+  responses. This was a regression introduced in version 4.28.0.
+  [client-side][ftp][ftps] [#6156]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* AIX support was removed. For existing AIX customers, older versions of
+  SFTPPlus 4 are still supported on AIX 7.1 and newer. [#6089]
+
+
 Version 4.28.0, 2023-03-08
 --------------------------
 

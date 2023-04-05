@@ -180,8 +180,8 @@ specific location, use the `-c` or `--config=` argument::
     ./bin/admin-commands.sh start --config=/path/to/CONFIGURATION_FILE
 
 
-Running SFTPPlus daemon/service under an unprivileged account
--------------------------------------------------------------
+Running SFTPPlus service under an unprivileged account
+------------------------------------------------------
 
 Like any other OS process, the main process of SFTPPlus runs
 under an operating-system account.

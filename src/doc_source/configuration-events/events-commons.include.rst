@@ -165,12 +165,12 @@ data_filter
 
 :Default value: ''
 :Optional: Yes
-:Values: * Comma separated list of data member name and filter expression.
+:Values: * Comma-separated list of data member names and filter expressions.
+         * Multiple expressions, one per line (Since 4.29.0)
          * Leave empty to handle all events.
 :From version: 3.22.0
 :Description:
-    Comma separated definition with name of attribute data member and
-    the targeted matching expression.
+    Comma separated definition with the name of attribute data member and the targeted matching expression.
 
     Data member names are configured with insensitive cases.
 
@@ -178,21 +178,26 @@ data_filter
     :doc:`matching expression documentation.
     </configuration/matching-expression>`
 
-    The following example will extract the to be matched/filtered value
-    from the `path` data member of the event.
-    The extracted value is then matched against the ``*/folderA/*`` globbing
-    expression::
+    The following example will extract the value to be matched/filtered from the `path` data member of the event.
+    The extracted value is then matched against the ``*/folderA/*`` globbing expression::
 
         [event-handlers/b904ed23-a234-4ccf-8abd-edcae4d3324f]
         data_filter = path, */folderA/*
 
-    See :doc:`the usage instructions </guides/event-handlers>` for
-    more operational details.
+    See :doc:`the usage instructions </guides/event-handlers>` for more operational details.
 
-    You can filter only based on a single data member with a single
-    matching expression.
+    You can filter based on multiple data members using multiple rules.
+    Each rule is defined on a separate line.
 
-    Leave it empty to not filter based on the event's attached data.
+    In the following example, events are triggered only if they are uploaded into the directory named ``reports-A`` with a size of 0 bytes (empty file)::
+
+        [event-handlers/b904ed23-a234-4ccf-8abd-edcae4d3324f]
+        data_filter =
+            path, */reports-A/*
+            size, 0
+
+    Leave this configuration empty to not filter based on the event's attached data,
+    and handle events regardless of their data attributes.
 
 
 fail_after_errors

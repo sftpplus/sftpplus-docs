@@ -12,13 +12,19 @@ Installing SFTPPlus consists of
 unpacking the archive, initializing the configuration, and generating the
 SSH keys and the SSL key / certificate pair to be used by the product.
 
-The included default configuration requires the creation of a system
-account, named `sftpplus`, under which the SFTPPlus process is executed.
+The included default configuration requires the creation of a system account,
+usually named `sftpplus`, under which the SFTPPlus process is executed.
+This is a special type of OS user also known as a service account.
 
 Optionally, you may choose to start SFTPPlus as `root`,
 especially if you want it to authenticate operating system users.
-The `sftpplus` user is still required in order to drop privileges
+The service account is still required in order to drop privileges
 for all other operations.
+
+This dedicated OS user should not be used in any other way,
+doesn't require a password to be set for it,
+and should not be available through SFTPPlus services
+even if authenticating operating system users is enabled.
 
 To have SFTPPlus started at boot, you can use one of the included
 unit, init, or service files.

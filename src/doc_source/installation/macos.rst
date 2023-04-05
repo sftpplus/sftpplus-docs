@@ -12,12 +12,18 @@ Installing SFTPPlus consists of
 unpacking the archive, initializing the configuration, and generating the
 SSH keys and the SSL key and certificate to be used by the product.
 
-The included default configuration requires the creation of a system
-account, named `sftpplus`, under which the SFTPPlus process is executed.
+The included default configuration requires the creation of a system account,
+usually named `sftpplus`, under which the SFTPPlus process is executed.
+This is a special type of OS user also known as a service account.
 
 Optionally, you may choose to start SFTPPlus as `root`,
-but the `sftpplus` user is still required in order to drop privileges
+but the service account is still required in order to drop privileges
 after starting up.
+
+This dedicated OS user should not be used in any other way,
+doesn't require a password to be set for it,
+and should not be available through SFTPPlus services
+even if authenticating operating system users is enabled.
 
 To have SFTPPlus launched at boot, you may use the included plist file.
 
@@ -187,8 +193,8 @@ Edit this file with your favourite editor, e.g. `vi`::
 The sample job definition file assumes that SFTPPlus is installed in
 the `/Library/sftpplus` directory.
 Depending on where the job definition is stored, it will be treated as a
-daemon or an agent.
-In order to have SFTPPlus act as a global daemon, launching each
+service or an agent.
+In order to have SFTPPlus act as a global service, launching each
 time the macOS system starts, you need to copy it in the appropriate place::
 
     sudo cp bin/sftpplus-mft.plist /Library/LaunchDaemons/sftpplus.plist

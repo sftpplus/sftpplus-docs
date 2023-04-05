@@ -9,7 +9,6 @@ Installation and Upgrade Instructions
     linux
     linux-advanced
     macos
-    aix
     troubleshooting
     upgrade
     uninstall
