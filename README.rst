@@ -11,7 +11,7 @@ There is an `update-docs.sh` script that should be called, while the
 
 You should push the changes on the `main` branch.
 The main branch will be always updated with the latest release.
-You should also create a version dedicate branch with the format `v4-18-0`
+You should also create a version dedicated branch with the format `v4-18-0`
 and push the changes for that version.
 
 To build the documentation you need a Python environment.
