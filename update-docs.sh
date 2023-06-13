@@ -9,7 +9,7 @@ cd $1
 SERVER_ROOT=`pwd`
 
 ./pythia.sh documentation_website
-cp -r build-py3r/doc_source $DOCS_ROOT/src/
+cp -r build-py3/doc_source $DOCS_ROOT/src/
 cp extension/* $DOCS_ROOT/extension/
 cp -r build-py3/lib/python3.8/site-packages/sftpplus_website/sphinx $DOCS_ROOT
 

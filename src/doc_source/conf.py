@@ -43,7 +43,7 @@ extensions = [
     ]
 
 html_context = {
-"canonical_site": "https://www.sftpplus.com/documentation/sftpplus/latest/",
 "wip_redirect": "",
 "robots": "noindex, nofollow",
+"canonical_site": "https://www.sftpplus.com/documentation/sftpplus/latest/",
 }
