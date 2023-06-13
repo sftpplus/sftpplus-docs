@@ -3,8 +3,8 @@
 """
 Helpers to create the documentation pages.
 """
-from sftpplus_website import MODULE_PATH
 from brink.pavement_commons import pave
+from sftpplus_website import MODULE_PATH
 
 
 def _create_html(arguments=None, source=None, target=None):
@@ -36,11 +36,7 @@ def _create_html(arguments=None, source=None, target=None):
 
 
 def _create_configuration(
-        destination, project, version, themes_path,
-        theme_name='standalone', intersphinx_mapping=None,
-        copyright='Chevah Team',
-        html_context=None,
-        extra_configuration='',
+    destination, project, version, theme_name='standalone', html_context=None,
         ):
     """
     Generates the configuration files for creating Sphinx based
@@ -49,15 +45,14 @@ def _create_configuration(
     Configuration file is stored in 'destination' file, and should
     be named 'conf.py'.
     """
-    if intersphinx_mapping is None:
-        intersphinx_mapping = "{}"
 
     # These are the variables injected in the Jinja template.
     html_context_values = {
         'wip_redirect': '',
         'robots': 'noindex, nofollow',
-        'canonical_site': 'https://www.sftpplus.com/documentation/sftpplus/latest/',
-    }
+        'canonical_site': (
+            'https://www.sftpplus.com/documentation/sftpplus/latest/'),
+        }
     if html_context:
         html_context_values.update(html_context)
     html_context_parts = ['html_context = {']
@@ -82,7 +77,6 @@ pygments_style = 'sphinx'
 smartquotes = False
 html4_writer = False
 html_experimental_html5_writer = True
-intersphinx_mapping = %(intersphinx_mapping)s
 templates_path = ['%(themes_path)s']
 html_static_path = ['_static']
 html_theme_path = ['%(themes_path)s']
@@ -98,26 +92,28 @@ primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    u'%(project)s-%(version)s',
-    u'%(project)s Documentation',
-    u'%(copyright)s',
+    '%(project)s-%(version)s',
+    '%(project)s Documentation',
+    '%(copyright)s',
     )]
 pdf_stylesheets = ['sphinx', 'kerning', 'a4']
 pdf_use_toc = False
 pdf_toc_depth = 2
 
+extensions = [
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.autodoc',
+    ]
+
 %(html_context)s
-%(extra_configuration)s
 """ % (  # Indentation here is strange, since we use multi-line string.
         {
             'theme_name': theme_name,
             'project': project,
             'version': version,
-            'intersphinx_mapping': intersphinx_mapping,
-            'copyright': copyright,
-            'themes_path': themes_path,
+            'copyright': 'ProAtria Team',
+            'themes_path': pave.fs.join([MODULE_PATH, 'sphinx']),
             'html_context': html_context_raw,
-            'extra_configuration': extra_configuration,
             }
         )
 
@@ -125,17 +121,15 @@ pdf_toc_depth = 2
         conf_file.write(content)
 
 
-def generate_documentation(
-    product_name='UNNAMED-PRODUCT',
-    version='0.0.1dev0',
-    copyright='No copyright.',
+def build_documentation(
+    project,
+    version,
     arguments=None,
     theme='standalone',
-    extra_configuration='',
     html_context=None,
         ):
     """
-    Generate project documentation and return exit code.
+    Build project documentation and return exit code.
 
     To re-build the whole documentation use ['-a', '-E', '-n']
     To test the documentation use ['-a', '-E', '-W', '-N', '-n']
@@ -145,13 +139,10 @@ def generate_documentation(
 
     _create_configuration(
         destination=[pave.path.build, 'doc_source', 'conf.py'],
-        project=product_name,
+        project=project,
         version=version,
-        copyright=copyright,
-        themes_path=pave.fs.join([MODULE_PATH, 'sphinx']),
         theme_name=theme,
         html_context=html_context,
-        extra_configuration=extra_configuration,
         )
 
     destination = [pave.path.build, 'doc', 'html']

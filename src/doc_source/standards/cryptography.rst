@@ -54,7 +54,7 @@ the following algorithms are enabled::
 This list provides maximum compatibility with existing deployments while avoiding deprecated ciphers.
 
 SFTPPlus uses the OpenSSL library provided by the operating system,
-with some exceptions, most notably Windows, macOS, AIX, and generic Linux.
+with some exceptions, most notably Windows, macOS, and generic Linux.
 The OpenSSL version included in your operating system might not provide
 all the ciphers which are required by older SSL/TLS versions of the standard.
 This is valid especially for cryptographic methods which in recent years were
@@ -110,15 +110,10 @@ On macOS, SFTPPlus uses embedded OpenSSL 1.1.1 libraries.
 Keep your SFTPPlus deployments on macOS always updated,
 to benefit from upstream security updates for the bundled OpenSSL libraries.
 
-The AIX version of SFTPPlus uses embedded OpenSSL 1.0.2 libraries,
-patched with the latest security updates beyond the publicly-available fixes.
-Keep your SFTPPlus deployments on AIX always updated,
-to benefit from upstream security updates for the bundled OpenSSL libraries.
-
 The above list is not comprehensive and comes with no guarantee.
 Check with support@proatria.com for further info.
 
-Last updated for release 4.25.0 on November 04, 2022.
+Last updated for release 4.30.0 on April 29, 2023.
 
 
 File formats
@@ -418,20 +413,19 @@ Two-factor / 2-step authentication
 TOTP - Time-Based One-Time Passwords
 ------------------------------------
 
-The Time-Based One-Time Password (TOTP) authentication method adds an
-extra layer of security on top of the usual username/password credentials.
+The Time-Based One-Time Password (TOTP) authentication method adds an extra layer of security on top of the usual username/password credentials.
 
 A unique code valid for a limited number of seconds is used for validation.
 
-The code is generated using helper applications like Google Authenticator or
-FreeOTP.
+The code is generated using helper applications like Google Authenticator or FreeOTP.
 
-To use a unique password per session, this unique code has to be added
-at the end of the regular password.
+To use a unique password per session, this unique code has to be added at the end of the regular password.
 By appending the unique code to the regular password,
 the new method of authentication is still compatible with the traditional
 username and password authentication system.
 No extra changes are required for the file transfer client.
+
+This implements a two factor authentication method (2FA) in which both the password and the unique code are used to authenticate the connection.
 
 ..  note::
     Once a unique TOTP code is used to authenticate successfully, it is
@@ -489,8 +483,7 @@ The limit applies to both SFTPPlus accounts
 and accounts authenticated via OS, LDAP, HTTP API,
 or other methods.
 
-These limits prevent denial of service attacks, and mitigate
-other types of attacks.
+These limits prevent denial of service attacks and mitigate other types of attacks.
 
 We recommend using passwords no longer than 128 characters.
 This allows using TOTP and other multi-factor authentication methods

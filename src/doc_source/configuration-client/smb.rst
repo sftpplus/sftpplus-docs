@@ -51,7 +51,7 @@ UNC paths can be translated into a format that is supported by SFTPPlus.
 
 The goal is to handle Windows Share / SMB shares paths in a way that is consistent with accessing an FTP, SFTP or HTTP path.
 
-For example, for handling a path like `\\qafs1.smb.example.com\D$\user-files\johnD` the configuration will look like this:
+For example, for handling a path like ``\\qafs1.smb.example.com\D$\user-files\johnD`` the configuration will look like this:
 
 * `qafs1.smb.example.com` - defined as part of the location's "address"
 * `/D$/user-files/johnD` - defined as part of transfer's source or destination path

@@ -1,8 +1,12 @@
-{# `base.html` is generated and copied over by `./paver.sh`. #}
+{# `base.html` is generated and copied over by `./brink.sh`. #}
 {%- extends "base.html" %}
 
+{% block head_title %}
+  {{ title|striptags|e }} | {{ project }} Documentation
+{% endblock %}
+
 {% block extrahead %}
-  <meta class="swiftype" name="title" data-type="string" content="{{ title }}" />
+  <meta class="swiftype" name="title" data-type="string" content="{{ title|striptags|e }}" />
 
   <meta name="robots" content="{{ robots }}" />
   <link rel="canonical" href="{{ canonical_site }}{{ pagename }}{{ file_suffix }}" />
@@ -18,10 +22,6 @@
 
 
   {%- block linktags %}{%- endblock %}
-{% endblock %}
-
-{% block head_title %}
-  {{ title }} | {{ project }} Documentation
 {% endblock %}
 
 {% block header %}

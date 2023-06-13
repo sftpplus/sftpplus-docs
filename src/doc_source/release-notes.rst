@@ -7,6 +7,61 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.30.1, 2023-06-13
+--------------------------
+
+Version 4.30.0 was released on 2023-06-09 as a release candidate.
+
+
+New Features
+^^^^^^^^^^^^
+
+* When updating or rolling back SFTPPlus using the dedicated scripts in `bin/`,
+  it's now possible to have multiple automatic backups in
+  `/srv/sftpplus_backups`. [#6012]
+* The Dashboard section of the Web Administration Console now lists all failed
+  components (services, transfers, event handlers, etc). [manager] [#6080]
+* The Web Administration Console now supports access via a reverse proxy with
+  URL rewrites. [manager] [#6242]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* SFTPPlus can now receive over the AS2 protocol files sent using multi-line
+  headers. In previous versions, a `boundary` error was raised in such
+  instances, for example when the multi-part header was defined on multiple
+  lines. [server-side][as2] [#5795]
+* An informational error message is now raised when the `--ssh-server-identity
+  set-on-first-connection` command line option is used for the `client-shell`
+  CLI. The `set-on-first-connection` value is not supported for the CLI. In
+  previous versions, an internal error was raised. [client-side][sftp] [#6190]
+* The page listing the accounts now only shows TOTP as enabled for accounts
+  that have it enabled. In previous versions, due to a defect, all accounts
+  were listed as having TOTP enabled. [manager] [#6234]
+* Support was added for paths longer than 255 characters on Windows. A single
+  filename is still limited to 255 characters at most. However, the combined
+  path for the filename and its parents can now be longer than 255 characters.
+  [#6245]
+* A transfer no longer skips pulling a file from a remote location when the
+  connection is lost just before starting to transfer the file. The failed file
+  transfer is now retried even when failing in this way. In previous versions,
+  a transfer failing in these particular conditions was skipped.
+  [client-side] [#6247]
+* When receiving AS2 files via the SFTPPlus AS2 server, besides having the
+  temporary files stored into a separate temporary folder, the files being
+  transferred now also have temporary file extensions.
+  [server-side][as2][security] [#6252]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `size` data attribute associated with the `20175` event emitted when
+  a file is rotated is now always a text value. In previous versions,
+  it was either a number or a text value. [#6121]
+
+
 Version 4.29.0, 2023-04-06
 --------------------------
 
@@ -104,7 +159,7 @@ Version 4.27.0, 2023-02-14
 New Features
 ^^^^^^^^^^^^
 
-* The administration web console now allows authentication using the Azure AD
+* The Web Administration Console now allows authentication using the Azure AD
   method. [manager] [#4155]
 * The `permissions` configuration options for roles now allow defining a
   read-only permission for SFTPPlus components such as services, transfers, and
@@ -123,7 +178,9 @@ New Features
 * You can now associate operating system groups to SFTPPlus roles for the
   authenticated administrators. [manager] [#6036]
 * The FTP and FTPS client locations can now be configured to use the IP address
-  returned by the PASV command. In previous versions, the IP address for the
+  returned by the PASV command using the `ignore_passive_address` configuration
+  option.
+  In previous versions, the IP address for the
   data channel was ignored. Instead, the address configured for the command
   channel was used.
   This was a regression introduced in version 3.52.0.

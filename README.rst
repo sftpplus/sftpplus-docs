@@ -14,8 +14,7 @@ The main branch will be always updated with the latest release.
 You should also create a version dedicated branch with the format `v4-18-0`
 and push the changes for that version.
 
-To build the documentation you need a Python environment.
-(python3 upgrade coming soon)::
+To build the documentation you need a Python3.8 (or newer) environment.::
 
     virtualenv venv
     . venv/bin/activate

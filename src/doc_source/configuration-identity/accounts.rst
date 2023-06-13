@@ -72,18 +72,16 @@ Once defined, the UUID should not be changed.
 For more information about UUIDs, please see
 :doc:`the dedicated UUID documentation </configuration/introduction>`.
 
-The following example defines two accounts, one called ``john``, which
-is an application type account, and another named ``anna``, which is an account
-authenticated by the operating system::
+The following example defines two accounts, one called ``john``,
+which is an application type account associated to the default group (explicit group not configured),
+and another named ``anna``, which is an account authenticated by the operating system and it has explicit association with 2 groups::
 
     [accounts/92ad5b32-d8d7-4ed8-94e1-dbb9f01383f4]
     name = john
-    type = application
-    group = 9e3c5562-9b86-43da-a984-1d8751f2f060
     enabled = Yes
     password = $5$H9V1qKBj/2Xx7tTT$xEvdSQWQ94G3okDS2XCnJ580I2W7X
     home_folder_path = /path/to/john
-    permissions: read
+    permissions = read
 
     [accounts/745fff10-4370-4d75-a172-21819046c76f]
     name = anna
@@ -92,7 +90,7 @@ authenticated by the operating system::
     group = 01d2e30b-05f7, 9e3c5562-9b86
     enabled = Yes
     home_folder_path = /path/to/anna/files
-    permissions: inherit
+    permissions = inherit
 
 Each configuration option available for an account or a group is explained
 in the following sections.
@@ -114,7 +112,7 @@ For example, to add a new account named ``mark``::
     description = DESCRIPTION_OR_MORE_DETAILS
     home_folder_path = /PATH/TO/USER/HOME
     password = $5$H9V1qKBj/2Xx7tTT$xEvdSQWQ94G3okDS2XCnJ580I2W7X
-    permissions: read, write
+    permissions = read, write
 
 
 Application accounts configuration
@@ -839,7 +837,7 @@ multi_factor_authentication
     the `Google Authenticator Key URI Format
     <https://github.com/google/google-authenticator/wiki/Key-Uri-Format>`_.
 
-    More information on 2-step authentication is available in the
+    More information on 2-step / 2-factor (2FA) authentication is available in the
     :doc:`cryptography guide </standards/cryptography>` page.
 
 

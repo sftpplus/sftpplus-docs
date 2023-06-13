@@ -210,7 +210,7 @@ job definition file using the command::
 
 To stop SFTPPlus, use the following command::
 
-    sudo pkill sftpplus-service
+    sudo pkill -x sftpplus-service-supervisor
 
 In the case that there are problems starting the server, you can check
 the log files at ``/var/log/system.log`` and

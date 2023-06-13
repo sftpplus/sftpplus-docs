@@ -177,6 +177,7 @@ extra_data
 :Default value: Empty
 :Optional: Yes
 :Values: * JSON string with variables.
+         * Text with newline as the only non-printable characters.
          * EMPTY
 :From version: 3.38.0
 :Description:

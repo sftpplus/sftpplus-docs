@@ -131,7 +131,7 @@ email_body
 
 :Default value: ``[{timestamp.cwa_14051}] {message}{LF}{LF}{data_json}``
 :Optional: Yes
-:Values: * Plain text.
+:Values: * Plain text with newline as the only non-printable characters.
 :From version: 3.18.0
 :Description:
     Template used for the body of the sent email.

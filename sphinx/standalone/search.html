@@ -4,10 +4,15 @@ See basic/search.html to keep this up to date with latest sphinx version.
 
 {%- extends "layout.html" %}
 {% set title = _('Search') %}
-{% set script_files = script_files + ['_static/searchtools.js'] %}
+{%
+  set script_files = script_files + [
+    '_static/searchtools.js',
+    '_static/jquery.min.js',
+    '_static/language_data.js',
+    ]
+%}
 
 {% block extrahead %}
-  <script type="text/javascript" src="{{ pathto('_static/language_data.js', 1) }}"></script>
   {# this is used when loading the search index using $.ajax fails,
   such as on Chrome for documents on localhost #}
   <script type="text/javascript" id="searchindexloader"></script>

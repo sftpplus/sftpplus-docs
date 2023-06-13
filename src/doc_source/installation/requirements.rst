@@ -7,7 +7,6 @@ Supported Operating Systems
 
 * Windows 8, 10, 2012 Server, 2012R2 Server, 2016 Server, 2019 Server,
   2022 Server on x86_64.
-  On request, we can provide an x86 build for 32-bit Windows.
 
 * Red Hat Enterprise Linux 5, 6, 7, 8, 9 on x86_64.
   Version 5.11 (Final) is required on RHEL 5.
@@ -78,6 +77,10 @@ Software Requirements
 
 On Windows, there are no 3rd party dependencies, as the OpenSSL libraries
 are distributed together with the installation package.
+SFTPPlus on Windows should be installed on a path containing only ASCII characters,
+and the folder names should be less than 256 characters.
+The files handled by SFTPPlus can have longer path names and can include Unicode characters.
+The restriction is only for the SFTPPlus installation path.
 
 On Linux, the product typically uses the OpenSSL libraries available on the OS.
 As such, we recommend that a recent version of the OpenSSL libraries

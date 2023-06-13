@@ -274,8 +274,11 @@ In this case,
 the `AS2-From` value found in an AS2 message is only informative,
 but it is required in all messages by the AS2 standard.
 
-You add an AS2 partner by creating a normal SFTPPlus file transfer account.
+The AS2 messages should be sent using the `POST` HTTP request verb/method.
+The `HEAD` HTTP verb is provided as a way to validate the HTTP basic authentication credentials,
+without triggering any AS2 file transfer.
 
+You add an AS2 partner by creating a normal SFTPPlus file transfer account.
 
 While the AS2 messages are received, the partial files are stored in the home path as configured
 for each user, in a sub-directory defined by the `as2_pending_path` configuration.
@@ -336,7 +339,7 @@ configuration option::
     [accounts/758185de-d029]
     name = janer
     home_folder_path = C:/Users/JaneR
-    permissions:
+    permissions =
         allow-full-control
         *.exe, deny-full-control
 
@@ -462,7 +465,7 @@ In this example, public access will no longer be available after the
     group = 95373161-b944-4d70-af5e-cab1976cc535
 
     home_folder_path = /local/path/to/public/files
-    permissions:
+    permissions =
         allow-read, allow-list
         *.exe, deny-full-control
         /reports/, allow-write

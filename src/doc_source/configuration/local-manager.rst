@@ -104,3 +104,29 @@ For general information about configuring a service, please see the
 :doc:`services configuration page</configuration-server/index>`.
 
 .. include:: /configuration-server/service-http.include.rst
+
+
+base_url_path
+-------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Absolute URL path
+:From version: 4.30.0
+:Description:
+    When running behind a load balancer or a reverse proxy,
+    you can configure your proxy to access an SFTPPlus HTTP/HTTPS service using a custom base URL.
+
+    For example, with the default direct access, the SFTPPlus base URL is simply `/` (the root URL), and you access SFTPPlus as `https://localhost:10443/`
+
+    When using a reverse proxy, you want to access SFTPPlus using a custom URL such as `https://localhost:10443/company/product/`.
+    For this scenario, the configuration should be `base_url_path = /company/product`.
+
+    Relative path values are not supported.
+    This should be configured to an absolute path without trailing slashes.
+
+    Leave it empty when SFTPPlus is not behind a load balancer or when the reverse proxy is mirroring the SFTPPlus path structure.
+
+    ..  warning::
+        When this value is configured, direct access outside of the load balancer or the reverse proxy is no longer supported.
+        Once configured, the SFTPPlus manager console should only be accessed via the load balancer or proxy.

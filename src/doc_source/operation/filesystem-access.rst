@@ -13,6 +13,47 @@ While running on a specific operating system, it provides the extra features
 provided by that operating system.
 
 
+File and Folder Names
+---------------------
+
+The characters allowed in the file names handled by SFTPPlus have no restrictions from SFTPPlus,
+but the operating system under which SFTPPlus runs might impose certain restrictions on the file names.
+For example, on Linux the colon (:) character is allowed in a file name, while Windows will reject it.
+
+There is no limit on file name length imposed by SFTPPlus.
+For compatibility, it is recommended to use file names with less than 255 characters.
+This is a common limit imposed by the EXT4 filesystem on Linux or the NTFS filesystem on Windows.
+
+The full path of a file or directory, the name of the file itself together with all its parents and directory separators,
+can be longer than 255 characters.
+For compatibility, it is recommended to keep the total path length below 32.767 characters.
+
+
+Unix-like systems
+^^^^^^^^^^^^^^^^^
+
+Folder / file names that contain only space characters are fully supported on
+Unix-like systems: Linux and macOS.
+Names containing leading or trailing spaces are preserved as is.
+
+Names can contain ASCII characters or Unicode names encoded using UTF-8,
+with the exception for the forward-slash (/) or the null character.
+
+..  note::
+    If you require to handle names using a character encoding scheme other than `UTF-8`, please contact us.
+
+
+Windows
+^^^^^^^
+
+On Windows, leading and trailing spaces from file names are stripped by the operating system.
+Due to this, names with only space characters are converted into names with no characters, invalidating them.
+
+ASCII and Unicode characters are supported.
+The name of a file can't contain any of the following characters: `/ \ : * " ? < > |`
+This is a limit defined by the Windows operating system.
+
+
 File system permissions for application and operating system accounts
 ---------------------------------------------------------------------
 
@@ -437,33 +478,3 @@ When this occurs, a conflict is detected with the virtual path
 
 Administrators can mitigate this issue by ensuring that no real path
 exists with the same name as one of the configured virtual paths.
-
-
-File and Folder Names
----------------------
-
-
-Unix-like systems
-^^^^^^^^^^^^^^^^^
-
-Folder / file names that contain only space characters are fully supported on
-Unix-like systems: Linux and macOS.
-Names containing leading or trailing spaces are preserved as is.
-
-Names can contain ASCII characters or Unicode names encoded using UTF-8.
-Other character encoding schemes are not supported yet.
-
-..  note::
-    If you require to handle names using a character encoding scheme other
-    than `UTF-8`, please contact us.
-
-
-Windows
-^^^^^^^
-
-On Windows, leading and trailing spaces from file names are stripped by
-the operating system.
-Due to this, names with only space characters are converted into names with no
-characters, invalidating them.
-
-ASCII and Unicode characters are supported.

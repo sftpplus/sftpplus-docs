@@ -14,7 +14,7 @@ Initializing the configuration or the service account and groups
 is not required for an upgrade.
 
 When upgrading from version 4.26.0 or newer to the latest version
-on Linux, macOS, and AIX,
+on Linux and macOS,
 you can use the included ``bin/update.sh`` script
 providing as a parameter the latest SFTPPlus package for your OS.
 This takes care of all the necessary steps

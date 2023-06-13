@@ -38,16 +38,16 @@ Where:
 * ``_?`` - defines the installation directory.
 
 
-Uninstalling SFTPPlus on Linux, macOS, AIX
-==========================================
+Uninstalling SFTPPlus on Linux and macOS
+========================================
 
-To uninstall SFTPPlus on Linux / Unix systems, first make sure it is stopped.
+To uninstall SFTPPlus on Linux and macOS systems, first make sure it is stopped.
 Then save its configuration and logs, if relevant.
 
 You may use the ``bin/uninstall.sh`` script in the hierarchy of SFTPPlus files.
 Following examples assume paths typical for a default SFTPPlus installation.
 
-On Linux and AIX::
+On Linux::
 
     /opt/sftpplus/bin/uninstall.sh
 
@@ -88,10 +88,6 @@ On macOS::
     launchctl unload /Library/LaunchDaemons/sftpplus.plist
     rm /Library/LaunchDaemons/sftpplus.plist
 
-On AIX::
-
-    rm /etc/rc.d/rc2.d/S99sftpplus-mft /etc/rc.d/init.d/sftpplus-mft
-
 
 Removing SFTPPlus files
 -----------------------
@@ -102,7 +98,7 @@ files that might be useful later.
 The following commands remove all remaining SFTPPlus-related files
 from a typical installation path.
 
-On Linux and AIX::
+On Linux::
 
     rm -rf /opt/sftpplus
 
@@ -117,7 +113,7 @@ Removing SFTPPlus user and group
 Assuming the ``sftpplus`` user and group were added for running SFTPPlus,
 the following commands remove them.
 
-On Linux and macOS::
+On Linux::
 
     userdel sftpplus
 
@@ -126,12 +122,6 @@ On Linux and macOS::
     In that case, use::
 
         deluser sftpplus
-
-On AIX::
-
-    userdel sftpplus
-    rmgroup sftpplus
-
 
 On macOS::
 

@@ -5,7 +5,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: DEBUG: %(message)s
-:Groups: authenticated, informational
+:Groups: informational, authenticated
 :From version: 3.48.0
 :To version: None
 :Description: Event emitted when "debug" is enabled. This is a debug event only. This event should not be used for managed file transfer purposes.
@@ -16,7 +16,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Starting %(product_name)s - %(product_version)s.
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -34,7 +34,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Shutting down %(product_name)s - %(product_version)s.
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -52,7 +52,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Proxy connection received. Updating remote peer from %(host)s:%(port)s.
-:Groups: session, informational, operational
+:Groups: operational, session, informational
 :From version: 4.5.0
 :To version: None
 :Description: None
@@ -63,7 +63,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Startup process failed. %(details)s %(traceback)s
-:Groups: process, failure, failure-critical, operational
+:Groups: operational, process, failure, failure-critical
 :From version: 3.6.0
 :To version: None
 :Description: The process failed while starting a component.
@@ -74,7 +74,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Account "%(account_name)s" authenticated for "%(username)s" is disabled. Authenticated by %(method_name)s.
-:Groups: failure, session, failure-specific, operational
+:Groups: operational, session, failure, failure-specific
 :From version: 1.6.0
 :To version: 3.37.0
 :Description: None
@@ -95,7 +95,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Could not get protocol type for credentials.
-:Groups: failure, session, operational
+:Groups: operational, session, failure
 :From version: 1.6.0
 :To version: 3.0.0
 :Description: None
@@ -106,7 +106,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to start the service as current account. Could not drop process privileges to user "%(account)s". Make sure you are starting the process as "root" account and that user "%(account)s" exists. It is defined by the [services] account configuration options from the server configuration file. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -124,7 +124,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to switch user context to %(username)s. Make sure the server is started as an root or administration account.
-:Groups: failure, session, failure-high, operational
+:Groups: operational, session, failure, failure-high
 :From version: 1.6.0
 :To version: 3.3.0
 :Description: None
@@ -135,7 +135,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: User authenticated as %(account_kind)s account using %(credentials_kind)s credentials.
-:Groups: authenticated, success, operational
+:Groups: operational, authenticated, success
 :From version: 1.8.1
 :To version: 3.0.0
 :Description: None
@@ -153,7 +153,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to configure the process. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 3.1.0
 :To version: None
 :Description: None
@@ -164,7 +164,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Please configure "%(section)s" to listen on a port number in the range %(range_start)s - %(range_end)s. Current value %(port)s.
-:Groups: process, failure, operational
+:Groups: operational, process, failure
 :From version: 1.6.0
 :To version: 3.18.0
 :Description: The port was specified outside of allowed range.
@@ -188,7 +188,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: SFTPPlus Webadmin URL has an invalid value. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.6.0
 :To version: 3.0.0
 :Description: None
@@ -203,7 +203,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Could not check the remote SFTPPlus WebAdmin at "%(url)s". %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -221,7 +221,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: There is no SFTPPlus Webadmin installed at %(url)s
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -232,7 +232,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: SFTPPlus home folder for user %(username)s is empty.
-:Groups: failure, session, operational
+:Groups: operational, session, failure
 :From version: 1.6.0
 :To version: 3.0.0
 :Description: None
@@ -247,7 +247,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: New Let's Encrypt certificate for "%(domains)s" used for service "%(service)s".
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 3.40.0
 :To version: None
 :Description: None
@@ -265,7 +265,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to get a new Let's Encrypt certificate for "%(domains)s". %(details)s.
-:Groups: process, failure, failure-critical, operational
+:Groups: operational, process, failure, failure-critical
 :From version: 3.40.0
 :To version: None
 :Description: None
@@ -283,7 +283,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: SFTPPlus details for user %(username)s does not contain any home folder.
-:Groups: process, failure, operational
+:Groups: operational, process, failure
 :From version: 1.6.0
 :To version: 3.0.0
 :Description: None
@@ -294,7 +294,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: User home folder "%(path)s" is not within the root folder "%(root)s".
-:Groups: failure, failure-specific, operational
+:Groups: operational, failure, failure-specific
 :From version: 1.6.0
 :To version: None
 :Description: This is a compat error.
@@ -305,7 +305,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Port value must be an integer.
-:Groups: process, failure, failure-specific, operational
+:Groups: operational, process, failure, failure-specific
 :From version: 1.6.0
 :To version: 4.20.0
 :Description: None
@@ -316,7 +316,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to authenticate user "%(username)s" with "%(credentials_type)s" credentials. Possible typo in username. No authentication method was able to handle the credentials.
-:Groups: failure, session, failure-specific, operational
+:Groups: operational, session, failure, failure-specific
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -331,7 +331,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Property "%(property_name)s" for group "%(group_name)s" can not be inherited.
-:Groups: process, failure, failure-specific, operational
+:Groups: operational, process, failure, failure-specific
 :From version: 1.8.2
 :To version: None
 :Description: None
@@ -349,7 +349,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to read authorized SSH keys file "%(path)s". %(details)s
-:Groups: failure, failure-high, authenticated, operational
+:Groups: operational, authenticated, failure, failure-high
 :From version: 1.6.0
 :To version: 4.0.0
 :Description: None
@@ -364,7 +364,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Internal error. Unhandled error. %(details)s
-:Groups: process, failure, failure-critical, operational
+:Groups: operational, process, failure, failure-critical
 :From version: 3.6.0
 :To version: None
 :Description: None
@@ -375,7 +375,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: SFTPPlus global user "%(username)s" not allowed on this server.
-:Groups: failure, session, operational
+:Groups: operational, session, failure
 :From version: 1.6.0
 :To version: 3.0.0
 :Description: None
@@ -390,7 +390,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: SFTPPlus global user "%(username)s" allowed on this server.
-:Groups: session, success, operational
+:Groups: operational, session, success
 :From version: 1.6.0
 :To version: 3.0.0
 :Description: None
@@ -401,7 +401,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Could not authenticate against the remote SFTPPlus Webadmin at %(url)s
-:Groups: failure, session, operational
+:Groups: operational, session, failure
 :From version: 1.6.0
 :To version: 3.0.0
 :Description: None
@@ -412,7 +412,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Property "%(property_name)s" for group "%(group_name)s" can not be set as inherited.
-:Groups: process, failure, operational
+:Groups: operational, process, failure
 :From version: 1.8.2
 :To version: 3.18.0
 :Description: None
@@ -430,7 +430,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Got an unknown response from SFTPPlus Webadmin. %(details)s
-:Groups: failure, session, operational
+:Groups: operational, session, failure
 :From version: 1.6.0
 :To version: 3.0.0
 :Description: None
@@ -445,7 +445,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Could not get user configuration from the remote SFTPPlus Webadmin at %(url)s. %(details)s
-:Groups: failure, session, operational
+:Groups: operational, session, failure
 :From version: 1.6.0
 :To version: 3.0.0
 :Description: None
@@ -460,7 +460,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Invalid account configuration for "%(username)s". %(details)s
-:Groups: failure, session, failure-high, operational
+:Groups: operational, session, failure, failure-high
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -471,7 +471,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to initialize the SSL/TLS context. Using cert:%(cert)s key:%(key)s ca:%(ca)s crl:%(crl)s. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -495,7 +495,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Internal error. Unhandled logged error. %(reason)s %(details)s
-:Groups: process, failure, failure-critical, operational
+:Groups: operational, process, failure, failure-critical
 :From version: 3.7.0
 :To version: None
 :Description: None
@@ -506,7 +506,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Unknown protocol "%(protocol)s" for service "%(service_uuid)s".
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 1.6.0
 :To version: 4.20.0
 :Description: None
@@ -524,7 +524,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Connection failed. Retrying %(retries_left)s more times after %(delay)s seconds. %(details)s
-:Groups: failure, session, failure-high, operational
+:Groups: operational, session, failure, failure-high
 :From version: 3.9.0
 :To version: None
 :Description: None
@@ -542,7 +542,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to read the certificate revocation list located at "%(uri)s". %(details)s
-:Groups: failure, failure-high, authenticated, operational
+:Groups: operational, authenticated, failure, failure-high
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -553,7 +553,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Certificate revocation list located at "%(uri)s" and issued by "%(issuer)s" was successfully updated and has now %(count)s entries. Next publish advertised as %(next_publish)s. Next update advertised as %(next_update)s. Next update scheduled in %(update_seconds)s seconds for UTC %(update_datetime)s.
-:Groups: informational, authenticated, operational
+:Groups: operational, authenticated, informational
 :From version: 3.13.0
 :To version: None
 :Description: None
@@ -586,7 +586,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Reloading failed for certificate revocation list located at "%(uri)s". Next update scheduled in %(next_load)s seconds. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 3.14.0
 :To version: None
 :Description: None
@@ -604,7 +604,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: The operational audit report was successfully generated at %(path)s.
-:Groups: process, file-operation, success, operational
+:Groups: process, operational, success, file-operation
 :From version: 3.23.0
 :To version: None
 :Description: None
@@ -615,7 +615,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Invalid certificate "%(subject)s". %(details)s
-:Groups: failure, authenticated, operational
+:Groups: operational, authenticated, failure
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -630,7 +630,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to create configuration for service "%(service_name)s". %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.8.0
 :To version: 4.5.0
 :Description: None
@@ -641,7 +641,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Created missing account folder "%(path)s" with owner "%(owner)s" and group "%(group)s".
-:Groups: authenticated, success, operational
+:Groups: operational, authenticated, success
 :From version: 1.8.3
 :To version: None
 :Description: A note that the account had a missing required folder, and it was automatically created after a successful authentication.
@@ -662,7 +662,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to retrieve group. %(details)s
-:Groups: failure-critical, failure, authenticated, operational
+:Groups: operational, authenticated, failure, failure-critical
 :From version: 2.0.0
 :To version: None
 :Description: Error occurred while retrieving the group for new home folder.
@@ -677,7 +677,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to load the main configuration file for %(path)s. See previous error.
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 2.0.0
 :To version: 3.6.0
 :Description: Error occurred while loading the main configuration file.
@@ -692,7 +692,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Service "%(service_name)s" stopped with a failure. %(details)s
-:Groups: failure, failure-high, authenticated, operational
+:Groups: operational, authenticated, failure, failure-high
 :From version: 2.1.0
 :To version: 4.0.0
 :Description: Service was stopped with a failure.
@@ -710,7 +710,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Configuration changes stored in the local files.
-:Groups: authenticated, success, operational
+:Groups: operational, authenticated, success
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -721,7 +721,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Bad value for passive port range. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -736,7 +736,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: SFTPPlus global user "%(username)s" provided an invalid SSH key.
-:Groups: failure, session, operational
+:Groups: operational, session, failure
 :From version: 2.2.0
 :To version: 3.0.0
 :Description: None
@@ -751,7 +751,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to save configuration changes to the local files. Changes will be discarded after server restart. %(details)s
-:Groups: failure, failure-high, authenticated, operational
+:Groups: operational, authenticated, failure, failure-high
 :From version: 2.6.0
 :To version: None
 :Description: None
@@ -762,7 +762,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Successfully performing %(operation)s to "%(path)s" from "%(source_path)s".
-:Groups: process, success, operational
+:Groups: operational, process, success
 :From version: 3.43.0
 :To version: None
 :Description: None
@@ -780,7 +780,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to perform %(operation)s on "%(real_path)s". %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 3.43.0
 :To version: None
 :Description: None
@@ -795,7 +795,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Successfully executed "%(command)s". Exit code "%(exit_code)s". Output "%(output_log)s". Error "%(error_log)s".
-:Groups: process, success, operational
+:Groups: operational, process, success
 :From version: 3.47.0
 :To version: None
 :Description: None
@@ -825,7 +825,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to execute "%(command)s". %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 3.47.0
 :To version: None
 :Description: None
@@ -840,7 +840,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Startup command executed with output "%(output)s" and error "%(error)s" and exit code "%(exit_code)s".
-:Groups: process, success, operational
+:Groups: operational, process, success
 :From version: 1.6.0
 :To version: 4.0.0
 :Description: Called after executing the server startup command.
@@ -861,7 +861,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to execute startup command "%(command)s". %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.6.0
 :To version: 4.0.0
 :Description: Called when failing to execute the startup command.
@@ -879,7 +879,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Startup command "%(command)s" took more than "%(timeout)s" seconds to execute.
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 1.6.0
 :To version: 3.47.0
 :Description: Called when startup command took to long to execute
@@ -897,7 +897,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Internal error. Failed to get avatar for "%(username)s". %(details)s
-:Groups: failure-critical, failure, session, operational
+:Groups: operational, session, failure, failure-critical
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -915,7 +915,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Internal error. Failed to authenticate "%(name)s". %(details)s
-:Groups: failure-critical, failure, session, operational
+:Groups: operational, session, failure, failure-critical
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -926,7 +926,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed user configuration retrieval. Group "%(group_uuid)s" does not exists for account "%(account_name)s"
-:Groups: failure, session, failure-high, failure-specific, operational
+:Groups: session, operational, failure, failure-high, failure-specific
 :From version: 1.8.2
 :To version: 3.38.0
 :Description: None
@@ -937,7 +937,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed authentication. Group "%(group_uuid)s" does not exists for account "%(account_name)s"
-:Groups: failure, session, failure-high, operational
+:Groups: session, operational, failure, failure-high
 :From version: 1.8.2
 :To version: 3.0.0
 :Description: None
@@ -959,7 +959,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Missing special group with name "%(name)s". Please add it to your configuration. See documentation for more details about special groups.
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 1.8.2
 :To version: 4.0.0
 :Description: None
@@ -970,7 +970,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to set new password. %(details)s
-:Groups: failure, authenticated, operational
+:Groups: operational, authenticated, failure
 :From version: 3.42.0
 :To version: None
 :Description: None
@@ -981,7 +981,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to send log for %(logger_name)s. Error: %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.6.0
 :To version: 3.0.0
 :Description: None
@@ -999,7 +999,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Stopping %(family)s "%(name)s"%(kind)s due to too many failures.
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -1023,7 +1023,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to get home/root folder for account. %(details)s
-:Groups: failure, failure-high, authenticated, operational
+:Groups: operational, authenticated, failure, failure-high
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -1034,7 +1034,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to retrieve account details for "%(username)s".
-:Groups: failure, session, failure-high, operational
+:Groups: operational, session, failure, failure-high
 :From version: 1.6.0
 :To version: 3.0.0
 :Description: None
@@ -1049,7 +1049,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Server running under the same account under which it was started. If started as root or as an user with sudo access without passwords, it is highly recommended to configure the server to run under a dedicated account.
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -1060,7 +1060,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Operating system accounts authentication unavailable. Missing user impersonation capabilities.
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -1071,7 +1071,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Switching server process to "%(account_name)s" account.
-:Groups: process, success, operational
+:Groups: operational, process, success
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -1081,16 +1081,22 @@ Generic and server-side common functionality
 20072
 ^^^^^
 
-:Message: Cryptography: %(cryptography_library_version)s. Privileges: %(process_privileges)s
-:Groups: process, informational, operational
+:Message: Cryptography: %(cryptography_library_version)s. Working dir: "%(cwd)s". Privileges: %(process_privileges)s
+:Groups: operational, process, informational
 :From version: 1.6.0
 :To version: None
-:Description: Information about privileges of the process under which server is running.
+:Description: Information about process under which SFTPPlus runnes.
 :Data:
   :cryptography_library_version: Library used for cryptography and SSL/TLS protocols.
 
 
+  :cwd: The current working dirtory, used when relative paths are configured.
+
+
   :process_privileges: Details about the privileges available to the current process.
+
+
+  :python_version: The current Python version used by the process.
 
 
 
@@ -1100,7 +1106,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Creating root home folders for OS accounts is unavailable due to missing process permissions.
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -1111,7 +1117,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Retrieving home folder paths for OS accounts is unavailable due to missing process permissions.
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 1.8.2
 :To version: None
 :Description: None
@@ -1122,7 +1128,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Critical security error. The home folder "%(home_folder_path)s" might be in an inconsistent state. %(details)s
-:Groups: failure-critical, failure, authenticated, operational
+:Groups: operational, authenticated, failure, failure-critical
 :From version: 2.0.0
 :To version: None
 :Description: None
@@ -1137,7 +1143,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Service "%(service_name)s" started on "%(address)s:%(port)s" using "%(protocol)s" protocol.
-:Groups: authenticated, success, operational
+:Groups: operational, authenticated, success
 :From version: 1.8.0
 :To version: 4.0.0
 :Description: None
@@ -1161,7 +1167,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to start the "%(service_name)s" service. %(details)s
-:Groups: failure, failure-high, authenticated, operational
+:Groups: operational, authenticated, failure, failure-high
 :From version: 1.8.0
 :To version: 4.0.0
 :Description: None
@@ -1179,7 +1185,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Service "%(service_name)s" stopped.
-:Groups: authenticated, success, operational
+:Groups: operational, authenticated, success
 :From version: 1.8.0
 :To version: 4.0.0
 :Description: None
@@ -1194,7 +1200,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Current resource usage: cpu=%(cpu_percent)s%% mem-res=%(memory_resident)s mem-virt=%(memory_virtual)s conn=%(connection_count)s file=%(file_count)s thread=%(thread_count)s cpus=%(global_cpus)s mem-available=%(global_memory_available)s.
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 3.44.0
 :To version: None
 :Description: None
@@ -1224,7 +1230,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Resource usage trigger: %(details)s.
-:Groups: process, failure, operational
+:Groups: operational, process, failure
 :From version: 3.44.0
 :To version: None
 :Description: None
@@ -1242,7 +1248,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: No configured authentication for "%(username)s" of type "%(credentials_type)s".
-:Groups: failure, session, failure-high, failure-specific, operational
+:Groups: operational, session, failure, failure-high, failure-specific
 :From version: 4.0.0
 :To version: 4.26.0
 :Description: None
@@ -1260,7 +1266,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File %(path)s was successfully removed as it was older than %(age)s seconds.
-:Groups: file-operation, monitor, success
+:Groups: monitor, success, file-operation
 :From version: 3.52.0
 :To version: None
 :Description: None
@@ -1275,7 +1281,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to remove %(path)s, which was older than %(age)s seconds. %(details)s
-:Groups: file-operation, failure, monitor
+:Groups: monitor, failure, file-operation
 :From version: 3.52.0
 :To version: None
 :Description: None
@@ -1290,7 +1296,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to record analytics event. %(details)s
-:Groups: process, failure, operational
+:Groups: process, operational, failure
 :From version: 4.0.0
 :To version: None
 :Description: None
@@ -1301,7 +1307,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: User successfully updated own password.
-:Groups: authenticated, success, operational
+:Groups: operational, authenticated, success
 :From version: 3.43.0
 :To version: None
 :Description: None
@@ -1312,7 +1318,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: User failed to update own password. %(details)s
-:Groups: failure, authenticated, operational
+:Groups: operational, authenticated, failure
 :From version: 3.43.0
 :To version: None
 :Description: None
@@ -1323,7 +1329,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File "%(source_path)s" was successfully amended to %(path)s.
-:Groups: process, file-operation, informational
+:Groups: process, informational, file-operation
 :From version: 3.22.0
 :To version: None
 :Description: None
@@ -1338,7 +1344,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to amend file "%(path)s" from %(source_path)s. %(details)s
-:Groups: process, file-operation, failure-high, failure
+:Groups: process, file-operation, failure, failure-high
 :From version: 3.22.0
 :To version: None
 :Description: None
@@ -1353,7 +1359,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Can not delete default group "%(group_uuid)s".
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 2.1.0
 :To version: 4.0.0
 :Description: None
@@ -1368,7 +1374,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Unknown account type "%(account_type)s" for "%(account_uuid)s".
-:Groups: failure, failure-high, failure-specific, operational
+:Groups: operational, failure, failure-high, failure-specific
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -1386,7 +1392,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Unknown type "%(type)s" for section "%(uuid)s".
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -1404,7 +1410,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to get home folder for account. %(details)s
-:Groups: failure, session, failure-high
+:Groups: session, failure, failure-high
 :From version: 2.0.0
 :To version: 3.0.0
 :Description: None
@@ -1419,7 +1425,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Invalid umask value "%(umask)s". %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 2.0.1
 :To version: 3.6.0
 :Description: None
@@ -1437,7 +1443,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Logger "%(logger_name)s" of type "%(type)s" was created.
-:Groups: process, success, operational
+:Groups: operational, process, success
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: None
@@ -1452,7 +1458,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Logger "%(logger_name)s" was removed.
-:Groups: process, success, operational
+:Groups: operational, process, success
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: None
@@ -1467,7 +1473,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Stored hashed password for "%(username)s" is not valid. %(details)s
-:Groups: failure, session, failure-high, operational
+:Groups: operational, session, failure, failure-high
 :From version: 2.2.0
 :To version: 4.0.0
 :Description: None
@@ -1485,7 +1491,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Internal error. Failed to start the logger "%(logger_name)s". %(details)s
-:Groups: process, failure, failure-critical, operational
+:Groups: operational, process, failure, failure-critical
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: None
@@ -1500,7 +1506,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Internal error. Failed to stop the logger "%(logger_name)s". %(details)s
-:Groups: process, failure, failure-critical, operational
+:Groups: operational, process, failure, failure-critical
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: None
@@ -1515,7 +1521,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to start the logger "%(logger_name)s".
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: None
@@ -1530,7 +1536,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to stop the logger "%(logger_name)s".
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: None
@@ -1545,7 +1551,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Internal error. Failed at the logger "%(logger_name)s". %(details)s
-:Groups: process, failure, failure-critical, operational
+:Groups: operational, process, failure, failure-critical
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: None
@@ -1560,7 +1566,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Event handler "%(name)s" can not be started without a configured path.
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 2.1.0
 :To version: 3.40.0
 :Description: None
@@ -1575,7 +1581,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Can not delete configuration "%(uuid)s" as it is still used by: %(usage)s.
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 2.6.0
 :To version: None
 :Description: None
@@ -1593,7 +1599,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File "%(path)s" was successfully fallback "%(mode)s" to %(destinations)s.
-:Groups: file-operation, informational, authenticated
+:Groups: authenticated, informational, file-operation
 :From version: 3.5.0
 :To version: None
 :Description: None
@@ -1611,7 +1617,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to fallback "%(mode)s" file "%(path)s" to %(destinations)s. %(details)s
-:Groups: file-operation, failure, failure-high, authenticated
+:Groups: authenticated, file-operation, failure, failure-high
 :From version: 3.5.0
 :To version: None
 :Description: None
@@ -1626,7 +1632,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Starting %(family)s "%(name)s" of type %(type)s.
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 2.9.0
 :To version: 3.0.0
 :Description: None
@@ -1647,7 +1653,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to perform %(action)s in db "%(database_name)s". %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 3.0.0
 :To version: 4.0.0
 :Description: None
@@ -1668,7 +1674,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Invalid data for database entry. Columns %(columns)s. %(errors)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: Database entry is invalid.
@@ -1686,7 +1692,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Stop sending logs to logging database due to too many failures.
-:Groups: failure, failure-high, failure-specific, operational
+:Groups: operational, failure, failure-high, failure-specific
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: None
@@ -1701,7 +1707,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File %(path)s was not modified in the last %(age)s seconds.
-:Groups: file-operation, informational, monitor
+:Groups: monitor, informational, file-operation
 :From version: 3.5.0
 :To version: None
 :Description: None
@@ -1716,7 +1722,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Invalid schema for table "%(table_name)s" in %(database_name)s. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 2.1.0
 :To version: 4.0.0
 :Description: Invalid table schema.
@@ -1737,7 +1743,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: %(name)s unable to fetch entries from "%(database_name)s". Filter criteria: '%(filter)s'. Sort order '%(sort_order)s'. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 2.1.0
 :To version: 4.0.0
 :Description: None.
@@ -1764,7 +1770,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Fail to add log handler %(uuid)s. Configuration not found.
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: None.
@@ -1779,7 +1785,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Invalid public SSH keys for "%(username)s". %(details)s
-:Groups: failure, session, failure-high, operational
+:Groups: operational, session, failure, failure-high
 :From version: 2.9.0
 :To version: 4.0.0
 :Description: None
@@ -1794,7 +1800,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Wrong %(type)s value for option "%(option)s" in section "%(section)s". %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -1818,7 +1824,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Cannot set %(type)s value %(value)s for option %(option)s in %(section)s. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -1845,7 +1851,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Could not parse the configuration file. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.6.0
 :To version: 3.4.0
 :Description: None
@@ -1856,7 +1862,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Skipping %(operation)s on "%(real_path)s" as destination "%(destination_path)s" exists.
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 4.7.0
 :To version: None
 :Description: None
@@ -1874,7 +1880,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Dispatch ignored for "%(path)s" as file no longer exists.
-:Groups: informational, authenticated
+:Groups: authenticated, informational
 :From version: 4.2.0
 :To version: None
 :Description: None
@@ -1885,7 +1891,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to "%(mode)s" file "%(path)s" to %(destinations)s. %(details)s
-:Groups: file-operation, failure, failure-high, authenticated
+:Groups: authenticated, file-operation, failure, failure-high
 :From version: 3.5.0
 :To version: None
 :Description: None
@@ -1900,7 +1906,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: More credentials needed for account "%(username)s" accepted by %(method_type)s authentication "%(method_name)s" using "%(credentials_type)s" credentials. Still required: %(required_credentials)s
-:Groups: session, informational, operational
+:Groups: operational, session, informational
 :From version: 4.10.0
 :To version: None
 :Description: None
@@ -1927,7 +1933,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Logger "%(logger_name)s" started.
-:Groups: administration, success, operational
+:Groups: operational, administration, success
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: None
@@ -1942,7 +1948,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Logger "%(logger_name)s" stopped.
-:Groups: authenticated, success, operational
+:Groups: operational, authenticated, success
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: None
@@ -1957,7 +1963,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Logger "%(logger_name)s" is already stopped.
-:Groups: informational, authenticated, operational
+:Groups: operational, authenticated, informational
 :From version: 2.1.0
 :To version: 3.0.0
 :Description: None
@@ -1972,7 +1978,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File "%(path)s" was successfully "%(mode)s" to "%(destinations)s".
-:Groups: file-operation, informational, authenticated
+:Groups: authenticated, informational, file-operation
 :From version: 3.5.0
 :To version: None
 :Description: None
@@ -1990,7 +1996,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Configuration file "%(path)s" does not exists.
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.6.0
 :To version: 3.4.0
 :Description: None
@@ -2001,7 +2007,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Server process could not read the configuration file at %(path)s.
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.6.0
 :To version: 3.4.0
 :Description: None
@@ -2012,7 +2018,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to authenticate "%(username)s". No authentication method with UUID %(method_uuid)s.
-:Groups: failure, session, failure-high, failure-specific, operational
+:Groups: operational, session, failure, failure-high, failure-specific
 :From version: 2.10.0
 :To version: 3.37.0
 :Description: None
@@ -2030,7 +2036,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Account "%(username)s" forbidden by %(method_type)s authentication "%(method_name)s" using "%(credentials_type)s" credentials. %(details)s
-:Groups: failure, session, operational
+:Groups: operational, session, failure
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -2057,7 +2063,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Account "%(account_name)s" of type "%(account_type)s" from groups/roles "%(group_name)s", authenticated by "%(method_name)s" of type "%(method_type)s" using %(credentials_type)s credentials as "%(username)s". %(ignored_groups)s
-:Groups: session, informational, operational
+:Groups: operational, session, informational
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -2099,7 +2105,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Ignoring %(method_type)s authentication "%(method_name)s" for "%(username)s" since it is not active.
-:Groups: session, informational, operational
+:Groups: operational, session, informational
 :From version: 2.10.0
 :To version: 3.37.0
 :Description: None
@@ -2120,7 +2126,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: SSLv3 detected for configuration "%(configuration)s". SSLv3 method is no longer secure due to POODLE vulnerability. If SSLv3 is still required please make sure you use it together with the non-CBC cipher RC4-SHA.
-:Groups: failure, failure-specific, authenticated, operational
+:Groups: operational, authenticated, failure, failure-specific
 :From version: 2.8.0
 :To version: None
 :Description: None
@@ -2135,7 +2141,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Connecting resource "%(name)s".
-:Groups: informational, authenticated, client-side
+:Groups: authenticated, informational, client-side
 :From version: 3.9.0
 :To version: None
 :Description: None
@@ -2150,7 +2156,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Resource "%(name)s" successfully connected.
-:Groups: authenticated, success, operational
+:Groups: operational, authenticated, success
 :From version: 3.9.0
 :To version: None
 :Description: None
@@ -2161,7 +2167,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to get a valid response from the "%(method_name)s" authentication for the account "%(username)s" using %(credentials_type)s. %(details)s
-:Groups: failure, session, failure-high, operational
+:Groups: operational, session, failure, failure-high
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -2182,7 +2188,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to configure log rotation. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.7.17
 :To version: None
 :Description: None
@@ -2197,7 +2203,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: EventNotFound: Unknown event with id "%(id)s". %(details)s
-:Groups: process, failure, failure-critical, operational
+:Groups: operational, process, failure, failure-critical
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -2215,7 +2221,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to resolve text for event id "%(id)s" with data "%(bad_data)s". %(details)s
-:Groups: process, failure, failure-critical, operational
+:Groups: operational, process, failure, failure-critical
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -2251,7 +2257,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to load JSON file "%(path)s". %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.8.1
 :To version: 3.4.0
 :Description: Error raised when the JSON file could not be loaded.
@@ -2269,7 +2275,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Bad format for JSON file "%(path)s". %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 1.8.1
 :To version: 3.4.0
 :Description: Error raised when the JSON file is not well formatted.
@@ -2287,7 +2293,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Unknown keys for account configuration. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -2302,7 +2308,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: No EventGroupDefinition with name %(name)s.
-:Groups: process, failure, failure-specific, failure-critical, operational
+:Groups: operational, process, failure, failure-critical, failure-specific
 :From version: 1.6.0
 :To version: None
 :Description: The event group could not be found in the database. This is emitted before the event db is loaded
@@ -2313,7 +2319,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: No such property: "%(name)s".
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 2.1.0
 :To version: None
 :Description: The property could not be found.
@@ -2328,7 +2334,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: No such section %(section_name)s.
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 2.1.0
 :To version: None
 :Description: The section could not be found.
@@ -2343,7 +2349,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Create not supported for %(section_name)s.
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 2.1.0
 :To version: None
 :Description: Create operation is not supported.
@@ -2358,7 +2364,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Delete not supported for %(name)s.
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 2.1.0
 :To version: None
 :Description: Delete operation is not supported.
@@ -2373,7 +2379,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Successfully started %(family)s "%(name)s"%(kind)s. %(description)s
-:Groups: authenticated, success, operational
+:Groups: operational, authenticated, success
 :From version: 2.6.0
 :To version: None
 :Description: None
@@ -2400,7 +2406,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Stopped %(family)s "%(name)s"%(kind)s. %(reason)s
-:Groups: authenticated, success, operational
+:Groups: operational, authenticated, success
 :From version: 2.6.0
 :To version: None
 :Description: None
@@ -2427,7 +2433,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to start %(family)s "%(name)s"%(kind)s. %(details)s
-:Groups: failure, authenticated, operational
+:Groups: operational, authenticated, failure
 :From version: 2.6.0
 :To version: None
 :Description: None
@@ -2451,7 +2457,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to stop %(family)s "%(name)s"%(kind)s. %(details)s
-:Groups: failure, authenticated, operational
+:Groups: operational, authenticated, failure
 :From version: 2.6.0
 :To version: None
 :Description: None
@@ -2475,7 +2481,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Unknown database "%(database_uuid)s" for %(family)s "%(name)s" of type %(type)s.
-:Groups: process, failure, failure-high, failure-specific, operational
+:Groups: operational, process, failure, failure-high, failure-specific
 :From version: 2.6.0
 :To version: 4.0.0
 :Description: None
@@ -2499,7 +2505,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Disconnected %(family)s "%(name)s" of type %(type)s as database is not available.
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 2.6.0
 :To version: 4.0.0
 :Description: None
@@ -2520,7 +2526,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Resumed %(family)s "%(name)s" of type %(type)s as database became available.
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 2.6.0
 :To version: 4.0.0
 :Description: None
@@ -2541,7 +2547,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Internal error. Failure for account activity event handler "%(name)s". %(details)s
-:Groups: process, failure, failure-critical, operational
+:Groups: operational, process, failure, failure-critical
 :From version: 2.6.0
 :To version: 4.0.0
 :Description: None
@@ -2556,7 +2562,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Unable to migrate database "%(database_uuid)s" table for %(family)s "%(name)s" of %(type)s . %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 2.6.0
 :To version: 4.0.0
 :Description: None
@@ -2583,7 +2589,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failure while running %(family)s "%(name)s"%(kind)s. %(details)s
-:Groups: failure, failure-high, authenticated, operational
+:Groups: operational, authenticated, failure, failure-high
 :From version: 2.10.0
 :To version: None
 :Description: Used when the the component failed without an explicit error id.
@@ -2731,12 +2737,15 @@ Generic and server-side common functionality
 20174
 ^^^^^
 
-:Message: Failed to handle event %(id)s by "%(name)s" for "%(target_path)s". %(details)s %(traceback)s
-:Groups: failure, failure-high, authenticated
+:Message: Failed to handle event %(id)s by "%(name)s" for "%(target_path)s". %(details)s
+:Groups: authenticated, failure, failure-high
 :From version: 2.10.0
 :To version: None
 :Description: None
 :Data:
+  :%(traceback)s: Details to troubleshoot this failure.
+
+
   :family: Family of the event handler that failed.
 
 
@@ -2755,8 +2764,8 @@ Generic and server-side common functionality
 20175
 ^^^^^
 
-:Message: File "%(previous_path)s" was successfully rotated as "%(path)s" with a size of %(size)s bytes.
-:Groups: process, file-operation, success, operational
+:Message: File "%(source_path)s" was successfully rotated as "%(path)s" with a size of %(size)s bytes.
+:Groups: operational, process, success, file-operation
 :From version: 3.12.0
 :To version: None
 :Description: None
@@ -2764,7 +2773,7 @@ Generic and server-side common functionality
   :path: New (current) path of the rotated file.
 
 
-  :previous_path: Previous path where the rotated file was located.
+  :source_path: Previous path where the rotated file was located.
 
 
 
@@ -2774,7 +2783,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File "%(path)s" was successfully rotated without keeping any copy of the previous content.
-:Groups: process, file-operation, success, operational
+:Groups: operational, process, success, file-operation
 :From version: 3.12.0
 :To version: None
 :Description: None
@@ -2807,7 +2816,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to load CRL from the CDP of "%(peer_subject)s". %(details)s
-:Groups: process, failure, operational
+:Groups: operational, process, failure
 :From version: 3.12.0
 :To version: None
 :Description: None
@@ -2855,7 +2864,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Started %(product_name)s - %(product_version)s.
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 3.9.0
 :To version: None
 :Description: None
@@ -2873,7 +2882,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Account "%(account_name)s" logged in with permissions %(permissions)s. Files will be uploaded as: %(upload_names)s
-:Groups: informational, authenticated, operational
+:Groups: operational, authenticated, informational
 :From version: 3.13.0
 :To version: 4.0.0
 :Description: None
@@ -2894,7 +2903,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Unexpected error occurred during log rotation. %(details)s.
-:Groups: process, failure, failure-high, file-operation, operational
+:Groups: operational, process, failure, failure-high, file-operation
 :From version: 3.14.0
 :To version: None
 :Description: None
@@ -2909,7 +2918,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Internal Error. Failed to start %(family)s "%(name)s"%(kind)s. %(details)s
-:Groups: failure-critical, failure, authenticated, operational
+:Groups: operational, authenticated, failure, failure-critical
 :From version: 3.24.0
 :To version: None
 :Description: None
@@ -2933,7 +2942,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Internal Error. Failed to stop %(family)s "%(name)s"%(kind)s. %(details)s
-:Groups: failure-critical, failure, authenticated, operational
+:Groups: operational, authenticated, failure, failure-critical
 :From version: 3.24.0
 :To version: None
 :Description: None
@@ -2957,7 +2966,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: You are using the evaluation version. Email us at sales@proatria.com or visit https://www.sftpplus.com/pricing/ to get the full licence. %(details)s
-:Groups: process, informational, operational
+:Groups: process, operational, informational
 :From version: 3.29.0
 :To version: None
 :Description: Upgrading is straight-forward. Once upgraded, you can continue to use the same configuration files or start with a new setup. For technical support and other questions about the demo, please email our team at support@proatria.com.
@@ -2972,7 +2981,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Successfully performing %(operation)s to member "%(path)s" from "%(source_path)s".
-:Groups: process, success, operational
+:Groups: operational, process, success
 :From version: 3.52.0
 :To version: None
 :Description: None
@@ -2990,7 +2999,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Overwriting destination "%(destination_path)s" while performing %(operation)s on "%(real_path)s".
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 4.7.0
 :To version: None
 :Description: None
@@ -3008,7 +3017,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: HTTP POST notification for event %(event_id)s successful for "%(target_path)s".
-:Groups: process, informational, operational
+:Groups: operational, process, informational
 :From version: 4.16.0
 :To version: None
 :Description: None
@@ -3026,7 +3035,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Invalid value "%(invalid_value)s" defined for "%(option)s" in "%(section)s". Using "%(default)s" value. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: operational, process, failure, failure-high
 :From version: 4.21.0
 :To version: None
 :Description: None
@@ -3050,7 +3059,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failure on %(operation)s operation for file transfer analytics. %(details)s
-:Groups: process, failure
+:Groups: failure, process
 :From version: 4.24.0
 :To version: None
 :Description: Emitted when failed to perform a transfer analytics operation.
@@ -3061,7 +3070,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Last day transfer statistics. Successful files %(success_files)s, retried files %(retried_files)s, success jobs %(success_jobs)s, failed jobs %(failure_jobs)s, total size %(total_size)s bytes, total duration %(total_duration)s seconds.
-:Groups: process, informational
+:Groups: informational, process
 :From version: 4.24.0
 :To version: None
 :Description: Emitted to inform the statistic for transferred files.
@@ -3091,7 +3100,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: File %(operation)s for %(account_name)s at "%(account_path)s".
-:Groups: authenticated, informational
+:Groups: informational, authenticated
 :From version: 4.25.0
 :To version: None
 :Description: Emitted when one account performs a file transfer operation on a file accessible to another account.
@@ -3115,7 +3124,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: %(message)s
-:Groups: authenticated, informational
+:Groups: informational, authenticated
 :From version: 4.19.0
 :To version: None
 :Description: Event designed to be emitted by Python API extension.
@@ -3216,7 +3225,7 @@ FTP protocol
 
 
 :Message: Successfully opened file "%(path)s" for writing at offset %(offset)s. Path requested as "%(requested_path)s.
-:Groups: file-operation, ftp, authenticated, success
+:Groups: authenticated, success, file-operation, ftp
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -3244,7 +3253,7 @@ FTP protocol
 
 
 :Message: Failed to open file "%(path)s" for writing  at offset %(offset)s. Path requested as "%(requested_path)s. %(details)s
-:Groups: file-operation, failure, authenticated, ftp
+:Groups: authenticated, failure, file-operation, ftp
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -3269,7 +3278,7 @@ FTP protocol
 
 
 :Message: Clients are required to send a valid certificate. Maybe the client did not send a certificate or the client certificate is not valid. %(details)s
-:Groups: failure, session, ftp
+:Groups: session, failure, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3287,7 +3296,7 @@ FTP protocol
 
 
 :Message: Failed to get a new passive port. %(details)s
-:Groups: failure, ftp, failure-high, authenticated, operational
+:Groups: authenticated, operational, failure, failure-high, ftp
 :From version: 1.8.1
 :To version: None
 :Description: None
@@ -3309,7 +3318,7 @@ FTP protocol
 
 
 :Message: Internal error. Failed to process the FTP command "%(line)s". %(details)s
-:Groups: failure-critical, ftp, authenticated, operational, failure, failure-specific
+:Groups: operational, authenticated, failure, failure-critical, ftp, failure-specific
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3331,7 +3340,7 @@ FTP protocol
 
 
 :Message: No authentication method enabled. Users will not be able to authenticate against the FTP/FTPS service. Please enable one of the supported authentication methods.
-:Groups: failure, session, failure-high, failure-specific, ftp
+:Groups: session, failure, failure-high, ftp, failure-specific
 :From version: 1.7.4
 :To version: 4.5.0
 :Description: None
@@ -3349,7 +3358,7 @@ FTP protocol
 
 
 :Message: Password-based authentication must be enabled when FTPS is not enabled.
-:Groups: ftp, failure-specific, operational, failure, session, failure-high
+:Groups: operational, session, failure, failure-high, failure-specific, ftp
 :From version: 1.7.4
 :To version: 4.5.0
 :Description: None
@@ -3367,7 +3376,7 @@ FTP protocol
 
 
 :Message: FTP command "%(command)s" not implemented by the service.
-:Groups: failure, failure-specific, authenticated, ftp
+:Groups: authenticated, failure, ftp, failure-specific
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3389,7 +3398,7 @@ FTP protocol
 
 
 :Message: Extended Passive transfer requested.
-:Groups: ftp, authenticated, operational
+:Groups: operational, authenticated, ftp
 :From version: 1.8.1
 :To version: None
 :Description: None
@@ -3407,7 +3416,7 @@ FTP protocol
 
 
 :Message: Connection was closed before finalization of SSL handshake.
-:Groups: failure, session, failure-specific, ftp
+:Groups: session, failure, failure-specific, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3424,12 +3433,15 @@ FTP protocol
 ^^^^^
 
 
-:Message: Listening on port %(port)s for the next passive request.
-:Groups: ftp, authenticated, success
+:Message: Expecting client connection on %(address)s:%(port)s for the next passive request.
+:Groups: authenticated, success, ftp
 :From version: 1.8.1
 :To version: None
 :Description: This event is raised by both normal and extended passive requests.
 :Data:
+  :address: The network interface on which the passive connection is expected
+
+
   :port: Port number on which passive connection was established.
 
 
@@ -3447,7 +3459,7 @@ FTP protocol
 
 
 :Message: Passive data connection time out while waiting for client initialization. %(details)s
-:Groups: failure, authenticated, ftp
+:Groups: authenticated, failure, ftp
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -3465,7 +3477,7 @@ FTP protocol
 
 
 :Message: Initializing secure command channel.
-:Groups: ftp, session, informational
+:Groups: session, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3483,7 +3495,7 @@ FTP protocol
 
 
 :Message: Processing APPE command for file "%(path)s".
-:Groups: file-operation, informational, authenticated, ftp
+:Groups: authenticated, file-operation, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: FTP APPE command request was received from the client.
@@ -3501,7 +3513,7 @@ FTP protocol
 
 
 :Message: Invalid address "%(address)s" for %(kind)s data command.
-:Groups: failure, failure-specific, authenticated, ftp
+:Groups: authenticated, failure, failure-specific, ftp
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -3526,7 +3538,7 @@ FTP protocol
 
 
 :Message: No authentication method was enabled for this service.
-:Groups: failure, session, failure-high, failure-specific, ftp
+:Groups: session, failure, failure-high, failure-specific, ftp
 :From version: 1.7.4
 :To version: None
 :Description: None
@@ -3544,7 +3556,7 @@ FTP protocol
 
 
 :Message: User "%(username)s" is required to authenticate using a SSL certificate.
-:Groups: failure, session, failure-specific, ftp
+:Groups: session, failure, ftp, failure-specific
 :From version: 1.7.4
 :To version: None
 :Description: None
@@ -3562,7 +3574,7 @@ FTP protocol
 
 
 :Message: Failed to authenticate as user "%(username)s" with X.509 certificate credentials.
-:Groups: failure, session, failure-specific, ftp
+:Groups: session, failure, failure-specific, ftp
 :From version: 1.7.4
 :To version: 4.0.0
 :Description: None
@@ -3584,7 +3596,7 @@ FTP protocol
 
 
 :Message: Data connection closed. Protected using %(encryption)s. Received: %(received)s. Sent %(sent)s. Speed %(speed)s bytes/second. Duration %(duration)s. %(host_address)s:%(host_port)s - %(peer_address)s:%(peer_port)s . Client certificate: %(certificate)s
-:Groups: ftp, authenticated, success
+:Groups: authenticated, success, ftp
 :From version: 1.8.1
 :To version: None
 :Description: None
@@ -3630,7 +3642,7 @@ FTP protocol
 
 
 :Message: Data connection closed in a non clean way. Protected using %(encryption)s. Received %(received)s. Speed %(speed)s bytes/second. Sent %(sent)s. Duration %(duration)s. %(host_address)s:%(host_port)s - %(peer_address)s:%(peer_port)s. Client certificate: %(certificate)s %(details)s
-:Groups: failure, authenticated, ftp
+:Groups: authenticated, failure, ftp
 :From version: 1.8.1
 :To version: None
 :Description: None
@@ -3679,7 +3691,7 @@ FTP protocol
 
 
 :Message: Data connection time out after initialization. %(host_address)s:%(host_port)s - %(peer_address)s:%(peer_port)s.
-:Groups: failure, session, failure-specific, ftp
+:Groups: session, failure, failure-specific, ftp
 :From version: 1.8.3
 :To version: None
 :Description: None
@@ -3710,7 +3722,7 @@ FTP protocol
 
 
 :Message: New FTP/FTPS client connection made.
-:Groups: ftp, session, success
+:Groups: session, success, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3728,7 +3740,7 @@ FTP protocol
 
 
 :Message: Command connection closed. Protected using %(encryption)s. Client connected with certificate: %(certificate)s
-:Groups: ftp, authenticated, success
+:Groups: authenticated, success, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3750,7 +3762,7 @@ FTP protocol
 
 
 :Message: SSL/TLS required on the command channel.
-:Groups: failure, session, failure-specific, ftp
+:Groups: session, failure, failure-specific, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3768,7 +3780,7 @@ FTP protocol
 
 
 :Message: SSL/TLS required on the data channel.
-:Groups: failure, session, failure-specific, ftp
+:Groups: session, failure, failure-specific, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3786,7 +3798,7 @@ FTP protocol
 
 
 :Message: Request to change current folder to "%(path)s".
-:Groups: file-operation, informational, authenticated, ftp
+:Groups: authenticated, file-operation, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3804,7 +3816,7 @@ FTP protocol
 
 
 :Message: Current folder successfully changed to "%(path)s".
-:Groups: file-operation, ftp, authenticated, success
+:Groups: authenticated, success, file-operation, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3822,7 +3834,7 @@ FTP protocol
 
 
 :Message: Failed to change to folder "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ftp
+:Groups: authenticated, failure, file-operation, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3844,7 +3856,7 @@ FTP protocol
 
 
 :Message: Successfully open file "%(path)s" for appending.
-:Groups: file-operation, operation-append, authenticated, success, ftp
+:Groups: authenticated, success, file-operation, operation-append, ftp
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -3862,7 +3874,7 @@ FTP protocol
 
 
 :Message: Failed to open file "%(path)s" for appending. %(details)s
-:Groups: file-operation, failure, authenticated, operation-append, ftp
+:Groups: authenticated, failure, file-operation, operation-append, ftp
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -3880,7 +3892,7 @@ FTP protocol
 
 
 :Message: Command connection closed due to an error. Protected using %(encryption)s. Client certificate: %(certificate)s %(details)s
-:Groups: failure, failure-high, authenticated, ftp
+:Groups: authenticated, failure, ftp, failure-high
 :From version: 2.8.0
 :To version: None
 :Description: None
@@ -3902,7 +3914,7 @@ FTP protocol
 
 
 :Message: Request to delete "%(path)s".
-:Groups: file-operation, informational, authenticated, ftp
+:Groups: authenticated, file-operation, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3920,7 +3932,7 @@ FTP protocol
 
 
 :Message: Successfully deleted "%(path)s".
-:Groups: file-operation, ftp, authenticated, operation-delete, success
+:Groups: authenticated, success, file-operation, operation-delete, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3938,7 +3950,7 @@ FTP protocol
 
 
 :Message: Failed to delete "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, operation-delete, ftp
+:Groups: authenticated, failure, file-operation, operation-delete, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3956,7 +3968,7 @@ FTP protocol
 
 
 :Message: Listing path "%(path)s" with wildcard "%(glob)s" for %(operation)s.
-:Groups: file-operation, informational, authenticated, ftp
+:Groups: authenticated, file-operation, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3978,7 +3990,7 @@ FTP protocol
 
 
 :Message: Path "%(path)s" successfully listed with wildcard "%(glob)s" for %(operation)s.
-:Groups: file-operation, ftp, authenticated, success
+:Groups: authenticated, success, file-operation, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -3996,7 +4008,7 @@ FTP protocol
 
 
 :Message: Failed to list path "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ftp
+:Groups: authenticated, failure, file-operation, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4014,7 +4026,7 @@ FTP protocol
 
 
 :Message: Getting attributes for "%(path)s".
-:Groups: file-operation, informational, authenticated, ftp
+:Groups: authenticated, file-operation, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4036,7 +4048,7 @@ FTP protocol
 
 
 :Message: Successfully got attributes for "%(path)s".
-:Groups: file-operation, ftp, authenticated, success
+:Groups: authenticated, success, file-operation, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4058,7 +4070,7 @@ FTP protocol
 
 
 :Message: Failed to get attributes for "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ftp
+:Groups: authenticated, failure, file-operation, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4080,7 +4092,7 @@ FTP protocol
 
 
 :Message: Creating folder "%(path)s".
-:Groups: file-operation, informational, authenticated, ftp
+:Groups: authenticated, file-operation, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4098,7 +4110,7 @@ FTP protocol
 
 
 :Message: Successfully created folder "%(path)s".
-:Groups: file-operation, ftp, authenticated, operation-create-folder, success
+:Groups: authenticated, success, file-operation, operation-create-folder, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4116,7 +4128,7 @@ FTP protocol
 
 
 :Message: Failed to create folder "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, operation-create-folder, ftp
+:Groups: authenticated, failure, file-operation, operation-create-folder, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4134,7 +4146,7 @@ FTP protocol
 
 
 :Message: Data connection opened. %(host_address)s:%(host_port)s - %(peer_address)s:%(peer_port)s
-:Groups: ftp, authenticated, success
+:Groups: authenticated, success, ftp
 :From version: 3.14.0
 :To version: None
 :Description: None
@@ -4165,7 +4177,7 @@ FTP protocol
 
 
 :Message: Validating password for user "%(username)s".
-:Groups: ftp, session, informational
+:Groups: session, informational, ftp
 :From version: 1.6.0
 :To version: 4.0.0
 :Description: None
@@ -4187,7 +4199,7 @@ FTP protocol
 
 
 :Message: User successfully logged on "%(real_path)s" as "%(virtual_path)s". Command protected using %(encryption)s. Client certificate: %(certificate)s
-:Groups: ftp, authenticated, success
+:Groups: authenticated, success, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4218,7 +4230,7 @@ FTP protocol
 
 
 :Message: Failed to authenticate as user "%(username)s" with password credentials.
-:Groups: failure, session, failure-specific, ftp
+:Groups: session, failure, failure-specific, ftp
 :From version: 1.6.0
 :To version: 4.0.0
 :Description: None
@@ -4240,7 +4252,7 @@ FTP protocol
 
 
 :Message: Passive transfer requested.
-:Groups: informational, authenticated, ftp
+:Groups: authenticated, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4258,7 +4270,7 @@ FTP protocol
 
 
 :Message: Active transfer requested to "%(address)s:%(port)s".
-:Groups: informational, authenticated, ftp
+:Groups: authenticated, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4283,7 +4295,7 @@ FTP protocol
 
 
 :Message: Successfully initiated active connection to destination %(address)s:%(port)s using source %(source_address)s:%(source_port)s.
-:Groups: ftp, authenticated, success
+:Groups: authenticated, success, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4314,7 +4326,7 @@ FTP protocol
 
 
 :Message: Failed to initiate active connection to destination %(address)s:%(port)s using source %(source_address)s:%(source_port)s. %(details)s
-:Groups: failure, authenticated, ftp
+:Groups: authenticated, failure, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4345,7 +4357,7 @@ FTP protocol
 
 
 :Message: Requesting current folder.
-:Groups: ftp, authenticated, success
+:Groups: authenticated, success, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4363,7 +4375,7 @@ FTP protocol
 
 
 :Message: Closing current FTP session.
-:Groups: ftp, session, success
+:Groups: session, success, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4381,7 +4393,7 @@ FTP protocol
 
 
 :Message: Client initiating authentication as "%(username)s". Command protected using %(encryption)s. Client certificate: %(certificate)s
-:Groups: ftp, session, success
+:Groups: session, success, ftp
 :From version: 1.6.0
 :To version: 4.0.0
 :Description: None
@@ -4409,7 +4421,7 @@ FTP protocol
 
 
 :Message: Opening file "%(path)s" for reading.
-:Groups: file-operation, informational, authenticated, ftp
+:Groups: authenticated, file-operation, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4427,7 +4439,7 @@ FTP protocol
 
 
 :Message: Successfully delivered file "%(path)s". Read %(total)s bytes at %(speed)s bytes/second in %(duration)s seconds.
-:Groups: file-operation, ftp, authenticated, operation-read, success
+:Groups: authenticated, success, file-operation, operation-read, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4445,7 +4457,7 @@ FTP protocol
 
 
 :Message: Failed to deliver file "%(path)s". Read %(total)s bytes at %(speed)s bytes/second in %(duration)s seconds. %(details)s
-:Groups: file-operation, failure, authenticated, operation-read, ftp
+:Groups: authenticated, failure, file-operation, operation-read, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4463,7 +4475,7 @@ FTP protocol
 
 
 :Message: Deleting folder "%(path)s".
-:Groups: file-operation, informational, authenticated, ftp
+:Groups: authenticated, file-operation, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4481,7 +4493,7 @@ FTP protocol
 
 
 :Message: Successfully deleted folder "%(path)s".
-:Groups: file-operation, ftp, authenticated, operation-delete, success
+:Groups: authenticated, success, file-operation, operation-delete, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4499,7 +4511,7 @@ FTP protocol
 
 
 :Message: Failed to delete folder "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, operation-delete, ftp
+:Groups: authenticated, failure, file-operation, operation-delete, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4517,7 +4529,7 @@ FTP protocol
 
 
 :Message: Renaming "%(from)s" to "%(to)s".
-:Groups: file-operation, informational, authenticated, ftp
+:Groups: authenticated, file-operation, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4545,7 +4557,7 @@ FTP protocol
 
 
 :Message: Successfully renamed "%(from)s" to "%(to)s".
-:Groups: file-operation, ftp, operation-rename, authenticated, success
+:Groups: authenticated, success, file-operation, operation-rename, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4573,7 +4585,7 @@ FTP protocol
 
 
 :Message: Failed to rename "%(from)s" to "%(to)s". %(details)s
-:Groups: file-operation, failure, operation-rename, authenticated, ftp
+:Groups: authenticated, failure, file-operation, operation-rename, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4601,7 +4613,7 @@ FTP protocol
 
 
 :Message: Processing STOR command for file "%(path)s".
-:Groups: file-operation, informational, authenticated, ftp
+:Groups: authenticated, file-operation, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: FTP STOR command request was received from the client.
@@ -4623,7 +4635,7 @@ FTP protocol
 
 
 :Message: Successfully received file "%(path)s". Wrote %(total)s bytes at %(speed)s bytes/second in %(duration)s seconds.
-:Groups: file-operation, ftp, authenticated, operation-write, success
+:Groups: authenticated, success, file-operation, operation-write, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4641,7 +4653,7 @@ FTP protocol
 
 
 :Message: Failed to receive file "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, operation-write, ftp
+:Groups: authenticated, failure, file-operation, operation-write, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4659,7 +4671,7 @@ FTP protocol
 
 
 :Message: Unknown FTP representation type "%(type)s".
-:Groups: failure, failure-specific, authenticated, ftp
+:Groups: authenticated, failure, ftp, failure-specific
 :From version: 2.12.0
 :To version: None
 :Description: None
@@ -4681,7 +4693,7 @@ FTP protocol
 
 
 :Message: FTP representation type set to "%(type)s".
-:Groups: ftp, authenticated, success
+:Groups: authenticated, success, ftp
 :From version: 2.12.0
 :To version: None
 :Description: None
@@ -4703,7 +4715,7 @@ FTP protocol
 
 
 :Message: Ignoring FTP representation type for "%(type)s".
-:Groups: informational, authenticated, ftp
+:Groups: authenticated, informational, ftp
 :From version: 3.9.0
 :To version: None
 :Description: None
@@ -4725,7 +4737,7 @@ FTP protocol
 
 
 :Message: Listening on port %(port)s for the next passive request.
-:Groups: ftp, session, authenticated, success
+:Groups: authenticated, success, session, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4747,7 +4759,7 @@ FTP protocol
 
 
 :Message: Client FTP/FTPS connection time out.
-:Groups: failure, session, failure-specific, ftp
+:Groups: session, failure, ftp, failure-specific
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -4765,7 +4777,7 @@ FTP protocol
 
 
 :Message: Successfully cleared the command channel.
-:Groups: ftp, authenticated, success
+:Groups: authenticated, success, ftp
 :From version: 1.7.18
 :To version: None
 :Description: None
@@ -4783,7 +4795,7 @@ FTP protocol
 
 
 :Message: Command channel is already cleared.
-:Groups: failure, failure-specific, authenticated, ftp
+:Groups: authenticated, failure, ftp, failure-specific
 :From version: 1.7.18
 :To version: None
 :Description: None
@@ -4801,7 +4813,7 @@ FTP protocol
 
 
 :Message: Server does not allow to clear the command channel.
-:Groups: failure, failure-specific, authenticated, ftp
+:Groups: authenticated, failure, ftp, failure-specific
 :From version: 1.7.18
 :To version: None
 :Description: None
@@ -4819,7 +4831,7 @@ FTP protocol
 
 
 :Message: Failed to secure the command channel with the explicit AUTH. %(details)s
-:Groups: failure, session, ftp
+:Groups: session, failure, ftp
 :From version: 3.47.0
 :To version: None
 :Description: None
@@ -4837,7 +4849,7 @@ FTP protocol
 
 
 :Message: Failed to initiate FTP session. %(details)s
-:Groups: failure, authenticated, ftp
+:Groups: authenticated, failure, ftp
 :From version: 4.16.0
 :To version: None
 :Description: None
@@ -4855,7 +4867,7 @@ FTP protocol
 
 
 :Message: Extended address active transfer requested to protocol "%(protocol)s" on address "%(ip)s:%(port)s".
-:Groups: informational, authenticated, ftp
+:Groups: authenticated, informational, ftp
 :From version: 1.7.18
 :To version: None
 :Description: None
@@ -4883,7 +4895,7 @@ FTP protocol
 
 
 :Message: New client connection denied. Too many concurrent FTP/FTPS connections.
-:Groups: failure, session, failure-specific, ftp
+:Groups: session, failure, failure-specific, ftp
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -4901,7 +4913,7 @@ FTP protocol
 
 
 :Message: Internal error. Failed to start FTP protocol handler. %(details)s
-:Groups: failure-critical, failure, session, ftp
+:Groups: session, failure, failure-critical, ftp
 :From version: 1.8.3
 :To version: None
 :Description: An internal server error occurred while creating FTP protocol handler for new client.
@@ -4919,7 +4931,7 @@ FTP protocol
 
 
 :Message: Explicit FTPS for %(service)s changed to %(state)s.
-:Groups: informational, ftp, administration, operational
+:Groups: operational, administration, informational, ftp
 :From version: 2.4.0
 :To version: None
 :Description: Inform about changes in SSL layer for FTP protocol.
@@ -4944,7 +4956,7 @@ FTP protocol
 
 
 :Message: Successfully open file "%(path)s" for reading at offset %(offset)s.
-:Groups: file-operation, ftp, authenticated, operation-read, success
+:Groups: authenticated, success, file-operation, operation-read, ftp
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -4966,7 +4978,7 @@ FTP protocol
 
 
 :Message: Failed to open file "%(path)s" for reading at offset %(offset)s. %(details)s
-:Groups: file-operation, failure, authenticated, operation-read, ftp
+:Groups: authenticated, failure, file-operation, operation-read, ftp
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -4984,7 +4996,7 @@ FTP protocol
 
 
 :Message: Setting attributes for "%(path)s" to "%(attributes)s".
-:Groups: file-operation, informational, authenticated, ftp
+:Groups: authenticated, informational, file-operation, ftp
 :From version: 2.6.0
 :To version: None
 :Description: None
@@ -5002,7 +5014,7 @@ FTP protocol
 
 
 :Message: Successfully set attributes for "%(path)s" to "%(attributes)s".
-:Groups: file-operation, ftp, authenticated, success
+:Groups: authenticated, success, file-operation, ftp
 :From version: 2.6.0
 :To version: None
 :Description: None
@@ -5020,7 +5032,7 @@ FTP protocol
 
 
 :Message: Failed to set attributes for "%(path)s" to "%(attributes)s". %(details)s
-:Groups: file-operation, failure, authenticated, ftp
+:Groups: authenticated, failure, file-operation, ftp
 :From version: 2.6.0
 :To version: None
 :Description: None
@@ -5042,7 +5054,7 @@ FTP protocol
 
 
 :Message: Connected to passive data port %(host)s:%(port)s.
-:Groups: ftp, session, informational, client-side
+:Groups: session, informational, ftp, client-side
 :From version: 4.27.0
 :To version: None
 :Description: None
@@ -5067,7 +5079,7 @@ FTP protocol
 
 
 :Message: Connected to the FTP/FTPS server.
-:Groups: ftp, session, informational, client-side
+:Groups: session, informational, ftp, client-side
 :From version: 3.2.0
 :To version: None
 :Description: None
@@ -5085,7 +5097,7 @@ FTP protocol
 
 
 :Message: Connection to FTP/FTPS server was lost. Protected using: %(encryption)s. Server certificate: %(certificate)s. Reason: %(reason)s
-:Groups: ftp, session, informational, client-side
+:Groups: session, informational, ftp, client-side
 :From version: 3.2.0
 :To version: None
 :Description: None
@@ -5110,7 +5122,7 @@ FTP protocol
 
 
 :Message: Failed authentication. Credentials not accepted for "%(name)s". %(details)s
-:Groups: ftp, session, client-side, failure, operational
+:Groups: operational, session, ftp, failure, client-side
 :From version: 3.2.0
 :To version: None
 :Description: None
@@ -5132,7 +5144,7 @@ FTP protocol
 
 
 :Message: Security for the command channel cleared in "%(mode)s" mode.
-:Groups: informational, authenticated, client-side, ftp
+:Groups: authenticated, informational, ftp, client-side
 :From version: 3.13.0
 :To version: None
 :Description: None
@@ -5150,7 +5162,7 @@ FTP protocol
 
 
 :Message: Connection to FTP/FTPS was authenticated. Protected using %(encryption)s. Server certificate: %(certificate)s.
-:Groups: informational, authenticated, client-side, ftp
+:Groups: authenticated, informational, ftp, client-side
 :From version: 3.2.0
 :To version: None
 :Description: None
@@ -9563,7 +9575,7 @@ SSH protocol
 
 
 :Message: Global request "%(request_type)s" declined.
-:Groups: informational, authenticated, ssh
+:Groups: authenticated, informational, ssh
 :From version: 3.18.0
 :To version: None
 :Description: None
@@ -9585,7 +9597,7 @@ SSH protocol
 
 
 :Message: SSH command %(message_id)s is not supported. %(payload)s
-:Groups: failure, failure-specific, authenticated, ssh, operational
+:Groups: operational, authenticated, failure, failure-specific, ssh
 :From version: 3.1.0
 :To version: None
 :Description: None
@@ -9610,7 +9622,7 @@ SSH protocol
 
 
 :Message: Internal error. Failed to process the SSH command %(message_id)s - %(payload)s. %(details)s
-:Groups: failure-critical, failure, session, ssh, operational
+:Groups: operational, session, failure, failure-critical, ssh
 :From version: 3.1.0
 :To version: None
 :Description: None
@@ -9635,7 +9647,7 @@ SSH protocol
 
 
 :Message: SSH protocol failure at userauth service. %(details)s
-:Groups: failure, session, failure-high, ssh
+:Groups: session, failure, failure-high, ssh
 :From version: 3.1.0
 :To version: None
 :Description: None
@@ -9657,7 +9669,7 @@ SSH protocol
 
 
 :Message: SSH request rejected. %(details)s
-:Groups: failure, authenticated, ssh
+:Groups: authenticated, failure, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -9675,7 +9687,7 @@ SSH protocol
 
 
 :Message: Start processing '%(command)s' command.
-:Groups: informational, authenticated, ssh, operational
+:Groups: operational, authenticated, informational, ssh
 :From version: 3.45.0
 :To version: None
 :Description: None
@@ -9697,7 +9709,7 @@ SSH protocol
 
 
 :Message: End processing '%(command)s' command.
-:Groups: informational, authenticated, ssh, operational
+:Groups: operational, authenticated, informational, ssh
 :From version: 3.45.0
 :To version: None
 :Description: None
@@ -9719,7 +9731,7 @@ SSH protocol
 
 
 :Message: Subsystem %(service_name)s successfully started in "%(real_path)s" as "%(virtual_path)s". Protected using host-key:%(host_key)s key-exchange:%(key_exchange)s in-hmac:%(in_hmac)s in-cipher:%(in_cipher)s out-hmac:%(out_hmac)s out-cipher:%(out_cipher)s in-compression:%(in_compression)s out-compression:%(out_compression)s
-:Groups: authenticated, ssh, success
+:Groups: authenticated, success, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -9765,7 +9777,7 @@ SSH protocol
 
 
 :Message: SFTP subsystem closed. Using SFTP version %(client_version)s.
-:Groups: authenticated, ssh, success
+:Groups: authenticated, success, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -9787,7 +9799,7 @@ SSH protocol
 
 
 :Message: Could not load prime numbers database from "%(path)s". %(details)s
-:Groups: process, failure, failure-high, ssh, operational
+:Groups: operational, process, failure, failure-high, ssh
 :From version: 1.6.0
 :To version: 3.40.0
 :Description: None
@@ -9805,7 +9817,7 @@ SSH protocol
 
 
 :Message: New SSH connection made.
-:Groups: session, ssh, success
+:Groups: session, success, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -9823,7 +9835,7 @@ SSH protocol
 
 
 :Message: SSH connection closed from "%(client_version)s". Protected using host-key:%(host_key)s key-exchange:%(key_exchange)s in-hmac:%(in_hmac)s in-cipher:%(in_cipher)s out-hmac:%(out_hmac)s out-cipher:%(out_cipher)s in-compression:%(in_compression)s out-compression:%(out_compression)s
-:Groups: informational, authenticated, ssh
+:Groups: authenticated, informational, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -9869,7 +9881,7 @@ SSH protocol
 
 
 :Message: Internal error. Failed to process the SFTP command. %(details)s
-:Groups: failure-critical, failure, authenticated, ssh, operational
+:Groups: operational, authenticated, failure, failure-critical, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -9887,7 +9899,7 @@ SSH protocol
 
 
 :Message: File "%(path)s" successfully closed after opening for %(mode)s. Read %(total_read)s bytes at %(read_speed)s bytes/second and wrote %(total_write)s bytes at %(write_speed)s bytes/second in %(duration)s seconds.
-:Groups: file-operation, authenticated, ssh, success
+:Groups: authenticated, success, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -9924,7 +9936,7 @@ SSH protocol
 
 
 :Message: Internal error. Failure in the SSH userauth service for "%(username)s". %(details)s
-:Groups: failure-critical, failure, session, ssh
+:Groups: session, failure, failure-critical, ssh
 :From version: 1.8.1
 :To version: None
 :Description: None
@@ -9946,7 +9958,7 @@ SSH protocol
 
 
 :Message: Listing folder "%(path)s".
-:Groups: file-operation, informational, authenticated, ssh
+:Groups: authenticated, informational, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -9964,7 +9976,7 @@ SSH protocol
 
 
 :Message: Successfully listed folder "%(path)s".
-:Groups: file-operation, authenticated, ssh, success
+:Groups: authenticated, success, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -9982,7 +9994,7 @@ SSH protocol
 
 
 :Message: Failed to list folder "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ssh
+:Groups: authenticated, failure, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10004,7 +10016,7 @@ SSH protocol
 
 
 :Message: Deleting "%(path)s".
-:Groups: file-operation, informational, authenticated, ssh
+:Groups: authenticated, informational, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10022,7 +10034,7 @@ SSH protocol
 
 
 :Message: Successfully deleted "%(path)s".
-:Groups: file-operation, authenticated, operation-delete, success, ssh
+:Groups: authenticated, success, file-operation, operation-delete, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10040,7 +10052,7 @@ SSH protocol
 
 
 :Message: Failed to delete "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, operation-delete, ssh
+:Groups: authenticated, failure, file-operation, operation-delete, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10062,7 +10074,7 @@ SSH protocol
 
 
 :Message: Renaming "%(from)s" to "%(to)s".
-:Groups: file-operation, informational, authenticated, ssh
+:Groups: authenticated, informational, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10090,7 +10102,7 @@ SSH protocol
 
 
 :Message: Successfully rename "%(from)s" to "%(to)s".
-:Groups: file-operation, operation-rename, authenticated, ssh, success
+:Groups: authenticated, success, file-operation, operation-rename, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10118,7 +10130,7 @@ SSH protocol
 
 
 :Message: Failed to rename "%(from)s" to "%(to)s". %(details)s
-:Groups: file-operation, failure, operation-rename, authenticated, ssh
+:Groups: authenticated, failure, file-operation, operation-rename, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10149,7 +10161,7 @@ SSH protocol
 
 
 :Message: Creating folder "%(path)s".
-:Groups: file-operation, informational, authenticated, ssh
+:Groups: authenticated, informational, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10167,7 +10179,7 @@ SSH protocol
 
 
 :Message: Successfully created folder "%(path)s".
-:Groups: file-operation, authenticated, operation-create-folder, success, ssh
+:Groups: authenticated, success, file-operation, operation-create-folder, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10185,7 +10197,7 @@ SSH protocol
 
 
 :Message: Failed to create folder "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ssh, operation-create-folder
+:Groups: authenticated, failure, file-operation, operation-create-folder, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10207,7 +10219,7 @@ SSH protocol
 
 
 :Message: Deleting folder "%(path)s".
-:Groups: file-operation, informational, authenticated, ssh
+:Groups: authenticated, informational, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10225,7 +10237,7 @@ SSH protocol
 
 
 :Message: Successfully delete folder "%(path)s".
-:Groups: file-operation, authenticated, operation-delete, success, ssh
+:Groups: authenticated, success, file-operation, operation-delete, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10243,7 +10255,7 @@ SSH protocol
 
 
 :Message: Failed to delete folder "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, operation-delete, ssh
+:Groups: authenticated, failure, file-operation, operation-delete, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10265,7 +10277,7 @@ SSH protocol
 
 
 :Message: Getting attributes for "%(path)s".
-:Groups: file-operation, informational, authenticated, ssh
+:Groups: authenticated, informational, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10283,7 +10295,7 @@ SSH protocol
 
 
 :Message: Successfully got attributes for "%(path)s".
-:Groups: file-operation, authenticated, ssh, success
+:Groups: authenticated, success, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10301,7 +10313,7 @@ SSH protocol
 
 
 :Message: Failed to get attributes for "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ssh
+:Groups: authenticated, failure, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10323,7 +10335,7 @@ SSH protocol
 
 
 :Message: Setting attributes for "%(path)s".
-:Groups: file-operation, informational, authenticated, ssh
+:Groups: authenticated, informational, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10341,7 +10353,7 @@ SSH protocol
 
 
 :Message: Successfully set attributes for "%(path)s".
-:Groups: file-operation, authenticated, ssh, success
+:Groups: authenticated, success, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10359,7 +10371,7 @@ SSH protocol
 
 
 :Message: Failed to set attributes for "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ssh
+:Groups: authenticated, failure, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10381,7 +10393,7 @@ SSH protocol
 
 
 :Message: Transfer failure. File "%(path)s" was closed after opening for %(mode)s. Read %(total_read)s bytes at %(read_speed)s bytes/second and wrote %(total_write)s bytes at %(write_speed)s bytes/second in %(duration)s seconds.
-:Groups: file-operation, failure, failure-specific, authenticated, ssh
+:Groups: authenticated, failure, failure-specific, file-operation, ssh
 :From version: 3.40.0
 :To version: None
 :Description: None
@@ -10418,7 +10430,7 @@ SSH protocol
 
 
 :Message: File "%(path)s" failed to be fully read. Read %(total_read)s bytes at %(read_speed)s bytes/second in %(duration)s seconds.
-:Groups: authenticated, operation-read, failure, ssh, file-operation, failure-specific
+:Groups: authenticated, failure, failure-specific, file-operation, operation-read, ssh
 :From version: 3.40.0
 :To version: None
 :Description: None
@@ -10446,7 +10458,7 @@ SSH protocol
 
 
 :Message: File "%(path)s" failed to be fully written. Wrote %(total_write)s bytes at %(write_speed)s bytes/second in %(duration)s seconds.
-:Groups: authenticated, operation-write, failure, ssh, file-operation, failure-specific
+:Groups: authenticated, failure, failure-specific, file-operation, operation-write, ssh
 :From version: 3.40.0
 :To version: None
 :Description: None
@@ -10474,7 +10486,7 @@ SSH protocol
 
 
 :Message: Successfully opened "%(path)s" in "%(mode)s" mode, requested as "%(requested_path)s".
-:Groups: file-operation, authenticated, ssh, success
+:Groups: authenticated, success, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10502,7 +10514,7 @@ SSH protocol
 
 
 :Message: Failed to open "%(path)s" in "%(mode)s" mode, requested as "%(requested_path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ssh
+:Groups: authenticated, failure, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10527,7 +10539,7 @@ SSH protocol
 
 
 :Message: Failed to read from file "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ssh
+:Groups: authenticated, failure, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10549,7 +10561,7 @@ SSH protocol
 
 
 :Message: Failed to write to file "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ssh
+:Groups: authenticated, failure, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10571,7 +10583,7 @@ SSH protocol
 
 
 :Message: Failed to close file "%(path)s" after opening for %(mode)s. Read %(total_read)s at %(read_speed)s and wrote %(total_write)s at %(write_speed)s in %(duration)s seconds. %(details)s
-:Groups: file-operation, failure, authenticated, ssh
+:Groups: authenticated, failure, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -10593,7 +10605,7 @@ SSH protocol
 
 
 :Message: Could not read DSA/RSA key at "%(path)s". %(details)s
-:Groups: process, failure, failure-high, ssh, operational
+:Groups: operational, process, failure, failure-high, ssh
 :From version: 1.6.0
 :To version: 3.40.0
 :Description: None
@@ -10611,7 +10623,7 @@ SSH protocol
 
 
 :Message: Could not read SSH key received from client. %(details)s
-:Groups: failure, session, ssh, operational
+:Groups: operational, session, failure, ssh
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -10629,7 +10641,7 @@ SSH protocol
 
 
 :Message: Closing the SSH connection. %(details)s
-:Groups: failure, authenticated, ssh
+:Groups: authenticated, failure, ssh
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -10647,7 +10659,7 @@ SSH protocol
 
 
 :Message: New client connection denied. Too many concurrent SSH connections.
-:Groups: failure, session, failure-specific, ssh
+:Groups: session, failure, failure-specific, ssh
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -10665,7 +10677,7 @@ SSH protocol
 
 
 :Message: Failed to load SSH key from "%(path)s". %(details)s
-:Groups: process, failure, failure-high, ssh, operational
+:Groups: operational, process, failure, failure-high, ssh
 :From version: 1.8.0
 :To version: 3.40.0
 :Description: None
@@ -10683,7 +10695,7 @@ SSH protocol
 
 
 :Message: Reading link for "%(path)s".
-:Groups: file-operation, informational, authenticated, ssh
+:Groups: authenticated, informational, file-operation, ssh
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -10701,7 +10713,7 @@ SSH protocol
 
 
 :Message: Successfully read link for "%(path)s".
-:Groups: file-operation, authenticated, ssh, success
+:Groups: authenticated, success, file-operation, ssh
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -10719,7 +10731,7 @@ SSH protocol
 
 
 :Message: Failed to read link for "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ssh
+:Groups: authenticated, failure, file-operation, ssh
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -10741,7 +10753,7 @@ SSH protocol
 
 
 :Message: Making link for "%(path)s".
-:Groups: file-operation, informational, authenticated, ssh
+:Groups: authenticated, informational, file-operation, ssh
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -10759,7 +10771,7 @@ SSH protocol
 
 
 :Message: Successfully made link for "%(path)s".
-:Groups: file-operation, authenticated, ssh, success
+:Groups: authenticated, success, file-operation, ssh
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -10777,7 +10789,7 @@ SSH protocol
 
 
 :Message: Failed to make link for "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ssh
+:Groups: authenticated, failure, file-operation, ssh
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -10799,7 +10811,7 @@ SSH protocol
 
 
 :Message: Extended requests are not supported by the SFTP protocol.
-:Groups: failure, failure-specific, authenticated, ssh
+:Groups: authenticated, failure, failure-specific, ssh
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -10817,7 +10829,7 @@ SSH protocol
 
 
 :Message: Canonical file name requested for "%(path)s".
-:Groups: file-operation, informational, authenticated, ssh
+:Groups: authenticated, informational, file-operation, ssh
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -10835,7 +10847,7 @@ SSH protocol
 
 
 :Message: Failed to get attributes for opened file "%(path)s". %(details)s
-:Groups: file-operation, failure, authenticated, ssh
+:Groups: authenticated, failure, file-operation, ssh
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -10857,7 +10869,7 @@ SSH protocol
 
 
 :Message: Setting attributes on opened files not implemented for "%(path)s".
-:Groups: file-operation, failure, failure-specific, authenticated, ssh
+:Groups: authenticated, failure, file-operation, ssh, failure-specific
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -10875,7 +10887,7 @@ SSH protocol
 
 
 :Message: SCP process successfully started in "%(real_path)s" as "%(virtual_path)s".
-:Groups: informational, authenticated, ssh
+:Groups: authenticated, informational, ssh
 :From version: 2.5.0
 :To version: 3.21.0
 :Description: None
@@ -10900,7 +10912,7 @@ SSH protocol
 
 
 :Message: SCP session closed.
-:Groups: informational, authenticated, ssh
+:Groups: authenticated, informational, ssh
 :From version: 2.5.0
 :To version: None
 :Description: None
@@ -10918,7 +10930,7 @@ SSH protocol
 
 
 :Message: Internal error. Failed to process the SCP request. %(details)s
-:Groups: failure-critical, failure, authenticated, ssh, operational
+:Groups: operational, authenticated, failure, failure-critical, ssh
 :From version: 2.5.0
 :To version: None
 :Description: None
@@ -10936,7 +10948,7 @@ SSH protocol
 
 
 :Message: Failed to process '%(command)s' command request. %(details)s
-:Groups: failure-critical, failure, authenticated, ssh, operational
+:Groups: operational, authenticated, failure, failure-critical, ssh
 :From version: 3.45.0
 :To version: None
 :Description: None
@@ -10958,7 +10970,7 @@ SSH protocol
 
 
 :Message: File "%(path)s" successfully read. Read %(total_read)s bytes at %(read_speed)s bytes/second in %(duration)s seconds.
-:Groups: file-operation, authenticated, operation-read, success, ssh
+:Groups: authenticated, success, file-operation, operation-read, ssh
 :From version: 3.7.0
 :To version: None
 :Description: None
@@ -10989,7 +11001,7 @@ SSH protocol
 
 
 :Message: File "%(path)s" successfully written. Wrote %(total_write)s bytes at %(write_speed)s bytes/second in %(duration)s seconds.
-:Groups: file-operation, authenticated, operation-write, success, ssh
+:Groups: authenticated, success, file-operation, operation-write, ssh
 :From version: 3.7.0
 :To version: None
 :Description: None
@@ -11020,7 +11032,7 @@ SSH protocol
 
 
 :Message: Authentication requested for username with invalid encoding "%(username)s".
-:Groups: failure, session, ssh, failure-specific
+:Groups: session, failure, ssh, failure-specific
 :From version: 3.20.0
 :To version: 4.6.0
 :Description: None
@@ -11042,7 +11054,7 @@ SSH protocol
 
 
 :Message: Authentication requested with a password with invalid encoding.
-:Groups: failure, session, failure-specific, ssh
+:Groups: session, failure, failure-specific, ssh
 :From version: 3.20.0
 :To version: 4.6.0
 :Description: None
@@ -11060,7 +11072,7 @@ SSH protocol
 
 
 :Message: Invalid remote SSH server identity for location %(name)s. Configured "%(expected_fingerprint)s", remote sent "%(actual_fingerprint)s". 
-:Groups: failure-critical, client-side, failure, session, ssh, failure-specific
+:Groups: session, failure, failure-critical, failure-specific, ssh, client-side
 :From version: 2.9.0
 :To version: None
 :Description: None
@@ -11088,7 +11100,7 @@ SSH protocol
 
 
 :Message: Location %(name)s connected to the SSH server.
-:Groups: client-side, session, informational, ssh
+:Groups: session, informational, ssh, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -11110,7 +11122,7 @@ SSH protocol
 
 
 :Message: Connection to SSH server "%(server_version)s" was lost for location %(name)s. Protected using host-key:%(host_key)s key-exchange:%(key_exchange)s in-hmac:%(in_hmac)s in-cipher:%(in_cipher)s out-hmac:%(out_hmac)s out-cipher:%(out_cipher)s
-:Groups: client-side, session, informational, ssh
+:Groups: session, informational, ssh, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -11153,7 +11165,7 @@ SSH protocol
 
 
 :Message: Ignoring setting attributes for opened file "%(path)s".
-:Groups: file-operation, failure, failure-specific, authenticated, ssh
+:Groups: authenticated, failure, file-operation, ssh, failure-specific
 :From version: 3.51.0
 :To version: None
 :Description: None
@@ -11171,7 +11183,7 @@ SSH protocol
 
 
 :Message: Failed to read private SSH key "%(name)s" from %(path)s. %(details)s
-:Groups: process, failure, client-side, ssh, operational
+:Groups: operational, process, ssh, failure, client-side
 :From version: 3.0.0
 :To version: 3.40.0
 :Description: None
@@ -11196,7 +11208,7 @@ SSH protocol
 
 
 :Message: Client SFTP started for "%(name)s" using "%(credentials_type)s".
-:Groups: informational, authenticated, ssh, client-side
+:Groups: authenticated, informational, ssh, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -11221,7 +11233,7 @@ SSH protocol
 
 
 :Message: Client SFTP subsystem closed for location %(name)s.
-:Groups: informational, authenticated, ssh, client-side
+:Groups: authenticated, informational, ssh, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -11243,7 +11255,7 @@ SSH protocol
 
 
 :Message: Failure while authenticating the SFTP client for "%(name)s" using methods: %(methods)s. %(details)s
-:Groups: client-side, operational, failure, session, ssh, failure-high
+:Groups: operational, session, ssh, failure, failure-high, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -11268,7 +11280,7 @@ SSH protocol
 
 
 :Message: SSH Banner received: %(message)s
-:Groups: client-side, session, informational, ssh
+:Groups: session, informational, ssh, client-side
 :From version: 3.29.0
 :To version: None
 :Description: None
@@ -11290,7 +11302,7 @@ SSH protocol
 
 
 :Message: SSH rekey successfully completed.
-:Groups: client-side, session, informational, ssh
+:Groups: session, informational, ssh, client-side
 :From version: 3.31.0
 :To version: None
 :Description: None
@@ -11308,7 +11320,7 @@ SSH protocol
 
 
 :Message: Successfully got attributes for opened file "%(path)s".
-:Groups: file-operation, informational, authenticated, ssh
+:Groups: authenticated, informational, file-operation, ssh
 :From version: 3.51.0
 :To version: None
 :Description: None
@@ -14598,7 +14610,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Unauthorized request for "%(uri)s". %(details)s
-:Groups: failure, session, http
+:Groups: session, failure, http
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -14620,7 +14632,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Static web resource could not be found: %(uri)s
-:Groups: failure, session, http, failure-specific
+:Groups: session, failure, failure-specific, http
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -14642,7 +14654,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to get attributes for "%(path)s". Details: %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, http, file-operation
 :From version: 2.3.0
 :To version: None
 :Description: None
@@ -14660,7 +14672,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Internal error. Failed to retrieve "%(uri)s". %(title)s. %(details)s
-:Groups: failure-critical, failure, session, http
+:Groups: session, failure, failure-critical, http
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -14685,7 +14697,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Opened file for reading at "%(path)s".
-:Groups: file-operation, informational, authenticated, http
+:Groups: authenticated, informational, http, file-operation
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -14703,7 +14715,7 @@ HTTP/HTTPS protocol
 
 
 :Message: HEAD request done for file at "%(path)s".
-:Groups: file-operation, informational, authenticated, http
+:Groups: authenticated, informational, http, file-operation
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -14721,7 +14733,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Listing folder at "%(path)s".
-:Groups: file-operation, informational, authenticated, http
+:Groups: authenticated, informational, http, file-operation
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -14739,7 +14751,7 @@ HTTP/HTTPS protocol
 
 
 :Message: HTTP/HTTPS file access successfully started in "%(real_path)s" as "%(virtual_path)s".
-:Groups: informational, authenticated, http
+:Groups: authenticated, informational, http
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -14764,7 +14776,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Redirecting from "%(uri)s" to "%(redirect_uri)s".
-:Groups: informational, authenticated, http
+:Groups: authenticated, informational, http
 :From version: 1.8.0
 :To version: None
 :Description: None
@@ -14789,7 +14801,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Client HTTPS did not send a valid certificate. "%(details)s".
-:Groups: failure, session, http
+:Groups: session, failure, http
 :From version: 1.8.0
 :To version: 4.27.0
 :Description: None
@@ -14807,7 +14819,7 @@ HTTP/HTTPS protocol
 
 
 :Message: New folder created at "%(path)s".
-:Groups: file-operation, http, authenticated, success
+:Groups: authenticated, success, http, file-operation
 :From version: 2.3.0
 :To version: None
 :Description: None
@@ -14825,7 +14837,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to create new folder "%(path)s". Details: %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, http, file-operation
 :From version: 2.3.0
 :To version: None
 :Description: None
@@ -14843,7 +14855,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Successfully removed file at "%(path)s".
-:Groups: file-operation, http, authenticated, success
+:Groups: authenticated, success, http, file-operation
 :From version: 2.3.0
 :To version: None
 :Description: None
@@ -14861,7 +14873,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to remove file at "%(path)s". "%(details)s"
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, http, file-operation
 :From version: 2.3.0
 :To version: None
 :Description: None
@@ -14879,7 +14891,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to list folder content at "%(path)s". Details: %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, http, file-operation
 :From version: 2.3.0
 :To version: None
 :Description: None
@@ -14901,7 +14913,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to open file for writing at "%(path)s". Details: %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, http, file-operation
 :From version: 2.3.0
 :To version: 3.31.0
 :Description: None
@@ -14923,7 +14935,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed while storing uploaded file at "%(path)s". Details: %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, http, file-operation
 :From version: 2.3.0
 :To version: 3.31.0
 :Description: None
@@ -14945,7 +14957,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Successfully uploaded file at "%(path)s". Wrote %(total_write)s bytes at %(write_speed)s bytes/second in %(duration)s seconds.
-:Groups: file-operation, http, authenticated, success
+:Groups: authenticated, success, http, file-operation
 :From version: 2.3.0
 :To version: None
 :Description: None
@@ -14973,7 +14985,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Forcing client disconnection at "%(uri)s" after receiving %(size)s bytes in body. Response: %(code)s %(details)s
-:Groups: failure, session, http, failure-high
+:Groups: session, failure, failure-high, http
 :From version: 2.3.0
 :To version: None
 :Description: None
@@ -15004,7 +15016,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Bad request for "%(path)s". Requested as "%(uri)s". %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, http, file-operation
 :From version: 2.3.0
 :To version: None
 :Description: None
@@ -15029,7 +15041,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Internal error. Failed initializing request handler. %(details)s
-:Groups: failure-critical, failure, session, http
+:Groups: session, failure, failure-critical, http
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -15051,7 +15063,7 @@ HTTP/HTTPS protocol
 
 
 :Message: File opened for writing at "%(path)s". Path requested as "%(requested_path)s.
-:Groups: file-operation, informational, authenticated, http
+:Groups: authenticated, informational, http, file-operation
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -15069,7 +15081,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to upload file at "%(path)s". Path requested as "%(requested_path)s. Wrote %(total_write)s bytes at %(write_speed)s bytes/second in %(duration)s seconds. %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, http, file-operation
 :From version: 2.4.0
 :To version: None
 :Description: None
@@ -15097,7 +15109,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Internal error. Failed processing the request for "%(uri)s". %(details)s
-:Groups: failure-critical, failure, session, http
+:Groups: session, failure, failure-critical, http
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -15119,7 +15131,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Internal error. Failed processing the headers for "%(uri)s". %(details)s
-:Groups: failure-critical, failure, session, http
+:Groups: session, failure, failure-critical, http
 :From version: 2.11.0
 :To version: None
 :Description: None
@@ -15141,7 +15153,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Internal error. Failed executing JSON API "%(uri)s". %(details)s
-:Groups: failure-critical, failure, session, http
+:Groups: session, failure, failure-critical, http
 :From version: 2.11.0
 :To version: 3.32.0
 :Description: Replaced by event ID 40003.
@@ -15163,7 +15175,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Successfully removed folder at "%(path)s".
-:Groups: file-operation, http, authenticated, success
+:Groups: authenticated, success, http, file-operation
 :From version: 2.11.0
 :To version: None
 :Description: None
@@ -15181,7 +15193,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to remove folder at "%(path)s". "%(details)s"
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, http, file-operation
 :From version: 2.11.0
 :To version: None
 :Description: None
@@ -15199,7 +15211,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to decode name for file "%(name)s" in "%(operation)s" operation. The request for this file was ignored.
-:Groups: failure, failure-specific, authenticated, http
+:Groups: authenticated, failure, failure-specific, http
 :From version: 2.12.0
 :To version: None
 :Description: None
@@ -15224,7 +15236,7 @@ HTTP/HTTPS protocol
 
 
 :Message: HTTP/HTTPS connection closed on the server-side due to a failure. "%(details)s"
-:Groups: failure, session, http
+:Groups: session, failure, http
 :From version: 3.6.0
 :To version: 4.27.0
 :Description: None
@@ -15242,7 +15254,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Folder at "%(path)s" already exist for create request.
-:Groups: file-operation, informational, authenticated, http
+:Groups: authenticated, informational, http, file-operation
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -15260,7 +15272,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Client session was re-authenticated since previous credentials were no longer accepted by the server.
-:Groups: informational, authenticated, http, client-side
+:Groups: authenticated, informational, http, client-side
 :From version: 3.27.0
 :To version: None
 :Description: None
@@ -15278,7 +15290,7 @@ HTTP/HTTPS protocol
 
 
 :Message: HTTP/HTTPS connection closed on the client-side to %(hostname)s. Session fully established: %(session_established)s
-:Groups: informational, authenticated, http, client-side
+:Groups: authenticated, informational, http, client-side
 :From version: 3.27.0
 :To version: None
 :Description: None
@@ -15303,7 +15315,7 @@ HTTP/HTTPS protocol
 
 
 :Message: HTTP/HTTPS connection created on the client-side as %(hostname)s. Server certificate: %(certificate)s. Used encryption: %(encryption)s.
-:Groups: informational, authenticated, http, client-side
+:Groups: authenticated, informational, http, client-side
 :From version: 3.27.0
 :To version: None
 :Description: None
@@ -15331,7 +15343,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Successfully listed folder at "%(path)s".
-:Groups: file-operation, http, authenticated, success
+:Groups: authenticated, success, http, file-operation
 :From version: 3.28.0
 :To version: None
 :Description: None
@@ -15349,7 +15361,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to open file for reading at "%(path)s". Details: %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, http, file-operation
 :From version: 3.28.0
 :To version: None
 :Description: None
@@ -15367,7 +15379,7 @@ HTTP/HTTPS protocol
 
 
 :Message: HEAD requested for folder at "%(path)s".
-:Groups: file-operation, informational, authenticated, http
+:Groups: authenticated, informational, http, file-operation
 :From version: 3.29.0
 :To version: None
 :Description: None
@@ -15385,7 +15397,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Closing current HTTP session.
-:Groups: process, http, success
+:Groups: process, success, http
 :From version: 3.37.0
 :To version: None
 :Description: None
@@ -15403,7 +15415,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Public access is forbidden. %(details)s
-:Groups: failure, session, http
+:Groups: session, failure, http
 :From version: 3.40.0
 :To version: None
 :Description: None
@@ -15421,7 +15433,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Successfully downloaded file from "%(path)s". Read %(total_read)s bytes at %(read_speed)s bytes/second in %(duration)s seconds.
-:Groups: file-operation, informational, authenticated, http
+:Groups: authenticated, informational, http, file-operation
 :From version: 3.46.0
 :To version: None
 :Description: None
@@ -15449,7 +15461,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to download file from "%(path)s". Read %(total_read)s bytes at %(read_speed)s bytes/second in %(duration)s seconds. %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, http, file-operation
 :From version: 3.46.0
 :To version: None
 :Description: None
@@ -15477,7 +15489,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to download multiple files as ZIP archive. %(details)s
-:Groups: failure, authenticated, http
+:Groups: authenticated, failure, http
 :From version: 3.46.0
 :To version: None
 :Description: None
@@ -15495,7 +15507,7 @@ HTTP/HTTPS protocol
 
 
 :Message: HTTP request failed for %(url)s as part of a redundant request. Will retry after %(retry_interval)s seconds. %(details)s
-:Groups: process, failure, failure-high, operational
+:Groups: process, operational, failure, failure-high
 :From version: 3.51.0
 :To version: None
 :Description: None
@@ -15517,7 +15529,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Trigger "%(name)s" requested for: %(files)s.
-:Groups: informational, authenticated
+:Groups: authenticated, informational
 :From version: 3.54.0
 :To version: None
 :Description: None
@@ -15539,7 +15551,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to start AS2 receive ID "%(message_id)s" in "%(real_path)s" from "%(as2_from)s" to "%(as2_to)s". MDN: %(mdn_info)s. %(details)s
-:Groups: failure, authenticated, http
+:Groups: authenticated, failure, http
 :From version: 4.5.0
 :To version: None
 :Description: None
@@ -15557,7 +15569,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Started AS2 receive ID "%(message_id)s" in "%(real_path)s" from "%(as2_from)s" to "%(as2_to)s". MDN: %(mdn_info)s. Signed: %(signature)s. Encrypted: %(is_encrypted)s. Compressed: %(is_compressed)s.
-:Groups: file-operation, informational, authenticated, http
+:Groups: authenticated, informational, file-operation, http
 :From version: 4.5.0
 :To version: None
 :Description: None
@@ -15575,7 +15587,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Successful AS2 receive ID "%(message_id)s" at "%(real_path)s" from "%(as2_from)s" to "%(as2_to)s". MDN: %(mdn_info)s. Signed: %(signature)s %(digest)s. Encrypted: %(is_encrypted)s. Compressed: %(is_compressed)s.
-:Groups: file-operation, http, authenticated, success
+:Groups: authenticated, success, file-operation, http
 :From version: 4.5.0
 :To version: None
 :Description: None
@@ -15593,7 +15605,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed AS2 receive ID "%(message_id)s" at "%(real_path)s" from "%(as2_from)s" to "%(as2_to)s". MDN: %(mdn_info)s. Signed: %(signature)s %(digest)s. Encrypted: %(is_encrypted)s. Compressed: %(is_compressed)s. %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, file-operation, http
 :From version: 4.5.0
 :To version: None
 :Description: None
@@ -15611,7 +15623,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to start AS2 send ID "%(message_id)s" at "%(real_path)s" from "%(as2_from)s" to "%(as2_to)s". MDN: %(mdn_info)s. Content signature: %(signature)s. Encrypted: %(is_encrypted)s. %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, file-operation, http
 :From version: 4.5.0
 :To version: None
 :Description: None
@@ -15629,7 +15641,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to send AS2 send ID "%(message_id)s" at "%(real_path)s" from "%(as2_from)s" to "%(as2_to)s". MDN: %(mdn_info)s. Content signature: %(signature)s. Encrypted: %(is_encrypted)s. %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, file-operation, http
 :From version: 4.5.0
 :To version: None
 :Description: None
@@ -15647,7 +15659,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Started AS2 send ID "%(message_id)s" at "%(real_path)s" from "%(as2_from)s" to "%(as2_to)s". MDN: %(mdn_info)s. Content signature: %(signature)s. Encrypted: %(is_encrypted)s.
-:Groups: file-operation, informational, authenticated, http
+:Groups: authenticated, informational, file-operation, http
 :From version: 4.5.0
 :To version: None
 :Description: None
@@ -15665,7 +15677,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Successful AS2 send ID "%(message_id)s" at "%(real_path)s" from "%(as2_from)s" to "%(as2_to)s". MDN: %(mdn_info)s. Content signature: %(signature)s. Encrypted: %(is_encrypted)s.
-:Groups: file-operation, informational, authenticated, http
+:Groups: authenticated, informational, file-operation, http
 :From version: 4.5.0
 :To version: None
 :Description: None
@@ -15683,7 +15695,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to send AS2 async MDN for ID "%(message_id)s" at "%(real_path)s" from "%(as2_from)s" to "%(as2_to)s". MDN: %(mdn_info)s. Signed: %(signature)s %(digest)s. Encrypted: %(is_encrypted)s. Compressed: %(is_compressed)s. %(details)s
-:Groups: file-operation, failure, authenticated, http
+:Groups: authenticated, failure, file-operation, http
 :From version: 4.9.0
 :To version: None
 :Description: None
@@ -15701,7 +15713,7 @@ HTTP/HTTPS protocol
 
 
 :Message: HTTP/HTTPS connection created.
-:Groups: http, session, informational
+:Groups: session, informational, http
 :From version: 4.27.0
 :To version: None
 :Description: None
@@ -15719,7 +15731,7 @@ HTTP/HTTPS protocol
 
 
 :Message: HTTP/HTTPS connection closed. Client certificate: %(certificate)s. Used encryption: %(encryption)s. %(details)s
-:Groups: http, session, informational
+:Groups: session, informational, http
 :From version: 4.27.0
 :To version: None
 :Description: None
@@ -15747,7 +15759,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Successfully renamed file from "%(from)s" to "%(to)s".
-:Groups: file-operation, http, operation-rename, authenticated, success
+:Groups: authenticated, success, http, file-operation, operation-rename
 :From version: 2.3.0
 :To version: None
 :Description: None
@@ -15775,7 +15787,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Failed to rename file from "%(from)s" to "%(to)s". "%(details)s"
-:Groups: file-operation, failure, operation-rename, authenticated, http
+:Groups: authenticated, failure, http, file-operation, operation-rename
 :From version: 2.3.0
 :To version: None
 :Description: None
@@ -15803,7 +15815,7 @@ HTTP/HTTPS protocol
 
 
 :Message: Internal error during HTTP/HTTP service processing for "%(uri)s". "%(details)s"
-:Groups: failure-critical, failure, session
+:Groups: session, failure, failure-critical
 :From version: 4.29.0
 :To version: None
 :Description: None
@@ -19097,7 +19109,7 @@ Management and Local Manager Events
 
 
 :Message: Request does not contains an session id.
-:Groups: failure, session, failure-specific, local-manager
+:Groups: session, failure, failure-specific, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -19115,7 +19127,7 @@ Management and Local Manager Events
 
 
 :Message: Authentication failed. %(details)s
-:Groups: failure, session, local-manager
+:Groups: session, failure, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -19133,7 +19145,7 @@ Management and Local Manager Events
 
 
 :Message: Configuration read from local manager.
-:Groups: administration, local-manager, success
+:Groups: administration, success, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -19151,7 +19163,7 @@ Management and Local Manager Events
 
 
 :Message: Internal error while applying the requested change from local manager. "%(details)s".
-:Groups: failure-critical, failure, administration, local-manager
+:Groups: administration, failure, failure-critical, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -19173,7 +19185,7 @@ Management and Local Manager Events
 
 
 :Message: Internal JSON-RPC error: %(details)s
-:Groups: failure-critical, failure, administration, local-manager, operational
+:Groups: operational, administration, failure, failure-critical, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -19191,7 +19203,7 @@ Management and Local Manager Events
 
 
 :Message: All requested changes successfully applied. Changes: %(changes)s. Results: %(results)s.
-:Groups: administration, local-manager, success, operational
+:Groups: administration, operational, success, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -19216,7 +19228,7 @@ Management and Local Manager Events
 
 
 :Message: Not all requested changes successfully applied. Changes: %(changes)s. Results: %(results)s.
-:Groups: failure, failure-specific, administration, local-manager, operational
+:Groups: operational, administration, failure, failure-specific, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -19241,7 +19253,7 @@ Management and Local Manager Events
 
 
 :Message: %(kind)s administrator "%(name)s" logged in local manager as role "%(role)s".
-:Groups: administration, local-manager, success
+:Groups: administration, success, local-manager
 :From version: 2.1.0
 :To version: 4.0.0
 :Description: None
@@ -19269,7 +19281,7 @@ Management and Local Manager Events
 
 
 :Message: Local manager authentication failed for "%(username)s".
-:Groups: failure, failure-specific, administration, local-manager
+:Groups: administration, failure, failure-specific, local-manager
 :From version: 2.1.0
 :To version: 3.37.0
 :Description: None
@@ -19291,7 +19303,7 @@ Management and Local Manager Events
 
 
 :Message: Administrative operation denied. %(details)s
-:Groups: failure, administration, local-manager
+:Groups: administration, failure, local-manager
 :From version: 4.15.0
 :To version: None
 :Description: None
@@ -19309,7 +19321,7 @@ Management and Local Manager Events
 
 
 :Message: Administrator logged out from local manager.
-:Groups: informational, administration, local-manager
+:Groups: administration, informational, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -19327,7 +19339,7 @@ Management and Local Manager Events
 
 
 :Message: Bad format for requested changes: %(changes)s. %(details)s
-:Groups: failure, failure-high, administration, local-manager
+:Groups: administration, failure, failure-high, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -19349,7 +19361,7 @@ Management and Local Manager Events
 
 
 :Message: Failed to apply requested change: "%(details)s".
-:Groups: failure, administration, local-manager
+:Groups: administration, failure, local-manager
 :From version: 2.1.0
 :To version: 4.5.0
 :Description: None
@@ -19371,7 +19383,7 @@ Management and Local Manager Events
 
 
 :Message: Failed to process action for runnable with UUID %(uuid)s: %(details)s
-:Groups: failure, session, local-manager
+:Groups: session, failure, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -19396,7 +19408,7 @@ Management and Local Manager Events
 
 
 :Message: Local Manager request failed. %(details)s
-:Groups: failure, authenticated, local-manager, operational
+:Groups: operational, authenticated, failure, local-manager
 :From version: 4.0.0
 :To version: None
 :Description: None
@@ -19414,7 +19426,7 @@ Management and Local Manager Events
 
 
 :Message: Internal error. Failed processing the action for runnable with UUID: %(uuid)s. %(details)s
-:Groups: failure-critical, failure, session, local-manager
+:Groups: session, failure, failure-critical, local-manager
 :From version: 2.1.0
 :To version: None
 :Description: None
@@ -19436,7 +19448,7 @@ Management and Local Manager Events
 
 
 :Message: Failed to get content of database "%(database_uuid)s". %(details)s
-:Groups: failure, failure-high, authenticated, local-manager, operational
+:Groups: operational, authenticated, failure, failure-high, local-manager
 :From version: 2.6.0
 :To version: 4.0.0
 :Description: None.
@@ -19461,7 +19473,7 @@ Management and Local Manager Events
 
 
 :Message: Configuration synchronization from node.
-:Groups: administration, local-manager, success
+:Groups: administration, success, local-manager
 :From version: 4.14.0
 :To version: None
 :Description: None
@@ -19479,7 +19491,7 @@ Management and Local Manager Events
 
 
 :Message: Failed to apply the "%(operation)s" configuration change for "%(target)s": %(details)s
-:Groups: failure, failure-high, administration, local-manager, operational
+:Groups: operational, administration, failure, failure-high, local-manager
 :From version: 4.27.0
 :To version: None
 :Description: None
@@ -19504,7 +19516,7 @@ Management and Local Manager Events
 
 
 :Message: Failed to get configuration for database "%(database_uuid)s". Source: %(source)s. %(details)s
-:Groups: failure, failure-high, authenticated, local-manager, operational
+:Groups: operational, authenticated, failure, failure-high, local-manager
 :From version: 2.6.0
 :To version: 4.0.0
 :Description: None.
@@ -19532,7 +19544,7 @@ Management and Local Manager Events
 
 
 :Message: Failed to get %(source)s data since database "%(database_uuid)s" is not started.
-:Groups: informational, authenticated, local-manager, operational
+:Groups: operational, authenticated, informational, local-manager
 :From version: 2.6.0
 :To version: 4.0.0
 :Description: None.
@@ -19557,7 +19569,7 @@ Management and Local Manager Events
 
 
 :Message: Failed to get data. Unknown source: "%(source)s".
-:Groups: informational, authenticated, local-manager, operational
+:Groups: operational, authenticated, informational, local-manager
 :From version: 2.6.0
 :To version: 4.0.0
 :Description: None.
@@ -19579,7 +19591,7 @@ Management and Local Manager Events
 
 
 :Message: Failed to get %(source)s database configuration for: "%(database_uuid)s".
-:Groups: informational, authenticated, local-manager, operational
+:Groups: operational, authenticated, informational, local-manager
 :From version: 2.6.0
 :To version: 4.0.0
 :Description: None.
@@ -19604,7 +19616,7 @@ Management and Local Manager Events
 
 
 :Message: Failed to process the management action. %(details)s
-:Groups: failure, failure-high, authenticated, local-manager, operational
+:Groups: operational, authenticated, failure, failure-high, local-manager
 :From version: 2.9.0
 :To version: None
 :Description: None
@@ -19622,7 +19634,7 @@ Management and Local Manager Events
 
 
 :Message: Failed to generate SSH key or SSL key/csr. %(details)s
-:Groups: failure, failure-high, authenticated, local-manager, operational
+:Groups: operational, authenticated, failure, failure-high, local-manager
 :From version: 2.12.0
 :To version: 4.6.0
 :Description: None
@@ -19640,7 +19652,7 @@ Management and Local Manager Events
 
 
 :Message: Internal error. Failed processing database entries. %(details)s
-:Groups: failure, authenticated, local-manager, operational
+:Groups: operational, authenticated, failure, local-manager
 :From version: 3.0.0
 :To version: 4.0.0
 :Description: None
@@ -19658,7 +19670,7 @@ Management and Local Manager Events
 
 
 :Message: Successfully generated CSV logs from %(database_uuid)s.
-:Groups: authenticated, local-manager, success, operational
+:Groups: operational, authenticated, success, local-manager
 :From version: 3.1.0
 :To version: None
 :Description: None
@@ -19680,12 +19692,15 @@ Management and Local Manager Events
 
 
 :Message: Error occurred while generating CSV logs from %(database_uuid)s. %(details)s
-:Groups: failure, authenticated, local-manager, operational
+:Groups: operational, authenticated, failure, local-manager
 :From version: 3.1.0
 :To version: None
 :Description: None
 :Data:
   :database_uuid: UUID of the database.
+
+
+  :tb: Debug information with the error trace.
 
 
 
@@ -23017,7 +23032,7 @@ Transfer and client-side functionality
 
 
 :Message: Command failed: %(details)s
-:Groups: failure-critical, failure, authenticated, client-side
+:Groups: authenticated, failure, failure-critical, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -23071,7 +23086,7 @@ Transfer and client-side functionality
 
 
 :Message: Error occurred while taking a snapshot for "%(path)s". %(details)s
-:Groups: failure, location-operation, client-side
+:Groups: location-operation, failure, client-side
 :From version: 3.19.0
 :To version: None
 :Description: None
@@ -23111,7 +23126,7 @@ Transfer and client-side functionality
 
 
 :Message: Executing command "%(name)s" for "%(path)s".
-:Groups: client-side, transfer-job, informational
+:Groups: transfer-job, informational, client-side
 :From version: 2.7.0
 :To version: None
 :Description: None
@@ -23136,7 +23151,7 @@ Transfer and client-side functionality
 
 
 :Message: Command "%(name)s" was successful for "%(path)s". Output "%(output)s". Error "%(error)s". Exit code "%(exit_code)s".
-:Groups: transfer-job, client-side, success
+:Groups: transfer-job, success, client-side
 :From version: 2.7.0
 :To version: None
 :Description: None
@@ -23170,7 +23185,7 @@ Transfer and client-side functionality
 
 
 :Message: Command "%(name)s" failed for "%(path)s". Output "%(output)s". Error "%(error)s". Exit code "%(exit_code)s". %(details)s
-:Groups: failure, transfer-job, client-side
+:Groups: transfer-job, failure, client-side
 :From version: 2.7.0
 :To version: None
 :Description: None
@@ -23204,7 +23219,7 @@ Transfer and client-side functionality
 
 
 :Message: Source and destination ready. Start %(transfer_type)s for "%(path)s" with a size of %(size)s bytes.
-:Groups: client-side, transfer-job, informational
+:Groups: transfer-job, informational, client-side
 :From version: 2.9.0
 :To version: None
 :Description: None
@@ -23229,7 +23244,7 @@ Transfer and client-side functionality
 
 
 :Message: Failed to transfer "%(path)s". Will retry %(count)s more. Next try after %(wait)s seconds. %(details)s
-:Groups: file-operation, failure, transfer-job, client-side
+:Groups: transfer-job, failure, client-side, file-operation
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -23254,7 +23269,7 @@ Transfer and client-side functionality
 
 
 :Message: Successful %(transfer_type)s for file "%(path)s" to "%(destination_path)s" with a size of %(size)s bytes of which %(transferred_size)s bytes were transferred in %(duration)s seconds at %(speed)s kB/s.
-:Groups: file-operation, transfer-job, client-side, success
+:Groups: transfer-job, success, client-side, file-operation
 :From version: 2.9.0
 :To version: None
 :Description: None
@@ -23279,7 +23294,7 @@ Transfer and client-side functionality
 
 
 :Message: Error occurred while %(transfer_type)s for file "%(path)s" of %(size)s bytes of which %(transferred_size)s bytes were transferred in %(duration)s seconds at %(speed)s kB/s. %(details)s
-:Groups: file-operation, failure, transfer-job, client-side
+:Groups: transfer-job, failure, client-side, file-operation
 :From version: 2.9.0
 :To version: None
 :Description: None
@@ -23297,7 +23312,7 @@ Transfer and client-side functionality
 
 
 :Message: Failed to open source file "%(path)s" for reading. %(details)s
-:Groups: file-operation, failure, transfer-job, client-side
+:Groups: transfer-job, failure, client-side, file-operation
 :From version: 2.9.0
 :To version: None
 :Description: None
@@ -23315,7 +23330,7 @@ Transfer and client-side functionality
 
 
 :Message: Failed to open destination file "%(path)s" for writing. %(details)s
-:Groups: file-operation, failure, transfer-job, client-side
+:Groups: transfer-job, failure, client-side, file-operation
 :From version: 2.9.0
 :To version: None
 :Description: None
@@ -23333,7 +23348,7 @@ Transfer and client-side functionality
 
 
 :Message: Transfer job failed at %(step_name)s after all retries. The following files failed: %(failed_paths)s. The following files succeeded: %(success_paths)s.
-:Groups: failure, transfer-job, client-side, failure-specific
+:Groups: transfer-job, failure, failure-specific, client-side
 :From version: 2.9.0
 :To version: None
 :Description: None
@@ -23367,7 +23382,7 @@ Transfer and client-side functionality
 
 
 :Message: Transfer succeeded for source %(paths)s to %(destination_paths)s.
-:Groups: transfer-job, client-side, success
+:Groups: transfer-job, success, client-side
 :From version: 2.9.0
 :To version: None
 :Description: None
@@ -23395,7 +23410,7 @@ Transfer and client-side functionality
 
 
 :Message: Internal error. Failed executing transfer for "%(path)s" at "%(step_name)s". %(details)s
-:Groups: failure-critical, failure, transfer-job, client-side
+:Groups: transfer-job, failure, failure-critical, client-side
 :From version: 2.9.0
 :To version: None
 :Description: None
@@ -23413,7 +23428,7 @@ Transfer and client-side functionality
 
 
 :Message: Invalid schedule value for transfer "%(name)s". %(details)s
-:Groups: failure, transfer-job, client-side
+:Groups: transfer-job, failure, client-side
 :From version: 3.0.0
 :To version: 3.44.0
 :Description: None
@@ -23513,7 +23528,7 @@ Transfer and client-side functionality
 
 
 :Message: Transfer "%(name)s" has detected a "%(action)s" action scheduled for "%(expected_date)s", but its execution time has already passed. It was re-scheduled for now.
-:Groups: transfer, failure-specific, client-side, failure
+:Groups: transfer, failure, failure-specific, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -23541,7 +23556,7 @@ Transfer and client-side functionality
 
 
 :Message: Keep alive call failed for resource "%(name)s" . %(details)s
-:Groups: failure, authenticated, client-side
+:Groups: authenticated, failure, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -23563,7 +23578,7 @@ Transfer and client-side functionality
 
 
 :Message: Failed to archive "%(path)s" as "%(archive_path)s". %(details)s
-:Groups: failure, transfer-job, client-side
+:Groups: transfer-job, failure, client-side
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -23585,7 +23600,7 @@ Transfer and client-side functionality
 
 
 :Message: File "%(path)s" was successfully archived as "%(archive_path)s".
-:Groups: transfer-job, client-side, success
+:Groups: transfer-job, success, client-side
 :From version: 2.10.0
 :To version: None
 :Description: None
@@ -23607,7 +23622,7 @@ Transfer and client-side functionality
 
 
 :Message: Invalid overwrite rule configuration "%(details)s" for transfer "%(name)s".
-:Groups: failure, transfer-job, client-side
+:Groups: transfer-job, failure, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -23629,7 +23644,7 @@ Transfer and client-side functionality
 
 
 :Message: Fail to transfer file "%(path)s" for "%(name)s". File already exists on the destination and transfer is not configured to overwrite it.
-:Groups: failure, transfer-job, client-side, failure-specific
+:Groups: transfer-job, failure, failure-specific, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -23651,7 +23666,7 @@ Transfer and client-side functionality
 
 
 :Message: Remote file "%(path)s" is going to be overwritten for transfer "%(name)s".
-:Groups: client-side, transfer-job, informational
+:Groups: transfer-job, informational, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -23673,7 +23688,7 @@ Transfer and client-side functionality
 
 
 :Message: Remote file "%(existing_path)s" was renamed to "%(path)s" to prevent overwriting it for "%(name)s".
-:Groups: transfer-job, client-side, success
+:Groups: transfer-job, success, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -23701,7 +23716,7 @@ Transfer and client-side functionality
 
 
 :Message: File "%(path)s" is going to be transfered as "%(destination_path)s" for "%(name)s" as a file with same name already exists on the destination.
-:Groups: client-side, transfer-job, informational
+:Groups: transfer-job, informational, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -23810,7 +23825,7 @@ Transfer and client-side functionality
 
 
 :Message: Closed with success "%(path)s" on "%(location)s" after opening for %(mode)s. Read: %(read_size)s. Write: %(write_size)s
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -23910,7 +23925,7 @@ Transfer and client-side functionality
 
 
 :Message: Started monitoring "%(path)s" on "%(location)s" (recursive %(recursive)s).
-:Groups: client-side, authenticated, success
+:Groups: success, authenticated, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -23935,7 +23950,7 @@ Transfer and client-side functionality
 
 
 :Message: Stopped monitoring "%(path)s" on "%(location)s".
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -23957,7 +23972,7 @@ Transfer and client-side functionality
 
 
 :Message: Operation to check the existence of "%(path)s" was successful on "%(location)s".
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24001,7 +24016,7 @@ Transfer and client-side functionality
 
 
 :Message: Successfully renamed "%(from)s" to "%(to)s" on "%(location)s".
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24063,7 +24078,7 @@ Transfer and client-side functionality
 
 
 :Message: Successfully deleted file "%(path)s" on "%(location)s".
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24107,7 +24122,7 @@ Transfer and client-side functionality
 
 
 :Message: Successfully deleted directory (recursive %(recursive)s) "%(path)s" on "%(location)s".
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24157,7 +24172,7 @@ Transfer and client-side functionality
 
 
 :Message: Successfully created directory "%(path)s" on "%(location)s".
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24201,7 +24216,7 @@ Transfer and client-side functionality
 
 
 :Message: Successfully listed directory "%(path)s" on "%(location)s".
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24245,7 +24260,7 @@ Transfer and client-side functionality
 
 
 :Message: Successfully opened "%(path)s" for reading on "%(location)s".
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24289,7 +24304,7 @@ Transfer and client-side functionality
 
 
 :Message: Successfully opened "%(path)s" for writing on "%(location)s".
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24333,7 +24348,7 @@ Transfer and client-side functionality
 
 
 :Message: Successfully opened "%(path)s" for appending on "%(location)s".
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24377,7 +24392,7 @@ Transfer and client-side functionality
 
 
 :Message: Successfully touched "%(path)s" on "%(location)s".
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24421,7 +24436,7 @@ Transfer and client-side functionality
 
 
 :Message: Successfully copied local "%(path)s" to local "%(to)s" (overwrite %(overwrite)s) on "%(location)s".
-:Groups: file-operation, location-operation, client-side, success
+:Groups: success, file-operation, location-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24455,7 +24470,7 @@ Transfer and client-side functionality
 
 
 :Message: Failed to copy local "%(path)s" to local "%(to)s" on "%(location)s". %(details)s
-:Groups: file-operation, failure, location-operation, client-side
+:Groups: location-operation, failure, file-operation, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24489,7 +24504,7 @@ Transfer and client-side functionality
 
 
 :Message: Sending keep alive call for resource "%(name)s".
-:Groups: informational, authenticated, client-side
+:Groups: authenticated, informational, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24511,7 +24526,7 @@ Transfer and client-side functionality
 
 
 :Message: Executing "%(condition)s" commands on destination for "%(name)s".
-:Groups: client-side, transfer-job, informational
+:Groups: transfer-job, informational, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24536,7 +24551,7 @@ Transfer and client-side functionality
 
 
 :Message: Successfully executed "%(condition)s" commands on destination for "%(name)s".
-:Groups: transfer-job, client-side, success
+:Groups: transfer-job, success, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24561,7 +24576,7 @@ Transfer and client-side functionality
 
 
 :Message: Failed to execute "%(condition)s" commands on destination for "%(name)s". %(details)s
-:Groups: failure, transfer-job, client-side
+:Groups: transfer-job, failure, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24586,7 +24601,7 @@ Transfer and client-side functionality
 
 
 :Message: Disconnecting as resource "%(name)s" was idle for %(seconds)s seconds.
-:Groups: informational, authenticated, client-side
+:Groups: authenticated, informational, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24611,7 +24626,7 @@ Transfer and client-side functionality
 
 
 :Message: Reconnecting as resource "%(name)s" is configured to always keep the connection alive.
-:Groups: informational, authenticated, client-side
+:Groups: authenticated, informational, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24633,7 +24648,7 @@ Transfer and client-side functionality
 
 
 :Message: Failed to close source "%(path)s" after failing to open destination "%(destination_path)s". %(details)s
-:Groups: file-operation, failure, transfer-job, client-side
+:Groups: transfer-job, file-operation, failure, client-side
 :From version: 3.12.0
 :To version: None
 :Description: None
@@ -24658,7 +24673,7 @@ Transfer and client-side functionality
 
 
 :Message: Transfer temporarily paused for file "%(path)s" at %(step_name)s as %(location)s is not yet available. All the other files are paused waiting for the location automatic (re)connection.
-:Groups: client-side, transfer-job, informational
+:Groups: transfer-job, informational, client-side
 :From version: 3.10.0
 :To version: None
 :Description: None
@@ -24676,7 +24691,7 @@ Transfer and client-side functionality
 
 
 :Message: Successfully got attributes for "%(path)s" on "%(location)s".
-:Groups: location-operation, client-side, success
+:Groups: success, location-operation, client-side
 :From version: 3.20.0
 :To version: None
 :Description: None
@@ -24720,7 +24735,7 @@ Transfer and client-side functionality
 
 
 :Message: Start executing transfer for "%(name)s" with %(count)s files: %(files)s.
-:Groups: client-side, transfer-job, informational
+:Groups: transfer-job, informational, client-side
 :From version: 3.0.0
 :To version: None
 :Description: None
@@ -24798,7 +24813,7 @@ Transfer and client-side functionality
 
 
 :Message: Skipping source file "%(path)s" as it already exist on destination.
-:Groups: client-side, transfer-job, informational
+:Groups: transfer-job, informational, client-side
 :From version: 4.0.0
 :To version: None
 :Description: None
@@ -24834,7 +24849,7 @@ Transfer and client-side functionality
 
 
 :Message: Transfer job canceled for "%(path)s" at "%(step_name)s".
-:Groups: failure, transfer-job, client-side, failure-specific
+:Groups: transfer-job, failure, failure-specific, client-side
 :From version: 4.3.0
 :To version: None
 :Description: None
@@ -24852,7 +24867,7 @@ Transfer and client-side functionality
 
 
 :Message: Conflicting content detected for source file "%(path)s". Consider increasing the 'stable_interval' configuration. %(details)s
-:Groups: transfer, client-side, failure
+:Groups: transfer, failure, client-side
 :From version: 4.3.0
 :To version: None
 :Description: None
@@ -24892,7 +24907,7 @@ Transfer and client-side functionality
 
 
 :Message: Transfer failed for "%(path)s" at "%(step_name)s". %(details)s
-:Groups: failure, transfer-job, client-side
+:Groups: transfer-job, failure, client-side
 :From version: 4.3.0
 :To version: None
 :Description: None
@@ -24910,7 +24925,7 @@ Transfer and client-side functionality
 
 
 :Message: Location %(location)s for %(step_name)s is now available to transfer "%(path)s".
-:Groups: client-side, transfer-job, informational
+:Groups: transfer-job, informational, client-side
 :From version: 4.4.0
 :To version: None
 :Description: None
@@ -24928,7 +24943,7 @@ Transfer and client-side functionality
 
 
 :Message: Configured "stable_interval" ignored as it is smaller than "changes_poll_interval". %(stable_interval)s seconds used instead.
-:Groups: transfer, failure-specific, client-side, failure
+:Groups: transfer, failure, failure-specific, client-side
 :From version: 4.4.0
 :To version: None
 :Description: None
@@ -24946,7 +24961,7 @@ Transfer and client-side functionality
 
 
 :Message: Failed to delete parent directory %(path)s for a source file. %(details)s
-:Groups: transfer, client-side, failure
+:Groups: transfer, failure, client-side
 :From version: 4.10.0
 :To version: None
 :Description: None
@@ -24964,7 +24979,7 @@ Transfer and client-side functionality
 
 
 :Message: Failed to start monitoring "%(path)s" on "%(location)s". Will automatically retry when the location is connected. %(details)s
-:Groups: failure, client-side, transfer
+:Groups: failure, transfer, client-side
 :From version: 4.23.0
 :To version: None
 :Description: None
