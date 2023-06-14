@@ -28,7 +28,7 @@ For example, your load balancer can listen on port 443, while SFTPPlus listens o
 For HTML cross-site security, it is required to configure the list of sites used via the proxy frontend.
 This is done using the `accepted_origins` configuration options.
 
-For example, if you are accessing SFTPPlus via a proxy/load balancer using URLs like `https://admin.gw.example.com` or `https://gw.example.com:10443`, you need to configure SFTPPlus as follows:
+For example, if you are accessing SFTPPlus via a proxy/load balancer using URLs like `https://admin.gw.example.com` or `https://gw.example.com:10443`, you need to configure SFTPPlus as follows::
 
     [services/DEFAULT-MANAGER]
     port = 10020
@@ -42,6 +42,7 @@ It is important to make sure that the unsecured port is available only over secu
 This can be enforced using a firewall.
 
 To allow unsecure operation over HTTP, you can configure the SFTPPlus management port as follows::
+
     [services/DEFAULT-MANAGER]
     port = 10019
     type: _manager_unsecured
