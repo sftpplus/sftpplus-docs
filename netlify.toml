@@ -29,7 +29,7 @@
 [build.environment]
   GIT_LFS_ENABLED = "true"
   SFTPPLUS_TARGET = "production"
-  PYTHON_VERSION = "3.8"
+  PYTHON_VERSION = "2.7"
   DOCS_ROBOT = "noindex,nofollow"
 
 [context.main.environment]
