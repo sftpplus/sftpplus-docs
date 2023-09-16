@@ -8,6 +8,22 @@ Introduction
 ------------
 
 A command-line shell is provided to access the SFTPPlus management interface.
+It can be used as a one line command call, or as an interactive shell.
+
+In this page we will refer to it as `admin-shell`.
+
+The following configuration and administrative tasks can be performed using
+the `admin-shell`:
+
+* show the list of failed components and status details
+* show the status of services/transfers/event handlers/locations/ etc
+* start/stop/restart a service / transfer / location
+* add or delete services / transfers / locations / event-handlers / etc
+* add or delete accounts (only of type `application`)
+* add or delete groups
+* show configuration for a component
+* show the current configuration value for an option for a component
+* set the configuration option for a component
 
 It is recommended to start the shell from the SFTPPlus installation folder.
 
@@ -72,7 +88,7 @@ authenticate to the SFTPPlus management interface.
 If no administrator name or password was provided as command line arguments,
 `admin-shell` will ask for these details.
 
-Upon a successful connection you will see a prompt such as::
+Upon a successful connection, you will see a prompt such as::
 
     Administrator name: admin
     Password: PASSWORD-NOT-ECHOED
@@ -93,6 +109,21 @@ To find more details about a command::
 For example, to show more details about the command `show`::
 
     > help show
+
+
+Changing the configuration options
+----------------------------------
+
+When setting the configuration option, you will need to provide the UUID
+for the component that needs to be changed and the value provided in JSON
+format.
+
+Below is an example to set the value as text, number, boolean and list::
+
+    > configure group DEFAULT_GROUP name "text in quotes"
+    > configure group DEFAULT_GROUP password_lifetime 42
+    > configure group DEFAULT_GROUP enabled true
+    > configure group DEFAULT_GROUP home_folder_structure ["/inbox", "/outbox"]
 
 
 Scripting integration and password security

@@ -7,6 +7,52 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.31.0, 2023-08-07
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure a transfer to do automatic content conversion from
+  UTF-16 to ASCII. [client-side] [#5943]
+* You can now manage components from the admin-shell command line tool using
+  component name as a reference. [manager][cli] [#6291]
+* A new event handler was added to compute the digest of files. [#6302]
+* The HTTP Post event handler can now trigger requests using the GET or PUT HTTP
+  methods. [#6309]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The `usernames` configuration option of the `deny-username` authentication
+  method now handles the configured values as case-insensitive, regardless
+  of the actual case of the configured values. In previous versions, the
+  configured value was required to be defined in lowercase. [security] [#6293]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* In order to speed up loading past activity logs, the total
+  number of logs is no longer displayed. [manager] [#2707]
+* A warning is generated in the logs and the web administration console when
+  the SFTPPlus Windows service is still started using the legacy utility that
+  was used in version 2 and 3 of SFTPPlus. The legacy utility still works with
+  version 4, but will no longer work with future major SFTPPlus versions.
+  This issue only affects SFTPPlus installations that were first installed
+  using a version prior to 4.1.0. [windows] [#5550]
+* The main page of the Web Administration Console no longer contains the list
+  of resources and locations. These lists can now be found in the dedicated
+  pages for resources and locations. [manager] [#6236]
+* In the web administration console, the local filesystem monitor service was
+  moved to the `Resources` section. From the resources section you can add,
+  delete, or modify existing resource monitors. No configuration changes are
+  required. In the .INI configuration file, the file system monitor continues
+  to be configured from the services section. [manager] [#6279]
+
+
 Version 4.30.1, 2023-06-13
 --------------------------
 

@@ -18,7 +18,7 @@ Reverse Proxy / API Gateway integration
 The administration page can be served via any frontend, be it a reverse HTTP proxy or a load balancer.
 
 The frontend can be configured using any domain name (FQDN), port number, or URL path.
-Any standard HTTP reverse proxy or load balancer will work.
+Any standard HTTP reverse-proxy or load balancer will work.
 We successfully tested the integration of SFTPPlus with NGINX, HAProxy, and the AWS and Azure application load balancers.
 
 When the SFTPPlus web-based administration console is configured as the backend, it can bind a different port number than the one used by the frontend.
@@ -28,7 +28,7 @@ For example, your load balancer can listen on port 443, while SFTPPlus listens o
 For HTML cross-site security, it is required to configure the list of sites used via the proxy frontend.
 This is done using the `accepted_origins` configuration options.
 
-For example, if you are accessing SFTPPlus via a proxy/load balancer using URLs like `https://admin.gw.example.com` or `https://gw.example.com:10443`, you need to configure SFTPPlus as follows:
+For example, if you are accessing SFTPPlus via a proxy/load balancer using URLs like `https://admin.gw.example.com` or `https://gw.example.com:10443`, you need to configure SFTPPlus as follows::
 
     [services/DEFAULT-MANAGER]
     port = 10020
@@ -42,6 +42,7 @@ It is important to make sure that the unsecured port is available only over secu
 This can be enforced using a firewall.
 
 To allow unsecure operation over HTTP, you can configure the SFTPPlus management port as follows::
+
     [services/DEFAULT-MANAGER]
     port = 10019
     type: _manager_unsecured

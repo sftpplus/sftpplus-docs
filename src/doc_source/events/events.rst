@@ -662,7 +662,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to retrieve group. %(details)s
-:Groups: operational, authenticated, failure, failure-critical
+:Groups: operational, authenticated, failure, failure-high
 :From version: 2.0.0
 :To version: None
 :Description: Error occurred while retrieving the group for new home folder.
@@ -762,7 +762,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Successfully performing %(operation)s to "%(path)s" from "%(source_path)s".
-:Groups: operational, process, success
+:Groups: operational, authenticated, success
 :From version: 3.43.0
 :To version: None
 :Description: None
@@ -780,7 +780,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to perform %(operation)s on "%(real_path)s". %(details)s
-:Groups: operational, process, failure, failure-high
+:Groups: operational, authenticated, failure, failure-high
 :From version: 3.43.0
 :To version: None
 :Description: None
@@ -1081,7 +1081,7 @@ Generic and server-side common functionality
 20072
 ^^^^^
 
-:Message: Cryptography: %(cryptography_library_version)s. Working dir: "%(cwd)s". Privileges: %(process_privileges)s
+:Message: %(windows_legacy_service)sCryptography: %(cryptography_library_version)s. Working dir: "%(cwd)s". Privileges: %(process_privileges)s
 :Groups: operational, process, informational
 :From version: 1.6.0
 :To version: None
@@ -3017,7 +3017,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: HTTP POST notification for event %(event_id)s successful for "%(target_path)s".
-:Groups: operational, process, informational
+:Groups: operational, authenticated, informational
 :From version: 4.16.0
 :To version: None
 :Description: None
@@ -3117,6 +3117,17 @@ Generic and server-side common functionality
   :operation: The file operation that was performed
 
 
+
+
+
+20194
+^^^^^
+
+:Message: Digest message is "%(output)s" for %(path)s.
+:Groups: operational, authenticated, success
+:From version: 4.31.0
+:To version: Result of the file digest event handler
+:Description: None
 
 
 
@@ -7820,8 +7831,26 @@ FTP protocol
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 SSH protocol
 ============
+
+
+
+
+
+
 
 
 
@@ -12387,8 +12416,20 @@ SSH protocol
 
 
 
+
+
+
+
+
+
 HTTP/HTTPS protocol
 ===================
+
+
+
+
+
+
 
 
 
@@ -15114,6 +15155,9 @@ HTTP/HTTPS protocol
 :To version: None
 :Description: None
 :Data:
+  :tb: Debug information for this error.
+
+
   :uri: URI associated with this request.
 
 
@@ -15136,6 +15180,9 @@ HTTP/HTTPS protocol
 :To version: None
 :Description: None
 :Data:
+  :tb: Debug information for this error.
+
+
   :uri: URI associated with this request.
 
 
@@ -15555,6 +15602,10 @@ HTTP/HTTPS protocol
 :From version: 4.5.0
 :To version: None
 :Description: None
+:Data:
+  :tb: Details to troubleshoot this issue.
+
+
 
 
 
@@ -15821,6 +15872,12 @@ HTTP/HTTPS protocol
 :Description: None
 :Data:
   :uri: The page that generated this error.
+
+
+
+
+
+
 
 
 
@@ -19104,6 +19161,12 @@ Management and Local Manager Events
 
 
 
+
+
+
+
+
+
 50000
 ^^^^^
 
@@ -19385,7 +19448,7 @@ Management and Local Manager Events
 :Message: Failed to process action for runnable with UUID %(uuid)s: %(details)s
 :Groups: session, failure, local-manager
 :From version: 2.1.0
-:To version: None
+:To version: 4.31.0
 :Description: None
 :Data:
   :details: More details about the error.
@@ -19701,6 +19764,34 @@ Management and Local Manager Events
 
 
   :tb: Debug information with the error trace.
+
+
+
+
+
+
+
+
+
+
+
+50028
+^^^^^
+
+
+:Message: Embedded database "%(db_uuid)s" operation took %(duration)s seconds to retrieve %(size)s results.
+:Groups: informational, authenticated, local-manager
+:From version: 4.31.0
+:To version: None
+:Description: None
+:Data:
+  :db_uuid: UUID of the database.
+
+
+  :duration: Number of seconds it took to perform the operation.
+
+
+  :size: Number of rows returned.
 
 
 
@@ -20252,6 +20343,18 @@ Management and Local Manager Events
 
 Transfer and client-side functionality
 ======================================
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
