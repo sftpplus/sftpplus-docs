@@ -867,6 +867,24 @@ password_lifetime
         `allow_own_password_change` is enabled in the associated group.
 
 
+disable_on_inactivity
+^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: `inherit`
+:Optional: Yes
+:From version: 4.32.0
+:Values: * Number of days.
+         * `Inherit`
+:Description:
+    Number of days after which the account is automatically disabled,
+    if there was no successful authentication for it.
+
+    When set to `0`, the account is never disabled.
+
+    When this option is set to `Inherit`, the value defined for the account's
+    primary group is applied.
+
+
 last_password_update
 ^^^^^^^^^^^^^^^^^^^^
 

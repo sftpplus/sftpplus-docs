@@ -17,7 +17,6 @@ server and client side functionalities, and contain specific usage examples.
     gpg-usage
     antivirus
     email-notifications
-    transfers
     event-handlers
     log-management
     webdav

@@ -470,6 +470,20 @@ password_lifetime
         `allow_own_password_change` is enabled.
 
 
+disable_on_inactivity
+^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: `0`
+:Optional: Yes
+:From version: 4.32.0
+:Values: * Number of days.
+:Description:
+    Number of inactive days after which the accounts having this group as the primary group,
+    are automatically disabled.
+
+    When set to `0`, the accounts are never disabled.
+
+
 home_folder_structure
 ---------------------
 

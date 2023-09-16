@@ -7,6 +7,105 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.32.0, 2023-09-15
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure the `external-executable` event handler to accept
+  output in JSON format from a command. [#6359]
+* You can now configure an SFTPPlus account to be disabled if not active for a
+  number of days. [server-side][security] [#6363]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* A transfer no longer fails when its source location cannot connect to the
+  remote server. The transfer now waits for the source location to be
+  available. It automatically restarts once the source location is
+  available. [client-side][ftps][sftp] [#5537]
+* Monitoring an FTP source location no longer stalls when the source location
+  is disconnected due to an idle connection while the source
+  directory is checked. In previous versions, the source location was
+  disconnected due to being idle, and, if the source check operation was
+  scheduled for the exact same time, the source check operation was failing,
+  without rescheduling a retry or scheduling a reconnection of the source
+  location. [client-side][ftp] [#6333]
+* The web management console no longer has the public URL name disabled for the
+  HTTPS service. In previous versions, the configuration UI for the public URL
+  name was always disabled in the web interface. The only option for configuring
+  that value was to edit the .INI configuration file. [manager] [#6334]
+* A pull transfer from FTP/FTPS locations is no longer stalled when the server
+  initially responds that the pull transfer can start, but then doesn't send
+  any data. In previous versions, the whole transfer was blocked, requiring a
+  manual restart of the transfer. In the latest version, the current file
+  transfer fails, but a retry is scheduled for the current file and any other
+  files for which a transfer was attempted. [client-side][ftp] [#6346]
+* Automated content conversion for a transfer initially failed and then retried
+  is now properly working. [client-side] [#6351]
+* The summary text search for the `Activity Log` page was fixed. This was a
+  defect introduced in 4.31.0. [manager] [#6353]
+* A push transfer from an FTP/FTPS/SFTP locations no longer ignores a file
+  upload when the server is disconnecting at the same time that a file upload
+  operation is requested. In previous versions, the transfer was still active,
+  but the file was not retried, even though new files would have been uploaded.
+  [client-side][ftp][sftp] [#6356]
+* The pending operation for a transfer no longer generates a retry when the
+  transfer is stopped. In previous versions, for some transfer operations, a
+  `CancelledError()` was generated when the transfer was stopped. This was
+  considered a failure, therefore the transfer was retried, preventing the
+  stopping of the transfer. [client-side] [#6375]
+
+
+Version 4.31.0, 2023-08-07
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure a transfer to do automatic content conversion from
+  UTF-16 to ASCII. [client-side] [#5943]
+* You can now manage components from the admin-shell command line tool using
+  component name as a reference. [manager][cli] [#6291]
+* A new event handler was added to compute the digest of files. [#6302]
+* The HTTP Post event handler can now trigger requests using the GET or PUT HTTP
+  methods. [#6309]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The `usernames` configuration option of the `deny-username` authentication
+  method now handles the configured values as case-insensitive, regardless
+  of the actual case of the configured values. In previous versions, the
+  configured value was required to be defined in lowercase. [security] [#6293]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* In order to speed up loading past activity logs, the total
+  number of logs is no longer displayed. [manager] [#2707]
+* A warning is generated in the logs and the web administration console when
+  the SFTPPlus Windows service is still started using the legacy utility that
+  was used in version 2 and 3 of SFTPPlus. The legacy utility still works with
+  version 4, but will no longer work with future major SFTPPlus versions.
+  This issue only affects SFTPPlus installations that were first installed
+  using a version prior to 4.1.0. [windows] [#5550]
+* The main page of the Web Administration Console no longer contains the list
+  of resources and locations. These lists can now be found in the dedicated
+  pages for resources and locations. [manager] [#6236]
+* In the web administration console, the local filesystem monitor service was
+  moved to the `Resources` section. From the resources section you can add,
+  delete, or modify existing resource monitors. No configuration changes are
+  required. In the .INI configuration file, the file system monitor continues
+  to be configured from the services section. [manager] [#6279]
+
+
 Version 4.30.1, 2023-06-13
 --------------------------
 

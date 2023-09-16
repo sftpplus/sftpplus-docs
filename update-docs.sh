@@ -11,7 +11,7 @@ SERVER_ROOT=`pwd`
 ./pythia.sh documentation_website
 cp -r build-py3/doc_source $DOCS_ROOT/src/
 cp extension/* $DOCS_ROOT/extension/
-cp -r build-py3/lib/python3.8/site-packages/sftpplus_website/sphinx $DOCS_ROOT
+cp -r build-py3/lib/python3.11/site-packages/sftpplus_website/sphinx $DOCS_ROOT
 
 echo "Creating extensions for $DOCS_ROOT ..."
 mkdir -p $DOCS_ROOT/chevah/server/extension

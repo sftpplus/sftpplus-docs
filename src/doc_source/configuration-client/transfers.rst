@@ -780,6 +780,49 @@ destination_path_actions
     </operation-client/transfers>`
 
 
+destination_content_actions
+---------------------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * ``path-match-expression, transformation, parameter``
+         * List of rules, separated by newlines.
+:From version: 4.31.0
+:Description:
+
+    This is used to configure the operation to be applied to transferred data
+    during file transfer.
+    The data is converted on-the-fly, the source file is kept as it is.
+
+    This is a comma-separated configuration value.
+
+    The first value is a path-matching expression,
+    used to select the files to apply the content transformation to.
+
+    The second value is the type of transformation to apply.
+
+    The third value is the parameter/option for the transformation action.
+
+    The supported actions are:
+
+    * `encoding` - This can be used for text files to change the character set encoding.
+      The only supported conversion is UTF-16 to ASCII.
+      This is selected using `utf-16-to-ascii` as the parameter.
+
+    * `no-action` - Keeps the original content from the
+      source. This action has no parameters.
+
+    For now, the only supported operation is converting from UTF-16 to ASCII.
+
+    For example, to convert any .txt file, you can use::
+
+        destination_content_actions = *.txt, encoding, utf-16-to-ascii`
+
+    For more details and examples on the available actions,
+    see :doc:`the client-side file transfer usage guide.
+    </operation-client/transfers>`
+
+
 destination_fallback_path
 -------------------------
 

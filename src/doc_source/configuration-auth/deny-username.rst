@@ -28,7 +28,6 @@ usernames
     Comma-separated list of usernames denied by this
     authentication method.
 
-    The check is done in case-insensitive mode, by comparing against the
-    lower-case name.
+    The check is done in a case-insensitive way.
 
     Usernames should be defined in lower-case.

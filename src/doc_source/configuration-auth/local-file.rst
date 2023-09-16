@@ -21,11 +21,12 @@ The accounts defined in the external file can only be configured with
 groups defined in the same external file.
 They can't be configured with groups from the main configuration file.
 
-Only application accounts can be defined to be used by this authentication
-method.
+There is a list of limitations when defining accounts in an external file:
 
-..  note::
-    This authentication method can't be used with the Local Manager services.
+* Only application accounts can be defined. OS accounts are not supported.
+* The accounts can't be used as the public account for an HTTP service.
+* The accounts can't be auto-disabled on inactivity.
+* Administrators or roles can't be defined.
 
 The external file is automatically reloaded every 5 minutes.
 This means that it can take up to 5 minutes for the changes to be visible.

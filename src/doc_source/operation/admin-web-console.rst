@@ -18,7 +18,7 @@ Reverse Proxy / API Gateway integration
 The administration page can be served via any frontend, be it a reverse HTTP proxy or a load balancer.
 
 The frontend can be configured using any domain name (FQDN), port number, or URL path.
-Any standard HTTP reverse proxy or load balancer will work.
+Any standard HTTP reverse-proxy or load balancer will work.
 We successfully tested the integration of SFTPPlus with NGINX, HAProxy, and the AWS and Azure application load balancers.
 
 When the SFTPPlus web-based administration console is configured as the backend, it can bind a different port number than the one used by the frontend.

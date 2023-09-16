@@ -107,6 +107,34 @@ In this case you will need to follow these steps:
 6. Go to Windows Services and start the `SFTPPlus MFT` service.
 
 
+Upgrading from SFTPPlus Version 3 Windows service
+-------------------------------------------------
+
+SFTPPlus vesion 2 and version 3 were running inside Windows using an embedded Windows service controller.
+
+In SFTPPlus version 4 and newer, a separate dedicated Windows service controller is used.
+
+Any SFTPPlus that was initially installed based on version 4.1.0 or newer, already has the
+newest controller installed and configured.
+No extra changes are required when upgrading.
+
+SFTPPlus installation that were initially installed using an older version of SFTPPlus,
+will receive a warning message in the web Administration Console or in the logs.
+
+A reinstall of the SFTPPlus Windows service is required.
+Reinstalling the whole SFTPPlus installation is **not** required.
+Only the Windows Service needs a reinstall.
+
+To reinstall the Windows service follow these steps:
+
+* Stop the current SFPPlus Windows service.
+* From the SFTPPlus installation directory run as administrator the `service-uninstall.bat` script.
+* From the SFTPPlus installation directory run as administrator the `service-install.bat` script.
+* Open the Windows Service administration tool, find the SFTPPlus service and open the `Properties` window.
+* From the `Log on` tab, configure the Windows service account and password to be used to run SFTPPlus.
+* Restart the SFTPPlus service.
+
+
 Upgrading from version 4.X.0 to a newer 4.Y.Z
 ---------------------------------------------
 

@@ -111,6 +111,26 @@ password
     Password associated with the configured `username`.
 
 
+request_method
+--------------
+
+:Default value: `POST`
+:Optional: Yes
+:Values: * `GET`
+         * `POST`
+         * `PUT`
+:From version: 4.31.0
+:Description:
+    The HTTP method to use when making the request to the remote server.
+
+    You can configure it to values like `POST` or `PUT`, to make a request
+    containing the event data in the body payload.
+    The value is case-insensitive.
+
+    When configured to `GET`, it will make an `HTTP GET` request with
+    an empty HTTP body.
+
+
 http_content_type
 -----------------
 

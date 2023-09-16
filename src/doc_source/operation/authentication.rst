@@ -525,6 +525,30 @@ When connecting from source IP ``10.2.2.23``, the account is associated with bot
       allow 10.2.2.0/24
 
 
+Auto-disabling inactive accounts
+================================
+
+An account can be configured to become disabled if no successful authentication was done in the last N days.
+
+..  note::
+    For this functionality to work the `Analytics engine` resource needs to be running.
+
+This is done using the `disable_on_inactivity` configuration option.
+
+The same configuration option is also available for group.
+It will disable the accounts which are configured with the group as the primary group.
+
+When an account is auto-disabled the event with ID 20195 is emitted to help audit the configuration change.
+
+When the account was never successfully authenticated, the account creation date is considered as the last activity for that account.
+
+If there is no record of a successful login and the account has no `created` configuration value,
+the account is not auto-disabled.
+Its creation time will be set to the current time
+so that eventually it can be auto-disabled if not active.
+An error event with ID 20196 is emitted.
+
+
 Allowing users to change their password
 =======================================
 

@@ -37,28 +37,19 @@ Request body
 ------------
 
 When an HTTP or HTTPS handler is used, SFTPPlus will initiate an HTTP
-POST client request to the configured URL with a body containing one or
+client request to the configured URL with a body containing one or
 more events, together with the identity of the server making the request.
 
 The request body can be formatted as JSON, XML, or using a custom template.
+
+The `events` array contains a list of `event` objects.
+
+.. include:: /developer/event-object.include.rst
 
 ..  warning::
   The `server` member found in the root container is deprecated and will be
   removed in SFTPPlus v5.
   You should use the `server` attribute of each event.
-
------
-
-:name: uuid
-:type: string
-:optional: No
-:description: UUID of the server emitting this event.
-
------
-
-Each event from the `events` array contains the following attributes.
-
-.. include:: /developer/event-object.include.rst
 
 Below is an example for a `POST` request containing two JSON events::
 
@@ -414,7 +405,10 @@ following members::
         }
     }
 
-On Slack, the message will look like
+You will need to create the receiving URL on Slack,
+by following the `Slack Incoming Webhooks <https://api.slack.com/messaging/webhooks>`_ documentation.
+
+On Slack, the message will look something like this.
 
 ..  image:: /_static/guides/http-event-slack.png
     :alt: HTTP Event as received on Slack.
