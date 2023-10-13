@@ -97,6 +97,11 @@ The latest UI version is `ui_version = ui-gen-2`.
 Custom Appearance
 -----------------
 
+..  attention::
+    The custom appearance functionality is released as a `feature preview`.
+    We encourage you to try this functionality and send feedback.
+    The HTML and CSS markup might be changed in future releases.
+
 The appearance of the HTTP service pages can be customized by
 overwriting the default CSS of the HTTP service pages and executing
 custom JavaScript code.
@@ -104,9 +109,20 @@ custom JavaScript code.
 Using the `theme_path` configuration option you can instruct SFTPPlus to
 load a custom theme for the HTTP pages.
 
-The theme path should contain at least the `main.css` and `main.js` files.
+The theme path should contain at least the following files:
+
+* `main.css`
+* `main.js` (only available in gen1)
+* `logo.svg` (only available in gen2)
+* `favicon.ico`
 
 If you don't need to customize the CSS or JavaScript leave the file empty.
+
+The name of the HTTP/HTTPS service will be used as the page name on the login page and the file browser page.
+
+..  note::
+    When changing the service name, you will need to restart the HTTP/HTTPS service.
+    Restarting the whole SFTPPlus application is not required.
 
 The `main.css` file from the theme path is loaded as the last CSS file.
 The `main.jss` file from the theme path is loaded at the end of the page as
@@ -114,7 +130,7 @@ the last JavaScript file.
 
 The theme files are accessible inside the HTTP service as `/__chsps__/theme/`.
 
-To load the theme files from ``C:\FTP-Service\Theme`` you need to configure
+To load the theme files from ``C:\File-Server\Theme`` you need to configure
 the service as::
 
     [services/9ac4-1054-f0e4]
@@ -123,17 +139,19 @@ the service as::
 
     theme_path = C:\File-Server\Theme
 
-For example ``C:\FTP-Service\Theme\main.css`` can insert the company name
-in the top navigation bar, and ``C:\FTP-Service\Theme\main.js`` can be
-empty::
+For example ``C:\File-Server\Theme\main.css`` can make buttons rounder and hide the MFA field on the login page
+(while ``C:\File-Server\Theme\main.js`` can be empty)::
 
-    .navbar-fixed-top:after {
-        content: "ACME File Transfer Server";
-        }
+    .btn.btn-outlined {
+        border-radius: 1.125rem;
+    }
 
-    .navbar-inner {
-        min-height: 60px;
-        }
+    [data-theme="login-mfa-input"] {
+        display: none;
+    }
+
+If you find it hard to customize certain UI elements, get in touch with us.
+We will consider updating the default HTML / CSS markup to make it easier for you to apply custom CSS rules.
 
 
 Custom trigger buttons

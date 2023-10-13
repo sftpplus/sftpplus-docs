@@ -175,6 +175,6 @@ Below is a description of each log file:
   Windows service. This log can be removed at any time.
 * sftpplus-service.TIMESTAMP.out.log - Includes the standard output for the
   main SFTPPlus process during startup.
-  This log file can only be removed when the SFTPPlus service is not running.
+  This log file can only be removed when the SFTPPlus application is not running.
 * sftpplus-service.TIMESTAMP.err.log - Includes the standard error content.
-  This log file can only be removed when the SFTPPlus service is not running.
+  This log file can only be removed when the SFTPPlus application is not running.

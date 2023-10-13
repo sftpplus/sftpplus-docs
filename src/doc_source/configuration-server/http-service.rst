@@ -76,10 +76,10 @@ theme_path
     You can find more information on the usage of a theme path on the
     :doc:`HTTP/HTTPS operations</operation/http>` page.
 
-    ..  note::
-        The `theme_path` configuration option is only valid with the legacy
-        web UI version `ui-gen-1`.
-        For any other configuration option, it is ignored.
+    ..  attention::
+        The custom appearance functionality is released as a `feature preview`.
+        We encourage you to try this functionality and send feedback.
+        The HTML and CSS markup might be changed in future releases.
 
 
 public_error

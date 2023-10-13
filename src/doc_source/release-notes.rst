@@ -7,6 +7,47 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.33.0, 2023-10-10
+--------------------------
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* The OpenSSL 1.1.1 libraries used for Python's `cryptography` on Windows,
+  generic Linux, Alpine Linux, and macOS were updated to version 1.1.1w to fix
+  CVE-2023-4807, CVE-2023-3817, CVE-2023-3446, CVE-2023-2975, CVE-2023-2975,
+  CVE-2023-2975, CVE-2023-1255, CVE-2023-0466, and CVE-2023-0464. [#6399]
+
+
+New Features
+^^^^^^^^^^^^
+
+* Theme support was added for HTTP `ui-gen-2`. [server-side][http] [#6265]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The configuration options that are measured in seconds are now set to the
+  default value, when a new component is created. In previous versions, the
+  options were set to 1 second. This is a defect introduced in 4.31.0.
+  [manager] [#6388]
+
+
+Version 4.32.1, 2023-09-18
+--------------------------
+
+This release is dedicated to fixing a bug introduced by the 4.32.0 version.
+
+The defect was causing the analytics resource to fail when an
+account was configured to be auto-disabled on inactivity
+while not having a creation date and any previous successful authentications.
+
+The download links for Red Hat Enterprise Linux version 9, 7, 6 and 5
+were fixed. The download link for RHEL version 8 was already working properly.
+
+
 Version 4.32.0, 2023-09-15
 --------------------------
 

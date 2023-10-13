@@ -53,9 +53,10 @@ the following algorithms are enabled::
 
 This list provides maximum compatibility with existing deployments while avoiding deprecated ciphers.
 
-SFTPPlus uses the OpenSSL library provided by the operating system,
-with some exceptions, most notably Windows, macOS, and generic Linux.
-The OpenSSL version included in your operating system might not provide
+SFTPPlus uses the OpenSSL library provided by the Python `cryptography` module.
+To benefit from upstream security updates for the bundled OpenSSL library,
+keep your SFTPPlus deployments always updated.
+This OpenSSL version might not provide
 all the ciphers which are required by older SSL/TLS versions of the standard.
 This is valid especially for cryptographic methods which in recent years were
 discovered to no longer be secured.
@@ -86,34 +87,6 @@ SSL/TLS versions
     SSL version 3 is supported only to provide backward compatibility
     for older clients, but it is not recommended for new deployments.
     It was officially deprecated in June 2015 by the RFC 7568.
-
-
-OpenSSL versions used in supported operating systems
-----------------------------------------------------
-
-On Windows, SFTPPlus uses embedded OpenSSL 1.1.1 libraries.
-We highly recommend keeping your SFTPPlus deployments on Windows always updated,
-to benefit from upstream security updates for the bundled OpenSSL libraries.
-The Microsoft Windows operating system is distributed without including OpenSSL libraries or a compatible alternative.
-
-Modern Linux distributions are distributed with OpenSSL version 1.1.1 or newer.
-On supported Linux distributions, SFTPPlus makes use of these system libraries.
-Keep system OpenSSL libraries always up to date through your system updates,
-to benefit from upstream security updates.
-
-The generic Linux version of SFTPPlus uses embedded OpenSSL 1.1.1 libraries.
-Please keep your generic Linux SFTPPlus deployments always updated,
-to benefit from upstream security updates for the bundled OpenSSL libraries.
-
-The macOS operating system includes OpenSSL-compatible LibreSSL libraries starting with version 10.13 High Sierra, but their support for the latest cryptographic standards is lacking on some versions of macOS.
-On macOS, SFTPPlus uses embedded OpenSSL 1.1.1 libraries.
-Keep your SFTPPlus deployments on macOS always updated,
-to benefit from upstream security updates for the bundled OpenSSL libraries.
-
-The above list is not comprehensive and comes with no guarantee.
-Check with support@proatria.com for further info.
-
-Last updated for release 4.30.0 on April 29, 2023.
 
 
 File formats

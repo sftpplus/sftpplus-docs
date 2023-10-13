@@ -3087,10 +3087,10 @@ Generic and server-side common functionality
   :success_jobs: Number of transfer jobs that success for all files.
 
 
-  :total_duration: Total duration, in seconds, of the files that were succesfully transfered
+  :total_duration: Total duration, in seconds, of the files that were successfully transfered
 
 
-  :total_size: Total size in bytes of the files that were succesfully transferred.
+  :total_size: Total size in bytes of the files that were successfully transferred.
 
 
 
@@ -10678,7 +10678,7 @@ SSH protocol
 
 
 :Message: Failed to close file "%(path)s" after opening for %(mode)s. Read %(total_read)s at %(read_speed)s and wrote %(total_write)s at %(write_speed)s in %(duration)s seconds. %(details)s
-:Groups: authenticated, failure, file-operation, ssh
+:Groups: authenticated, failure, failure-high, file-operation, ssh
 :From version: 1.6.0
 :To version: None
 :Description: None
@@ -24853,7 +24853,7 @@ Transfer and client-side functionality
 
 
 :Message: Failed to close source "%(path)s" after failing to open destination "%(destination_path)s". %(details)s
-:Groups: transfer-job, file-operation, failure, client-side
+:Groups: transfer-job, file-operation, failure, failure-high, client-side
 :From version: 3.12.0
 :To version: None
 :Description: None
