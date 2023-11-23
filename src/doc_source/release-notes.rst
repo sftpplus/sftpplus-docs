@@ -7,6 +7,65 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 4.34.0, 2023-11-22
+--------------------------
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* When connecting to remote FTPS servers, SFTPPlus makes sure the same TLS
+  certificate is used for both data and command connections.
+  This prevents man-in-the-middle attacks where a malicious third party
+  pretends to handle the data connection. [client-side][ftps][security]
+  [#6382-1]
+* When connecting to remote FTPS servers, SFTPPlus now makes sure the TLS
+  session used for the data connection has the same session ID as the command
+  connection. This prevents man-in-the-middle attacks in which a malicious
+  third party pretends to handle the data connection. This can also improve
+  performance when transferring many small files. Some FTPS servers might not
+  know how to handle a TLS session reuse. In SFTPPlus v4 the default
+  `ssl_reuse_session = no` configuration is set to avoid reusing the TLS
+  session. This default option will be changed to `ssl_reuse_session = yes`
+  in the future release of SFTPPlus 5.0.0. [client-side][ftps][security] [#6382]
+* The passive data ports are now used by SFTPPlus in random order. In
+  previous versions, they were allocated based on the lowest available port
+  number. [ftp][server-side] [#6430]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The FTP location now automatically disconnects if the FTP server
+  connection is opened, but the server doesn't send any response.
+  [client-side][ftp] [#6401]
+* Multiple re-connections are no longer triggered when a location is
+  disconnected for being idle, but then it needs to reconnect to perform
+  multiple transfers. [client-side] [#6402]
+* When updating through the included ``bin/update.sh`` script, the saved
+  service name from ``configuration/INSTALL_INFO`` is checked before trying to
+  stop a running SFTPPlus instance. This prevents systemd restarting the
+  SFTPPlus service in the background under a different service name. [#6407]
+* The FTP/FTPS location now sends the PBSZ and PROT commands right after the
+  AUTH command for Implicit FTPS following a successful TLS handshake. In
+  previous versions, it was sending the PBSZ/PROT commands after the USER
+  command and, by doing so, it was getting rejected connections from some
+  FTPS servers. [client-side][ftp] [#6429]
+* The FTP/FTPS location can now transfer files to and from servers that don't
+  support the `PWD` command. For servers with no `PWD` support, SFTPPlus
+  assumes that the server uses Unix path separators.
+  [client-side][ftp][ftps] [#6435]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The event with ID `10020` was removed and replaced by the existing event with
+  ID `10061`. There is now a single event ID to inform that a passive transfer
+  was requested, for both PASV and EPSV (extended PASV) transfers.
+  [server-side][ftp] [#6395]
+
+
 Version 4.33.0, 2023-10-10
 --------------------------
 

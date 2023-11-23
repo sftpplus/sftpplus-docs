@@ -21,8 +21,8 @@ touch $DOCS_ROOT/chevah/server/extension/__init__.py
 cp chevah/server/extension/auth_ldap_noop.py $DOCS_ROOT/chevah/server/extension/
 
 cd $DOCS_ROOT
-rm -rf venv/lib/python3.10/site-packages/chevah
-cp -r chevah venv/lib/python3.10/site-packages/
+rm -rf venv/lib/python3.11/site-packages/chevah
+cp -r chevah venv/lib/python3.11/site-packages/
 sed 's/^templates_path.*/templates_path = ["..\/..\/sphinx"]/'g -i src/doc_source/conf.py
 sed 's/^html_theme_path.*/html_theme_path = ["..\/..\/sphinx"]/'g -i src/doc_source/conf.py
 

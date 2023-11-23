@@ -71,6 +71,14 @@ for example::
 
 The ``./bin/install.sh`` script will guide you through all the necessary steps.
 Only go further down this page for manual installation or debugging.
+..
+FIXME:6425:
+# Remove this note once Linux ARM64 installer works.
+
+..  note::
+    This installation method is not currently supported for Linux on
+    ARM64 / Apple Silicon CPUs. You have to follow the advanced
+    installation documentation for now. Contact us for support if needed.
 
 
 Initializing the configuration

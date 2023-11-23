@@ -32,4 +32,7 @@ ftps_ccc
     For more details about using this configuration option please check the
     dedicated documentation for the :ref:`FTPS CCC modes <operation-ftps-ccc>`.
 
+
+.. include:: /configuration-client/ftps.include.rst
+
 .. include:: /configuration/ssl.include.rst

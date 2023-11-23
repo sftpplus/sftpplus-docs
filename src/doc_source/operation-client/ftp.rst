@@ -19,6 +19,53 @@ In the absence of the FEAT command it will assume that the FTP server is a
 bare minimum FTP server-side implementation.
 
 
+FTP command usage
+-----------------
+
+Below is the list of FTP commands required to be implemented on the FTP server-side,
+for the FTP location to operate:
+
+* USER
+* PASS (optional for FTPS, as FTPS can have certificate authentication)
+* TYPE I
+* PASV
+* RETR (required when location is the transfer source)
+* LIST (required when location is the transfer source)
+* STOR (required when location is the transfer destination)
+
+Below is the list of command required for Implicit FTPS:
+
+* PBSZ
+* PROT P
+
+The Explicit FTPS locations requires the same set of commands as for FTP and Implicit FTPS with the addition of:
+
+* AUTH TLS
+* CCC (optional)
+
+To transfer a file to a FTP destination with temporary name, these FTP commands are required:
+
+* RNFR
+* RNTO
+
+To verity that a file on destination is not overwritten, the following commands are required:
+
+* LIST
+* MSLT (if the server supports it, otherwise LIST is used)
+
+The following command are also used by SFTPPlus,
+but they are not required.
+SFTPPlus will fallback to a default behaviour,
+when the server doesn't supports them:
+
+* FEAT
+* CLNT - only if advertised in FEAT
+* OPTS UTF8 ON - only if advertised in FEAT
+* MODE S
+* STRU F
+* PWD - used to detect remote filesystem separator. defaults to Unix paths.
+
+
 UTF-8 support
 -------------
 

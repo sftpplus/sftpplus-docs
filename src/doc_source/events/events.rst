@@ -1281,7 +1281,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to remove %(path)s, which was older than %(age)s seconds. %(details)s
-:Groups: monitor, failure, file-operation
+:Groups: monitor, failure, failure-high, file-operation
 :From version: 3.52.0
 :To version: None
 :Description: None
@@ -3453,7 +3453,7 @@ FTP protocol
 :Message: Extended Passive transfer requested.
 :Groups: operational, authenticated, ftp
 :From version: 1.8.1
-:To version: None
+:To version: 4.33.0
 :Description: None
 
 
@@ -3487,7 +3487,7 @@ FTP protocol
 
 
 :Message: Expecting client connection on %(address)s:%(port)s for the next passive request.
-:Groups: authenticated, success, ftp
+:Groups: authenticated, informational, ftp
 :From version: 1.8.1
 :To version: None
 :Description: This event is raised by both normal and extended passive requests.
@@ -4251,18 +4251,12 @@ FTP protocol
 ^^^^^
 
 
-:Message: User successfully logged on "%(real_path)s" as "%(virtual_path)s". Command protected using %(encryption)s. Client certificate: %(certificate)s
+:Message: User successfully logged on "%(real_path)s" as "%(virtual_path)s".
 :Groups: authenticated, success, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
 :Data:
-  :certificate: Certificate sent by the client over the command channel.
-
-
-  :encryption: The cipher suite used to protect the command channel.
-
-
   :home_folder: User's home folder.
 
 
@@ -4304,11 +4298,15 @@ FTP protocol
 ^^^^^
 
 
-:Message: Passive transfer requested.
+:Message: Passive transfer requested in %(mode)s mode.
 :Groups: authenticated, informational, ftp
 :From version: 1.6.0
 :To version: None
 :Description: None
+:Data:
+  :mode: PASV or ESPV values.
+
+
 
 
 
@@ -4883,11 +4881,11 @@ FTP protocol
 ^^^^^
 
 
-:Message: Failed to secure the command channel with the explicit AUTH. %(details)s
-:Groups: session, failure, ftp
+:Message: Failed to secure the %(channel_type)s channel. %(details)s
+:Groups: session, failure, failure-high, ftp
 :From version: 3.47.0
 :To version: None
-:Description: None
+:Description: FTP TLS handshake failed (server-side).
 
 
 
@@ -5106,7 +5104,7 @@ FTP protocol
 ^^^^^
 
 
-:Message: Connected to passive data port %(host)s:%(port)s.
+:Message: Connected to passive data port %(host)s:%(port)s for "%(command)s". Server address: %(fqdn)s
 :Groups: session, informational, ftp, client-side
 :From version: 4.27.0
 :To version: None
@@ -5116,6 +5114,56 @@ FTP protocol
 
 
   :port: The remote server port number used for the FTP passive connection.
+
+
+
+
+
+
+
+
+
+
+
+10100
+^^^^^
+
+
+:Message: Secure %(channel_type)s channel successfully initialized. Protected using: %(encryption)s. Server certificate: %(certificate)s
+:Groups: authenticated, success, ftp
+:From version: 4.33.0
+:To version: None
+:Description: FTP TLS handshake done (server-side).
+:Data:
+  :certificate: Certificate sent by the server over the command channel.
+
+
+  :encryption: The cipher suite used to protect the command channel.
+
+
+
+
+
+
+
+
+
+
+
+10101
+^^^^^
+
+
+:Message: Secure %(channel_type)s channel successfully initialized. Protected using: %(encryption)s. Server certificate: %(certificate)s
+:Groups: authenticated, success, ftp, client-side
+:From version: 4.33.0
+:To version: None
+:Description: FTP TLS handshake done (client-side).
+:Data:
+  :certificate: Certificate sent by the server over the command channel.
+
+
+  :encryption: The cipher suite used to protect the command channel.
 
 
 
@@ -5214,18 +5262,29 @@ FTP protocol
 ^^^^^
 
 
-:Message: Connection to FTP/FTPS was authenticated. Protected using %(encryption)s. Server certificate: %(certificate)s.
+:Message: Connection to FTP/FTPS was authenticated.
 :Groups: authenticated, informational, ftp, client-side
 :From version: 3.2.0
 :To version: None
-:Description: None
-:Data:
-  :certificate: Certificate sent by the server over the command channel.
+:Description: FTP client auth accepted.
 
 
-  :encryption: The cipher suite used to protect the command channel.
 
 
+
+
+
+
+
+10107
+^^^^^
+
+
+:Message: Failed to secure the %(channel_type)s channel. %(details)s
+:Groups: session, failure, failure-high, ftp, client-side
+:From version: 4.33.0
+:To version: None
+:Description: FTP TLS handshake failed (client-side).
 
 
 
@@ -7899,6 +7958,24 @@ FTP protocol
 
 SSH protocol
 ============
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -14724,6 +14801,24 @@ HTTP/HTTPS protocol
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 40000
 ^^^^^
 
@@ -16675,6 +16770,24 @@ HTTP/HTTPS protocol
 
 Management and Local Manager Events
 ===================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -23189,6 +23302,24 @@ Transfer and client-side functionality
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 60000
 ^^^^^
 
@@ -23553,7 +23684,7 @@ Transfer and client-side functionality
 
 
 :Message: Transfer job failed at %(step_name)s after all retries. The following files failed: %(failed_paths)s. The following files succeeded: %(success_paths)s.
-:Groups: transfer-job, failure, failure-specific, client-side
+:Groups: transfer-job, failure, failure-high, failure-specific, client-side
 :From version: 2.9.0
 :To version: None
 :Description: None
