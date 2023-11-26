@@ -8,7 +8,7 @@
 // pavement.py:release_notes
 //
 let SFTPPLUS_RELEASED_VERSIONS = [
-  '4.34.0',
+  '4.34.1',
   '4.33.0',
   '4.32.1',
   '4.31.0',
