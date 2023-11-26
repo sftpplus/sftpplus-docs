@@ -7,8 +7,11 @@ number (not by release date).
 .. release-notes-start
 
 
-Version 4.34.0, 2023-11-22
+Version 4.34.1, 2023-11-22
 --------------------------
+
+This is a re-release of 4.34.0, previously released on 2023-11-22,
+that fixes our container images published on Dockerhub.
 
 
 Security Fixes
