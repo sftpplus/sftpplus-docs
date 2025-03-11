@@ -1,3 +1,0 @@
-The pelican build system will generate the base.html file.
-
-The build.html file should not be included in the repo.
