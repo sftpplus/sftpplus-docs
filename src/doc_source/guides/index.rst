@@ -7,6 +7,7 @@ server and client side functionalities, and contain specific usage examples.
 ..  toctree::
     :maxdepth: 1
 
+    tls-client
     security
     hardening
     admin-reset

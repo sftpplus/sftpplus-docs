@@ -51,7 +51,6 @@ banner
 :Optional: Yes
 :Values: * Any text message.
 :From version: 1.6.0
-:To version: None
 :Description:
     When FTP/FTPS clients connect to the server, the server will greet them
     with this message.
@@ -66,7 +65,6 @@ passive_port_range
          * ``MIN_PORT - MAX_PORT``
          * ``0 - 0`` to use random ports.
 :From version: 1.7.0
-:To version: None
 :Description:
     When FTP/FTPS clients are requesting a passive transfer, the server will
     open a new connection that will be used for sending or receiving files
@@ -146,6 +144,27 @@ passive_address
         This option is ignored for EPSV requests.
 
 
+passive_wait_connection
+-----------------------
+
+:Default value: Yes
+:Optional: Yes
+:Values: * `Yes`
+         * `No`
+:From version: 5.9.0
+:Description:
+    When set to `Yes` or `True`, SFTPPlus FTP/FTPS server will not continue to process further FTP commands,
+    unless the FTP client initiates the TCP passive connections.
+
+    SFTPPlus waits for the passive TCP connection in an attempt to improve security by reducing the probability of a 3rd party hijacking the passive connections.
+
+    Some FTP/FTPS clients will try to send the FTP transfer commands before establishing the TCP passive connections.
+    This can end up with a deadlock in which the server and client are each waiting for the other part to finalize different actions before continuing.
+
+    Set to `No` or `False` if you observe that the file transfers are blocked with SFTPPlus server waiting for the TCP passive connection to be established.
+    This can happen with file transfer clients like Globalscape.
+
+
 idle_data_connection_timeout
 ----------------------------
 
@@ -153,7 +172,6 @@ idle_data_connection_timeout
 :Optional: Yes
 :Values: * An integer value greater than 0, representing seconds.
 :From version: 1.8.2
-:To version: None
 :Description:
     Specifies the timeout, in seconds, after which an inactive data channel is
     disconnected.
@@ -163,18 +181,18 @@ idle_data_connection_timeout
     When set to 0 or a negative number, the default timeout is used.
 
 
+.. include:: /configuration/ssl-server.include.rst
 .. include:: /configuration/ssl.include.rst
 
 
 ftps_explicit_enabled
 ---------------------
 
-:Default value: `No`
+:Default value: `Yes`
 :Optional: Yes
 :Values: * `Yes` - Enable Explicit FTPS protocol.
          * `No` - Disable Explicit FTPS protocol.
 :From version: 1.6.0
-:To version: None
 :Description:
     If the FTPS protocol is disabled, no secured connections are accepted.
 
@@ -183,6 +201,8 @@ ftps_explicit_enabled
     Dedicated configuration options are provided for this purpose.
 
     Not available for the Implicit FTPS protocol.
+
+    In SFTPPlus version 4 and older, the default value was `No`.
 
 
 enable_password_authentication
@@ -193,7 +213,6 @@ enable_password_authentication
 :Values: * `Yes` - Enable password-based authentication.
          * `No` - Disable password-based authentication.
 :From version: 1.7.4
-:To version: None
 :Description:
     Enable authentication based on username and password credentials.
 
@@ -206,7 +225,6 @@ enable_ssl_certificate_authentication
 :Values: * `Yes` - Enable SSL certificate-based authentication.
          * `No` - Disable SSL certificate-based authentication.
 :From version: 1.7.4
-:To version: None
 :Description:
     SSL certificate-based authentication allows clients to authenticate using
     a pair of username and SSL certificate credentials.
@@ -217,72 +235,50 @@ enable_ssl_certificate_authentication
     authentication method available.
 
 
-ftps_force_secured_authentication
----------------------------------
-
-:Default value: `Yes`
-:Optional: Yes
-:Values: * `Yes` - Only allow authentication over secured connections.
-         * `No` - Allow authentication over both secured and unsecured
-           connections.
-:From version: 1.7.18
-:To version: None
-:Description:
-    The server can be configured to force the user to establish a secured
-    connection before sending account credentials (e.g. username and password).
-
-    If the server is configured to only allow secured authentication and not
-    to enforce securing generic commands, after a successful authentication,
-    users can send the Clear Command Channel (CCC) command to revert the
-    command channel to an unsecured transport.
-
-    This will allow firewall or other tools (e.g. FTP audit tools) to
-    parse the commands issued within an FTP session.
-
-    Not available for Implicit FTPS protocol, where secured authentication
-    is always enforced due to the protocol's specification.
-
-
 ftps_force_secured_command_channel
 ----------------------------------
 
-:Default value: `No`
+:Default value: `Yes`
 :Optional: Yes
 :Values: * `Yes` - Only allow commands over secured connections.
          * `No` - Allow commands over both secured and unsecured connections.
 :From version: 1.6.0
-:To version: None
 :Description:
     When secure command channel is forced, any attempt to send unencrypted
     commands will be rejected.
-
-    When this is set to `Yes`, ``ftps_force_secured_authentication``
-    values will be ignored and the server will always require a secured
-    command channel.
 
     This option will be ignored if Explicit FTPS is not enabled.
 
     Not available for Implicit FTPS protocol, where secured command
     is always enforced due to protocol specification.
 
+    In SFTPPlus version 4 and older, the default value was `No`.
 
-ftps_force_secured_data_channel
--------------------------------
 
-:Default value: `Yes`
+ftps_require_session_reuse
+--------------------------
+
+:Default value: `Yes` (Since 5.0.0)
 :Optional: Yes
-:Values: * `Yes` - Only allow data transfers over secured connections.
-         * `No` - Allow data transfers over both secured and unsecured
-           connections.
-:From version: 1.6.0
+:Values: * `Yes`
+         * `No`
+:From version: 4.35.0
 :Description:
-    If FTPS secure data channel is forced, any attempt to initiate an
-    unsecured data connection / transfer will be rejected.
+        To make sure the data connection is initiated by the same party
+        that was previously authenticated over the command channel,
+        SFTPPlus will check that the data and command channel have the
+        same TLS session.
 
-    This option will be ignored if FTPS is not enabled.
+        When set to `No`, the session validation is skipped.
+        It should be disabled only when support for legacy FTPS clients is required.
+        When disabling this, make sure your firewall is updated to only allow connections from trusted source IP address.
+        If you need to disable this, consider enabling the certificate authority validation for FTPS clients.
 
-    Not available for Implicit FTPS protocol, where data command is always
-    enforced due to protocol specification.
+        ..  danger::
+            When disabled, the security of the data connection is highly decreased.
+            A malicious 3rd party could intercept any transferred data.
+
+    This option is ignored for non-FTPS (implicit or explicit) connections.
 
 
 ignore_ascii_data_type

@@ -21,7 +21,7 @@ This documentation page describes in detail how to configure the server via the 
 Manual configuration
 --------------------
 
-It is recommended to use the Local Manager web console to manage the server's configuration.
+It is recommended to use the Web Manager web console to manage the server's configuration.
 The web console provides guidance and always generates valid configuration files.
 
 For various scenarios, such as automatic deployments,

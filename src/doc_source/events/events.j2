@@ -27,7 +27,6 @@ Add the events JSON as a table under each event ID
 :Message: {{ event.message|indent(4) }}
 :Groups: {{ ", ".join(event.group_names) }}
 :From version: {{ event.version_added }}
-:To version: {{ event.version_removed }}
 :Description: {{ event.description|d('None', true)|indent(4) }}
 {% if event.data -%}
 :Data:
@@ -65,7 +64,6 @@ Add the events JSON as a table under each event ID
 :Message: {{ event.message|indent(4) }}
 :Groups: {{ ", ".join(event.group_names) }}
 :From version: {{ event.version_added }}
-:To version: {{ event.version_removed }}
 :Description: {{ event.description|d('None', true)|indent(4) }}
 {% if event.data -%}
 :Data:
@@ -103,7 +101,6 @@ Add the events JSON as a table under each event ID
 :Message: {{ event.message|indent(4) }}
 :Groups: {{ ", ".join(event.group_names) }}
 :From version: {{ event.version_added }}
-:To version: {{ event.version_removed }}
 :Description: {{ event.description|d('None', true)|indent(4) }}
 {% if event.data -%}
 :Data:
@@ -141,7 +138,6 @@ Add the events JSON as a table under each event ID
 :Message: {{ event.message|indent(4) }}
 :Groups: {{ ", ".join(event.group_names) }}
 :From version: {{ event.version_added }}
-:To version: {{ event.version_removed }}
 :Description: {{ event.description|d('None', true)|indent(4) }}
 {% if event.data -%}
 :Data:
@@ -155,7 +151,7 @@ Add the events JSON as a table under each event ID
 {% endfor %}
 
 
-Management and Local Manager Events
+Management and Web Manager Events
 ===================================
 
 {#
@@ -179,7 +175,6 @@ Add the events JSON as a table under each event ID
 :Message: {{ event.message|indent(4) }}
 :Groups: {{ ", ".join(event.group_names) }}
 :From version: {{ event.version_added }}
-:To version: {{ event.version_removed }}
 :Description: {{ event.description|d('None', true)|indent(4) }}
 {% if event.data -%}
 :Data:
@@ -217,7 +212,6 @@ Add the events JSON as a table under each event ID
 :Message: {{ event.message|indent(4) }}
 :Groups: {{ ", ".join(event.group_names) }}
 :From version: {{ event.version_added }}
-:To version: {{ event.version_removed }}
 :Description: {{ event.description|d('None', true)|indent(4) }}
 {% if event.data -%}
 :Data:

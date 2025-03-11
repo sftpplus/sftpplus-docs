@@ -13,3 +13,5 @@ of the SFTPPlus solely based on the available configuration.
     filesystem-access
     ftp
     http
+    as2-send
+    exchange-online

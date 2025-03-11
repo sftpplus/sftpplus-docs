@@ -10,14 +10,14 @@ This is the list of known issues for the current release of SFTPPlus.
   In order to ensure correct operation of SFTPPlus, please
   avoid using special Unicode characters in the installation folder path.
 
-* Copying a Local Manager URL from within an authenticated session
+* Copying a Web Manager URL from within an authenticated session
   and pasting it in an unauthenticated session will prompt for the login page.
   After a successful authentication, the new session will redirect to the
   start page, not to the initial requested page.
 
-* Collaborative configuration from multiple separate Local Manager sessions is
+* Collaborative configuration from multiple separate Web Manager sessions is
   not supported.
-  The Local Manager allows opening multiple administration
+  The Web Manager allows opening multiple administration
   sessions, but assumes that only one session will change the configuration.
   Changes in one session will not be automatically reflected in the other
   session.
@@ -27,9 +27,6 @@ This is the list of known issues for the current release of SFTPPlus.
   are not supported.
   The server itself and all systems with which it interacts
   should use ASCII domain names.
-
-* [#1946] On Windows systems, the installation will not generate an
-  install log file when running in silent mode.
 
 * [#2057] SFTP symbolic links on Windows systems only work when using
   absolute paths.
@@ -72,9 +69,6 @@ This is the list of known issues for the current release of SFTPPlus.
 * [#4811] Fully qualified domain names (FQDN) or hostnames resolving only to
   an IPv6 address are not yet supported as the listening address for a file
   transfer service.
-
-* [#4869] When an HTTP file transfer service is closed for not being active,
-  there is no explicit logout event.
 
 * [#5071] For batch transfers, when using `execute_on_destination_before`,
   `execute_on_destination_after_success` and

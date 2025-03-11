@@ -380,6 +380,9 @@ define a destination path and name, different from the source path.
 
 The whole path can be transformed, not only the filename.
 
+Any transformed path will be transferred to a path relative to the path configured via `destination_path`.
+Use the `{ignore_destination_path}` placeholder at the start of transformation rule to ignore the configured destination path.
+
 ------------
 
 It can be used for generic rename operations for which the result is
@@ -413,6 +416,7 @@ relative to the base source path:
 * `{path.file_name}` - the file name, including the extension.
 * `{path.file_base}` - the file name without the extension.
 * `{path.file_extension}` - the file extension.
+* `{ignore_destination_path}` - to instruct that the configured `destination_path` should be ignored.
 
 Having the following configuration::
 
@@ -478,7 +482,27 @@ the files will be transferred as follows::
     c:\out\sales\Report.PDF          -> /Staging/Report.PDF
     c:\out\sales\Report.txt          -> /Out/final-Report.txt
     c:\out\sales\EMEA\Income.PDF  -> /Staging/EMEA/Income.PDF
-    c:\out\sales\EMEA\Income.txt  -> /Out/EMEA/Income-20210121T244503.txt
+    c:\out\sales\EMEA\Income.txt  -> /Out/EMEA/Income.txt
+
+-----------
+
+The `transform` action can be used for transferring files to path relative to the working directory, as defined by the remote server.
+The `{ignore_destination_path}` placeholder at the start of a transformation expression, is used to trigger this functionality.
+Having the `{ignore_destination_path}` inside the transformation expression will not trigger the relative path transfers.
+
+Having the following configuration::
+
+    source_path: c:\out\sales
+    destination_path: /Out/
+    destination_path_actions:
+      *.txt, transform, final-{path.file_name}
+      *.confirm, transform, {ignore_destination_path}{path.file_base}.done
+
+the files will be transferred as follows::
+
+    c:\out\sales\Report.txt          -> /Out/final-Report.txt
+    c:\out\sales\EMEA\Income.txt  -> /Out/Income.txt
+    c:\out\sales\EMEA\Income.confirm  -> Income.done
 
 
 only-filename
@@ -864,35 +888,22 @@ Fault-tolerant source monitoring
 --------------------------------
 
 When a transfer is started, SFTPPlus will check for the required
-permissions to monitor the source path for changes, the configured path exists and this path is valid.
+permissions to monitor the source path for changes,
+the configured path exists and this path is valid.
 
-If the source path is no longer available after the transfer was started and
-the initial check operations were successful,
-SFTPPlus will not consider the transfer failed.
-It will wait for the next configured `changes_poll_interval` to pass and will
-try again.
-This is done an unlimited number of times and an event is emitted on each failure.
-Once the source path is available again, the transfer is resumed and new or
-changed files will be transferred.
+If the source path was available at startup, but after some time it is no longer available and it fails to get the content of the source path,
+SFTPPlus will retry the after `changes_poll_interval` seconds.
 
-The type of source path errors that are considered not critical for source monitoring varies based on the file transfer protocol.
+This is done for a number of time configured by the `retry_count` option.
+An event is emitted on each failure.
+
+Once the source path is available again, the transfer is resumed and new or changed files will be transferred.
 
 The most common errors found on all supported protocols are:
 
 * Source path not found.
 * Source path without reading or listing permissions.
 * Connection closed while the source was checked.
-
-For the HTTP and WebDAV protocol, below is a non-exhaustive list of HTTP codes
-for which source monitoring will continue:
-
-* 401 UNAUTHORIZED
-* 403 FORBIDDEN
-* 404 NOT FOUND
-* 429 TOO MANY REQUESTS
-* 500 INTERNAL SERVER ERROR
-* 503 SERVICE UNAVAILABLE
-* 504 GATEWAY TIMEOUT
 
 
 Resumed transfers

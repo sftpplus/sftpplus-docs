@@ -20,8 +20,7 @@ and `ssl_cipher_list` with the value `secure`
 This will keep the list of accepted cryptographic methods up to date with
 modern security practices.
 
-When using the `secure` configuration option for an SSL/TLS/SFTP/SCP client
-and server-side transfer,
+When using the `secure` configuration option for an TLS/SFTP/SCP client and server-side transfer,
 the list of accepted ciphers might change between SFTPPlus or OpenSSL upgrades.
 
 Connections which are using cryptography which is no longer considers secured
@@ -43,15 +42,28 @@ the Transport Layer Security (TLS) protocol, which is the successor of the
 Secure Sockets Layer (SSL) protocol.
 
 
-Default secure SSL/SLS configuration
-------------------------------------
+Default secure TLS configuration
+--------------------------------
 
 When using the `secure` value for the `ssl_cipher_list`,
-the following algorithms are enabled::
+the following algorithms are enabled, with priority from top to bottom.
+The list is based on the `Intermediate`` configuration
+suggested by `Mozilla SSL Configuration Generator <https://ssl-config.mozilla.org/>`_ :
 
-    HIGH:!PSK:!RSP:!eNULL:!aNULL:!RC4:!MD5:!DES:!3DES:!aDH:!kDH:!DSS
+* ECDHE-ECDSA-AES256-GCM-SHA384
+* ECDHE-RSA-AES256-GCM-SHA384
+* ECDHE-ECDSA-AES128-GCM-SHA256
+* ECDHE-RSA-AES128-GCM-SHA256
+* ECDHE-ECDSA-CHACHA20-POLY1305
+* ECDHE-RSA-CHACHA20-POLY1305
+* DHE-RSA-AES128-GCM-SHA256
+* DHE-RSA-AES256-GCM-SHA384
 
 This list provides maximum compatibility with existing deployments while avoiding deprecated ciphers.
+
+The `secure` list is designed to support both TLS 1.2 and TLS 1.3.
+It is not compatible with TLS 1.1 and older standards.
+For compatibility with TLS 1.1 or older versions, either use the `all` list or provide a custom list of ciphers.
 
 SFTPPlus uses the OpenSSL library provided by the Python `cryptography` module.
 To benefit from upstream security updates for the bundled OpenSSL library,
@@ -60,7 +72,6 @@ This OpenSSL version might not provide
 all the ciphers which are required by older SSL/TLS versions of the standard.
 This is valid especially for cryptographic methods which in recent years were
 discovered to no longer be secured.
-For example, SSLv3 is no longer provided at all.
 While 3DES was considered secure at the beginning of 2016, in August 2016 it
 was discovered that it is vulnerable to the SWEET32 attack.
 Therefore, 3DES support is no longer included with latest updates for most
@@ -71,22 +82,13 @@ To verify the list of ciphers available for your operating system use::
     openssl ciphers -V
 
 
-SSL/TLS versions
-----------------
+TLS versions
+------------
 
-* SSL v3 (considered not secure)
 * TLS v1.0
-* TLS v1.1 (for OpenSSL 1.0.1 or newer)
-* TLS v1.2 (for OpenSSL 1.0.1 or newer)
-* TLS v1.3 (for OpenSSL 1.1.1 or newer)
-
-..  note::
-    SSL version 2 is not supported. It was officially deprecated
-    in 2011 by the RFC 6176.
-
-    SSL version 3 is supported only to provide backward compatibility
-    for older clients, but it is not recommended for new deployments.
-    It was officially deprecated in June 2015 by the RFC 7568.
+* TLS v1.1
+* TLS v1.2
+* TLS v1.3
 
 
 File formats
@@ -149,6 +151,59 @@ Encryption algorithms
 * Blowfish
 
 
+Key usage certificate extension
+-------------------------------
+
+When creating a certificate signing request or a self-signed certificate,
+you can use any of the `Key Usage` or `Extended Key Usage` `extensions supported by OpenSSL <https://docs.openssl.org/master/man5/x509v3_config/#key-usage>`_.
+
+In SFTPPlus, extension names are lower case and use hyphens.
+Both normal and extended key usages values are configured together,
+without distinguishing between extended and non-extended ones.
+
+Below are the conversion tables.
+
+.. list-table:: Key usage extensions
+   :widths: 60 40
+   :header-rows: 1
+
+   * - SFTPPlus value
+     - OpenSSL value
+   * - digital-signature
+     - digitalSignature
+   * - non-repudiation
+     - nonRepudiation
+   * - key-encipherment
+     - keyEncipherment
+   * - data-encipherment
+     - dataEncipherment
+   * - key-agreement
+     - keyAgreement
+   * - key-cert-sign
+     - keyCertSign
+   * - crl-sign
+     - cRLSign
+   * - encipher-only
+     - encipherOnly
+   * - decipher-only
+     - decipherOnly
+
+.. list-table:: Extended key usage extensions
+   :widths: 60 40
+   :header-rows: 1
+
+   * - SFTPPlus value
+     - OpenSSL value
+   * - server-authentication
+     - serverAuth
+   * - client-authentication
+     - clientAuth
+   * - code-signing
+     - codeSigning
+   * - email-protection
+     - emailProtection
+
+
 .. _standards-crypto-ssh:
 
 SSH protocol family
@@ -169,17 +224,27 @@ When using the `secure` value for the `ssh_cipher_list`,
 the following algorithms are enabled.
 These are listed below according to preference::
 
+    # Host keys
+    ssh-ed25519'
+    ecdsa-sha2-nistp256
+    ecdsa-sha2-nistp384
+    ecdsa-sha2-nistp521
+    rsa-sha2-512
+    rsa-sha2-256
+    ssh-rsa
+
     # Ciphers
+    aes256-gcm@openssh.com
+    aes128-gcm@openssh.com
     aes256-ctr
     aes192-ctr
     aes128-ctr
 
     # MACs
-    # SHA1 and MD5 might look weak, but the way they are used in SSH
-    # does not allow for the possibility of a collision attack.
+    hmac-sha2-256-etm@openssh.com
+    hmac-sha2-512-etm@openssh.com
     hmac-sha2-256
     hmac-sha2-512
-    hmac-sha1
 
     # Key Exchanges
     # See RFC for current recommendation (check updates).
@@ -206,10 +271,10 @@ Public-key cryptographic systems
 Here is the list of supported public-key cryptographic systems
 ordered by SFTPPlus' preference during the negotiation phase:
 
-* Ed25519 (with OpenSSL 1.1.1 or newer)
+* Ed25519 (ssh-ed25519)
 * ECDSA (ecdsa-sha2-nistp256, ecdsa-sha2-nistp384, ecdsa-sha2-nistp521)
-* RSA
-* DSS/DSA
+* RSA (rsa-sha2-512, rsa-sha2-256, ssh-rsa)
+* DSS/DSA (ssh-dss)
 
 ..  warning::
     Newer deployments should use Ed25519 when available,
@@ -247,6 +312,8 @@ Keyed-hash message authentication code (HMAC)
 Here is the list of supported HMAC,
 ordered on the preference of SFTPPlus during the negotiation phase:
 
+* hmac-sha2-256-etm@openssh.com
+* hmac-sha2-512-etm@openssh.com
 * hmac-sha2-512 (FIPS 140-2 compatible)
 * hmac-sha2-256 (FIPS 140-2 compatible)
 * hmac-sha1 (FIPS 140-2 compatible)
@@ -259,11 +326,18 @@ Symmetric encryption algorithms
 Here is the list of supported symmetric encryption algorithms,
 ordered on the preference of SFTPPlus during the negotiation phase:
 
+* aes256-gcm@openssh.com
+* aes128-gcm@openssh.com
 * aes256-ctr, aes256-cbc, aes192-ctr, aes192-cbc, aes128-ctr,
   aes128-cbc  (FIPS 140-2 compatible)
 * cast128-ctr, cast128-cbc
 * blowfish-ctr, blowfish-cbc
 * 3des-ctr, 3des-cbc (FIPS 140-2 compatible, vulnerable to SWEET32 attacks)
+
+The AES Galois Counter Mode for the Secure Shell Transport Layer Protocol is specified as part of `RFC 5647 <https://datatracker.ietf.org/doc/html/rfc5647>`_.
+In SFTPPlus the GCM support is implemented based on the OpenSSH specification.
+AES-GCM is available as the cipher algorithms "aes128-gcm@openssh.com" or "aes256-gcm@openssh.com" and never as an MAC algorithm.
+If AES-GCM is selected as the cipher the negotiated MAC algorithms are ignored and there doesn't have to be a matching MAC.
 
 
 AS2 protocol family

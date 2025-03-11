@@ -75,11 +75,11 @@ stop, or prevent it from starting, are part of the `failure` and `failure-high`
 group.
 
 
-Activity Log page in Local Manager
-==================================
+Activity Log page in Web Manager
+================================
 
 For low volume installations, the "Activity Log" (or the audit trail) can
-be used within the Local Manager to view and filter logs.
+be used within the Web Manager to view and filter logs.
 
 Using a web browser you can perform interactive searches within the events
 generated in the past.
@@ -96,7 +96,7 @@ Please see below for an example page.
 
 ..  image:: /_static/gallery/gallery-pastactivity.png
 
-Note that the embedded database, used by default by the Local Manager,
+Note that the embedded database, used by default by the Web Manager,
 is not suitable for high volume installations.
 
 In the case in which your installation generates thousand of entries each day,
@@ -107,10 +107,10 @@ For more information about managing logs in high volume websites, see
 see :doc:`the authorization section</guides/log-management>`.
 
 
-Account Activity page in Local Manager
-======================================
+Account Activity page in Web Manager
+====================================
 
-Activities of accounts set up in SFTPPlus are reported in Local Manager.
+Activities of accounts set up in SFTPPlus are reported in Web Manager.
 
 ..  image:: /_static/gallery/gallery-reports-page.png
 
@@ -146,10 +146,8 @@ Here is an example of text file log format:
       authenticated as application account using password credentials.
     | 10059 2014-06-07 19:44:10 ftp-only-1 test_user 127.0.0.1:51290 User
       successfully logged on "/srv/iop_files/test_user" as "/".
-    | 10061 2014-06-07 19:44:17 ftp-only-1 test_user 127.0.0.1:51292 Passive
-      transfer requested.
-    | 10022 2014-06-07 19:44:17 ftp-only-1 test_user 127.0.0.1:51292 Listening
-      on port 9000 for the next passive request.
+    | 10022 2014-06-07 19:44:17 ftp-only-1 test_user 127.0.0.1:51292 Expecting
+      client connection on 32.12.123.12:9054 for the next EPSV passive request.
     | 10077 2014-06-07 19:44:17 ftp-only-1 test_user 127.0.0.1:51292 Processing
       STOR command for file "/remote_put".
 
@@ -184,7 +182,7 @@ This helps limit the size of a single file and control the total disk
 space used by the plain text logging system.
 
 Audit entries stored in a `database` can be viewed and filtered using the
-Local Manager service.
+Web Manager service.
 
 
 Filtering the handled events

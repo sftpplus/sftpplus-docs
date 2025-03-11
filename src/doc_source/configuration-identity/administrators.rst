@@ -2,7 +2,7 @@ Administrators
 ==============
 
 Administrators are dedicated to accessing the
-:doc:`Local Manager administration service </configuration/local-manager>`.
+:doc:`Web Manager administration service </configuration/local-manager>`.
 They cannot be used for file transfer operations.
 
 To simplify configuration management for a large number of administrators,
@@ -13,10 +13,10 @@ This allows, for example, to easily disable access for all administrators associ
 ..  contents:: :local:
 
 
-Adding a new administrator via Local Manager
---------------------------------------------
+Adding a new administrator via Web Manager
+------------------------------------------
 
-Administrators can be added or changed via Local Manager below.
+Administrators can be added or changed via Web Manager below.
 
 ..  image:: /_static/gallery/gallery-add-admin.png
 
@@ -33,7 +33,7 @@ Once defined, the UUID should not be changed.
 For more information, please see
 :doc:`the dedicated UUID documentation </configuration/introduction>`.
 
-An administrator can be an application-level account defined for accessing the Local Manager or a local operating system account belonging to an operating system group associated with a role.
+An administrator can be an application-level account defined for accessing the Web Manager or a local operating system account belonging to an operating system group associated with a role.
 
 For example, to add a new administrator named **sa-admin**::
 

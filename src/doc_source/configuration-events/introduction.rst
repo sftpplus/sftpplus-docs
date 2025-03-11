@@ -24,10 +24,10 @@ For more information on using event handlers, please see
 :doc:`the usage instructions page </guides/event-handlers>`.
 
 
-Adding a new event handler via Local Manager
---------------------------------------------
+Adding a new event handler via Web Manager
+------------------------------------------
 
-A new event handler can be added or changed via Local Manager below.
+A new event handler can be added or changed via Web Manager below.
 Options will differ depending on which event handler is used.
 
 ..  image:: /_static/gallery/gallery-add-event-handler.png

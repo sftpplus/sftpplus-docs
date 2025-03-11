@@ -5,53 +5,45 @@ System Requirements
 Supported Operating Systems
 ---------------------------
 
-* Windows 8, 10, 2012 Server, 2012R2 Server, 2016 Server, 2019 Server,
-  2022 Server on x86_64.
+* Windows 10, 11, 2016 Server, 2019 Server, 2022 Server on x86_64.
 
-* Red Hat Enterprise Linux 5, 6, 7, 8, 9 on x86_64.
-  Version 5.11 (Final) is required on RHEL 5.
-  Clones such as CentOS, Oracle Linux, Rocky Linux, etc. are also supported.
+* Red Hat Enterprise Linux 8 and 9 on x86_64.
+  Clones such as Oracle Linux, Rocky Linux, AlmaLinux etc. are also supported.
   On request, we provide builds for different architectures
   (x86, POWER8, S390x).
-  Make sure the "libffi" package is installed on RHEL 8 and its clones.
   Make sure the "libxcrypt-compat" package is installed on RHEL 9
   and its clones.
 
-* Amazon Linux AMI 2018.03, Amazon Linux 2, Amazon Linux 2022 on x86_64.
-  Make sure the "libxcrypt-compat" package is installed on Amazon Linux 2022.
+* Amazon Linux 2 and Amazon Linux 2023 (formerly known as Amazon Linux 2022) on x86_64.
+  Make sure the "libxcrypt-compat" package is installed on Amazon Linux 2023.
 
-* Ubuntu Server 14.04 LTS, 16.04 LTS, 18.04 LTS, 20.04 LTS, 22.04 LTS on x86_64.
+* Ubuntu Server 18.04 LTS, 20.04 LTS, 22.04, 24.04 LTS on x86_64.
   Contact us if you need specific support for a different Ubuntu Linux version
   and/or another hardware platform.
-  Alternatively, you can also try the generic Linux package
-  featuring static OpenSSL libraries.
 
-* Alpine Linux 3.12 and newer on x86_64.
+* Alpine Linux 3.13 and newer on x86_64.
   Contact us if you need support for an older Alpine Linux version
   and/or another hardware platform.
-  This version is statically-built against required libraries,
-  including OpenSSL 1.1.1.
+  This version is statically-built against required libraries, including OpenSSL.
   This package should work on other musl-based Linux distributions,
-  provided musl 1.1.24 or newer is available.
+  provided musl 1.2 or newer is available.
 
-* Generic Linux distributions on x86_64.
-  This version is statically-built against required libraries,
-  including OpenSSL 1.1.1.
+* Generic Linux distributions on x86_64 and ARM64.
+  This version is statically-built against required libraries, including OpenSSL.
   It is designed to work on any modern Linux distribution with
-  glibc version 2.5 or newer:
-  Ubuntu Server older than 14.04 LTS, non-LTS Ubuntu,
-  SUSE Linux Enterprise Server (SLES) 11 and newer, OpenSUSE,
+  glibc version 2.26 or newer:
+  non-LTS Ubuntu,
+  SUSE Linux Enterprise Server (SLES) 15 and newer, OpenSUSE,
   Debian Linux, Slackware, Arch, etc.
   Contact us if you need support for a Linux distribution not based on
-  either glibc or musl. Or for hardware platforms other than x86_64/amd64.
+  either glibc or musl, or for hardware platforms other than x86_64/amd64 and arm64.
   Make sure the "libxcrypt-compat" package is installed on newer distributions
   such as current Arch Linux.
 
-* Apple macOS 10.13 High Sierra or newer on x86_64.
-  This version is statically-built against required libraries,
-  including OpenSSL 1.1.1.
-  macOS 10.12 Sierra is also known to work, but it's not supported.
-  Contact us if you need support for an older Mac OS X version.
+* Apple macOS 11 Big Sur or newer on Apple Silicon.
+  This version is statically-built against required libraries, including OpenSSL.
+  Contact us if you need support for macOS on Intel-based Macs,
+  including older versions.
 
 Do contact us if your OS of choice is not listed here, we can provide support
 for any Unix or Unix-like OS on almost any hardware platform as long as there
@@ -82,14 +74,17 @@ and the folder names should be less than 256 characters.
 The files handled by SFTPPlus can have longer path names and can include Unicode characters.
 The restriction is only for the SFTPPlus installation path.
 
-On Linux, the product typically uses the OpenSSL libraries available on the OS.
-As such, we recommend that a recent version of the OpenSSL libraries
-are installed to benefit from the latest security fixes.
-However, the generic Linux package and the Alpine Linux one
-are bundled with their own OpenSSL 1.1.1 libraries.
+On Linux, there are some basic system dependencies,
+most of which are typically installed by default.
+The required OpenSSL libraries are distributed together with the installation package.
+On some systems, extra dependencies are required,
+for example "libxcrypt-compat" on newer distributions.
+We strive to document these exceptions as comprehensive as possible.
+The installation and backup paths for SFTPPlus should be on filesystems with support for file capabilities.
+By default, both these paths reside in `/opt`.
 
-On macOS, there are no 3rd party dependencies, as the OpenSSL libraries
-are distributed together with the installation package.
+On macOS, there are no 3rd party dependencies.
+All needed libraries, including OpenSSL, are distributed together with the installation package.
 
 
 Hardware Requirements

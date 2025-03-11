@@ -29,6 +29,7 @@ Unix-like systems, familiar with file transfer protocols.
 
     introduction
     installation/index
+    upgrade/index
     quick-start/index
     configuration/index
     configuration-server/index

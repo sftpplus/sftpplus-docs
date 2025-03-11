@@ -10,7 +10,7 @@ based on the authentication methods provided by the operating system.
 Introduction
 ------------
 
-It can also be used to authenticate administrators for the Local Manager
+It can also be used to authenticate administrators for the Web Manager
 service.
 For this, you will need to explicitly define a group or a set of groups
 in the `manager_allowed_groups` configuration options.
@@ -53,6 +53,24 @@ The account configuration is retrieved using the same generic OS API.
     session management with SFTPPlus.
 
 .. include:: /configuration-auth/authentication-commons.include.rst
+
+
+Windows Security Policy settings
+--------------------------------
+
+SFTPPlus can be configured to authenticate Windows accounts, both local ones and domain accounts.
+In addition, the SFTPPlus Windows Service can be configured to run as a dedicated service account.
+If both conditions apply, the dedicated service account requires the following `user rights assignments`:
+
+* `Back up files and directories <https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/back-up-files-and-directories>`_
+* `Restore files and directories <https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/restore-files-and-directories>`_
+* `Take ownership of files or other objects <https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/take-ownership-of-files-or-other-objects>`_
+
+These permissions are required to allow SFTPPlus to:
+
+* Discover the path to the default user home folder
+* Create the default user home folder
+* Set the user home folder as owned by the user itself.
 
 
 pam_usage
@@ -185,7 +203,7 @@ manager_allowed_groups
 :From version: 3.37.0
 :Description:
     Defines an operating system group or a list of OS groups with users that
-    are allowed by this method to be used for the Local Manager service.
+    are allowed by this method to be used for the Web Manager service.
 
     When this is empty, any administrators are denied.
 

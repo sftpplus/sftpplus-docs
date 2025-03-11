@@ -4,7 +4,7 @@ HTTP web service
 An `http` authentication method asks a remote HTTP server to authenticate an account and provide the account's configuration.
 
 ..  note::
-    This authentication method can't be used with the Local Manager services.
+    This authentication method can't be used with the Web Manager services.
 
 To get more details about the request format and the expected result,
 see the dedicated
@@ -119,4 +119,5 @@ proxy
 
     For now, only the HTTP/1.1 CONNECT tunneling proxy method is supported.
 
+.. include:: /configuration/ssl-client.include.rst
 .. include:: /configuration/ssl.include.rst

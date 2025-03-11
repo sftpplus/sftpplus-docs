@@ -137,7 +137,7 @@ SFTPPlus only provides a basic tool to search and filter the logs,
 which is not suitable for high volume installations.
 
 The log analysis component is implemented in SFTPPlus as the
-"Activity Log" page from the Local Manager web console.
+"Activity Log" page from the Web Manager web console.
 
 We recommend using the analysis and filtering functionalities provided by
 the dedicated logging tools.

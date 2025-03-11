@@ -6,7 +6,6 @@ source_path
 :Values: * Absolute path on the local file system.
          * Relative path to the server installation folder.
 :From version: 2.10.0
-:To version: None
 :Description:
     Path to the monitored source folder.
 

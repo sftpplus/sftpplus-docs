@@ -24,6 +24,10 @@ method called multiple times during its lifetime.
 `onStart(configuration)` and `onStop()` methods are only called for the
 instance running in the main process.
 
+Most custom extension are created to only handle a few event IDs.
+You can set the list of event IDs that can be handled by your extension via the `TARGET_EVENTS` instance member.
+The `TARGET_EVENTS` is accessed after `onStart(configuration)`.
+
 The code for the event handler needs to be placed in a Python file (module)
 inside the `extension/` folder from the SFTPPlus installation folder.
 

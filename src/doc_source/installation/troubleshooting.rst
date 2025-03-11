@@ -11,7 +11,7 @@ Testing your configuration
 --------------------------
 
 The simplest test to see if the server is running is just to log in to the
-:doc:`Local Manager </quick-start/local-manager>` at `https://localhost:10020`.
+:doc:`Web Manager </quick-start/local-manager>` at `https://localhost:10020`.
 
 It may take a few iterations of your specific use case to get everything
 configured perfectly.
@@ -44,7 +44,7 @@ On all supported operating systems (Windows / Linux / macOS), the SFTPPlus
 service will only fail on critical errors.
 In the case that the application has been started, but a service or event
 handler is not working, please check the `Failed at start` entries in the
-Local Manager Status page or in the audit logs.
+Web Manager Status page or in the audit logs.
 
 
 Logging system problems
@@ -57,7 +57,7 @@ logging system, for example a missing log file or bad permissions for the log
 file.
 
 In the case that the server has been successfully started, but you don't see any
-log message, use the Local Manager Status page and check for any event
+log message, use the Web Manager Status page and check for any event
 handers with a status of `Failed at start`.
 
 

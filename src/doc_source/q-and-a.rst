@@ -217,7 +217,7 @@ SSH (SFTP/SCP) Service
 How to generate RSA and DSA SSH private and public keys?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Local Manager service provides a tool for generating new SSH keys
+The Web Manager service provides a tool for generating new SSH keys
 or converting existing SSH keys.
 
 

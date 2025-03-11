@@ -194,4 +194,5 @@ response_file_name
         response_file_name = stock-results.xml
 
 
+.. include:: /configuration/ssl-client.include.rst
 .. include:: /configuration/ssl.include.rst

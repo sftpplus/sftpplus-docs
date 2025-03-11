@@ -17,5 +17,7 @@ This section includes the reference documentation for client-side configuration 
     http-pull
     webdav
     as2
+    azure-blob
     azure-file
     smb
+    exchange-online

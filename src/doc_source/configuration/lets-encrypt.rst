@@ -11,18 +11,6 @@ The `lets-encrypt` resource allows SFTPPlus to automatically
 request SSL / X.509 certificates from Let's Encrypt's Certificate
 Authority.
 
-It acts as an embedded `certbot`.
-
-Let’s Encrypt is a free, automated, and open certificate authority (CA),
-run for the public’s benefit.
-It is a service provided by the Internet Security Research Group (ISRG).
-It offers everyone a convenient way to get fairly large numbers of
-SSL/TLS/X.509 certificates,
-in an automated way, completely for free.
-
-You can find out more about Let's Encrypt by `visiting the dedicated website
-<https://letsencrypt.org>`_.
-
 As this page focuses on configuration options, refer to the dedicated
 :doc:`Let's Encrypt operations </operation/lets-encrypt>` page.
 
@@ -45,7 +33,6 @@ the domain name for Let's Encrypt::
     address = 0.0.0.0
     port = 80
     acme_url = https://acme-v02.api.letsencrypt.org/directory
-    contact_email = admin-contact@your-domain.tld
     redirect_url = https://sftp.your-domain.tld/home/
 
     [services/1c17-4485-878c]
@@ -79,7 +66,7 @@ enabled
     Set it to `No` to have the resource stopped.
 
     You can still manually start and stop the resource from the
-    Local Manager.
+    Web Manager.
 
 
 address
@@ -137,24 +124,17 @@ acme_url
     and should use the default value.
 
 
-contact_email
--------------
+store_directory
+---------------
 
 :Default value: Empty
 :Optional: Yes
-:Values: * Comma-separated list of contact emails for this domain.
-:From version: 3.54.0
+:Values: * Local filesystem directory path
+:From version: 5.11.0
 :Description:
-    Optional email contact information provided to the ACME server.
+    Optional directory path to store the generated keys and certificates.
 
-    You can provide multiple addresses as a comma-separated value.
-
-    Let's Encrypt can use these addresses to contact you for issues
-    related to certificates obtained by SFTPPlus.
-    For example, the server may wish to notify you about server-initiated
-    revocation or certificate expiration.
-
-    Leave it empty to not provide any contact information.
+    Leave it empty to not save the keys and certificates as external files.
 
 
 redirect_url

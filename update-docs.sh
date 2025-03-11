@@ -7,11 +7,12 @@ fi
 
 cd $1
 SERVER_ROOT=`pwd`
+PY_VER='3.12'
 
 ./pythia.sh documentation_website
 cp -r build-py3/doc_source $DOCS_ROOT/src/
 cp extension/* $DOCS_ROOT/extension/
-cp -r build-py3/lib/python3.11/site-packages/sftpplus_website/sphinx $DOCS_ROOT
+cp -r build-py3/lib/python$PY_VER/site-packages/sftpplus_website/sphinx $DOCS_ROOT
 
 echo "Creating extensions for $DOCS_ROOT ..."
 mkdir -p $DOCS_ROOT/chevah/server/extension
@@ -21,8 +22,8 @@ touch $DOCS_ROOT/chevah/server/extension/__init__.py
 cp chevah/server/extension/auth_ldap_noop.py $DOCS_ROOT/chevah/server/extension/
 
 cd $DOCS_ROOT
-rm -rf venv/lib/python3.11/site-packages/chevah
-cp -r chevah venv/lib/python3.11/site-packages/
+rm -rf venv/lib/python$PY_VER/site-packages/chevah
+cp -r chevah venv/lib/python$PY_VER/site-packages/
 sed 's/^templates_path.*/templates_path = ["..\/..\/sphinx"]/'g -i src/doc_source/conf.py
 sed 's/^html_theme_path.*/html_theme_path = ["..\/..\/sphinx"]/'g -i src/doc_source/conf.py
 

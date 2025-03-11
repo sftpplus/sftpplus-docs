@@ -10,6 +10,16 @@ General description
 Via the `lets-encrypt` resource, SFTPPlus can act as an ACME client, in order
 to generate or renew certificates signed by Let's Encrypt's CA.
 
+Let’s Encrypt is a free, automated, and open certificate authority (CA),
+run for the public’s benefit.
+It is a service provided by the Internet Security Research Group (ISRG).
+It offers everyone a convenient way to get fairly large numbers of
+SSL/TLS/X.509 certificates,
+in an automated way, completely for free.
+
+You can find out more about Let's Encrypt by `visiting the dedicated website
+<https://letsencrypt.org>`_.
+
 The IETF-standardized ACME protocol, RFC 8555, is the ACME v2 protocol used by
 SFTPPlus when interacting with the Let's Encrypt service.
 
@@ -25,6 +35,10 @@ Let's Encrypt ACME client.
 For configuration information, refer to the dedicated
 :doc:`Let's Encrypt configuration reference
 </configuration/resources>` page.
+
+SFTPPlus acts as an embedded `certbot`.
+Installing `certbot` is not required.
+SFTPPlus includes its own Let's Encrypt client that is independent of `certbot`.
 
 
 Available Challenge
@@ -113,7 +127,7 @@ SFTPPlus will automatically update the certificate as soon as a new
 certificate is obtained from Let's Encrypt.
 
 A self-signed certificate is auto-generated with each new SFTPPlus
-installation, and used by default for services created via the Local Manager.
+installation, and used by default for services created via the Web Manager.
 
 By starting with a self-signed certificate, you can validate that all the
 other configurations are set up and working according to your needs.
@@ -159,6 +173,45 @@ get in touch at support@proatria.com,
 and we will provide instructions for setting up an existing account.
 
 
+Store keys and certificates as files
+------------------------------------
+
+You can configure the SFTPPlus Let's Encrypt resource to automatically save the generated keys and certificates as files in a local directory of your choice.
+
+It will store the keys and certificates using a directory structure similar to the one used by `certbot`.
+There is a sub-directory for each certificate.
+Separate files are created for the private key, the certificate, the ca chain, and the certificate+ca chain.
+
+For example, with the configuration provided below::
+
+    [resources/17c97aa6-1c17-4485-878c-68b427b82f35]
+    type = lets-encrypt
+    name = lets-encrypt-public
+
+    store_directory = /etc/ssl
+
+When a Let's Encrypt certificate for domains `example.com, www.example.com` is obtained, the following files are saved:
+
+* /etc/ssl/example.com_www.example.com/privkey.pem - Private key for the certificate.
+* /etc/ssl/example.com_www.example.com/fullchain.pem - All certificates, including the domain certificate and_the certification authority chain certificates.
+* /etc/ssl/example.com_www.example.com/chain.pem - Only the domain certificate.
+* /etc/ssl/example.com_www.example.com/cert.pem - The certification authority chain certificates.
+
+Each time the keys and certificate files are updated, the event with ID `20015` is emitted for each domain.
+
+The keys and certificates files are also recreated each time the Let's Encrypt resource is started.
+If the content of the certificate is updated the event with ID `20015` is emitted.
+
+When failing to store the keys and certificates on the local filesystem, the event with ID `20009` is emitted.
+
+When `store_directory` is not configured, no external key or certificate file is created.
+
+..  note::
+    SFTPPlus does not automatically delete unused certificates or expired certificates.
+    Let's Encrypt certificates are valid for 90 days.
+    You can safely delete any files older than 90 days.
+
+
 Testing and Experimentation
 ---------------------------
 
@@ -187,7 +240,6 @@ For production, the configuration will look like::
     address = 0.0.0.0
     port = 80
     acme_url = https://acme-v02.api.letsencrypt.org/directory
-    contact_email = admin-contact@your.domain.tld
 
 
 For testing/staging, the configuration will look like::

@@ -3,33 +3,39 @@ ssh_cipher_list
 
 :Default value: `secure`
 :Optional: Yes
-:Values: * List of accepted key exchanges, HMACs and cipher names.
+:Values: * List of SSH algorithm names.
          * `all`
          * `secure`
          * `fips`
 :From version: 3.11.0
-:To version: None
 :Description:
-    The full name for each key exchange, HMAC or cipher should be used
-    as comma-separated values.
+    This is configured as a comma-separated list of full name for each host public key, key exchange, HMAC or cipher.
 
     You can find all the names of the supported algorithms on
     :ref:`SSH cryptography page <standards-crypto-ssh>`.
 
-    The configuration must include at least one algorithm from each of:
+    For SFTP services the configuration must include at least one algorithm from each of:
 
     * ciphers
     * HMACs
     * key exchanges
 
+    For SFTP service, the list of public keys is extracted from the SSH keys configured at `ssh_host_private_keys`.
+
+    For SFTP locations the configuration must include at least one algorithm from each of:
+
+    * public key
+    * ciphers
+    * HMACs
+    * key exchanges
+
     For example,
-    to only allow AES256 in CTR mode with SHA256 HMAC hash and Diffie-Hellman group 14 key exchange with sha256 algorithms,
+    to only allow RSA host keys, AES256 in CTR mode with SHA256 HMAC hash and Diffie-Hellman group 14 key exchange with sha256 algorithms,
     the configuration is::
 
-        ssh_cipher_list = aes256-ctr, hmac-sha2-256, diffie-hellman-group14-sha256
+        ssh_cipher_list = ssh-rsa, aes256-ctr, hmac-sha2-256, diffie-hellman-group14-sha256
 
-    The special keyword `secure` contains all the algorithms that we
-    currently consider secure.
+    The special keyword `secure` contains all the algorithms that we currently consider secure.
 
     We recommend using the latest version of SFTPPlus,
     for automatic enforcement of any newly-deprecated ciphers via the `secure` list.

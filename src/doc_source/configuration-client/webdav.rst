@@ -130,4 +130,5 @@ allow_insecure_http
         as plaintext over the network.
 
 
+.. include:: /configuration/ssl-client.include.rst
 .. include:: /configuration/ssl.include.rst

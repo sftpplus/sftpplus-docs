@@ -121,6 +121,8 @@ FTP Data Types - ASCII vs BINARY
 
 SFTPPlus supports only the ASCII and IMAGE/BINARY data types.
 
+The EBCDIC data type, common in mainframe z/OS or midrange AS/400, is not supported.
+
 When no explicit data type is requested by the client-side, the server will
 consider the data type as IMAGE/BINARY.
 
@@ -345,12 +347,37 @@ the previous data channel is forcibly closed, even if already connected,
 and a new data channel is created.
 
 
+Data channel security
+---------------------
+
+For legacy FTP connection, the data connection is established without any authentication.
+The data port number is the only information needed to establish a new data connection and perform a new file transfer operation.
+The data is also transferred without encryption.
+
+For Explicit FTPS or Implicit FTPS, the data is encrypted in transit using the TLS protocol.
+
+Since the data channel is created using a new TCP connection, the TLS session security needs to be re-established over this new connection.
+
+The new TCP connection created for the data channel is defined by the FTP protocol as being established without authentication, even for the FTPS (secure) protocol.
+
+The only way to authenticate the data connection, is to ask and enforce the FTP client to establish the new TLS connection using the exact TLS session as the one used over the command connection.
+
+The `ftps_require_session_reuse` is used to configure SFTPPlus to enforce the TLS session reuse or not.
+
+Some legacy FTPS clients might not reuse the TLS session cause the file transfer operation to fail.
+You can set `ftps_require_session_reuse = no` to disable SFTPPlus data channel authentication,
+but when doing so, make sure your firewall is configured to allow incoming connections only from trusted source IP addresses.
+
+
 Passive connections (PASV) implementation details
 -------------------------------------------------
 
 When a client requests the PASV command, SFTPPlus will open the data
 connection and waits for the client to connect to the new data channel.
+
 Unless the client connects to the data channel, no other command is processed.
+This is a security measurement to mitigate a possible port stealing attack.
+This restriction can be relaxed via the `passive_wait_connection` configuration option.
 
 When the FTP/FTPS service is accessed from behind a NAT, using the standard
 `PASV` commands, clients will get a response containing the server internal
@@ -423,53 +450,6 @@ SFTPPlus will always use the UTF-8 encoding for file names and paths.
 
 Support for UTF-8 is advertised by the FTP server in the response of the
 FEAT command and `OPTS UTF8` command is supported as well.
-
-
-.. _operation-ftps-ccc:
-
-Usage of the CCC (Clear Command Channel) command
-------------------------------------------------
-
-The CCC command is defined in `RFC 2228 <https://tools.ietf.org/html/rfc2228>`_
-and `RFC4217 <https://tools.ietf.org/html/rfc4217>`_.
-
-If the server and client support the CCC command, it can be used to revert a
-control channel connection protected using SSL/TLS to plain text mode, no
-security.
-
-The usage of the CCC decreases the security of the connection.
-
-Most firewall devices can only inspect unencrypted PASV/PORT commands in order
-to open the expected data port (port negotiated by server-client) in an
-automatic manner.
-
-The usage of the CCC can be avoided by defining a static port range for the
-data connections.
-
-If static port range for the data connection does not meet your requirements,
-the usage of the CCC command can be used to implement an authentication
-process which is still secured by TLS/SSL.
-
-In most of the scenarios, the CCC command is used to shut down the SSL/TLS
-layer after the authentication step.
-The rest of the control channel communication will be done over an unencrypted
-connection.
-
-On the **server-side**, when the CCC command is requested by a client,
-the SFTPPlus server will always initiate the SSL/TLS shutdown,
-after the reply is sent to the client.
-That is, the reply to the CCC command is still sent over a protected
-connection.
-
-On the **client-side**, while the CCC command takes no argument,
-it can be implemented in two modes:
-
-* **passive mode** - client-side will not initiate the shutdown,
-  but instead, wait for the server-side to do it.
-  Will not reply to the shutdown from the server
-
-* **active mode** - not supported yet - client-side initiates the shutdown
-  and waits for a reply from the server, before sending further commands.
 
 
 Date and time handling
@@ -556,7 +536,7 @@ configuration/server.ini)::
 
     enable_ssl_certificate_authentication = Yes
 
-In the Local Manager FTPS services configuration, set to
+In the Web Manager FTPS services configuration, set to
 `Enable SSL certificate-based authentication`.
 
 This option is enabled by default, so you should already have this option set.
@@ -568,7 +548,7 @@ The SSL certificate presented by the client should have the value of the
 Common Name (CN) field match the authenticated username.
 
 Each account should have `allow_certificate_authentication = yes`
-(Allow SSL certificates` in Local Manager) or enabled by group inheritance.
+(Allow SSL certificates` in Web Manager) or enabled by group inheritance.
 
 Based on the following account configuration, SSL certificate authentication
 is enabled, and FTPS clients should provide a certificate issued for

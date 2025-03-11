@@ -1,5 +1,5 @@
-Web Administration Console
-##########################
+Web Manager Console
+###################
 
 ..  contents:: :local:
 

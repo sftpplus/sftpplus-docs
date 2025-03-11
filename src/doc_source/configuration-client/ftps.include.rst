@@ -1,10 +1,10 @@
 ftps_reuse_session
 ------------------
 
-:Default value: No
-:Optional: Yes
-:Values: * Yes
-         * No
+:Default value: `Yes` (Since 5.0.0)
+:Optional: `Yes`
+:Values: * `Yes`
+         * `No``
 :From version: 4.34.0
 :Description:
     When set to `yes`, SFTPPlus sets up and requests the data connection to use the same TLS session as the control connection.

@@ -201,7 +201,7 @@ These steps assume that the OS account/s and settings already exists.
 
 ----
 
-In Local Manager, create a new Account with the type Operating System (`os`).
+In Web Manager, create a new Account with the type Operating System (`os`).
 
 If the new SFTPPlus `os` account is a Windows Domain Controller Account, the
 username is provided in the UPN format (like ``username@domain.com``).
@@ -254,7 +254,7 @@ Troubleshooting Windows Domain authentication
 ---------------------------------------------
 
 Should there be issues in authenticating, make sure to check the server logs
-or the activity reports available in the Local Manager GUI.
+or the activity reports available in the Web Manager GUI.
 
 For example, if the device has connectivity issues with the domain controller
 (if the account is a domain controller account), there may be problems
@@ -555,7 +555,7 @@ Allowing users to change their password
 You can configure whether to allow file transfer users to change their own
 password, or whether to have their password updated only by administrators.
 
-Only application accounts defined inside SFTPPlus Local Manager can have
+Only application accounts defined inside SFTPPlus Web Manager can have
 their password changed.
 
 Operating system accounts, domain accounts, LDAP accounts, and other accounts

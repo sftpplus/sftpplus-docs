@@ -1,5 +1,5 @@
-Installation and Upgrade Instructions
-=====================================
+Install
+=======
 
 ..  toctree::
     :maxdepth: 1
@@ -10,5 +10,4 @@ Installation and Upgrade Instructions
     linux-advanced
     macos
     troubleshooting
-    upgrade
     uninstall

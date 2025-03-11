@@ -5,10 +5,10 @@
     `security`
 
 
-Resetting Local Manager username and password
-=============================================
+Resetting Web Manager username and password
+===========================================
 
-The Local Manager is a web-based administration interface, access-protected
+The Web Manager is a web-based administration interface, access-protected
 through username and password credentials.
 
 During initial installation, you are asked to define a username and a
@@ -43,4 +43,4 @@ the password generated from the previous step::
 
 Once the modified configuration file is saved, you can start the
 SFTPPlus service.
-You can then login to the Local Manager web page using the new credentials.
+You can then login to the Web Manager web page using the new credentials.

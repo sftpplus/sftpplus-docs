@@ -108,9 +108,11 @@ password
     It is provided in plain text.
     To disable password authentication, set this to an empty string.
 
-    When `ssh_private_key` is defined and configured to a private key which
-    is stored in encrypted mode, this holds the password used to
-    decrypt the private key.
+    ..  note::
+        Prio to version 5.7.0,
+        when a password is configured together with the `ssh_private_key` configuration,
+        the password was used to decrypt the SSH key.
+        In current SFTPPlus version, there is a separate `ssh_private_key_password` configuration option, dedicated to the decryption password for the SSH key.
 
 
 ssh_private_key
@@ -151,8 +153,21 @@ ssh_private_key
     We recommend to store the key in PEM OpenSSH format, but Putty or Tectia
     formats are also supported.
 
-    When the configured key is encrypted, the value configured in `password`
+    When the configured key is encrypted, the value configured in `ssh_private_key_password`
     is used to decrypt the key.
+
+
+ssh_private_key_password
+------------------------
+
+:Default value: Empty
+:Optional: Yes
+:From version: 5.7.0
+:Values: * Text
+:Description:
+    The password used to decrypt the SSH key configured via `ssh_private_key`.
+
+    Leave this option empty when the configured SSH key is not encrypted.
 
 
 proxy

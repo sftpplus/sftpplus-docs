@@ -8,13 +8,13 @@ You can configure the order in which these methods are used.
 
 ..  note::
     Not all authentication method types support authenticating the
-    administrators for the Local Manager service.
+    administrators for the Web Manager service.
 
 
-Adding a new authentication method via Local Manager
-----------------------------------------------------
+Adding a new authentication method via Web Manager
+--------------------------------------------------
 
-A new authentication method can be added or changed via Local Manager below.
+A new authentication method can be added or changed via Web Manager below.
 Options will differ depending on which authentication method is used.
 
 See below for an example starting configuration for the LDAP method of

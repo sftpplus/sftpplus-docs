@@ -4,7 +4,7 @@ Banning users
 A `deny-username` authentication method can be used to block/deny
 authentication for a configured list of denied users.
 
-You can use it for file transfer services, as well as for the Local Manager
+You can use it for file transfer services, as well as for the Web Manager
 service.
 
 ..  note::

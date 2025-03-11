@@ -17,30 +17,30 @@ interface.
     :class: "mb-2 grayscale"
 
 Once successfully installed, a new shortcut is added to the Windows menu.
-Look for **SFTPPlus Local Manager** and launch it. This shortcut will start
-the SFTPPlus Local Manager which is the web-based administration panel.
+Look for **SFTPPlus Web Manager** and launch it. This shortcut will start
+the SFTPPlus Web Manager which is the web-based administration panel.
 
 If you get the **This site is not secure** message, click on the **Details**
 and then **Go on to the webpage**. This message is due to your self-signed SSL
 certificate,which SFTPPlus generates as part of the installation process.
 
-The SFTPPlus Local Manager comes with an initial administration account.
+The SFTPPlus Web Manager comes with an initial administration account.
 The username and the password are the ones entered during the installation
 process.
 Use the credentials to log in before proceeding with the next step.
 
 Navigate to `https://127.0.0.1:10020`, enter those credentials, and you will
-see the Local Manager's status screen similar to that below.
+see the Web Manager's status screen similar to that below.
 You can replace `127.0.0.1` with the IP address of the system on which
 SFTPPlus was installed.
 
 
 ..  image:: /_static/guides/status-small.png
-    :alt: Local Manager Status page
+    :alt: Web Manager Status page
     :align: center
 
 
-Once you have logged in to the Local Manager, you can begin the
+Once you have logged in to the Web Manager, you can begin the
 process of customizing your instance.
 
 .. _changing-admin-credentials:
@@ -122,7 +122,7 @@ Enable the file transfer automations
 
 SFTPPlus provides :doc:`a powerful framework for pre- and post-transfer
 operations </configuration-client/transfers>`.
-In the SFTPPlus Local Manager, go to **Transfers**, and select **Add transfer**.
+In the SFTPPlus Web Manager, go to **Transfers**, and select **Add transfer**.
 Change the settings to the values below:
 
 * Source configuration path:

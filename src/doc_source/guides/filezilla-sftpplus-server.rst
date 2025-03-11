@@ -36,7 +36,7 @@ Prerequisites for using Filezilla Client with SFTPPlus FTPS Server
 
 Make sure that you have the following details correct.
 These details can be configured and/or checked using the SFTPPlus
-Local Manager.
+Web Manager.
 If you are new to SFTPPlus, you can refer to the
 `quick steps guide <https://www.sftpplus.com/welcome.html>`_ or see
 our documentation for more details.

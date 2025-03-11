@@ -60,7 +60,7 @@ The default `admin-shell` command will try to connect to the SFTPPlus
 administration interface running at `https://localhost:10020` using the
 default `configuration/self_signed_certificate.pem` certificate.
 
-You can specify a different address for the SFTPPlus Local Manager interface
+You can specify a different address for the SFTPPlus Web Manager interface
 by setting it as a command line argument.
 
 On Unix-like systems, the command would be::
@@ -71,7 +71,7 @@ On Windows systems, the command would be::
 
     CMD> bin\admin-shell.bat -a https://sftp-mgmt.example.com:2020
 
-If the SFTPPlus Local Manager interface is not using the default
+If the SFTPPlus Web Manager interface is not using the default
 self-signed certificate, you can start `admin-shell` using a different
 certificate. This can be the server's certificate itself or a Certificate
 Authority's certificate.

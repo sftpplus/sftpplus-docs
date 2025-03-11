@@ -16,7 +16,7 @@ Testing and Debugging
 Validate server configuration
 -----------------------------
 
-When the configuration changes are done from within the Local Manager the
+When the configuration changes are done from within the Web Manager the
 changes are validated whey they are applied.
 Invalid changes are not applied.
 

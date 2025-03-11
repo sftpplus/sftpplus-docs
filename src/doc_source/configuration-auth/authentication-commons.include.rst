@@ -36,7 +36,7 @@ type
          * `ldap` - Authenticate against an LDAP server.
          * `local-file` - Authenticate the accounts from a separate local file.
          *  `radius` - Authenticate via an RADIUS server.
-         *  `azure-ad` - Azure Active Directory
+         *  `entra-id` - Microsoft Entra ID
 :Description:
     This option specifies the type of the method. Each type has a set
     of specific configuration options

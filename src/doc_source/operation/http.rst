@@ -20,7 +20,7 @@ The HTTP protocol is implemented based on
 while the HTTPS protocol is based on
 `RFC 2818 <http://tools.ietf.org/html/rfc2818>`_.
 
-The Local Manager GUI provides configuration options and status indications
+The Web Manager GUI provides configuration options and status indications
 to the state of the `http` or `https` service:
 
 ..  image:: /_static/operation/http-https-enabled.png
@@ -80,7 +80,7 @@ available in latest generation web browsers.
 
 For legacy purposes or to avoid disrupting existing web UI file transfer
 processes,
-you can configure the HTTP web file manager to use an older version of the
+you can configure the HTTP web client to use an older version of the
 user interface::
 
     [services/9ac4-1054-f0e4]
@@ -135,7 +135,7 @@ the service as::
 
     [services/9ac4-1054-f0e4]
     name = HTTPS File Transfer Service
-    type = http
+    type = https
 
     theme_path = C:\File-Server\Theme
 
@@ -150,8 +150,51 @@ For example ``C:\File-Server\Theme\main.css`` can make buttons rounder and hide 
         display: none;
     }
 
+Below is the list of `data-theme` HTML attributes that control the appearance of parts of the login page::
+
+    * `data-theme="login-username-prompt"` Username label and input
+    * `data-theme="login-password-prompt"` Password label and input
+    * `data-theme="login-mfa-input"` MFA/TOTP code label and input
+    * `data-theme="login-no-cookies"` Link to authenticate for browser without cookie enabled
+    * `data-theme="login-username-password"` Button to authenticate with username/password credentials
+    * `data-theme="login-oidc"` OpenID Connect or MS Entra ID login label and button
+    * `data-theme="login-oidc-alternative"` Text presented when OpenID Connect is an alternative login method
+    * `data-theme="login-footnotes-button"` Button that triggers the login dialog to display terms or service or usage help information.
+    * `data-theme="login-footnotes-dialog"` UI dialog element in which the terms or service or usage/help information is displayed.
+
 If you find it hard to customize certain UI elements, get in touch with us.
 We will consider updating the default HTML / CSS markup to make it easier for you to apply custom CSS rules.
+
+
+Custom service information link
+-------------------------------
+
+You can configure the login page to show a custom link which opens a message box with more info when pressed.
+
+This is done using the `login_footnotes` configuration option.
+This configuration option is defined on multiple lines.
+
+To define a link with the text `Terms of Service`
+that opens a message box titled `ACME Company Terms of Service`
+containing your terms of services,
+use a configuration similar to this example::
+
+    [services/9ac4-1054-f0e4]
+    name = HTTPS File Transfer Service
+    type = https
+
+    login_footnotes = Terms of Service
+        ACME Company Terms of Service
+
+        Posted: 21 March 2024
+        Effective: 1 June 2024
+
+        Thank you for using our product!
+
+        These Terms of Service cover your use of the ACME Company services.
+        When you use our services, you provide us your files and their content.
+
+        These terms don't give us any rights to your content, except for the limited rights that enable us to offer these services.
 
 
 Custom trigger buttons
@@ -261,6 +304,19 @@ you will need to configure SFTPPlus as follows::
     port = 18080
 
     accepted_origins = files.example.com, www.example.com:10443
+
+If you have an HTTP (unsecure) load balancer that is accesses by the users as
+``http://files.example.com`` and it forwards all requests to SFTPPlus at ``http://worker1.example.com``,
+you will need to configure SFTPPlus as follows,
+adding `http` as the first value for `accepted_origins`::
+
+    [services/9ac4-1054-f0e4]
+    name = HTTPS File Transfer Service
+    type = http
+    address = worker1.example.com
+    port = 18080
+
+    accepted_origins = http, files.example.com
 
 
 AS2 receive site

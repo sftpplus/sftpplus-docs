@@ -74,6 +74,20 @@ The `account` contains the following attributes:
 
 ----
 
+:name: email
+:type: string
+:optional: yes
+:description: The primary email, as text associated to this account.
+
+----
+
+:name: emails
+:type: string
+:optional: yes
+:description: A list of 2 value tuples (name, email) for the emails associated to this account.
+
+----
+
 :name: token
 :type: string
 :optional: Yes

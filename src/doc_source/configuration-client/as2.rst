@@ -176,6 +176,8 @@ as2_mdn_receipt
 :From version: 4.5.0
 :Values: * `sync-signed`
          * `sync-unsigned`
+         * `async-signed`
+         * `async-unsigned`
          * `disabled`
 :Description:
     This defines the method used to request the
@@ -183,6 +185,8 @@ as2_mdn_receipt
 
     When requesting a signed MDN, it will make the request using the
     digest/hashing algorithm defined in `as2_signature_algorithm`.
+
+    When asynchronous MDN is enabled, you will need to set the `as2_async_mdn_url` and `as2_async_mdn_server_uuid` configuration options.
 
     When defined as `disabled`, it will not request an MDN receipt.
 
@@ -221,6 +225,22 @@ as2_signature_algorithm
     requesting the MDN receipt.
 
 
+as2_compressed
+--------------
+
+:Default value: `no`
+:Optional: Yes
+:From version: 5.6.0
+:Values: * `yes`
+         * `no`
+:Description:
+    Whether the file to be sent is automatically compressed during the
+    transfer.
+
+    Enabling the compression will increase CPU usage, while it might reduce
+    the size of the data that is transferred over the network.
+
+
 as2_content_type
 ----------------
 
@@ -232,4 +252,62 @@ as2_content_type
     MIME content type used when sending AS2 files.
 
 
+as2_async_mdn_server_uuid
+-------------------------
+
+:Default value: Empty
+:Optional: Yes
+:From version: 5.6.0
+:Values: * service UUID
+         * empty
+:Description:
+    The UUID of the HTTP/HTTPS server that will receive the asynchronous MDN messages,
+    on behalf of this AS2 client location.
+
+    Leave it empty, if your transfers are using synchronous MDN.
+
+
+as2_async_mdn_url
+-----------------
+
+:Default value: Empty
+:Optional: Yes
+:From version: 5.6.0
+:Values: * text
+         * empty
+:Description:
+    The public URL where the remote AS2 server should send back the asynchronous MDN message.
+
+    Leave it empty, if your transfers are using synchronous MDN.
+
+
+as2_async_mdn_timeout
+---------------------
+
+:Default value: 600
+:Optional: Yes
+:From version: 5.6.0
+:Values: * Number of seconds
+:Description:
+    Number of seconds to wait for receiving the asynchronous MDN message.
+
+    The value must be greater than 0.
+
+    The maximum allowed value is 604800 seconds, or one week.
+
+
+as2_check_method
+----------------
+
+:Default value: `head`
+:Optional: Yes
+:From version: 5.6.0
+:Values: * `head`
+         * `get`
+:Description:
+    The HTTP method used to validate the configuration for the remote AS2
+    server.
+
+
+.. include:: /configuration/ssl-client.include.rst
 .. include:: /configuration/ssl.include.rst

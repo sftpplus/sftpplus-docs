@@ -1,5 +1,5 @@
 Changing the admin credentials of the default administrator
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------------------------
 
 To change the default `admin` credentials, go to the `Administrators`
 section.

@@ -20,7 +20,7 @@ record of source IP addressed which have previously generated failed
 authentication requests.
 
 When the same authentication method is used for multiple file transfer services
-and the Local Manager services, it will use a single internal state for
+and the Web Manager services, it will use a single internal state for
 each username.
 Multiple consecutive authentication failures for different services have the
 same effect as multiple consecutive authentication failures for the same

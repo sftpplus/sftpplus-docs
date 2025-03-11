@@ -11,9 +11,9 @@ The `analytics` resource is defined for monitoring and recording the
 activity of SFTPPlus.
 
 For example, it collects last user login information that can be
-later retrieved and displayed as a report inside the Local Manager.
+later retrieved and displayed as a report inside the Web Manager.
 The logins span across all services configured on the server (FTP, SFTP,
-Local Manager, etc.).
+Web Manager, etc.).
 
 At the configured interval, a dedicated event containing the usage counters
 is generated.
@@ -49,7 +49,7 @@ enabled
     Set it to `No` to have the resource stopped.
 
     You can still manually start and stop the resource from the
-    Local Manager.
+    Web Manager.
 
 
 monitor_interval
@@ -130,7 +130,7 @@ connection_count_trigger
     * Incoming connections made to file transfer services
     * Outgoing connections made to remote servers through configured transfers
     * Syslog / HTTP Authentication / HTTP Event Handlers connections
-    * Connections made to the Local Manager service.
+    * Connections made to the Web Manager service.
 
     Leave it to 0 to disable triggering an event based on the usage of this
     resource.

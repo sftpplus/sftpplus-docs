@@ -25,10 +25,10 @@ In this type of scenario, the failed location must be manually started first,
 after resolving the initial error.
 
 
-Adding a new location via Local Manager
----------------------------------------
+Adding a new location via Web Manager
+-------------------------------------
 
-A new location can be added or changed via Local Manager below.
+A new location can be added or changed via Web Manager below.
 Options will differ depending on which location type is used.
 
 See below for an example of an initial configuration with the FTPES location.

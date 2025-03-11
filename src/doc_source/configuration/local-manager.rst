@@ -1,5 +1,5 @@
-Web administration console
-==========================
+Web Manager console
+===================
 
 ..  contents:: :local:
 
@@ -12,26 +12,26 @@ This service is available via the `local-manager` service.
 
 The web console can be configured in a similar way to any other service provided by SFTPPlus.
 
-This page describes configuring the Local Manager service. For information
+This page describes configuring the Web Manager service. For information
 about using the service, please see
-(:doc:`the page on Local Manager operation </quick-start/local-manager>`).
+(:doc:`the page on Web Manager operation </quick-start/local-manager>`).
 
-The Local Manager service must be accessed over HTTPS and is enabled by
+The Web Manager service must be accessed over HTTPS and is enabled by
 default on port ``10020`` of the local interface, thus being available only
 for local connections, typically at ``https://127.0.0.1:10020``.
 
 ..  note::
-    Since the HTTPS connection used by the Local Manager is secured using a
+    Since the HTTPS connection used by the Web Manager is secured using a
     self-signed SSL certificate; all web browsers will prompt to validate
     the server identity.
 
-    You can configure the Local Manager to secure the HTTPS connection using
+    You can configure the Web Manager to secure the HTTPS connection using
     a different SSL certificate, issued by a trusted
     certificate authority.
 
-By default the Local Manager provides a dedicated administrator account
+By default the Web Manager provides a dedicated administrator account
 which is not tied to the operating system.
-More administrator accounts can be created using the Local Manager or by
+More administrator accounts can be created using the Web Manager or by
 manually editing the configuration file, please see
 (:doc:`the page on configuring administrators </configuration-identity/administrators>`).
 
@@ -50,35 +50,35 @@ account, the default configuration also allows administrative access for all
 users from the operating system's groups `Administrators` or `adm`, as these are
 the default administrative groups for Windows or Unix-like operating systems.
 
-The standard configuration file is pre-configured with a Local Manager
+The standard configuration file is pre-configured with a Web Manager
 service having the `DEFAULT-MANAGER` UUID.
 To prevent accidental removal, this service cannot be removed from the Local
 Manager GUI.
 You can still remove it by manually editing the configuration file.
 
 
-Local Manager GUI vs text .ini configurations
----------------------------------------------
+Web Manager GUI vs text .ini configurations
+-------------------------------------------
 
-Everything that can be configured in the Local Manager GUI can also be
+Everything that can be configured in the Web Manager GUI can also be
 configured through the text file (`server.ini`).
 
-A few of the features only available in the SFTPPlus Local Manager are
+A few of the features only available in the SFTPPlus Web Manager are
 non-configuration related features, such as the visual status page or the
 SSH / SSL management page.
 
 
-Disable or stop the main Local Manager service
-----------------------------------------------
+Disable or stop the main Web Manager service
+--------------------------------------------
 
-SFTPPlus allows creating multiple instances of the Local Manager
+SFTPPlus allows creating multiple instances of the Web Manager
 service, as for any file transfer service.
 
-To prevent accidentally deleting or disabling the main Local Manager service
+To prevent accidentally deleting or disabling the main Web Manager service
 with the `DEFAULT-MANAGER` UUID, these operations are restricted from the
-Local Manager itself.
+Web Manager itself.
 
-To disable the main Local Manager service, restart the server after amending
+To disable the main Web Manager service, restart the server after amending
 the configuration file to contain the following options::
 
     [services/DEFAULT-MANAGER]
@@ -90,13 +90,13 @@ the configuration file as below::
     [services/DEFAULT-MANAGER]
     enabled = Yes
 
-After authentication in the Local Manager, an administrator can
-configure the Local Manager from within the web interface.
+After authentication in the Web Manager, an administrator can
+configure the Web Manager from within the web interface.
 
 The rest of this page describes configuration options specific to the Local
 Manager, as defined in the configuration file.
 
-Local Manager is configured just like any other service provided by the
+Web Manager is configured just like any other service provided by the
 server, and configuration options are stored inside the
 `configuration/server.ini` configuration file.
 
@@ -130,3 +130,16 @@ base_url_path
     ..  warning::
         When this value is configured, direct access outside of the load balancer or the reverse proxy is no longer supported.
         Once configured, the SFTPPlus manager console should only be accessed via the load balancer or proxy.
+
+
+login_footnotes
+---------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Text
+:From version: 5.6.0
+:Description:
+    This configuration can be used to define a custom footnote with addition info on the login page.
+
+    For example, it can be used to add a short "Terms of service" information.

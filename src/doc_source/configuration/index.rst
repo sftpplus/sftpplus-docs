@@ -11,8 +11,8 @@ This section includes the reference documentation for general configuration opti
     local-manager
     server
     matching-expression
-    monitor-service
     resources
+    monitor-resource
     email-client
     analytics
     lets-encrypt

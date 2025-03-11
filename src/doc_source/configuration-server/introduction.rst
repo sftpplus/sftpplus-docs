@@ -10,7 +10,7 @@ Introduction
 This page will describe how to add/remove/change any service supported
 by the server.
 This includes file transfer services such as an FTPS or an SFTP server,
-as well as utility services such as the `Local Manager` service or the local
+as well as utility services such as the `Web Manager` service or the local
 file system monitor service.
 
 The server can operate an arbitrary number of services,
@@ -19,10 +19,10 @@ Multiple services with different or similar configurations can be defined for
 the same protocol.
 
 
-Adding a new service via Local Manager
---------------------------------------
+Adding a new service via Web Manager
+------------------------------------
 
-A new service can be added or changed via Local Manager below.
+A new service can be added or changed via Web Manager below.
 Options will differ depending on which service type is used.
 
 See below for an example of an initial configuration with the SFTP service.

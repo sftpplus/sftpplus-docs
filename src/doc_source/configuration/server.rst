@@ -18,7 +18,7 @@ This page describes general server configuration options and options
 affecting all file transfer services.
 
 
-You can access the section via the 'Server' page in Local Manager.
+You can access the section via the 'Server' page in Web Manager.
 
 ..  image:: /_static/gallery/gallery-test-server.png
 
@@ -47,7 +47,6 @@ uuid
          * Alphanumeric and dash ('-') character.
            No space characters.
 :From version: 2.0.0
-:To version: None
 :Description:
     The universally unique identifier (UUID) allows the server to be
     identified when multiple servers are active in the same deployment.
@@ -80,7 +79,6 @@ name
          * This may be a fully qualified domain name (FQDN).
          * Any text.
 :From version: 2.0.0
-:To version: None
 :Description:
     This is a human-readable companion for the UUID.
 
@@ -96,7 +94,6 @@ description
 :Optional: Yes
 :Values: * Free form text describing this server.
 :From version: 2.0.0
-:To version: None
 :Description:
     This can be used for any free form text attached to this server.
     It can include contact information about the system administrator, comments
@@ -135,7 +132,6 @@ account
 :Values: * A user under which the server will operate.
          * Empty
 :From version: 1.6.0
-:To version: None
 :Description:
     This is a system account used by the server to run its main operations with
     restricted privileges on Unix-like systems.
@@ -155,7 +151,6 @@ umask
 :Optional: Yes
 :Values: * Filemask in octal format.
 :From version: 1.7.0
-:To version: None
 :Description:
 
     User mask file permissions (filemask) used for creating
@@ -208,7 +203,7 @@ password_minimum_strength
 :To version:
 :Description:
     This defines the minimum strength element of the password policy
-    applied when setting passwords through Local Manager.
+    applied when setting passwords through Web Manager.
 
     This does not enforce the policy for already defined passwords or
     for passwords defined outside of SFTPPlus, such as OS passwords.
@@ -235,7 +230,7 @@ password_minimum_length
 :To version:
 :Description:
     This defines the minimum length element of the password policy
-    applied when setting passwords through Local Manager.
+    applied when setting passwords through Web Manager.
 
     This does not enforce the policy for already defined passwords or
     for passwords defined outside of SFTPPlus, such as OS passwords.
@@ -300,7 +295,6 @@ ssl_certificate
          * Certificate in PKCS12 / PXF binary format.
          * Empty
 :From version: 1.6.0
-:To version: None
 :Description:
     Certificate or chain of certificates in Privacy-Enhanced Mail (PEM) format
     or an absolute path on the local filesystem for a file containing
@@ -337,7 +331,6 @@ ssh_host_private_keys
          * Multiple concatenated SSH private keys in PEM format.
          * Empty.
 :From version: 4.9.0
-:To version: None
 :Description:
     One or more SSH host private keys used by default for the SSH-based
     services (SFTP/SCP).
@@ -352,3 +345,30 @@ ssh_host_private_keys
     You can also configure it with one or more absolute paths on the
     local filesystem to files containing private SSH keys.
     One path per line.
+
+
+blocking_filesystem
+-------------------
+
+:Default value: No
+:Optional: Yes
+:Values: * Yes
+         * No
+:From version: 5.5.0
+:Description:
+    When handling files from the local filesystem of the operating system,
+    SFTPPlus assumes files are always available and filesystem operation is not blocking.
+
+    When using non-local filesystem,
+    especially high-latency ones like a slow NFS server,
+    it can happen that filesystem operations are blocking, which might have the side-effect
+    of apparently freezing SFTPPlus.
+
+    In such cases, set this configuration to `Yes` to improve the responsiveness of SFTPPlus.
+
+    ..  note::
+        The current SFTPPlus version only supports blocking filesystems for the server-side SFTP protocol.
+        Support for more protocols will be added in future releases.
+
+    ..  attention::
+        Enable this option has an important performance penalty of about 70%.

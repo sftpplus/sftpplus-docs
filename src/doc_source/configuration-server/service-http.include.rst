@@ -55,6 +55,8 @@ accepted_origins
     if this configuration is not set,
     as the `same-origin policy` is broken.
 
+    Setting this configuration option will also trigger the session cookie to always be set with the `secure` attribute.
+
     Leave it empty when SFTPPlus is not behind a load balancer.
 
 
@@ -116,7 +118,7 @@ client_forwarded_header
         leave this configuration empty.
 
         If you are running behind a proxy or load balancer, make sure clients
-        can't bypass the proxy and connect directly to SFPPlus.
+        can't bypass the proxy and connect directly to SFTPPlus.
         Otherwise, clients would be able to spoof/impersonate their
         source IP addresses.
 
@@ -126,6 +128,7 @@ client_forwarded_header
         the other chained proxies.
 
 
+.. include:: /configuration/ssl-server.include.rst
 .. include:: /configuration/ssl.include.rst
 .. include:: /configuration-server/service-commons.include.rst
 

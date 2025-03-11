@@ -9,6 +9,21 @@ This event handler is targeted toward application developers.
 
 ..  contents:: :local:
 
+
+Sample extensions
+-----------------
+
+SFTPPlus is distributed with a set of extensions designed to provide functionalities with very specific use cases.
+
+Most probably, these extension are not useful for general usage.
+If you think that any of them might help with your requirements, get in touch with our support team.
+
+Below is are some extensions included in SFTPPlus:
+
+* Delete the last line of a file
+* Implement TOTP MFA authentication for an LDAP server that has no native TOTP support.
+* Read / Write Microsoft Purview label for uploaded files. Required MPI SDK.
+
 .. include:: /configuration-events/events-commons.include.rst
 
 

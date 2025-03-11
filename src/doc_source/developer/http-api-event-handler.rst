@@ -12,7 +12,7 @@ web resource.
 Simply create an event handler that will send an HTTP POST
 request to your remote HTTP resource based on specified server event IDs.
 
-In the Local Manager GUI, create a new Event Handler of type `Send as HTTP Post
+In the Web Manager GUI, create a new Event Handler of type `Send as HTTP Post
 request` or add the `url` in the configuration file for the
 event-handlers UUID::
 
@@ -50,6 +50,10 @@ The `events` array contains a list of `event` objects.
   The `server` member found in the root container is deprecated and will be
   removed in SFTPPlus v5.
   You should use the `server` attribute of each event.
+
+
+Request and response example
+----------------------------
 
 Below is an example for a `POST` request containing two JSON events::
 

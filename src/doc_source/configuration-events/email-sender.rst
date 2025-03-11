@@ -42,13 +42,7 @@ email_to_recipients
     (Since 4.25.0)
 
     A template can be used to generate the email address, based on the values found in the event.
-    For example, `{account.email}` is replaced with the email address configured for an account.
-    The template can combine variable values with fixed values.
-    For example, `{account.name}@example.com` for an event triggered by user `john-d` will generate the email address `john-d@example.com`.
-    If the event data is an UUID, it is resolved to an account email or all the emails from the group.
-    If the resulting value is empty, the email message is skipped.
-    For more details about the available template variables, see the `email_body` configuration.
-    (Since 4.25.0)
+    For example, `{account.email}` is replaced with the primary email address configured for an account.
 
 
 email_cc
@@ -82,7 +76,6 @@ email_bcc
          * Comma-separated list of emails
          * Comma-separated list of emails, group UUIDs, account UUIDs or templates. (Since 4.25.0)
 :From version: 3.44.0
-:To version: None
 :Description:
     Comma-separated list of tertiary recipients whose names are invisible
     to each other and to the primary and secondary recipients.
@@ -115,7 +108,7 @@ email_subject
 
 :Default value: ``[{id}] [{component.name}] New event from SFTPPlus``
 :Optional: No
-:Values: * Plain text.
+:Values: * Plain text template
 :From version: 3.4.0
 :Description:
     Template used for the subject field of the sent email.
@@ -124,6 +117,9 @@ email_subject
     ``New Event {id} from {account.name}``.
 
     .. include:: /configuration/event-context-variables.rst.include
+
+    * `handler.name`
+    * `handler.uuid`
 
 
 email_body
@@ -138,8 +134,15 @@ email_body
 
     .. include:: /configuration/event-context-variables.rst.include
 
+    * `handler.name`
+    * `handler.uuid`
+
     Using these variables the `email_body` can be configured, for
     example, like the following::
 
         [event-handlers/b9787c72-2c8b-4725-a049-ee628aa0abc1]
-        email_body = {id} {message}{LF}{LF}{data_json}
+        email_body = {id} {message}
+          Content over multiple lines
+
+          Event attached data:
+          {data_json}

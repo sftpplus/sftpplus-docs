@@ -36,25 +36,60 @@ languages
 
     The available languages are:
     * `en` - English
+    * `es` - Castellano / Spanish
 
-    When left empty, it will default to English.
+    When left empty, it defaults to English.
 
 
 ui_version
 ----------
 
-:Default value: ui-gen-1
+:Default value: ui-gen-2 (Since 5.0.0)
 :Optional: Yes
 :Values: * ui-gen-1
          * ui-gen-2
 :From version: 4.16.0
 :Description:
-    This defined the UI variant to be used for the web file manager.
+    This defined the UI variant to be used for the web client.
 
     The latest version is `ui-gen-2`.
 
     To use the legacy UI found in SFTPPlus version 4.15.0 or older, set this
     to `ui-gen-1`.
+
+
+login_footnotes
+---------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Text
+:From version: 5.1.0
+:Description:
+    This configuration can be used to define a custom footnote with addition info on the login page.
+
+    ..  note::
+        This functionality is not available when using Internet Explorer 11.
+
+    ..  note::
+        This configuration is only available for `ui_version = ui-gen-2` or newer.
+
+    It is implemented as a link that reveals the additional information when accessed.
+
+    The configuration is defined as the following elements, on separate lines::
+
+        LINK_TEXT_FIRST_LINE
+        TITLE_TEXT_SECOND_LINE
+        The content of the message box
+        is in these remaining lines.
+
+        The content can be defined on multiple lines with distinct paragraphs.
+
+    The text of the footnote link is defined by the first line.
+    The second line is the title of the message box to be opened.
+    The remaining lines are the content of the message box.
+
+    Leave this configuration empty to not have a footnotes link on the login page.
 
 
 theme_path
@@ -310,7 +345,7 @@ as2_no_mdn_success_text
     a MDN response.
 
     Leave it empty to not return any explicit message.
-    SFPPlus will use the standard HTTP `201 Created` status to let the client
+    SFTPPlus will use the standard HTTP `201 Created` status to let the client
     know that the file was successfully created on the server.
 
 

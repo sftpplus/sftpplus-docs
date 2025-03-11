@@ -4,7 +4,7 @@ HTTP POST / Webhooks
 The HTTP POST Event Handler is where you can integrate SFTPPlus with your
 web resource.
 To read more, please go to
-:doc: `the Developer Documentation </developer/http-api-event-handler>`.
+:doc:`the Developer Documentation </developer/http-api-event-handler>`.
 
 In this section you will find the configuration option available to the
 `http` event handler.
@@ -155,6 +155,7 @@ http_content_type
 
     Use `legacy-webadmin` to send the events to the SFTPPlus WebAdmin server.
 
+.. include:: /configuration/ssl-client.include.rst
 .. include:: /configuration/ssl.include.rst
 
 

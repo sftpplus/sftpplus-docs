@@ -153,6 +153,7 @@ configuration option::
         "home_folder_path": "/local/path/for/account",
         "uuid": "ebfbee04-17be-4d9f-b7fc-20ffed6a61a8",
         "group": "536839f5-3b5c-42ac-ad67-b74478ff71a5",
+        "email": "kevin@example.com, another.email@example.com"
         "create_home_folder": true,
         "create_home_folder_owner": "ude_team",
         "create_home_folder_group": "partners",
@@ -189,6 +190,14 @@ Below you can find the description of each member from the response.
 :optional: Yes
 :default: Account/Username
 :description: UUID of this account, can be used to track renamed accounts.
+
+----
+
+:name: email
+:type: string
+:optional: Yes
+:default: Empty text.
+:description: One or more comma-separated emails associated to this account.
 
 ----
 

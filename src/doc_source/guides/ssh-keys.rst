@@ -230,7 +230,7 @@ The *ssh-rsa* or *ssh-dss* output may look like below::
     ssh-rsa AAAAB3_CONTENT_OF_THE_KEY_OqLrL8bfLCu/ description
 
 With this format, you can now associate the OpenSSH public key to the account
-that requires it either in the Local Manager GUI or in the configuration file.
+that requires it either in the Web Manager GUI or in the configuration file.
 
 
 Obtaining the MD5 fingerprint from an OpenSSH public key
@@ -246,10 +246,10 @@ The fingerprint output should look like::
     2048 MD5:25:96:e2:88:0c:a7:49:46:s2:f9:c6:11:m8:3f:ce:e9 (RSA)
 
 
-SSH Keys Management in SFTPPlus Local Manager
----------------------------------------------
+SSH Keys Management in SFTPPlus Web Manager
+-------------------------------------------
 
 Users can also generate new SSH keys and convert/read existing SSH keys via the
-SFTPPlus Local Manager.
+SFTPPlus Web Manager.
 
 ..  image:: /_static/gallery/gallery-key-management.png

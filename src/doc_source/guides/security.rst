@@ -15,7 +15,7 @@ SSL / TLS / SSH protocols overview
 Introduction
 ------------
 
-FTPS / HTTPS and Local Manager protocols use the SSL v3 or TLS v1
+FTPS / HTTPS and Web Manager protocols use the SSL v3 or TLS v1
 cryptographic protocols.
 SSL v3 is provided for backward compatibility with older endpoints.
 TLS v1 should be used whenever possible.
@@ -54,7 +54,7 @@ SSL certificates are stored in PEM format.
 SSH keys are stored in OpenSSH format.
 
 In the case that the SSH keys are breached, or you need to use keys with a
-different size, you can generate new keys using the Local Manager or the
+different size, you can generate new keys using the Web Manager or the
 :ref:`command line tool <generate-ssh-key>` distributed with the server.
 
 To manage public keys for SSH clients, please consult the documentation

@@ -284,6 +284,57 @@ Symbolic links are supported on Windows for local paths as target,
 as well as remote Windows Shares using UNC paths as target.
 
 
+.. _operation-home-folder-structure:
+
+Home folder structure
+---------------------
+
+You can use the `home_folder_structure` configuration option to define a list of directories that are automatically created for any account associated to this group.
+
+When an account is associated to multiple groups,
+all directories defined in `home_folder_structure` configuration of each group are created.
+
+The directories are created at login time, after a successful authentication.
+
+The configured directories are configured relative to the `home_folder_path`.
+You can't configure directories to be created outside of the `home_folder_path`.
+Do not include the drive letter.
+Do not use absolute paths.
+
+The `home_folder_structure` directories should be defined using slash (/) delimiter,
+even when the account is targeted for a Windows system.
+
+Parent directories are automatically created.
+
+Below is an example usage for `home_folder_structure`::
+
+        [groups/92ad5b32-d8d7]
+        name = inbox-group
+        home_folder_structure =
+          /inbox/invoices
+          /inbox/orders
+
+        [groups/39f6f072-19dc]
+        name = outbox-group
+        home_folder_structure =
+          /outbox/
+          /outbox/reports
+
+        [accounts/a6cb0a1e-8af5-429d-a28c-b027bbb8b245]
+        name = JohnD
+        group = 92ad5b32-d8d7, 39f6f072-19dc
+        home_folder_path = C:\file-server\users\JohnD
+
+When user `JohnD` is authenticated, the following directories are
+automatically created, in this order:
+
+* ``C:\file-server\users\JohnD\inbox``
+* ``C:\file-server\users\JohnD\inbox\invoices``
+* ``C:\file-server\users\JohnD\inbox\orders``
+* ``C:\file-server\users\JohnD\outbox``
+* ``C:\file-server\users\JohnD\outbox\reports``
+
+
 Virtual folders
 ---------------
 

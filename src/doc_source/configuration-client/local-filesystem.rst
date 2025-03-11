@@ -6,7 +6,7 @@ file system.
 
 ..  note::
     For the moment, local file system locations can't be defined from the
-    Local Manager GUI.
+    Web Manager GUI.
     There is a single default local filesystem which is
     available inside the GUI and which can not be removed.
 

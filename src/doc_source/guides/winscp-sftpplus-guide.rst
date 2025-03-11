@@ -34,7 +34,7 @@ Prerequisites for using WinSCP with SFTPPlus Server
 
 Make sure that you have the following details correct.
 These details can be configured and/or checked using the SFTPPlus
-Local Manager.
+Web Manager.
 If you are new to SFTPPlus, you can follow the
 `quick steps guide <https://www.sftpplus.com/welcome.html>`_ or see
 our documentation for more details.
@@ -139,7 +139,7 @@ only allows the standard `scp` command.
 Since the `scp` commands does not support folder listing, WinSCP uses
 a non-SCP command to list the directory and this non-standard
 command is denied by SFTPPlus server as it it outside of the SCP scope.
-From SFTPPlus Local Manager, you will see this message, which is
+From SFTPPlus Web Manager, you will see this message, which is
 expected.
 
 ..  image:: /_static/guides/winscp-sftpplus-8.png

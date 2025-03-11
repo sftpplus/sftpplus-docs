@@ -17,7 +17,7 @@ Introduction
 SFTPPlus supports listening on IPv6 addresses for incoming SFTP, SCP, FTP,
 FTPS, HTTP and HTTPS file transfer connections.
 
-IPv6 addresses can also be used for the Local Manager GUI.
+IPv6 addresses can also be used for the Web Manager GUI.
 
 The types of IPv6 addresses that are supported are long form addresses::
 

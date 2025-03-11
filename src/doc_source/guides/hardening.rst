@@ -54,12 +54,12 @@ this file.
 If you only send the logs to a syslog server or a remote HTTP server, you will
 not need write permissions for a local log file.
 
-When using Local Manager, SFTPPlus will need read and write access to its
+When using Web Manager, SFTPPlus will need read and write access to its
 configuration file and to the folder containing this configuration file.
 This is because SFTPPlus will create a temporary file before updating the
 main configuration file.
 
-If you don't use Local Manager, you can set SFTPPlus with read-only access
+If you don't use Web Manager, you can set SFTPPlus with read-only access
 to the configuration files.
 
 
@@ -98,7 +98,7 @@ version number.
 You can do this for the FTP/FTPS service by setting a value for the `banner`
 configuration option which starts with the `>` character.
 
-For the HTTP/HTTPS file transfer service and for the Local Manager service
+For the HTTP/HTTPS file transfer service and for the Web Manager service
 you can use the `headers` configuration option to set a different value for
 the standard `Server` header.
 
@@ -110,8 +110,8 @@ a specific version by observing idiosyncrasies in server operations
 Enforce HTTPS usage
 -------------------
 
-For the Local Manager and the HTTPS file transfer services you may configure
-the service to enable `HTTP Strict Transport Security
+For the Web Manager and the HTTPS file transfer services you may configure
+the service to enable `HTTP Strict Transport Security (HSTS)
 <https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security>`_.
 
 This can be done using the `headers` configuration option.

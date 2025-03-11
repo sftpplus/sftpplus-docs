@@ -21,7 +21,7 @@ The audit events are recorded under the associated account name and not the
 `anonymous` account.
 
 ..  note::
-    This authentication method can't be used with the Local Manager service.
+    This authentication method can't be used with the Web Manager service.
 
 The `anonymous` account is locked inside the home folder and will have
 full access to all files and directories located in the home folder, just like
@@ -41,7 +41,6 @@ anonymous_account_uuid
     * UUID of the application account with which this account is
       associated.
 :From version: 3.2.0
-:To version: None
 :Description:
     This is the UUID of the application account associated with the
     `anonymous` account.

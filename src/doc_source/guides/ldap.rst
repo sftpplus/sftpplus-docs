@@ -23,7 +23,7 @@ Empty passwords, or passwords containing only space or tab characters are
 rejected by SFTPPlus right away and are not forwarded to the LDAP server.
 
 You can use an LDAP server to authenticate file transfer service accounts,
-as well as Local Manager service administrators.
+as well as Web Manager service administrators.
 
 Although SFTPPlus supports SSH key-based or SSL/X.509 certificate-based
 authentication, these are not supported by the LDAP authentication method
@@ -88,6 +88,8 @@ to retrieve the home folder for the account.
 
 The `home_folder_attribute` configuration option can be used to specify with
 LDAP attribute is used to store the home folder path.
+
+The `email_attribute` configuration option can be used to retrieve the email for the authenticated account.
 
 
 Absolute DN as username
@@ -297,12 +299,12 @@ the home folder is `E:\\SFTP-Files\\AcmeCo\\report`.
     full home path.
 
 
-Enable access to the Local Manager service
+Enable access to the Web Manager service
 ==========================================
 
 While the LDAP server holds all the accounts for your organization,
 most probably only a few of those accounts should get **administration** access
-to the Local Manager services.
+to the Web Manager services.
 
 By default, SFTPPlus does not allow mapping administration accounts to LDAP
 accounts.

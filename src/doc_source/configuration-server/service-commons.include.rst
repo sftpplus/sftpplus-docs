@@ -7,10 +7,9 @@ enabled
            started.
          * `No` - to leave the service stopped when the server is started.
 :From version: 1.6.0
-:To version: None
 :Description:
     When a service is not automatically started, it can still be manually
-    started afterwards from the Local Manager.
+    started afterwards from the Web Manager.
 
 
 name
@@ -20,7 +19,6 @@ name
 :Optional: No
 :Values: * Any text.
 :From version: 2.0.0
-:To version: None
 :Description:
     Human-readable short string used to identify this service.
 
@@ -37,10 +35,9 @@ type
          * `http-redirect` - for HTTP Redirection services.
          * `https` - for HTTPS services.
          * `monitor` - for local file system monitor services.
-         * `manager` - for Local Manager services.
+         * `manager` - for Web Manager services.
 
 :From version: 2.10.0
-:To version: None
 :Description:
     The main option which defines what protocol will be used for this service.
 
@@ -64,7 +61,6 @@ address
          * `0.0.0.0`
 
 :From version: 1.7.0
-:To version: None
 :Description:
     Host name or IP used to listen for incoming connections.
 
@@ -90,7 +86,6 @@ port
 :Values: * Port number used for incoming connections.
 
 :From version: 1.7.0
-:To version: None
 :Description:
     To avoid conflicts between different services on the same local machine,
     this must be a unique port number.
@@ -181,7 +176,6 @@ maximum_concurrent_connections
 :Values: * Number of maximum concurrent connections accepted by the service.
          * `0` - To disable the limit.
 :From version: 1.7.19
-:To version: None
 :Description:
     Maximum number of allowed concurrent connections for this service.
 

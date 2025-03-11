@@ -128,7 +128,7 @@ greatly reducing the risk of revealing the key.
 Putty Key format (.PPK) and
 `RFC 4716 format <https://tools.ietf.org/html/rfc4716>`_ are not directly
 supported, but you can use the SSH key conversion tools provided by the
-Local Manager to convert those keys into OpenSSH public key format.
+Web Manager to convert those keys into OpenSSH public key format.
 
 Further details on :doc:`configuring SSH key-based authentication on the server
 </configuration-server/ssh-service>` is available.

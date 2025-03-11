@@ -42,15 +42,15 @@ accessed using one of the available file transfer protocols.
 Configuring administrators
 --------------------------
 
-Administrators are only dedicated to accessing the Local Manager.
+Administrators are only dedicated to accessing the Web Manager.
 For documentation around configuring administrators, please go to
 :doc:`the Administrators section</configuration-identity/administrators>`.
 
 
-Adding a new account via Local Manager
---------------------------------------
+Adding a new account via Web Manager
+------------------------------------
 
-Accounts can be added or changed via Local Manager.
+Accounts can be added or changed via Web Manager.
 Options will differ depending on which account type is used.
 
 ..  image:: /_static/gallery/gallery-add-account.png
@@ -306,9 +306,12 @@ email
 :Default value: ''
 :Optional: Yes
 :Available since: 3.43.0
-:Values: * Email address.
+:Values: * Email address
+         * Comma-separated email addresses (Since 5.1.0)
 :Description:
     Email address associated with this account.
+
+    One or more email addresses can be configured, separated by commas.
 
 
 created
@@ -374,6 +377,22 @@ home_folder_path
         For domain accounts, a regular folder can be set as
         `home_folder_path`.
         The folder can be automatically created, just as for regular accounts.
+
+
+file_write_size
+^^^^^^^^^^^^^^^
+
+:Default value: `Inherit`
+:Optional: Yes
+:From version: 5.1.0
+:Values: * Number of bytes
+         * `Inherit`
+
+:Description:
+    Maximum size in bytes allow when writing / uploading data for a single file.
+
+    Set to `inherit` to use the limit defined in the primary group associated
+    to this account.
 
 
 required_credentials

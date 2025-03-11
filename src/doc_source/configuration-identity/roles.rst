@@ -1,7 +1,7 @@
 Roles
 =====
 
-A role represents a collection of permissions for Local Manager
+A role represents a collection of permissions for Web Manager
 administrators that can be individually turned on and off.
 
 An administrator can have one or more roles.
@@ -24,10 +24,10 @@ administrators.
 ..  contents:: :local:
 
 
-Adding a new role via Local Manager
------------------------------------
+Adding a new role via Web Manager
+---------------------------------
 
-Roles can be added or changed via Local Manager below.
+Roles can be added or changed via Web Manager below.
 
 ..  image:: /_static/gallery/gallery-add-role.png
 
@@ -51,7 +51,7 @@ For example, to add a new role named **SuperAdmins**::
     [roles/a904e3a6-a59b-4bbf-8abd-edcae4d3774f]
     name = SuperAdmins
     enabled = Yes
-    description = Administrators having unrestricted access to Local Manager.
+    description = Administrators having unrestricted access to Web Manager.
 
 
 enabled
@@ -138,7 +138,7 @@ permissions
     This defines the permissions available to administrators associated to
     this role.
 
-    When this option is empty, the role has full access.
+    When this option is empty, the role has full access to the web manager.
 
     The option is defined as a list of one or more definitions of permissions,
     with one definition per line.
@@ -188,19 +188,6 @@ permissions
     The rules are checked from top to bottom.
     If an action is not explicitly allowed by the permissions rule,
     the process continues to check following defined permissions rules.
-
-    For example, to create a role in which administrators are
-    allowed to read/view the full configuration,
-    modify the existing groups,
-    and create and delete accounts,
-    you can use the following configuration::
-
-        [roles/70c0-4e1d-8480]
-        name = users-admin
-        permissions =
-          configuration, read
-          configuration/accounts, create, delete, update
-          configuration/groups, create, update
 
     More information and examples are available on the
     :doc:`Administrators authorization </operation/admin-authorization>` page.

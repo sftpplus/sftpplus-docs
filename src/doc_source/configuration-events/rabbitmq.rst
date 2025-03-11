@@ -133,4 +133,5 @@ retry_increase
     right away.
 
 
+.. include:: /configuration/ssl-client.include.rst
 .. include:: /configuration/ssl.include.rst

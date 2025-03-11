@@ -62,7 +62,7 @@ Another method, is to have multiple instances sharing the same configuration
 folder.
 Each SFTPPlus instance will be executed on a separate VM, but they will have
 the same configuration files.
-Note that in this case you should make sure that you use the Local Manager
+Note that in this case you should make sure that you use the Web Manager
 of only one instance to make configuration changes.
 Once configuration changes were done, the other instances need to be
 manually restarted.

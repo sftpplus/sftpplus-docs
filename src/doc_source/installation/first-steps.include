@@ -1,7 +1,7 @@
 First Steps
 -----------
 
-After starting SFTPPlus, the :doc:`Local Manager</quick-start/local-manager>`
+After starting SFTPPlus, the :doc:`Web Manager</quick-start/local-manager>`
 is a good way to visualize the current
 :doc:`configuration</configuration/configuration-file>` that is available, and
 is even :doc:`configurable itself</configuration/local-manager>`.

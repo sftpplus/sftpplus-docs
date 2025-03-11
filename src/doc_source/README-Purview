@@ -1,0 +1,31 @@
+This is the SFTPPlus Purview SDK extension.
+
+Sub-directories and files in this directory should be copied in the
+SFTPPlus base installation directory.
+
+On Windows, the C++ redistributables must be installed.
+Get them from https://aka.ms/vs/17/release/vc_redist.x64.exe.
+
+Configure the SFTPPlus Purview extension using the example below.
+This configuration checks that files are uploaded in a directory whose
+name is matching the label name.
+If a file is uploaded without a label,
+it is automatically labelled with the name of the
+parent directory.
+Once their labels are validated, files are moved to the "Download" folder.
+For any errors, placeholder files are generated in the "Error" folder.
+
+[event-handlers/d4f3a27e-338d-11ef-993e-dff35f96033a]
+enabled: yes
+type: extension
+name: Purview Label Manager
+
+target: 40007, 40017
+
+entry_point: python:chevah.server.extension.purview.PurviewLabeler
+configuration: {
+  "success_path": "Download",
+  "error_path": "Error",
+  "debug": "yes",
+  "missing_label_action": "auto-label"
+  }

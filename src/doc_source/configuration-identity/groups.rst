@@ -47,10 +47,10 @@ Here is an example configuration for **DEFAULT_GROUP**::
     allow_certificate_authentication = No
 
 
-Adding a new group via Local Manager
-------------------------------------
+Adding a new group via Web Manager
+----------------------------------
 
-A new group can be added or changed via Local Manager below.
+A new group can be added or changed via Web Manager below.
 
 ..  image:: /_static/gallery/gallery-add-group.png
 
@@ -282,6 +282,20 @@ create_home_folder_group
         Please contact us in the case that you need a different behaviour.
 
 
+file_write_size
+---------------
+
+:Default value: `0`
+:Optional: Yes
+:From version: 5.1.0
+:Values: * Number of bytes
+
+:Description:
+    Maximum size in bytes allow when writing / uploading data for a single file.
+
+    Set to `0`, to disable any limit.
+
+
 required_credentials
 --------------------
 
@@ -471,7 +485,7 @@ password_lifetime
 
 
 disable_on_inactivity
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 :Default value: `0`
 :Optional: Yes
@@ -490,41 +504,13 @@ home_folder_structure
 :Default value: Empty folder
 :Optional: Yes
 :From version: 3.18.0
-:Values: * path to a directory, relative to the home folder path.
+:Values: * path to a directory
          * List of directories, separated by newlines.
 :Description:
-    A directory or a list of directories to be automatically created for
-    accounts that were successfully authenticated.
+    A directory or a list of directories to be automatically created for accounts that were successfully authenticated and associated to this group.
 
-    The configured directories can't be defined outside of the home folder
-    path.
-    This is why they are defined relative to the home folder path.
-    Even if you define them as ``/pull/invoices`` for::
-
-        [groups/92ad5b32-d8d7-4ed8-94e1-dbb9f01383f4]
-        home_folder_path = /users/John
-
-    The ``/users/John/pull/invoices`` folder will be created.
-    The same ``/users/John/pull/invoices`` is created for a configuration value
-    of ``pull/invoices`` (notice the meeting leading slash).
-
-    The directories should be defined using slash (/) delimiter, even when
-    the account is targeted for a Windows system.
-    Do not include the drive letter.
-    Do not use absolute paths.
-
-    Parent directories are not created.
-    This is done in order to prevent creating directories caused by accidental
-    typos.
-    If you need to create a deep structure, configure each parent on a separate
-    line.
-    For example, to create the sub-directory ``/pull/invoices`` configure the
-    value as::
-
-        [groups/92ad5b32-d8d7-4ed8-94e1-dbb9f01383f4]
-        home_folder_structure =
-            /pull
-            /pull/invoices
+    For more details see
+    :ref:`the operation guide <operation-home-folder-structure>` for using the home folder structure configuration.
 
 
 .. _configuration-groups-permissions:

@@ -61,7 +61,7 @@ external_management
     For example using a configuration management system.
     When set to `yes` it will automatically reload the changes every 5 minute.
 
-    Set to `no` when you want to use the Local Manager to manage the identities
+    Set to `no` when you want to use the Web Manager to manage the identities
     for this authentication.
-    When set to `no`, changes done to the file outside of the Local Manager
+    When set to `no`, changes done to the file outside of the Web Manager
     are ignored.

@@ -5,7 +5,6 @@
 # type = extension
 # entry_point = python:demo_event_handler.DemoEventHandler
 #
-from __future__ import unicode_literals
 import json
 
 
@@ -23,7 +22,15 @@ class DemoEventHandler(object):
 
     This is also used as a documentation for the API and is included in
     the automated regression testing process.
+
+    TARGET_EVENTS defined the events for which this handler will be triggered.
     """
+
+    TARGET_EVENTS = [
+        '99', '100', '102',  # Custom event ID.
+        '20156',  # Component started.
+        '20157',  # Component stopped.
+        ]
 
     def __init__(self):
         """
@@ -84,6 +91,18 @@ class DemoEventHandler(object):
             # message and attached data.
             return None, {'message': 'Handling skipped.', 'extra': 'skip-emit'}
 
+        if event.account.name == 'error-user':
+            # You can skip and emit an event ID dedicated to errors.
+            return None, {
+                'event_id': '20202',
+                'message': 'Can be a generic description for the error case.',
+                'details': (
+                    'Can contain details specific to this error. '
+                    'Example a path to a file.'
+                    ),
+                'tb': 'Can include option traceback info as text.',
+                }
+
         if event.account.name == 'delay-user':
             # For username `delay-user` we delay processing of the event
             # for 0.5 seconds.
@@ -93,8 +112,8 @@ class DemoEventHandler(object):
         # You can have one for more events.
         # Event can have custom ID or use default ID.
         events = [
-            {'event_id': '20000', 'message': 'Handling starts.'},
-            {'message': 'Default ID is 20200.'},
+            {'event_id': '20201', 'message': 'Handling started.'},
+            {'message': 'Default ID is 20200 as informational.'},
             ]
         # There is also the option of returning just the configuration,
         # without any extra events.
@@ -122,8 +141,8 @@ class DemoEventHandler(object):
             return 'Extension is not active from this user.'
 
         if event.account.name == 'test@proatria.onmicrosoft.com':
-            # The extension has access to the Azure AD OAuth2 token.
-            return 'Azure AD token: {}'.format(event.account.token)
+            # The extension has access to the Entra ID OAuth2 token.
+            return 'Entra ID token: {}'.format(event.account.token)
 
         if event.account.name == 'ignored-user':
             # Don't handle events from a certain username.
@@ -162,7 +181,7 @@ class DemoEventHandler(object):
             # Explicit Event ID is also supported
             # For this case the attributes should match the attributes
             # required by the requested Event ID.
-            # Event '20000' requires the `message` attribute.
+            # Event '20201' requires the `message` attribute.
             # Any extra attributes are allowed.
-            {'event_id': '20000', 'message': output, 'extra': configuration},
+            {'event_id': '20201', 'message': output, 'extra': configuration},
             ]

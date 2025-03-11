@@ -33,7 +33,6 @@ ssl_certificate
          * Certificate in PKCS12 / PXF binary format (Since 4.0.0).
          * Empty
 :From version: 1.6.0
-:To version: None
 :Description:
     This can be defined as an absolute path on the local filesystem
     to the file containing the SSL certificate or chain of certificates
@@ -156,91 +155,6 @@ ssl_key_password
     X.509 key is stored as an encrypted file.
 
     Leave it empty to not use a password for the private key file.
-
-
-ssl_certificate_authority
--------------------------
-
-:Default value: Empty
-:Optional: Yes
-:Values: * Absolute path on the local file.
-         * Content of the CA chain (Since 3.40.0).
-         * `${LETS_ENCRYPT_X3_CA}`
-         * `${MICROSOFT_IT_CA}`
-         * `${GO_DADDY_G2_G1}`
-         * Empty
-:From version: 1.6.0
-:Description:
-    This can be defined as an absolute path on the local filesystem to a
-    file containing the certificates of the
-    Certificate Authorities used to validate the remote peer.
-
-    This is used only for certificate-based peer validation.
-    To add the CA certificate for an SSL certificate for this component,
-    simply add it to `ssl_certificate`, possibly together with other
-    certificates needed to complete the full chain of certificates.
-
-    The remote peer identity can only be validated when the remote address
-    is configured using a fully qualified domain name.
-    IP based validation will always fail, this is not a method accepted
-    by the public certificate authorities.
-
-    You can define the content of the CA as text in PEM format.
-
-    When the value is defined as PEM text, the configuration
-    will look as in the following example::
-
-        ssl_certificate_authority = -----BEGIN CERTIFICATE-----
-            MIICaDCCAdGgAwIBAgIBDjANBgkqhkiG9w0BAQUFADBGMQswCQYDVQQGEwJHQjEP
-            ...
-            MORE CERTIFICATE DATA
-            ...
-            JZQaMjV9XxNTFOlNUTWswff3uE677wSVDPSuNkxo2FLRcGfPUxAQGsgL5Ts=
-            -----END CERTIFICATE-----
-
-    When a certificate authority is defined, this will result
-    in initiating the two-way SSL/TLS authentication/handshake validation.
-    For a successful connection, make sure the remote peer sends a valid
-    certificate.
-    If the connection fails, the event with ID `40054` is emitted.
-
-    The certificate authority file should be stored as a file in PEM format.
-    For multiple CA, place all certificates in the same file.
-
-    A series of bundle CA are distributed with SFTPPlus.
-    They can be configured together and mixed with other CA certificates.
-    The bundle CAs are available under the following names:
-
-    * `${LETS_ENCRYPT_X3_CA}` - For Let's Encrypt X3 certificate authority.
-    * `${MICROSOFT_IT_CA}` - For all Microsoft IT CA certificates,
-      used by SharePoint Online and other services provided by Microsoft.
-    * `${GO_DADDY_G2_G1}` - For all GoDaddy Certificate Bundles,
-      G2 With Cross to G1.
-
-    To configure a component to accept the remote peer certificates signed by
-    Microsoft IT CA, which is the CA used by SharePoint Online,
-    you can set the configuration as::
-
-        ssl_certificate_authority = ${MICROSOFT_IT_CRL}
-
-    This defines the path on the local filesystem to a file containing
-    the certificate in PEM format for the single certificate authority
-    or multiple authorities authorities with which this component
-    will communicate.
-
-    Only peer connections using certificates signed by one of
-    these certificate authorities will be permitted to communicate to this
-    component.
-
-    When this component should communicate with peers holding certificates
-    issued by multiple certificate authorities, put each CA certificate in
-    PEM format inside a single file.
-
-    Leave it empty to disable checking the issuer of the peer's certificates.
-
-    When certificate authority check is disabled, connection peers are not
-    required to send a certificate.
-    If the peer sends a certificate, it is ignored.
 
 
 ssl_certificate_revocation_list

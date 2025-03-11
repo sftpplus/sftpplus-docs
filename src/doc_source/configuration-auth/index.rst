@@ -9,7 +9,7 @@ Below is the list of supported authentication methods.
 
 ..  note::
     Not all authentication method types support authenticating the
-    administrators for the Local Manager service.
+    administrators for the Web Manager service.
 
 
 ..  toctree::
@@ -21,7 +21,7 @@ Below is the list of supported authentication methods.
     http
     local-file
     ldap
-    azure-ad
+    entra-id
     radius
     deny-username
     ip-time-ban

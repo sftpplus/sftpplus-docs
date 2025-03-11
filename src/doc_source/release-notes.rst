@@ -7,6 +7,773 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 5.10.0, 2025-02-18
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* Self-extractable installers are now available for Linux and macOS.
+  The gzipped TAR archives continue to be available for these operating systems.
+  [#6197]
+* Self-extractable installers can now be used to update an already existing
+  installation of SFTPPlus. [#6973]
+* All server-side account passwords stored in legacy plain-text format
+  are now automatically converted to a secure hash format when starting SFTPPlus.
+  [server-side][security] [#6968]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* When using operating system accounts through SFTPPlus in conjunction with
+  the SFTP protocol and filesystems that can block, such as NFS,
+  the main SFTPPlus process is no longer kept in the security context
+  of an OS account for which the filesystem access was blocked
+  by the operating system. [server-side][sftp] [#6816]
+* For SFTPPlus installations on filesystems which make use of
+  Access Control Lists (ACLs) of files and directories, as set with setfacl(1),
+  using the scripts in `bin/` now scrubs the extended permissions
+  not only when installing, but also when updating and rolling back. [#6952]
+* When a user with an active Purview API session logs out, SFTPPlus
+  only ends the Purview API session associated with their web browser.
+  In previous version, when an user was logged out or a session expired,
+  all Purview API sessions from all connected web browsers were logged out.
+  [server-side][purview] [#6983]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The event with ID `20069` was removed.
+  This event was emitted at SFTPPlus start time, and was informing that the
+  process is not running as root.
+  This functionality was replaced with event `20008`, which is now emitted when
+  SFTPPlus is running as root. [#6816]
+
+
+Version 5.9.1, 2025-01-29
+-------------------------
+
+This is an update that fixes a few errors found in version 5.9.0.
+Version 5.9.0 was available only as a preview.
+
+
+New Features
+^^^^^^^^^^^^
+
+* The AS2 location can now send compressed files to AS2 servers with limited
+  support for parsing `smime-type` headers.
+  SFTPPlus now sends the value of the `smime-type` parameter from the
+  `Content-Type` header without using double quotes.
+  Some AS2 servers, like Boomi, were failing to detect the AS2 message type.
+  [client-side][as2] [#6910]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The FTP/FTPS server is now compatible with FTP clients that are sending the
+  passive transfer commands before establishing the new passive TCP connections.
+  This is implemented via the `passive_wait_connection` configuration option.
+  This makes SFTPPlus compatible with the Globalscape FTP/FTPS client.
+  [server-side][ftp] [#6953]
+* The event handler web GUI now allows searching for specific components.
+  This is a regression introduced in SFTPPlus 5.6.0.
+  [manager] [#6960]
+
+
+Version 5.8.0, 2025-01-13
+-------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* The AS2 server can now receive files encrypted using the RSA AES OAEP
+  algorithm.
+  [server-side][as2] [#6869]
+* Event handlers of type `extension` can now define the `TARGET_EVENTS` instance
+  member that configures events for which the handler is triggered.
+  [api] [#6873]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* When the AS2 client requests an unsigned MDN for a signed payload,
+  the SFTPPlus server returns an MDN that has a `Received-Content-MIC` field
+  generated using the same digest algorithm as the signed payload.
+  In previous versions, SFTPPlus was using SHA256 for unsigned MDNs.
+  [server-side][as2] [#6831]
+* The Purview extension now refreshes the API token for file transfer sessions
+  that take more than one hour.
+  In previous versions, the Purview API access was not refreshed, and it was
+  rejected by the Purview server one hour after logging in.
+  [server-side][http][purview] [#6873]
+* Linux and macOS SFTPPlus setups using mount points for the installation paths
+  can now be automatically updated and restored using the scripts in `bin/`. [#6940]
+
+
+Version 5.7.0, 2024-11-25
+-------------------------
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* Our Python-based runtime has been updated to version 3.12.6. [#6820]
+
+
+New Features
+^^^^^^^^^^^^
+
+* The SFTP location now supports setting up authentications
+  requiring both password and private SSH key.
+  [client-side][sftp] [#5295]
+* You can now configure an AS2 location with `debug` enabled.
+  This generates log files for all requested and received HTTP headers.
+  [client-side][as2] [#5829]
+* The shell scripts located in `bin/`, used for installing, updating, rolling
+  back, and uninstalling SFTPPlus on Linux and macOS, now support the option
+  to use an existing operating system user for the SFTPPlus setup.
+  However, it is still highly recommended to use a dedicated OS user
+  for running SFTPPlus. This dedicated user can be created automatically
+  during the SFTPPlus installation or separately beforehand. [#6275]
+* You can now configure transfers to send files to the destination location
+  using a relative path.
+  [client-side] [#6901]
+* The Purview SDK for Windows is now distributed together with the
+  SFTPPlus installer.[#6951]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The Entra ID authentication method now supports users that are members of
+  100 groups or more.
+  [server-side][entra] [#6806]
+* When closing the SSH connection for an SFTP location,
+  the code 11 (SSH_DISCONNECT_BY_APPLICATION) is now used to signal
+  that closing the connection is expected.
+  In previous versions, code 10 (SSH_DISCONNECT_CONNECTION_LOST) was used,
+  signalling that the SSH connection was accidentally closed.
+  [client-side][sftp] [#6870]
+* The `exchange-online` location can now transfer attachments from folders
+  that have more than 10 subfolders.
+  [client-side][exchange-online] [#6874]
+* The `set-on-first-connection` configuration option for TLS connections can now
+  be used with URLs with no port explicitly defined.
+  [tls] [#6876]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The dedicated `ssh_private_key_password` configuration option was added
+  to the SFTP location, superseding the `password` option.
+  When both `password` and `ssh_private_key` options are defined,
+  the value of the `password` option is migrated to the
+  `ssh_private_key_password` one.
+  The `password` configuration option is removed as a result of the migration.
+  This migration is automated, there is no need for manual changes.
+  [client-side][sftp] [#6894]
+
+
+Version 5.6.0, 2024-10-29
+-------------------------
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* The embedded OpenSSL library in SFTPPlus has been updated to version 3.3.2.
+  [#6770]
+
+
+New Features
+^^^^^^^^^^^^
+
+* SFTPPlus now supports the symmetric SSH cipher algorithms
+  `aes256-gcm@openssh.com` and `aes128-gcm@openssh.com`.
+  [client-side][server-side][sftp] [#5468]
+* You can now configure an AS2 location to receive asynchronous MDN messages.
+  [client-side][as2] [#5400]
+* The user interface for the event details view in the Activity log has been
+  updated [#6179]
+* The AS2 location can now be configured to send compressed files.
+  [client-side][as2] [#6756]
+* You can now duplicate/clone an existing transfer using the Web Manager GUI.
+  [manager] [#6774]
+* The AS2 server now supports signatures that are advertised to use the
+  `sha256_rsa` algorithm name.
+  This is an alternative name for the `rsassa_pkcs1v15` algorithm,
+  which implements PKCS#1 v1.5 signatures.
+  [server-side][as2] [#6775]
+* The AS2 location can now be configured to use the GET method to
+  test the availability of the remote AS2 server.
+  [client-side][as2] [#6817]
+* On the Web Manager login page, you can now configure a short information
+  box to provide additional usage or Terms of Service information.
+  [manager] [#6833]
+* The HTTP REST API used by the SFTPPlus web server is now available as an
+  OpenAPI version 3.1 YAML file.
+  [server-side][http][https] [#6856]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The help text for the `Authenticate Peer Certificate` TLS configuration
+  from Web Manager has been updated to indicate that the default value is now
+  `set-on-first-connection`.
+  [manager] [#4099]
+* The AS2 server now returns the errors as MDN messages.
+  In previous versions, an HTTP 400 Bad request response was used to signal
+  an error.
+  [server-side][as2] [#5794]
+* The Windows Share / SMB location no longer raises the `STATUS_BAD_NETWORK_NAME`
+  error when configured with an invalid path, such as when using backslash path
+  separators. [client-side][smb] [#6239]
+* When using an Exchange Online location, if there is an error retrieving the
+  list of attachments for an email that has just been removed, the email is now
+  ignored. An error was raised in previous versions under such circumstances.
+  [client-side][exchange-online] [#6601-2]
+* When an HTTP request fails, the error now includes specific HTTP information.
+  In previous versions, an internal server error message was used
+  instead of a specific HTTP error.
+  [client-side][http] [#6601]
+* On Windows, the limit of total concurrent opened files was increased to 2048.
+  [windows] [#6770]
+* When the SFTPPlus server sends asynchronous MDN messages,
+  it now sets the `Content-Type` HTTP header to indicate that the
+  content is a MDN message.
+  In previous versions, the `Content-Type` header was set to
+  `application/octet-stream` instead of `multipart/signed`.
+  [server-side][as2] [#6775-1]
+* When the SFTPPlus server sends asynchronous MDN messages,
+  the message that the AS2 file was successfully received is emitted only after
+  the MDN message has been successfully delivered.
+  [server-side][as2] [#6775]
+* The AS2 service can now receive signed files with the signature stored in
+  binary format.
+  [server-side][as2] [#6778]
+* When uploading files to Azure Files, the paths configured using backslashes
+  as separators (Windows path separators) are automatically converted to
+  forward slashes (Unix path separators).
+  Previously, the Azure Files cloud server accepted backslash-separated paths.
+  Following a recent update, only forward-separated slashed are now supported.
+  [client-side][azure-files] [#6811]
+* When sending AS2 files, the MDN message returned by the remote AS2 server
+  no longer needs to contain the "Original-Recipient" or "Final-Recipient"
+  headers. [client-side][as2] [#6817-1]
+* The AS2 location now includes the AS2-From and AS2-To headers when making the
+  HEAD or GET requests to test the availability of the remote AS2 server.
+  In previous versions, the request was made without any extra headers.
+  [client-side][as2] [#6817]
+* The AS2 transfers can now receive AS2 messages from certificates that
+  have the serial number as one of the components of the subject field.
+  [server-side][client-side][as2] [#6818-1]
+* The AS2 transfer can now receive AS2 messages for which the multipart boundary
+  option name is defined in uppercase.
+  [server-side][client-side][as2] [#6818]
+* The macOS `launchd` .plist configuration file is now generated with log
+  files inside the SFTPPlus log directory.
+  This is a regression introduced in 5.0.0 which will prevent the macOS
+  SFTPPlus service to start using `launchd`.
+  [macos] [#6864]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Alpine Linux 3.12 is no longer supported. We recommend using an Alpine Linux
+  version with upstream support, currently Alpine Linux 3.17 or newer. [#6770]
+
+
+Version 5.5.0, 2024-07-22
+-------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* The Purview extension now supports recursively handling all files in
+  set directories. [#4759]
+* The SFTP server protocol now supports handling blocking filesystems
+  such as mounts from NFS servers which occasionally stop responding.
+  [server-side][sftp] [#5001]
+* The shell script `bin/auto-update.sh` was added for automatically updating
+  licensed SFTPPlus installations on Linux and macOS when there's a newer
+  version online. [#5664]
+* The OpenSSL library embedded with SFTPPlus was updated to version 3.2.2.
+  [security] [#6735]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* When processing Exchange Online email subjects containing characters not valid
+  on Windows (for example, colons), SFTPPlus now replaces those characters with
+  dashes. [client-side][exchange-online] [#5040]
+* You can now use long file paths for Windows Share UNC paths. These are paths
+  such as `\\\\server.name\\share.name\\path\\file.txt`. [windows] [#6639]
+* Web Client's icons are visible again. This was a regression
+  introduced in version 5.4.0. [server-side][http] [#6744]
+
+
+Version 5.4.0, 2024-06-17
+-------------------------
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* The Windows service and uninstaller are now invoked using double quotes
+  around the executable path. This can prevent a conflict when, for example, you
+  have SFTPPlus installed in `C:/Program Files`, but you already have a
+  `C:/Program.exe` executable. [windows] [#2609]
+* The TLS `secure` list of ciphers was updated to match the latest Mozilla
+  recommended configuration for a general-purpose server.
+  [server-side][client-side][tls] [#6057]
+* Support was added for `hmac-sha2-256-etm@openssh.com` and
+  `hmac-sha2-256-etm@openssh.com` SSH hash-based message authentication code
+  (HMAC) algorithms. [client-side][server-side][sftp] [#6717]
+* The HTTP file server protocol now sets the `secure` attribute
+  of the session cookie for connections made via an HTTPS reverse proxy. [#6722]
+
+
+New Features
+^^^^^^^^^^^^
+
+* The activity log now contains an audit log entry for files downloaded
+  through Web Client as a ZIP archive bundle. [server-side][http] [#2055]
+* The HTTP server now emits an event when an authenticated session
+  times out. [server-side][http][https] [#4869]
+* You can now use an Exchange Online mailbox as the source for a transfer.
+  [client-side][email] [#6656]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* Low-level operating system errors are no longer displayed unchanged when
+  an unknown OS error is encountered. In previous versions, all details were
+  displayed, including the full path to user files. [server-side][http]
+  [#2370]
+* An internal error is no longer generated when listing empty folders over
+  FTPS. When listing an empty folder, some FTPS servers close the data
+  connection before confirming its end via the command connection. This was
+  causing SFTPPlus to fail validating the server connection. This is a
+  regression introduced in SFTPPlus 4.34.0. [client-side][ftps] [#2441]
+* The Purview event handler extension now uses the same proxy configured
+  for the Entra ID authentication method. [server-side] [#4085]
+* Authentication without HTTP cookies works again in Web Client. This is
+  a regression introduced in version 5.0.0. [server-side][http] [#4869]
+* When a transfer fails to get content from the source directory,
+  the transfer no longer fails.
+  Instead a new attempt is retried based on the transfer configuration.
+  [client-side] [#6674]
+* When a transfer fails to get the status of the remote location, the emitted
+  event with ID `60005` now contains the number of retries left and the retry
+  interval. [client-side] [#6674]
+* The event with ID `60074` is no longer emitted when failing to take
+  a snapshot of the remote location for a non-recursive transfer. In previous
+  versions, the event was emitted reporting an empty directory. For recursive
+  transfers, the event with ID `60074` is still emitted because some servers
+  raise a generic error instead of a "file not found" error when a recursive
+  directory is removed from the remote location. [client-side] [#6674]
+* Events with ID 10023, 10032, 10064, 10070, 10079, and 10084 were added to the
+  `failure-high` event group. Previously, they were members of the
+  `failure` event group exclusively. [ftp][ftps] [#6711]
+* When configuring SFTPPlus to start under the `root` account in order to
+  authenticate OS users, the server configuration cache file is now owned by
+  the dedicated SFTPPlus service account. In previous versions, the
+  `server.ini.cache` file was created as the `root` account, raising an error
+  from SFTPPlus, which drops privileges after launch. [#6725]
+
+
+Version 5.3.0, 2024-05-16
+-------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* Azure Blob is now supported as source and destination of transfers.
+  [client-side] [#5003]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* If the `extract-archive` event handler fails to extract a `gzip` file, the
+  partially-extracted destination file is now automatically removed. [#5803]
+* When starting or stopping a location from Web Manager, the generated
+  start/stop events are now associated with the administrator account that
+  triggered those actions. In previous versions, the events were associated
+  with the client username associated with the location. [manager] [#6647]
+* Web Client sessions are no longer timing out during upload requests
+  that take longer than the configured inactivity timeout. In previous
+  versions, the current session was not updated to an active state while
+  a file was uploaded, which could result in Web Client logoffs.
+  [server-side][http][https] [#6668]
+* When rolling back an SFTPPlus update on Linux, file capabilities such as
+  binding privileged ports are now preserved. [#6660-2]
+* When providing a custom backup path to rollback from, the `bin/rollback.sh`
+  script no longer rolls back from the default SFTPPlus backup. [#6660]
+
+
+Version 5.2.1, 2024-05-10
+-------------------------
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The login page alerts are now displayed only once. In previous versions, any
+  alert related to a previous login failure was kept on the login page until
+  the next successful attempt. [server-side][http][https] [#6662]
+* The SFTP server now disconnects an SFTP client that requests to
+  receive data, but doesn't update the channel transfer window using the
+  SSH_MSG_CHANNEL_WINDOW_ADJUST SSH command. In previous versions, SFTPPlus
+  was buffering the data to send for when the SFTP client was ready to receive
+  it. This could cause high memory and CPU usage. [server-side][sftp]
+  [#6684]
+
+
+Version 5.2.0, 2024-04-17
+-------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure the list of accepted SSH host keys algorithms. In
+  previous versions, SFPPlus was accepting remote SSH connections using any SSH
+  host key algorithm. [client-side][sftp][scp][security] [#6553]
+* The shell scripts in the ``bin/`` sub-directory used for installing,
+  uninstalling, updating, and rolling back SFTPPlus on Linux and macOS, now
+  feature the common switches for showing a help text: ``-h`` and ``--help``.
+  [#6654]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The SFTP server now accepts public key authentication using any supported
+  algorithm. In previous versions, it was only accepting authentications from
+  the same list of algorithms as the one used for the SSH server host keys.
+  [server-side][sftp][scp] [#6553]
+* When login footnotes are enabled for SFTPPlus' Web Client, the dialog that
+  pops up when clicking on the footnotes link now responsively handles large
+  texts. [#6636]
+* SFTPPlus works again on Windows Server 2016. This regression was introduced in
+  SFPPlus version 5.0.0. [windows] [#6651]
+
+
+Version 5.1.0, 2024-03-31
+-------------------------
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* The `ssl_certificate_authority` configuration option for TLS clients can now
+  be configured with pinned public keys. This can be used to implement a
+  security policy that requires pinning public certificates/keys. [tls][https]
+  [#6562]
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure an account or a group to limit the size for an uploaded
+  file. [server-side][ftps][https][sftp] [#3652]
+* The Web Manager console now automatically updates the process state in the
+  background when you browse its pages. [manager] [#4843]
+* Automatic installation, update, and restore are now supported on ARM64 Linux.
+  [linux][arm64] [#6425]
+* On Linux systems, when systemd restarts SFTPPlus, advanced systemd options
+  are used to improve its default retry strategy. Some of these options are
+  only activated with systemd 229 or newer, others require systemd 254 or
+  newer. [#6443]
+* The Web Manager console now shows the name of the operating system account
+  under which SFTPPlus is running. [manager] [#6575]
+* You can now configure multiple email addresses per account. [server-side]
+  [#6579]
+* The LDAP authentication method can now be configured to extract the email
+  address associated to the authenticated user. [server-side] [#6590]
+* The content for a transfer can now be converted on the fly from UTF-16 to
+  UTF-8. [client-side] [#6592]
+* You can now define the minimum number of files that are expected to be
+  transferred in a time interval. This is done using the
+  `minimum_transfer_count` and `minimum_transfer_interval` configuration
+  options for a transfer. [client-side] [#6593]
+* The filesystem `monitor` resource now emits the event with ID `20065` that
+  includes the total number of files and directories detected in the monitored
+  path. Event with ID `20065` is emitted only when the monitor is configured to
+  check for old files or to auto-delete old files. [#6597]
+* When the source directory for a transfer is no longer available, the transfer
+  now waits for a time interval configured via `changes_poll_interval`, then
+  fails the transfer, and finally stops retrying if the source is still not
+  available after `retry_count` retries. An event and a log entry are generated
+  for each try. In previous versions, it was only generating an event entry,
+  retrying forever. [client-side] [#6600]
+* The `home_folder_structure` configuration is now inherited from all groups,
+  not only from the primary group. [server-side] [#6608]
+* You can now configure the login page of the Web Client with a link to a
+  custom text in a message box. You can use it to inform users about privacy
+  policy, terms of use, or any other information. [server-side][http] [#6614]
+* SSH private keys in Putty version 3 (PuTTY-User-Key-File-3) are now
+  supported. [#6615]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* When a SCP file upload operation fails, the server-side file is now closed. In
+  previous versions, the file was left open. [server-side][scp] [#3652]
+* On Linux and macOS systems, when stopping SFTPPlus without support from the
+  init system while another process restarts it repeatedly, the cycle of stop
+  retries ends after 20 iterations. [#6454]
+* You can now configure an Entra ID authentication with a set of base groups
+  that overlap with the associated groups as derived from the Entra ID group
+  membership. [server-side][entra-id][azure-ad] [#6545]
+* The Web Manager now keeps the session active while using the `Activity log`
+  page. In previous versions, the session access time was not updated when
+  using only the `Activity log` page. [manager] [#6607]
+* Due to a regression introduced in version 5.0.0, SFTPPlus was not properly
+  running on Amazon Linux 2 and Ubuntu 18.04 LTS. Only Linux distributions
+  based on glibc version 2.26 and 2.27 were affected by this regression.
+  [#6612]
+* When downloading multiple files or multiple directories using the SFTPPlus
+  Web Client, the memory consumption and file transfer speeds are now
+  significantly improved. This regression was introduced in SFTPPlus version
+  4.30.0. In affected versions, when downloading multiple files or directories,
+  the transfer was very slow, and SFTPPlus' memory usage was unusually high
+  during the transfer. This was caused by a programming error.
+  [server-side][http][https] [#6624]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Event with ID 10090 generated for FTP EPRT command was removed and replaced
+  with the event ID 10062. Event with ID 10062 is now emitted for any FTP
+  active transfer, for both legacy and extended commands.
+  [server-side][ftp][ftps] [#3652]
+* The event with ID `10061` emitted at the start of a FTP `PASV` or `EPSV`
+  command was removed. The event with ID `10022` presents the same information.
+  [server-side][ftp] [#6424]
+* The `azure-ad` authentication method was renamed to `entra-id`. This change
+  follows Microsoft's renaming of `Azure Active Directory` service to `Microsoft
+  Entra ID`. SFTPPlus configuration is automatically updated for the new name.
+  [server-side] [#6545]
+* The event with ID `60074` no longer has a `count` data attribute. It was
+  replaced by the `total_directories` and `total_files` attributes. [#6597]
+
+
+Version 5.0.0, 2024-02-20
+-------------------------
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* SMTP email client resources now require fully-qualified domain names
+  when configured.
+  This is needed in order to validate the TLS/SSL certificate
+  of the remote server.
+  If the SMTP server doesn't have a DNS record and a matching certificate,
+  you need to explicitly disable TLS identity checks for your SMTP email client
+  resource using the following configuration:
+  `ssl_certificate_authority = disable-identity-security`
+  [smtp][email] [#4374-1]
+* WebDAVs locations now require fully-qualified domain names when configured.
+  This is needed in order to validate the TLS/SSL certificate
+  of the remote server.
+  If the remote WebDAV HTTPS server doesn't have
+  a DNS record and a matching certificate,
+  you need to explicitly disable TLS identity checks for your WebDAVs location
+  using the following configuration:
+  `ssl_certificate_authority = disable-identity-security`
+  [client-side][https] [#4374-2]
+* The TLS clients in SFTPPlus
+  (HTTPS event handlers, WebDAV locations, HTTPS authentications)
+  are now configured by default to only function with remote servers that have
+  certificates signed by the Certificate Authority discovered during the
+  very first connection.
+  The `ssl_certificate_authority = set-on-first-connection` is the default
+  configuration for these cases.
+  [https] [#4374]
+* On Linux and macOS, SFTPPlus no longer starts under the root account when no
+  service `account` is configured for running it. This change prevents
+  unintentionally running SFTPPlus as root. It is highly recommended to run
+  SFTPPlus as a dedicated non-root OS account at all times, but SFTPPlus can
+  still be executed as root via the `account = root` configuration option under
+  the `[server]` section. If you only need SFTPPlus to run as root for a
+  specific purpose such as integrating with OS accounts, start SFTPPlus as root
+  with a defined service `account` to have it drop root privileges as soon as
+  possible. [linux][macos] [#4578]
+* The server-side and client-side FTPS data connections now require TLS session
+  reuse to be enabled by default. [server-side][client-side][ftps] [#6421]
+* Components using TLS / HTTPS clients can now be configured to automatically
+  accept and remember the Certificate Authority chain advertised during the
+  first connection. All subsequent connections are then required to use the
+  same CA chain. [client-side][https][ftps] [#6479]
+* The embedded OpenSSL libraries were updated to version 3.2.1. All SFTPPlus
+  packages now come with updated OpenSSL, including the ones supporting Red Hat
+  Enterprise Linux 8 and Ubuntu Linux 18.04 or 20.04. [#6480]
+* The `hmac-sha1` cipher was removed from the `secure` list of SSH ciphers.
+  Note that the way SHA-1 is supported by SFTPPlus when handling SFTP
+  connections does not allow for a feasible collision attack in the near
+  future. However, as SHA-1 can be used in an unsafe way to sign SSH PKI
+  certificates, many security scanners flag the support for SHA-1 as generally
+  unsafe for any product supporting the SFTP protocol. If you still require the
+  use of the SHA-1 algorithm to support legacy SFTP clients, you can still
+  configure it as needed. [server-side][client-side][sftp] [#6484]
+
+
+New Features
+^^^^^^^^^^^^
+
+* The Web Manager console now shows the name of the instance and
+  the path to the installation directory. [manager] [#3851]
+* SFTPPlus now supports macOS 11 Big Sur and newer on Apple Silicon. [#6064]
+* You can now configure a TLS client to trust servers with SSL certificates
+  signed by any of the root certificates from Mozilla's CA Certificate Program.
+  More on this at https://wiki.mozilla.org/CA/Included_Certificates. To
+  configure a TLS client to use this list, specify `${MOZILLA_CA_ROOTS}` for
+  the option `ssl_certificate_authority`. [#6227]
+* The Activity Log page in the Web Manager console has been redesigned
+  to improve the readability of the rows of logging data.
+  [#6328]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The Windows installer now supports administrator names and passwords
+  containing spaces. [windows][#6452]
+* The FTP/FTPS server now closes any file for which an upload request was
+  started, but for which the upload operation failed. In previous versions, if a
+  file transfer failed during the data transfer, the uploaded file was kept
+  open by the server's operating system. [server-side][ftp] [#6514]
+* When using automated updates on Linux, file capabilities such as
+  binding privileged ports are now preserved for SFTPPlus installations.
+  [#6498]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Support for Windows 8 and Windows 2012 was removed.
+* The `monitor` service was moved to the `resources` category. The
+  configuration is automatically migrated after updating. [#3165]
+* The events with ID 20001, 20002, and 20181 emitted when SFTPPlus starts or
+  stops, now contain the installation `instance_name` instead of the
+  `product_name`. [#3851]
+* Support was removed for SFTPPlus Windows services created when
+  installing SFTPPlus versions up to and including 4.0.0. SFTPPlus
+  Windows services installed with SFTPPlus 4.1.0 or newer are still supported.
+  [windows] [#5179-1]
+* The priority of ECDSA key exchange algorithms for SSH was changed to the
+  following order (from highest priority to lowest): ecdh-sha2-nistp256,
+  ecdh-sha2-nistp384, ecdh-sha2-nistp521. This was done to achieve parity
+  with the OpenSSH implementation. [sftp] [#5179]
+* The `shared_secret` RADIUS configuration option was removed. It was replaced
+  in a previous version with the `password` configuration option. The UI
+  continues to refer to this configuration as `Shared Secret`, since this is how
+  it is used in the RADIUS protocol specification. The low-level configuration
+  uses `password` to make it easier to perform security audits.
+  [server-side][radius] [#5304-1]
+* The `address` and `port` WebDAV location configuration options were removed.
+  They were replaced in a previous version with the `url` configuration option.
+  [client-side][webdav] [#5304-2]
+* The `address` configuration option for a transfer was removed. It was
+  replaced in a previous version with the `delete_source_on_success` option.
+  [client-side] [#5304-3]
+* The `rsa_private_key`, `rsa_private_key_password`, `dsa_private_key`, and
+  `dsa_private_key_password` configuration options were removed. They were
+  deprecated in version 4 by the `ssh_host_private_keys` option. Encrypted
+  SSH private keys are no longer supported. [server-side][sftp]
+  rsa_private_key_password dsa_private_key rsa_private_key
+  dsa_private_key_password [#5304]
+* Apple macOS running on Intel hardware is no longer a supported platform.
+  Contacts us if you need to run SFTPPlus on Intel Macs running macOS. [#6064]
+* The `ftps_force_secured_authentication` configuration option was removed. The
+  Explicit and Implicit FTPS server now always require a secure connection.
+  [server-side][ftps] [#6509-1]
+* The `ftps_force_secured_data_channel` configuration was removed. The security
+  of the data channel is now always enforced based on the
+  `ftps_force_secured_command_channel` configuration for the command channel.
+  [server-side][ftps] [#6509-2]
+* The Explicit FTPS server is now enabled by default for the FTP service.
+  [server-side][ftps] [#6509-3]
+* The support for FTP CCC command was removed on both server-side and
+  client-side transfers. Consequently, the `ftps_ccc` configuration option was
+  removed. Contact us if you still need to use the FTP CCC command.
+  [ftps][server-side][client-side] [#6509]
+
+
+Version 4.35.0, 2024-01-12
+--------------------------
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+A critical security issue was fixed for the FTPS server.
+
+SFTPPlus can now be
+configured to enforce the use of the same TLS session for both command
+and data connections.
+
+For backward compatibility, the TLS session reuse is not automatically enabled
+for existing configuration.
+You will need to manually update the SFTPPlus configuration.
+
+For TLS session reuse you might also need to update your FTPS client.
+For example you will need WinSCP version 6, or configure WinSCP version 5
+to only use TLS 1.2.
+WinSCP version 5 with TLS 1.3 does not work with TLS session reuse.
+
+In previous versions, reusing the TLS session was not enforced.
+
+This could allow a malicious third party to hijack the data
+connection without any authentication, by only guessing the passive port
+number.
+As a result of such an attack, data can be leaked or corrupted.
+SFTP and HTTPS protocols are not affected. The security issue is mitigated
+when the FTPS server is configured to validate client connections against a
+certificate authority (CA).
+
+In such a case, the malicious third party
+would also need a valid matching certificate signed by the configured
+Certificate Authority to successfully hijack the data connection.
+This issue affects all previous versions of SFTPPlus. [#6379]
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure role permissions to allow referencing the currently
+  authenticated administrator using the `own` prefix. This allows defining
+  administrator accounts able to create, delete, and update users and groups
+  without having permissions for configuring other administrator accounts.
+  [manager] [#6470]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The HTTP(S) server now closes the downloaded file if there was an error
+  during download. In previous versions, the affected file was left open.
+  [server-side][http] [#6469]
+
+
 Version 4.34.1, 2023-11-22
 --------------------------
 
@@ -28,9 +795,9 @@ Security Fixes
   third party pretends to handle the data connection. This can also improve
   performance when transferring many small files. Some FTPS servers might not
   know how to handle a TLS session reuse. In SFTPPlus v4 the default
-  `ssl_reuse_session = no` configuration is set to avoid reusing the TLS
-  session. This default option will be changed to `ssl_reuse_session = yes`
-  in the future release of SFTPPlus 5.0.0. [client-side][ftps][security] [#6382]
+  `ftps_reuse_session = no` configuration is set to avoid reusing the TLS
+  session. This default option will be changed to `ftps_reuse_session = yes`
+  in the future release of SFTPPlus 5.0. [client-side][ftps][security] [#6382]
 * The passive data ports are now used by SFTPPlus in random order. In
   previous versions, they were allocated based on the lowest available port
   number. [ftp][server-side] [#6430]
@@ -567,6 +1334,11 @@ Defect Fixes
 Deprecations and Removals
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
+* The Azure AD SFTPPlus application permissions were changed from
+  `Directory.Read.All` to `GroupMember.Read.All`.
+  You will need to manually change the SFTPPlus permissions inside the
+  Azure Portal and grant admin consent.
+  [server-side] [#2196]
 * When the name of the user is used to dynamically define the
   `home_folder_path` or `ssh_authorized_keys_path` from the group
   configuration, the following characters are now replaced with the dot (.)
@@ -635,7 +1407,7 @@ Defect Fixes
 Deprecations and Removals
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* The `session_username` cookie is no longer used by the Local Manager web
+* The `session_username` cookie is no longer used by the Web Manager web
   interface. [manager] [#5900]
 * The OAuth2 redirection URL for Azure AD was changed from
   `https://SITE-ADDRESS/__chsps__/login?redirect-AUTH-UUID` to
@@ -812,7 +1584,7 @@ Defect Fixes
   unknown partner/certificate is received over AS2. The event with ID 40044 is
   now emitted with an informative error message. The remote AS2 partner is
   informed that the transfer failed. [server-side][as2] [#5704]
-* The JQuery library used by SFTPPlus Local Manager web console and the legacy
+* The JQuery library used by SFTPPlus Web Manager web console and the legacy
   web pages was updated to use the latest version. [server-http] [#5799]
 
 
@@ -847,7 +1619,7 @@ user interaction for the web management console.
 New Features
 ^^^^^^^^^^^^
 
-* You can now configure the Local Manager web console to only show server-side
+* You can now configure the Web Manager web console to only show server-side
   configuration options, client-side configuration options, or both. [manager]
   [#2795]
 * The rules for defining virtual folders were relaxed to allow defining virtual
@@ -978,7 +1750,7 @@ New Features
 * You can now configure an account to be associated with multiple groups. In
   this way, an account has access to the virtual directories and inherited
   permissions defined in all of the associated groups. [server-side] [#2184]
-* The Local Manager's user interface for configuring the list of SSL/TLS
+* The Web Manager's user interface for configuring the list of SSL/TLS
   ciphers to be used by HTTPS and FTPS services has been improved to allow
   selecting from a list of available ciphers. [ssl] [#5600]
 * The Python API extension `handle` method can now return a string to
@@ -999,8 +1771,8 @@ New Features
 Version 4.18.0, 2022-04-04
 --------------------------
 
-The look and feel of Local Manager's login page was refreshed.
-This is the first step into updating the Local Manager web console interface
+The look and feel of Web Manager's login page was refreshed.
+This is the first step into updating the Web Manager web console interface
 over the coming releases.
 
 Version 4.18.0rc1 was released on 2022-04-01 as a release candidate.
@@ -1053,7 +1825,7 @@ No changes were made to the final release since the release candidate.
 New Features
 ^^^^^^^^^^^^
 
-* The Local Manager UI for selecting multiple component identifiers was updated
+* The Web Manager UI for selecting multiple component identifiers was updated
   to allow selecting from a list of names. Copy-pasting identifiers is
   no longer needed. [manager] [#5559]
 * The file browser for HTTP(s) clients has an updated UI which is enabled by
@@ -1146,7 +1918,7 @@ Defect Fixes
 ^^^^^^^^^^^^
 
 * You can now set the `password_lifetime` configuration option for a group
-  using the Local Manager web interface. Due to a defect, in previous versions
+  using the Web Manager web interface. Due to a defect, in previous versions
   it was only possible to set it manually via the configuration file. [manager]
   [#5500]
 * The HTTPS AS2 server can now receive multiple AS2 messages (files) over the
@@ -1164,7 +1936,7 @@ Defect Fixes
   the error message now lists the available sizes. In previous versions, an
   internal server error was generated. [pgp] [#5533]
 * It is now possible to disable `delete_source_parent_delay` on a transfer,
-  by setting it to value 0 from Local Manager.
+  by setting it to value 0 from Web Manager.
   Due to a defect in previous GUI versions,
   you could only set it to a minimum value of 1,
   making it impossible to disable it from the GUI.
@@ -1276,7 +2048,7 @@ Defect Fixes
   versions, if part of the content was sent in the same data chunk as the HTTP
   headers, that file data was ignored. Requests made using `Expect:
   100-continue` are not affected by this issue. [server-side][http] [#1471]
-* You can now edit OS accounts in the Local Manager.
+* You can now edit OS accounts in the Web Manager.
   This was a regression introduced in version 3.46.0. [server-side] [#2873]
 * SFTPPlus now uses the first IP address from `X-Forwarded-For` or
   `Forwarded` headers as the original source IP address. In previous
@@ -1287,7 +2059,7 @@ Defect Fixes
   contain a port number. This concerns Azure's HTTP Load Balancer and Internet
   Information Services (IIS) servers, which are including the port
   in the forwarded header. [server-side][http] [#31]
-* The Local Manager web interface no longer shows the WebDAV location as
+* The Web Manager web interface no longer shows the WebDAV location as
   requiring a restart due to updated address or port. This was a defect
   introduced in 4.11.0 while updating the WebDAV location configuration
   from address and port to URL. [manager] [#3671]
@@ -1341,7 +2113,7 @@ Defect Fixes
   the event with ID 60040 is emitted to inform that the transfer is no longer
   monitoring the source. In previous versions, the event 60040 was delayed
   until the source location was reconnected. [client-side] [#3960-1]
-* If the source location of a transfer is manually stopped, the Local Manager
+* If the source location of a transfer is manually stopped, the Web Manager
   web interface now highlights that the transfer is suspended. In previous
   versions, the transfer status was reported as "started". [client-side]
   [#3960-2]
@@ -1478,7 +2250,7 @@ New Features
 Defect Fixes
 ^^^^^^^^^^^^
 
-* The links and commands to start the Local Manager and documentation pages
+* The links and commands to start the Web Manager and documentation pages
   will now start much faster. [local-manager] [#5677]
 * An extra event with ID 20024 is no longer emitted when failing to initialize
   the FTP client passive connection. [client-side][ftp][ftps] [#5681-1]
@@ -1504,7 +2276,7 @@ New Features
 * The `source_ip_filter` configuration option now allows defining a range of
   allowed IP addresses using the Classless Inter-Domain Routing (CIDR)
   notation. [#1044]
-* When a new component is created using the Local Manager interface, the
+* When a new component is created using the Web Manager interface, the
   component is automatically started if "Launch at startup" is enabled.
   [local-manager] [#1917]
 * WebDAVS locations now support HTTP Basic Authentication.
@@ -1620,13 +2392,13 @@ New Features
 Defect Fixes
 ^^^^^^^^^^^^
 
-* In Local Manager, in the list of accounts for a local file authentication
+* In Web Manager, in the list of accounts for a local file authentication
   method, you will now see the name of the associated group. In previous
   versions, the group was listed as UNKNOWN. [#2368]
-* The authentication page of the Local Manager web console was fixed to work
+* The authentication page of the Web Manager web console was fixed to work
   with Internet Explorer. This was a defect introduced in version 4.10.0.
   [#5547]
-* Defining configuration options in Local Manager using text values
+* Defining configuration options in Web Manager using text values
   containing newline characters other than the default Unix or Windows
   characters no longer generates an invalid configuration file. [manager]
   [#5553]
@@ -1713,7 +2485,7 @@ New Features
 * You can now configure an account to receive files over AS2 without requiring
   a password. Files received over AS2 still need to be validated for
   signature and encryption. [server-side][as2] [#5490]
-* HTTP connection requests to HTTPS services such as the Local Manager web
+* HTTP connection requests to HTTPS services such as the Web Manager web
   administration interface or the HTTPS file transfer service are now
   automatically redirected to HTTPS. [server-side] [#5512]
 * You can now configure a client-side transfer to operate on files using a
@@ -1746,7 +2518,7 @@ Defect Fixes
 * When transferring concurrent files through multiple transfers, the
   transfer queue is no longer stalled after the destination location is
   reconnected. [client-side] [#5519]
-* Components listed on the Local Manager general status page are now sorted
+* Components listed on the Web Manager general status page are now sorted
   in alphabetical order. [manager] [#5537]
 
 
@@ -1757,8 +2529,9 @@ Deprecations and Removals
   and 3des-ctr. The CBC mode for these ciphers are still supported. [sftp]
   [#5529]
 * The `rsa_private_key` and `dsa_private_key` configuration options were
-  removed, being replaced by a single `ssh_host_keys` configuration option. For
-  backward compatibility, the old configuration options are still supported.
+  removed, being replaced by a single `ssh_host_private_keys` configuration
+  option.
+  For backward compatibility, the old configuration options are still supported.
   [server-side][sftp] [#5533]
 * The SSH (SFTP/SCP) list of secure ciphers no longer contains CBC mode
   ciphers. Cipher Block Chaining modes aes256-cbc, aes192-cbc, and aes128-cbc
@@ -1864,7 +2637,7 @@ Defect Fixes
   authentication when using the external HTTP authentication method. This does
   not affect the SSH key authentication when using the embedded SFTPPlus
   credentials validation. [server-side][sftp][scp][security] [#5480]
-* Local Manager's user interface for the OS authentication method was updated
+* Web Manager's user interface for the OS authentication method was updated
   to inform that all OS accounts are denied access when no OS group is
   configured. [server-side] [#5483]
 * An internal error is no longer raised when trying to directly access the HTTP
@@ -1875,7 +2648,7 @@ Defect Fixes
 Deprecations and Removals
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* Event with ID 50012 emitted by the Local Manager web interface was removed.
+* Event with ID 50012 emitted by the Web Manager web interface was removed.
   It was replaced by the generic event with ID 50003, which is raised when
   failing to apply a configuration change request. [local-manager] [#5476-1]
 * Event with ID 20041 was removed as it is now redundant and never emitted.
@@ -1970,7 +2743,7 @@ New Features
   the openssh-key-v1 format. [sftp][scp] [#5435-1]
 * Alpine Linux 3.12 on x86_64 is now a supported platform. [#5435] [#5435]
 * The event with ID 50005 emitted when a configuration change is requested from
-  the Local Manager now includes the UUID of the newly created component.
+  the Web Manager now includes the UUID of the newly created component.
   [local-manager] [#5439]
 * Red Hat Enterprise Linux 5 was added as a platform with limited support.
   RHEL 5's Extended Life Cycle Support (ELS) ends on November 30, 2020.
@@ -2051,7 +2824,7 @@ New Features
   an Active Directory server. [server-side] [#1863]
 * The HTTP Request event handler can now send an event as an XML SOAP message or
   as a generic XML document. [#1973]
-* The SFTPPlus instance name is now visible in the Local Manager web-based
+* The SFTPPlus instance name is now visible in the Web Manager web-based
   administration console. [#5296]
 * You can now test the configuration of the email sender resource. [#5405-1]
 * You can now define a default list of email recipients used for sending email
@@ -2103,13 +2876,13 @@ New Features
 
 * There is now an admin-shell command line interface that can be used to manage
   and configure the SFTPPlus process from the command line. It is the CLI
-  equivalent of the Local Manager web-based GUI console. [#1158]
+  equivalent of the Web Manager web-based GUI console. [#1158]
 * The `openpgp` event handler was added for encrypting and decrypting files
   using OpenPGP. [#1177]
 * You can now use SSL/TLS certificates to authenticate users against the HTTPS
   file transfer service. [server-side] [#143]
 * You can now send credentials for an account via email. [#1468]
-* You can now create PGP keys from the Local Manager web interface or the
+* You can now create PGP keys from the Web Manager web interface or the
   command line administrative tool. [#1591]
 * SFTPPlus administration accounts now support multi-factor authentication
   based on the TOTP standard. [#2000]
@@ -2136,7 +2909,7 @@ New Features
 * Recursive transfers can now automatically create destination folders.
   [client-side] [#5004]
 * The SFTPPlus initialization command now also asks for initializing a custom
-  administration password. With this change, Local Manager is now accessible by
+  administration password. With this change, Web Manager is now accessible by
   default for any IP source. [#5193]
 * Product version is no longer advertised during protocol handshake for FTP,
   SSH and HTTP. [#5222]
@@ -2177,8 +2950,8 @@ Defect Fixes
 * On non-Windows systems, the `extract-archive` event handler can now handle
   paths with uppercase characters. In previous versions, it was always using
   lowercase characters for the destination's filename. [#1177]
-* The Windows start menu shortcut to the Local Manager page now works even when
-  the Local Manager is configured for the `0.0.0.0` IP address. [#3030]
+* The Windows start menu shortcut to the Web Manager page now works even when
+  the Web Manager is configured for the `0.0.0.0` IP address. [#3030]
 * The PID file created when SFTPPlus starts in service/daemon mode is no longer
   readable by other system users. [linux][security] [#4402]
 * The SysV and OpenRC init scripts now work when SFTPPlus is started as `root`.
@@ -2237,9 +3010,9 @@ Deprecations and Removals
   client. [#316-3]
 * Event with ID 20063, raised when the default group is missing, was removed as
   SFTPPlus will automatically create the default group if missing. [#316-4]
-* Event with ID 50020, raised when SFTPPlus Local Manager failed to start a
+* Event with ID 50020, raised when SFTPPlus Web Manager failed to start a
   database, was removed and replaced by ID 20112. [#316-5]
-* The `Past Activity` page in the Local Manager web console was renamed to
+* The `Past Activity` page in the Web Manager web console was renamed to
   `Activity log`. [#316-6]
 * Event with ID 20163, emitted by SFTPPlus when failing to record the date and
   time when an account was successfully authenticated, was removed and replaced
@@ -2255,9 +3028,9 @@ Deprecations and Removals
 * Events with ID 20112 and 20117, emitted when a DB operation fails, were
   removed. They were replaced with specific event ID errors for
   each SFTPPlus component using the DB. [#3168-4]
-* Events with IDs 50019, 50021, 50022, 50025, emitted when a Local Manager DB
+* Events with IDs 50019, 50021, 50022, 50025, emitted when a Web Manager DB
   operation fails, were removed. They were replaced with specific event ID
-  errors for each Local Manager operation using the DB. [#3168-5]
+  errors for each Web Manager operation using the DB. [#3168-5]
 * Support for the MySQL database event handler was removed. [#3168]
 * Event with ID 20160 was removed and replaced with the generic event 20165
   raised when a component fails. [db] [#316]
@@ -2326,9 +3099,9 @@ Version 3.55.0, 2020-04-28
 --------------------------
 
 This release includes a critical security issue for the
-Local Manager's web console GUI introduced with SFTPPlus version 3.24.0.
+Web Manager's web console GUI introduced with SFTPPlus version 3.24.0.
 
-The vulnerability is a local one if Local Manager only accepts
+The vulnerability is a local one if Web Manager only accepts
 local connections, as configured by default.
 
 Your SFTPPlus setup is not affected if you are not using
@@ -2347,7 +3120,7 @@ To fix this security issue, you need to upgrade SFTPPlus to version 3.55.0.
 If you can't upgrade right away, you should harden the configuration
 by deleting the "Store in database" event handlers.
 If you would rather keep using this feature without updating,
-make sure the Local Manager is only available through secured channels
+make sure the Web Manager is only available through secured channels
 such as a VPN tunnel.
 
 
@@ -2367,7 +3140,7 @@ New Features
 Defect Fixes
 ^^^^^^^^^^^^
 
-* The "Download as CSV" link from the Local Manager no longer allows
+* The "Download as CSV" link from the Web Manager no longer allows
   unauthenticated requests. [security][web-manager] [#4233]
 
 
@@ -2468,7 +3241,7 @@ New Features
 Defect Fixes
 ^^^^^^^^^^^^
 
-* Let's Encrypt resource will now highlight in the Local Manager that a restart
+* Let's Encrypt resource will now highlight in the Web Manager that a restart
   is required after changing the address and port configuration. [server-side]
   [#5352]
 * When upgrading, the existing Windows service is no longer reset and the
@@ -2503,7 +3276,7 @@ New Features
 * Remote SSH server's fingerprint can now also be defined as SHA1, SHA256,
   an SSH public key, or an X.509 SSL/TLS certificate. MD5 fingerprints are
   still supported. [client-side][sftp] [#5327-1]
-* When configuring a new account from the Local Manager web console,
+* When configuring a new account from the Web Manager web console,
   `permission` and other configuration options are set by default to inherit
   from group configuration. [server-side] [#5340]
 * Alpine Linux 3.10 on X86_64 is now a supported platform. [#5282]
@@ -2597,11 +3370,11 @@ Defect Fixes
   but the documentation was not updated until now. [server-side] [#1296]
 * FTP client transfers no longer create empty files on transfer failures.
   [client-side][ftp][ftps] [#3006]
-* You can now create new SFTP services from the Local Manager web interface.
+* You can now create new SFTP services from the Web Manager web interface.
   This issue was introduced in version 3.46.0. [server-side][sftp] [#4124]
 * When using the client shell, passwords are now masked by default.
   [security][client-side] [#5213]
-* Local Manager's web interface now has an explicit button for disabling a
+* Web Manager's web interface now has an explicit button for disabling a
   password. In previous versions it was required to type `disabled` to disable
   the usage of a password. [manager] [#5236]
 
@@ -2886,7 +3659,7 @@ Defect Fixes
 ^^^^^^^^^^^^
 
 * The MySQL database resource is no longer erroneously marked as requiring a
-  restart in the Local Manager. [#5137]
+  restart in the Web Manager. [#5137]
 
 
 Version 3.41.1, 2018-11-21
@@ -2908,7 +3681,7 @@ New Features
 ^^^^^^^^^^^^
 
 * It is now possible to define a list of HTTP Host header origins accepted
-  by the HTTP file transfer services and the Local Manager.
+  by the HTTP file transfer services and the Web Manager.
   This allows running compatible SFTPPlus services behind a load balancer
   without compromising on the default CSRF checks.
   [server-side][http][https] [#5138]
@@ -2922,7 +3695,7 @@ Defect Fixes
 ^^^^^^^^^^^^
 
 * The option to hide the SFTPPlus authentication session from the
-  `www-authenticate` headers is now visible in the Local Manager.
+  `www-authenticate` headers is now visible in the Web Manager.
   [server-side][http][https] [#5134]
 
 
@@ -3039,9 +3812,9 @@ Defect Fixes
   value to 0. In previous versions, when set to 0, the connection was
   disconnected right away due to the timeout. [server-side][ftp][ftps] [#5049]
 * When changing the `extra_data` configuration for the HTTP event handler, the
-  Local Manager UI now shows that a restart is required for the event handler.
+  Web Manager UI now shows that a restart is required for the event handler.
   [#5079]
-* You can now change from the Local Manager the list of SSH ciphers available
+* You can now change from the Web Manager the list of SSH ciphers available
   to the SFTP and SCP file transfer services. This was a regression introduced
   in 3.37.0. [server-side][sftp][scp] [#5085]
 * When overwriting files using the SCP file transfer, the content of the
@@ -3101,7 +3874,7 @@ Defect Fixes
 * The HTTP API authentication for an account now fails when the account is
   accepted by the remote HTTP API but the associated group is disabled.
   [server-side][security] [#5058]
-* A defect was fixed in Local Manager which was causing the Local Manager to
+* A defect was fixed in Web Manager which was causing the Web Manager to
   fail on Internet Explorer 11. [#5061]
 
 
@@ -3127,12 +3900,12 @@ New Features
 * LDAP authentication method was extended to allow defining a LDAP filter
   for LDAP users which are allowed to act as administrators through the Local
   Manager service. [manager] [#5010-1]
-* You can now define multiple authentication methods for the Local Manager
+* You can now define multiple authentication methods for the Web Manager
   service. [manager] [#5010-2]
 * OS authentication method was extended to allow defining a list of
   Operating System account groups which are allowed to act as administrators
-  through the Local Manager service. [manager] [#5010]
-* You can now use Local Manager to configure the accounts and groups of the
+  through the Web Manager service. [manager] [#5010]
+* You can now use Web Manager to configure the accounts and groups of the
   `local-file` authentication method. [#5041]
 * It is now possible to configure an event handler filter based on excluded
   usernames or components by using the `!` (exclamation mark) to mark a value
@@ -3155,7 +3928,7 @@ Defect Fixes
   signaling. In previous versions this issue was causing excessive memory
   usage and transfer failures over low bandwidth networks.
   [client-side][ftp][ftps] [#5033]
-* Comma-separated values in Local Manager can now be configured using a simple
+* Comma-separated values in Web Manager can now be configured using a simple
   free-text input box. This allows editing existing values and makes it easier
   to reorder them. [management] [#5043]
 
@@ -3182,7 +3955,7 @@ Deprecations and Removals
   is not defined (or left empty), SFTPPlus will fall back to the first
   defined Application authentication method. [#5010-3]
 * The `include_os_group` configuration options for roles was removed. Now you
-  can explicitly define an OS authentication method for the Local Manager
+  can explicitly define an OS authentication method for the Web Manager
   server. `include_os_group` was replaced by the `manager_allowed_groups`
   configuration option for the OS authentication method. [server-side] [#5010]
 
@@ -3213,7 +3986,7 @@ Defect Fixes
 * The Windows installer is now signed. [#4794]
 * It is now possible to clear the data attributes and structured fields
   configuration for an event handler and the allowed groups for an OS
-  authentication mode from the Local Manager. In previous versions saving these
+  authentication mode from the Web Manager. In previous versions saving these
   configuration changes was generating an error. [#5018]
 * When local file event handler is rotating the files based on time, it now
   preserves the file extension. In previous versions the timestamp was used as
@@ -3256,7 +4029,7 @@ Defect Fixes
   The experimental packages for HP-UX are still vulnerable to this and
   will to be fixed in a future release.[server-side][#4579]
 * Once set, passwords for locations or email resources are no longer readable
-  from Local Manager. A password can be read only before being set and applied.
+  from Web Manager. A password can be read only before being set and applied.
   Afterwards, its value cannot be read, only updated. [security] [#4938]
 * Comma-separated configuration values may now contain comma characters,
   as long as they are enclosed in double quotation marks. [#4951]
@@ -3287,7 +4060,7 @@ New Features
 
 * You can now set up an UNC path or a symbolic link to Windows Shares as home
   folder for an account. [#4635]
-* The HTTP/HTTPS file transfer service and the Local Manager service now
+* The HTTP/HTTPS file transfer service and the Web Manager service now
   provide the option to configure a set of headers which are sent for all
   responses. You can use this to set the Strict-Transport-Security header or
   the use a custom `Server` header in an attempt to conceal the identity of the
@@ -3318,10 +4091,10 @@ New Features
 Defect Fixes
 ^^^^^^^^^^^^
 
-* The HTTP/HTTPS file transfer service and the Local Manager service now
+* The HTTP/HTTPS file transfer service and the Web Manager service now
   advertise a set of HTTP headers to mitigate CSRF and XSS attacks. [security]
   [#4930]
-* The low-level JSON-RPC used by the Local Manager service now explicitly
+* The low-level JSON-RPC used by the Web Manager service now explicitly
   informs the web browser not to cache its POST responses. In the previous
   version, only GET requests were instructing the web browser not to cache the
   response. [security] [#4937]
@@ -3381,7 +4154,7 @@ Defect Fixes
 * The HTTP file transfer service will now force any file to be downloaded by
   the browser. Previously, it was displaying HTML or images inside the browser
   without forcing a download. [server-side][http][https][security] [#4877-1]
-* The HTTP file transfer service and the Local Manager service were updated to
+* The HTTP file transfer service and the Web Manager service were updated to
   prevent cross-site request forgery (CSRF / XSRF) attacks by validating the
   `Origin` and `Referer` headers against the `Host` header.
   [server-side][http][https][security] [#4877]
@@ -3707,7 +4480,7 @@ Defect Fixes
 * The WebDAV location can now get members and attributes for paths containing
   the `+` (plus) character, as well as detecting changes into folders with such
   names. [client-side][http][https] [#3945]
-* When the destination of a transfer is changed, the Local Manager will not
+* When the destination of a transfer is changed, the Web Manager will not
   mark the transfer as requiring a restart. Unless the transfer is restarted,
   the files are transferred using the destination defined at start time.
   [client-side] [#4245]
@@ -3797,7 +4570,7 @@ Version 3.24.0, 2017-08-09
 New Features
 ^^^^^^^^^^^^
 
-* The Past Activity page, accessible from Local Manager,
+* The Past Activity page, accessible from Web Manager,
   now has an option to download all events in CSV format.
 
 * The WebDAV location now supports the `get_attributes` client shell command.
@@ -4031,7 +4804,7 @@ Defect Fixes
   [#3924]
 * HTTP authentication method and HTTP event log handler will now accept HTTPS
   URLs. The server is not yet validated. [#3929]
-* The Local Manager UI will not show the available locations inside the
+* The Web Manager UI will not show the available locations inside the
   `Locations` page, even when no resources are defined. [#3981]
 
 
@@ -4054,7 +4827,7 @@ Version 3.19.0, 2017-02-21
 New Features
 ^^^^^^^^^^^^
 
-* The Local Manager now shows the key fingerprint using SHA1 and SHA256,
+* The Web Manager now shows the key fingerprint using SHA1 and SHA256,
   together with the MD5 format, when generating or importing a key.
 * MacOS Sierra 10.12 with OpenSSL 1.0.2 provided by the Homebrew community is
   now a supported platform.
@@ -4080,7 +4853,7 @@ Defect Fixes
   active after the transfer was stopped. [client-side] [#3496-3]
 * Fix the issue when event data is not displayed in the "Attached data" section
   on event details page. The page is available from "Past activity" page
-  ("Local Manager") by clicking on any event link. [#3641]
+  ("Web Manager") by clicking on any event link. [#3641]
 * An internal server error is no longer produced when the SSH server is sending
   a global request. [sftp][client-side] [#3735]
 * Installing on Linux with partitions mounted with noexec or with SELinux
@@ -4270,7 +5043,7 @@ Version 3.15.0, 2016-10-24
 New Features
 ^^^^^^^^^^^^
 
-* On Local Manager you can now access the configuration page of a component
+* On Web Manager you can now access the configuration page of a component
   directly from the "Require restart" section of the "Review changes" page.
 * The FTP/FTPS service can now be configured to not show the product name and
   version as part of the FTP banner / welcome message.
@@ -4336,7 +5109,7 @@ New Features
   each month on a specific day.
 * Implicit FTPS is now a supported protocol for the location used in client
   side transfers.
-* After applying the configuration changes using the Local Manager, the
+* After applying the configuration changes using the Web Manager, the
   components requiring restart after the changes are now also listed on the
   "Review changes" page and you can restart them from this same page.
 * An audit entry is created when a CRL is loaded, informing the date and time
@@ -4391,7 +5164,7 @@ Defect Fixes
 ^^^^^^^^^^^^
 
 * An internal server error is no longer emitted when a response from the Local
-  Manager is produced after the Local Manager page was closed or refreshed.
+  Manager is produced after the Web Manager page was closed or refreshed.
   [#1890]
 * Certificates signed by unknown certificate authorities are now rejected right
   away, without being first checked for revocation. [#2466]
@@ -4502,7 +5275,7 @@ Defect Fixes
   `client-shell.sh` Unix shell scripts to allow for paths with spaces. Portably
   check for errors in `admin-commands.sh` and `client-shell.sh`. [#3442]
 * Values for the `type` configuration options are now case-insensitive. [#3449]
-* Local Manager web GUI was updated to instruct web browser to update HTML
+* Web Manager web GUI was updated to instruct web browser to update HTML
   pages cached from previous versions. [#3486]
 
 
@@ -4703,7 +5476,7 @@ New Features
 * Service monitor now emits dedicated events for files and folders which
   already exists when service is started.
 * The OpenSSL version used by SFTPPlus is advertised as part of the events
-  generated when starting the SFTPPlus process, as well as in the Local Manager
+  generated when starting the SFTPPlus process, as well as in the Web Manager
   status page.
 * Now you can configure the source port used by the FTP and FTPS services to
   initiate active data connections. [ftp][ftps]
@@ -4738,7 +5511,7 @@ Defect Fixes
 * The files already present on the source location for a transfer are now
   filtered based on the transfer configuration and processed only after they
   are stable. [#3223]
-* In the Local Manager the `Enabled` label for the configuration options was
+* In the Web Manager the `Enabled` label for the configuration options was
   renamed to `Enable at startup` to provide a better description of its effect.
   [#3256]
 * The file dispatcher event handler now no longer enters an infinite loop by
@@ -4751,9 +5524,9 @@ Defect Fixes
 * No internal server error is now produced when failing to remove the remote
   file after the file was successfully transferred on the local machine.
   [client] [#3283]
-* Loading a non-existent page in the Local Manager now produces a single event
+* Loading a non-existent page in the Web Manager now produces a single event
   with ID 40001. [local-manager] [#3285]
-* Starting the Local Manager or the documentation pages from the Windows Start
+* Starting the Web Manager or the documentation pages from the Windows Start
   menu or using the command line using the `admin-commands manager` command,
   now successfully opens the default browser. [local-manager] [#3295]
 * Locations and resources now completely ignore the `enable` configuration
@@ -4772,7 +5545,7 @@ Deprecations and Removals
 * Event with ID 20040 was converted into a generic event emitted for any client
   certificate validation error. [#3216]
 * Databases no longer have the `enable` configuration option as they are
-  auto-started on demand. In the Local Manager, the status for the databases
+  auto-started on demand. In the Web Manager, the status for the databases
   and the locations was merged into the resources status. [#3256]
 * Events with ID 20044 and 20098 were replaced by the generic ID 20010. [#3305]
 
@@ -4823,7 +5596,7 @@ Version 3.4.0, 2015-12-22
 New Features
 ^^^^^^^^^^^^
 
-* When a component needs a restart, in the Status page of the Local Manager
+* When a component needs a restart, in the Status page of the Web Manager
   now is displayed the list of configuration options which determine the
   required restart.
 * Add a new event handler which can send a copy of the events as email.
@@ -4834,7 +5607,7 @@ New Features
 Defect Fixes
 ^^^^^^^^^^^^
 
-* Configuration for `local-file` event handler from the Local Manager GUI
+* Configuration for `local-file` event handler from the Web Manager GUI
   is now fixed.
   [#3152]
 * Fix client transfers for destination locations which were not been previously
@@ -5028,7 +5801,7 @@ Defect Fixes
   by a client for a FTP service for which the FTPS extensions were not
   enabled.
   [#3016][ftps]
-* Display a warning when Local Manager UI is accessed in Compatibility View
+* Display a warning when Web Manager UI is accessed in Compatibility View
   mode in Internet Explorer browser.
   [#3020][local-manager]
 * Display a warning in the logon page if it's using an unsupported IE version.
@@ -5038,7 +5811,7 @@ Defect Fixes
 Deprecations
 ^^^^^^^^^^^^
 
-* Removed Startup column in Local Manager Status page for locations as they
+* Removed Startup column in Web Manager Status page for locations as they
   are started on demand.
 
 
@@ -5199,7 +5972,7 @@ New features
   distribution yet.
 * Add command line option to generate an SSL key and the associated certificate
   signing request / CSR.
-* Add Local Manager option to generate an SSL key and the associated
+* Add Web Manager option to generate an SSL key and the associated
   certificate signing request / CSR.
 * Emit audit events when setting the representational type for FTP data.
 
@@ -5320,7 +6093,7 @@ Defect fixes
   command execution.
 * Fix Windows EventLog handler to record the IDs for events. In previous
   releases it was always using id `1`. [#2676][windows]
-* Fix an internal server error when removing from Local Manager a
+* Fix an internal server error when removing from Web Manager a
   component which was already running. Introduced in 2.6.0. [#2684]
 * Fix database logger memory usage footprint. In previous versions the database
   loggers consumed significant amounts of memory when a lot of events were
@@ -5367,8 +6140,8 @@ New features
   * PuTTY
 
 * Show public SSH key MD5 fingerprint when importing a public SSH key from
-  Local Manager. [sftp][scp]
-* Generate SSH keys from Local Manager. [sftp][scp]
+  Web Manager. [sftp][scp]
+* Generate SSH keys from Web Manager. [sftp][scp]
 * Allow configuring a static IP address to be advertised in the PASV
   response for the case when server is accessed from behind a NAT. [ftp][ftps]
 
@@ -5382,7 +6155,7 @@ Defect fixes
 * Fix deleting `read only` files on Windows, or folders containing `read only`
   files. In previous versions, files were prevented to be removed with an
   access denied error. [#2467][windows]
-* Fix keeping Local Manager session alive while web browser page is open.
+* Fix keeping Web Manager session alive while web browser page is open.
   [#2532][local-manager]
 
 
@@ -5471,7 +6244,7 @@ New features
   databases configurations. The old method of directly configuring a SQLite
   or MySQL connection is obsolete.
 * Last account login information is collected and available as a report from
-  the Local Manager UI. Data is stored in a user definable database.
+  the Web Manager UI. Data is stored in a user definable database.
 * Experimental feature to monitor local filesystem paths and audit changes
   to files and folders. See documentation for more info. In the next release, we
   plan to allow the execution of an external command based on observed changes.
@@ -5551,12 +6324,12 @@ New features
   on Windows using SFTP protocol. On Unix/Linux symbolic link support was
   already available.
 * Add connection limits for HTTP/HTTPS file transfer services and
-  Local Manager service.
-* Allow disabling account passwords from Local Manager.
+  Web Manager service.
+* Allow disabling account passwords from Web Manager.
 * Add more details to audit trail when reporting failures for SFTP service.
 * Add more details to audit trail when reporting failures for FTP/FTPS service.
 * Add details for FTP active and passive data connection failures.
-* Add `development mode` for Local Manager service to help audit Local
+* Add `development mode` for Web Manager service to help audit Local
   manager code and actions.
 * Fix a JavaScript error logged in browser console while applying changes
   for services.
@@ -5566,12 +6339,12 @@ Defect fixes
 ^^^^^^^^^^^^
 
 * Fix page not found error generated while configuring a Windows EventLog from
-  Local Manager.
+  Web Manager.
 * Fix FTP/FTPS service for listing folders with names similar to FTP globbing
   expressions.
 * Fix configuring idle_connection_timeout to a disable value from both
-  configuration file and Local Manager.
-* Fix disabling of maximum connection limit from Local Manager for all services.
+  configuration file and Web Manager.
+* Fix disabling of maximum connection limit from Web Manager for all services.
 * Fix FTP/FTPS service for listing folders with names similar to FTP globbing
   expressions.
 * Fix an error in FTPS service reconfiguration where FTPS service failed
@@ -5697,7 +6470,7 @@ Defect fixes
 * Internal error report for FTP service error now shows full command which
   triggered the error condition.
 
-* With the introduction of Local Manager GUI and managing services
+* With the introduction of Web Manager GUI and managing services
   without restarting the server, the `enable` configuration option for a
   service was updated to configure if the service should be automatically
   started at server startup.

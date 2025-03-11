@@ -22,7 +22,7 @@ managed using one of the following methods:
     not supported.
 
 Following a successful installation, the server will start
-with a sample configuration file which enables the Local Manager
+with a sample configuration file which enables the Web Manager
 service together with the default FTPS and SFTP file transfer services.
 
 You can configure the server starting from this sample configuration file,
@@ -43,8 +43,8 @@ Universally unique identifiers
 To keep a reference of its entities (servers/accounts/services/groups/etc.),
 the server configuration is defined using universally unique identifiers.
 
-While managing the configuration using the Local Manager, you will not have
-to generate UUIDs, and most of the time the Local Manager's user interface
+While managing the configuration using the Web Manager, you will not have
+to generate UUIDs, and most of the time the Web Manager's user interface
 will hide the complexity of working with UUIDs.
 
 A universally unique identifier (UUID) is an identifier standard used in

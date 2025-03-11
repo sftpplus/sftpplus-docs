@@ -75,7 +75,7 @@ password
 :Values: * Clear text
 :From version: 4.10.0
 :Description:
-    This is the shared secret defined between the RADIUS server and the SFPPlus application used to secure the communication.
+    This is the shared secret defined between the RADIUS server and the SFTPPlus application used to secure the communication.
 
     Before version 4.24.0 this configuration was named `shared_secret`.
     It was renamed to `password`` to help make it easier to audit sensitive

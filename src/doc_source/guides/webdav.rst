@@ -33,7 +33,7 @@ A WebDAV :doc:`resource </configuration/resources>` location under a proxy is
 supported.
 
 Add the proxy details either in the `webdavs` location's configuration in the
-Local Manager or in the text configuration file::
+Web Manager or in the text configuration file::
 
     [locations/b9787c72-2c8b-4725-a049-ee628aa0abc1]
     name = webdavs
@@ -69,10 +69,10 @@ Example of a transfer configuration
 To get you started using the SFTPPlus
 :doc:`transfers </configuration-client/transfers>` functionality, we have included
 example transfer configurations using WebDAV as the location.
-The SFTPPlus Local Manager can be used to configure transfers, but there is
+The SFTPPlus Web Manager can be used to configure transfers, but there is
 a text :doc:`configuration </configuration/configuration-file>` file available.
 The examples below can be added in the configuration file or modified in the
-Local Manager.
+Web Manager.
 
 The example below will create a new ``webdavs`` location using the Sharepoint
 Online credentials at the specified Sharepoint Online address and port::

@@ -111,7 +111,7 @@ bind_dn_type
     administered for the LDAP authentication (BIND) request.
 
     With `bind_dn_type` set to `parent`
-    (or the 'Username generated from Bind DN` option in the Local Manager GUI),
+    (or the 'Username generated from Bind DN` option in the Web Manager GUI),
     a distinguished name applied for the bind
     (authentication) operation is generated using the following method:
     ``cn=USERNAME,BIND_DN_VALUE``.
@@ -126,13 +126,13 @@ bind_dn_type
     ``cn=John,ou=det,dc=example,dc=com``.
 
     With `bind_dn_type` set to `absolute` (or 'Absolute DN' option in the
-    Local Manager GUI), the value from `bind_dn` is ignored.
+    Web Manager GUI), the value from `bind_dn` is ignored.
 
     When set to `absolute`, the end users will need to specify the full DN
     as part of the username.
 
     When `bind_dn_type` is set to `relative` (or 'Append to bind DN' option in
-    the Local Manager GUI), the provided username will be used together with
+    the Web Manager GUI), the provided username will be used together with
     the value configured for `bind_dn` to construct the final DN administered
     for the LDAP authentication operation.
 
@@ -258,6 +258,24 @@ home_folder_attribute
         folder attribute.
 
 
+email_attribute
+---------------
+
+:Default value: `empty`
+:Optional: Yes
+:Values: * Attribute name.
+         * Empty value.
+:From version: 5.1.0
+:Description:
+    Name of the attribute used to retrieve the email associated with the
+    authenticate account
+
+    When the LDAP entry associated with the authenticated account has no
+    such attribute, no email is set.
+
+    Leave it empty to not retrieve the email from the LDAP entry.
+
+
 extension_entry_point
 ---------------------
 
@@ -333,7 +351,7 @@ manager_search_filter
 :From version: 3.37.0
 :Description:
     LDAP filter to select the LDAP entries allowed to act as
-    administrators for the Local Manager service.
+    administrators for the Web Manager service.
 
     For example, if you only want to allow access to members of the group
     `file-transfer-admins` you can use the following search filter
@@ -372,4 +390,6 @@ group_mapping
     Leave this configuration option empty to use the default
     SFTPPlus group configuration.
 
+
+.. include:: /configuration/ssl-client.include.rst
 .. include:: /configuration/ssl.include.rst

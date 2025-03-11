@@ -7,10 +7,10 @@ are transferred between two locations or inside a location.
 ..  contents:: :local:
 
 
-Adding a new transfer via Local Manager
----------------------------------------
+Adding a new transfer via Web Manager
+-------------------------------------
 
-A new location can be added or changed via Local Manager below.
+A new location can be added or changed via Web Manager below.
 
 See below for an example of an initial configuration for a move transfer.
 
@@ -128,6 +128,43 @@ delete_source_parent_delay
         configured to also be removed via `delete_source_on_success`.
 
 
+minimum_transfer_count
+----------------------
+
+:Default value: `0`
+:Optional: Yes
+:Values: * Number of files
+:From version: 5.1.0
+:Description:
+    Minimum number of files expected to be successfully transferred in a time interval.
+
+    The time interval is defined by the `minimum_transfer_interval` option.
+
+    The event with ID `60019` is emitted if fewer files are successfully transferred in the configured time interval.
+
+    You can configure SFTPPlus to trigger an email notification for this event. You can also configure your log watch to trigger an action for it.
+
+    Use the default value of `0` to not emit an event if no files were transferred.
+
+
+minimum_transfer_interval
+-------------------------
+
+:Default value: `86400`
+:Optional: Yes
+:Values: * Number of seconds
+:From version: 5.1.0
+:Description:
+    Time interval, in seconds, used to count successfully transferred files.
+
+    This configuration is ignored if `minimum_transfer_count = 0``
+
+    The number of files transferred in the configured interval is checked every 10 minutes.
+    This means that the configured value should be larger than `600`.
+
+    However, this value can't be larger than the number of seconds in 370 days: 31968000.
+
+
 source_filter_age
 -----------------
 
@@ -192,7 +229,6 @@ destination_uuid
 :Values: * UUID of a defined location.
          * Empty - local file system location.
 :From version: 2.10.0
-:To version: None
 :Description:
     UUID of the location used as the destination for this transfer or empty to use the local file system location.
 
@@ -205,7 +241,6 @@ destination_path
 :Values: * Absolute path on the local file system.
          * Relative path to the server installation folder.
 :From version: 2.10.0
-:To version: None
 :Description:
     Path to the destination folder of this transfer.
 
@@ -238,7 +273,6 @@ batch_interval
 :Values: * `0` to disable batch transfer.
          * Number of seconds to wait for new files to be part of a batch.
 :From version: 3.0.0
-:To version: None
 :Description:
     You can configure the transfer to send each file as an independent transfer,
     or group multiple files into a single transfer.
@@ -603,6 +637,14 @@ retry_count
     * Positive integer
 :Description:
     This is the number of times a failed file transfer is retried.
+    The retries for failed file transfer are done after `retry_wait` seconds.
+    If the file transfer still fails after all retries, the file is ignored.
+    Any other file continues to be transfered.
+
+    It is also the number of retries in the case the source directory is no longer available.
+    The retries for a failed source directory, are done after `changes_poll_interval` seconds.
+    If the source directory is still not available after all retries,
+    the whole transfer fails and no other file is processed.
 
     When set to `0`, failed file transfers are never retried.
 
@@ -806,13 +848,17 @@ destination_content_actions
     The supported actions are:
 
     * `encoding` - This can be used for text files to change the character set encoding.
-      The only supported conversion is UTF-16 to ASCII.
-      This is selected using `utf-16-to-ascii` as the parameter.
+    * `no-action` - Keeps the original content from the source.
+      This action has no parameters.
 
-    * `no-action` - Keeps the original content from the
-      source. This action has no parameters.
+    The supported `encoding`` conversions parameters are:
 
-    For now, the only supported operation is converting from UTF-16 to ASCII.
+    * `utf-16-to-ascii` for  UTF-16 to ASCII
+    * `utf-16-to-utf-8` UTF-16 to UTF-8
+
+
+    When source file is UTF-16 without byte order mark (BOM),
+    the file is handled as little endian.
 
     For example, to convert any .txt file, you can use::
 

@@ -65,8 +65,8 @@ There are two main approaches for configuring SSH keys for an account:
    ``.ssh/authorized_keys`` file.
 
 
-Local Manager GUI configuration
--------------------------------
+Web Manager GUI configuration
+-----------------------------
 
 Configuring the list of authorized SSH keys for an Account:
 
@@ -151,7 +151,6 @@ sftp
 :Values: * No - To disable SFTP support.
          * Yes - To enable SFTP support.
 :From version: 2.5.0
-:To version: None
 :Description:
     Enable/Disable support for the SFTP protocol.
 
@@ -164,7 +163,6 @@ scp
 :Values: * No - To disable SCP support.
          * Yes - To enable SCP support.
 :From version: 2.5.0
-:To version: None
 :Description:
     Enable/Disable support for the SCP protocol.
 
@@ -180,7 +178,6 @@ ssh_host_private_keys
          * Multiple concatenated SSH private keys in PEM format.
          * Empty.
 :From version: 4.9.0
-:To version: None
 :Description:
     One or more SSH host private keys used by default for the SSH-based
     services (SFTP/SCP).
@@ -220,39 +217,6 @@ ssh_host_private_keys
 
     We recommend to store keys in PEM OpenSSH format, but Putty or Tectia
     formats are also supported.
-
-    When the configured RSA or DSA keys are encrypted, the values configured in
-    `rsa_private_key_password` or `dsa_private_key_password`
-    are used to decrypt those keys.
-
-
-rsa_private_key_password
-------------------------
-
-:Default value: Empty
-:Optional: Yes
-:Values: * Password for the RSA private key as text.
-:From version: 1.7.19
-:To version: None
-:Description:
-    The password is used for decrypting the stored RSA private key, in the case
-    that it is stored encrypted on disk.
-
-    This option will be removed in a future V5 release.
-
-
-dsa_private_key_password
-------------------------
-
-:Default value: Empty
-:Optional: Yes
-:Values: * Password for the DSA private key as text.
-:From version: 1.7.19
-:Description:
-    The password is used for decrypting the stored DSA private key, in the case
-    that it is stored encrypted on disk.
-
-    This option will be removed in a future V5 release.
 
 
 dh_prime_size
@@ -301,7 +265,6 @@ banner
 :Optional: Yes
 :Values: * Any text message.
 :From version: 1.6.0
-:To version: None
 :Description:
     Message used by the service to welcome new SFTP client connections.
 
@@ -314,7 +277,6 @@ ignore_create_permissions
 :Values: * `No`
          * `Yes`
 :From version: 1.7.13
-:To version: None
 :Description:
     Some SFTP clients, like the OpenSSH SFTP client, will always preserve file
     and folder permissions and attributes even if -p option is not used in the
