@@ -18,6 +18,7 @@ templates_path = ["../../sphinx"]
 html_static_path = ['_static']
 html_theme_path = ["../../sphinx"]
 html_theme = 'integrated'
+html_extra_path = ['versions.js']
 project = "SFTPPlus"
 copyright = "ProAtria Team"
 
