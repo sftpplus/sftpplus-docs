@@ -50,8 +50,6 @@ Functionality changes
   management console.
   You can also generate hashed version of the password by using the
   `admin-commands generate-password` command line.
-  If you want to automatically convert any plain text passwords to hashed-based passwords,
-  upgrade to SFTPPlus version 5.
 
 * The `digital-signature-validation` event handler is no longer supported.
   It was replaced by a Python Extension.

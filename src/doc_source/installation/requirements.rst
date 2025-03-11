@@ -8,14 +8,14 @@ Supported Operating Systems
 * Windows 10, 11, 2016 Server, 2019 Server, 2022 Server on x86_64.
 
 * Red Hat Enterprise Linux 8 and 9 on x86_64.
-  Clones such as Oracle Linux, Rocky Linux, AlmaLinux etc. are also supported.
+  Clones such as CentOS, Oracle Linux, Rocky Linux, etc. are also supported.
   On request, we provide builds for different architectures
   (x86, POWER8, S390x).
   Make sure the "libxcrypt-compat" package is installed on RHEL 9
   and its clones.
 
-* Amazon Linux 2 and Amazon Linux 2023 (formerly known as Amazon Linux 2022) on x86_64.
-  Make sure the "libxcrypt-compat" package is installed on Amazon Linux 2023.
+* Amazon Linux 2 and Amazon Linux 2022 on x86_64.
+  Make sure the "libxcrypt-compat" package is installed on Amazon Linux 2022.
 
 * Ubuntu Server 18.04 LTS, 20.04 LTS, 22.04, 24.04 LTS on x86_64.
   Contact us if you need specific support for a different Ubuntu Linux version
@@ -36,7 +36,7 @@ Supported Operating Systems
   SUSE Linux Enterprise Server (SLES) 15 and newer, OpenSUSE,
   Debian Linux, Slackware, Arch, etc.
   Contact us if you need support for a Linux distribution not based on
-  either glibc or musl, or for hardware platforms other than x86_64/amd64 and arm64.
+  either glibc or musl. Or for hardware platforms other than x86_64/amd64 and arm64.
   Make sure the "libxcrypt-compat" package is installed on newer distributions
   such as current Arch Linux.
 
@@ -83,8 +83,8 @@ We strive to document these exceptions as comprehensive as possible.
 The installation and backup paths for SFTPPlus should be on filesystems with support for file capabilities.
 By default, both these paths reside in `/opt`.
 
-On macOS, there are no 3rd party dependencies.
-All needed libraries, including OpenSSL, are distributed together with the installation package.
+On macOS, there are no 3rd party dependencies, as the OpenSSL libraries
+are distributed together with the installation package.
 
 
 Hardware Requirements

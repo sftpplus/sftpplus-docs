@@ -7,111 +7,73 @@ macOS Installation
 Overview
 --------
 
-For macOS systems, SFTPPlus is distributed as a self-extractable `.sh`
-shell script or as a `tar.gz` gzipped TAR archive.
-These packages are to be found on the online download page for SFTPPlus.
-For example, the link for trial SFTPPlus packages is
-https://www.sftpplus.com/documentation/sftpplus/trial/.
+For macOS systems, SFTPPlus is distributed as a gzipped TAR archive.
+Installing SFTPPlus consists of
+unpacking the archive, initializing the configuration, and generating the
+SSH keys and the SSL key and certificate to be used by the product.
 
-Using a dedicated system account to run SFTPPlus is strongly recommended.
-By default, a new system user named ``sftpplus`` is created during installation.
+The included default configuration requires the creation of a system account,
+usually named `sftpplus`, under which the SFTPPlus process is executed.
 This is a special type of OS user also known as a service account.
-You can customise the name and unique ID of this user during installation.
-You can also use an already existing user, but make sure it can access
-the location of the installed product.
+
+Optionally, you may choose to start SFTPPlus as `root`,
+but the service account is still required in order to drop privileges
+after starting up.
 
 This dedicated OS user should not be used in any other way,
 doesn't require a password to be set for it,
-and should not be available through SFTPPlus services.
+and should not be available through SFTPPlus services
+even if authenticating operating system users is enabled.
 
-
-Self-extractable installer
---------------------------
-
-To install SFTPPlus using the `.sh` self-extractable shell script,
-simply launch it in Terminal with superuser privileges::
-
-   sudo /bin/sh ./sftpplus-macos-arm64-VERSION.sh
-
-The self-extractable installer asks for the destination path.
-To set it non-interactively, add the installation directory as an argument::
-
-   sudo /bin/sh ./sftpplus-macos-arm64-VERSION.sh /Library/sftpplus
-
-To check all available options for the SFTPPlus installation::
-
-   /bin/sh ./sftpplus-macos-arm64-VERSION.sh -- --help
-
-Some more options are set interactively during installation,
-such as the name of the system user to run SFTPPlus and
-the name of the default administrative account and its password.
-
-Only read this page further if you need to manually tweak the installation
-process of SFTPPlus beyond the options available through the installer.
-
-
-Installing using the gzipped TAR archive
-----------------------------------------
-
-Installing SFTPPlus using the `.tar.gz` gzipped TAR archive consists of
-unpacking the archive, initializing the configuration, and generating the
-SSH keys and the SSL key and certificate to be used by the product.
-To have SFTPPlus launched at boot, you may use the included `plist`
-(property list) file.
+To have SFTPPlus launched at boot, you may use the included plist file.
 
 All steps beyond unpacking the archive can be handled by the shell script
-found at `bin/install.sh` in the hierarchy of SFTPPlus files.
+found at ``./bin/install.sh`` in the hierarchy of SFTPPlus files.
 
 
 Unpacking the archive
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 After downloading the compressed archive, you can extract its files using
 the following command::
 
-    tar xfz sftpplus-macos-arm64-VERSION.tar.gz
+    tar xfz sftpplus-os-arch-version.tar.gz
 
 To install SFTPPlus, move (or copy/link) the unpacked directory to your
-preferred installation path, for example: ``/Library/sftpplus``::
-
-    sudo mv sftpplus-macos-arm64-VERSION /Library/sftpplus
+preferred installation path, for example: ``/Library/sftpplus``.
 
 SFTPPlus may be installed in any location on the local file system.
 In this documentation page we assume that SFTPPlus is unpacked in the
-``/Library/sftpplus`` directory.
+``/Library/sftpplus`` directory (we discuss INSTALL_ROOT more later).
 Avoid using spaces or special characters in the SFTPPlus installation path.
 
 
-Automated installation from unpacked archive
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Shell script installer
+----------------------
 
 The easiest way to install SFTPPlus is to execute the shell script
-found at `bin/install.sh` in the hierarchy of SFTPPlus files.
-For example::
+found at ``./bin/install.sh`` in the hierarchy of SFTPPlus files,
+for example::
 
     sudo /Library/sftpplus/bin/install.sh
 
-The `install.sh` script will guide you through all the necessary steps.
+The ``install.sh`` script will guide you through all the necessary steps.
 
 Once the installation is complemented,
 the install script will automatically start the SFTPPlus process.
-You can check the status of the SFTPPlus process using::
+You can check the status of the SFTPPus process using::
 
     launchctl list | grep SFTPPlus
 
 After a successful installation using the shell script, jump to
 `Listening on privileged ports`_
 to learn how to enable SFTPPlus to listen on privileged ports.
+This would be needed if SFTPPlus is not started with superuser privileges,
+which would mean it cannot bind ports below 1024.
 
-Otherwise, only go further down this page for manual installation or debugging.
 
-
-Manual installation from unpacked archive
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To install SFTPPlus manually, you have to perform step-by-step
-all the operations automatically done through the shell script installers,
-starting with initializing the configuration.
+Initializing the configuration
+------------------------------
 
 When installing SFTPPlus on a machine for the first time, you need to
 generate the initial configuration file and machine-specific SSH keys.
@@ -119,11 +81,11 @@ A self-signed SSL certificate will also be generated to help with the
 initial FTPS and HTTPS testing.
 
 To initialize a fresh SFTPPlus installation, execute the following command
-(where ``ADMIN`` should be replaced with your favourite administrative username
-and ``PASS`` with a password to be used for the SFTPPlus administrative user)::
+(where $ADMIN should be replaced with your favourite administrative username
+and $PASS with a password to be used for the SFTPPlus $ADMIN user)::
 
     cd /Library/sftpplus
-    ./bin/admin-commands.sh initialize --init-admin ADMIN --init-password PASS
+    ./bin/admin-commands.sh initialize --init-admin $ADMIN --init-password $PASS
 
 Default configuration allows external connections to the management web page.
 Therefore, use a secure password to protect the management web page.
@@ -135,8 +97,8 @@ Therefore, use a secure password to protect the management web page.
 
         ./bin/admin-commands.sh initialize \
             --local-admin-access \
-            --init-admin ADMIN \
-            --init-password PASS
+            --init-admin $ADMIN \
+            --init-password $PASS
 
 The initialization step is not required when upgrading SFTPPlus.
 It will **not** overwrite the configuration file, SSH keys, and SSL
@@ -144,23 +106,45 @@ keys and certificates, if existing.
 In the case that you want to generate a new configuration,
 manually remove the existing files first.
 
-After initializing the configuration, you need to configure
-the operating system user and group to be used by SFTPPlus.
-On macOS systems, SFTPPlus always runs under a regular account, thus requiring
-a dedicated operating system account, such as ``sftpplus``, to be created.
-Creating a dedicated new group and a new user for running SFTPPlus
+
+Configuring the SFTPPlus process user and group
+-----------------------------------------------
+
+On macOS, the SFTPPlus processes are managed by `launchd`.
+
+The following are details for configuring the SFTPPlus account and group
+for macOS systems.
+
+
+Configuring the process user and group on macOS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On macOS systems, SFTPPlus is able to drop privileges to a regular account
+even when launched as root.
+The default configuration takes this a step further,
+always running under a regular account,
+thus requiring a dedicated `sftpplus` operating system account to be created.
+Creating a dedicated new group and a new user for running SFTPPlus' process
 is therefore strongly recommended.
 
-In the following examples we use the default configuration value of
-``sftpplus`` for the name of the user to run SFTPPlus.
-To create an ``sftpplus`` group and a corresponding user,
-use the commands exemplified below.
-You can replace the value of ``299`` from the following commands with
+In the following examples we will use the default configuration value of
+`sftpplus` for the name of the user to run SFTPPlus.
+
+
+Configuring the process user and group on macOS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To create an `sftpplus` group and a corresponding user on macOS,
+use the following commands.
+
+You can replace the value of ``299`` from the below example commands with
 a unique ID for your system.
 On macOS, you can use `dscacheutil -q user` or `dscacheutil -q group` to
 identify the used IDs and pick a unique ID.
-The commands below are included into an easy-to-use script available on
-`GitHub Gist <https://gist.github.com/adiroiban/80c8acc00b8957869f68>`_::
+
+The below commands are included into an easy to use script which is
+available as
+`osx_useradd.sh <https://gist.github.com/adiroiban/80c8acc00b8957869f68>`_::
 
     # Create the group dedicated to the service account.
     sudo dscl . create /Groups/sftpplus
@@ -191,21 +175,27 @@ functionality (logging and saving configuration changes) will not work::
     cd /Library/sftpplus && chown -R sftpplus configuration/ log/ run/
 
 At the very least, SFTPPlus needs read access to all the files under
-``/Library/sftpplus``, but in a typical installation it also requires write
+`/Library/sftpplus`, but in a typical installation it also requires write
 permission to the `log/` subdirectory (for logging) and the `configuration/`
 subdirectory (for saving changes to the running configuration).
-Since SFTPPlus on macOS runs under an unprivileged OS account at all times,
-write permissions for the `run/` sub-directory are needed for saving its PID.
+If running at all times under an unprivileged account, write permissions
+to the `run/` sub-directory holding the PID file are needed as well.
+
+
+Launchd system configuration
+----------------------------
 
 The next step is to configure your operating system to automatically
 start SFTPPlus on boot.
-On macOS, SFTPPlus is designed to be started via the `launchd` system tool
+
+SFTPPlus is designed to be started via the macOS `launchd` system tool
 as a daemon that runs continuously.
-You can use the example `launchd` job definition provided
+
+For macOS systems, you can use the example `launchd` job definition provided
 with SFTPPlus.
 The job definition file is formatted as XML, and it is called a property list
-file or a `plist` file.
-Edit this file with your favourite editor, e.g. ``vi``::
+file or 'plist'.
+Edit this file with your favourite editor, e.g. `vi`::
 
     vi bin/sftpplus-mft.plist
 
@@ -224,17 +214,18 @@ job definition file using the command::
 
 ..  note::
     During startup, the `launchd` process will scan and automatically load job
-    definitions found in the `/Library/LaunchDaemons` directory.
+    definitions found in the ``/Library/LaunchDaemons`` directory.
 
 To stop SFTPPlus, use the following command::
 
     sudo launchctl unload /Library/LaunchDaemons/sftpplus-mft.plist
 
 In the case that there are problems starting the server, you can check the log files at
-`SFTPPLUS-INSTALL-DIR/log/launchd-stdout.log` and
-`SFTPPLUS-INSTALL-DIR/log/launchd-stderr.log`.
-You can read more about `launchd` on the `official documentation page
-<https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html>`_.
+``/SFTPPLUS-INSTALL-DIR/log/launchd-stdout.log`` and
+``/SFTPPLUS-INSTALL-DIR/log/launchd-stderr.log``.
+
+    You can read more about `launchd` on the `official documentation page
+    <https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html>`_
 
 
 Listening on privileged ports
@@ -242,6 +233,7 @@ Listening on privileged ports
 
 When running SFTPPlus as a regular user, it's not possible to bind
 privileged ports in the range 0-1024.
+
 One generic method which works on any Unix-like system is to set up
 SFTPPlus to listen on a port above 1024, then set up port-forwarding
 in your firewall configuration.
@@ -251,6 +243,7 @@ we can use the loopback interface to keep things simple.
 However, you should adapt and extend the exemplified firewall rules
 to account for your own local configuration:
 different network interfaces, IPs, and other network traffic rules.
+
 Step-by-step instructions on how to forward port 122 to 10022::
 
     Create a pf anchor file for sftpplus in /etc/pf.anchors/sftpplus

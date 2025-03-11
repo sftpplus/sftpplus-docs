@@ -10,38 +10,24 @@ Download and installation steps
 Open your terminal and change the directory to where you downloaded the
 SFTPPlus package.
 
-
-Using the self-extractable package
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-If using the `.sh` SFTPPlus package, just launch it as root os using `sudo`.
-Optionally, provide the install directory as a parameter.
-
-..  code-block:: bash
-
-    $ ls
-    sftpplus-lnx-x64-trial.sh
-    $ sudo sh ./sftpplus-lnx-x64-trial.sh /opt/sftpplus
-
-
-Using the gzipped TAR package
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-If using the `.tar.gz` file, first unpack it in your desired installation path.
-
 ..  code-block:: bash
 
     $ ls
     sftpplus-lnx-x64-trial.tar.gz
-    $ tar xfz sftpplus-lnx-x64-trial.tar.gz
-    $ sudo mv sftpplus-lnx-x64-trial /opt/sftpplus
+    $ tar -xf sftpplus-lnx-x64-trial.tar.gz
 
-All steps beyond unpacking the archive can be handled by the shell script
-found at `bin/install.sh` in the hierarchy of SFTPPlus files.
+To complete the installation, you need to generate an initial SFTPPlus
+configuration file through the provided ``bin/install.sh`` script.
+This initialization is only needed once and is not required for
+future upgrades.
+Make sure to choose a secure administrator password when prompted.
 
 ..  code-block:: bash
 
-    $ sudo /opt/sftpplus/bin/install.sh
+    $ mv sftpplus-lnx-x64-trial /opt/sftpplus
+    $ /opt/sftpplus/bin/install.sh
+
+.. include:: /quick-start/admin-credentials.include.rst
 
 
 Adjust the default configuration file and start the service
@@ -76,8 +62,6 @@ connections and errors if there will be any.
 ..  code-block:: bash
 
     $ ./bin/admin-commands.sh debug
-
-.. include:: /quick-start/admin-credentials.include.rst
 
 
 Enable the test account

@@ -2391,20 +2391,6 @@ Generic and server-side common functionality
 
 
 
-20197
-^^^^^
-
-:Message: Legacy text password automatically converted for account "%(account_name)s".
-:Groups: operational, process, informational
-:From version: 5.9.0
-:Description: The legacy password for an account was automatically migrated.
-:Data:
-  :account_name: Name of the account
-
-
-
-
-
 20200
 ^^^^^
 
@@ -6815,20 +6801,8 @@ FTP protocol
 
 
 
-
-
-
-
-
-
 SSH protocol
 ============
-
-
-
-
-
-
 
 
 
@@ -13121,12 +13095,6 @@ HTTP/HTTPS protocol
 
 
 
-
-
-
-
-
-
 40000
 ^^^^^
 
@@ -17402,12 +17370,6 @@ Management and Web Manager Events
 
 
 
-
-
-
-
-
-
 50000
 ^^^^^
 
@@ -18538,12 +18500,6 @@ Management and Web Manager Events
 
 Transfer and client-side functionality
 ======================================
-
-
-
-
-
-
 
 
 

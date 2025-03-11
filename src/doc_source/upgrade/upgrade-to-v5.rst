@@ -56,9 +56,6 @@ Functional changes from version 4
 Below is a summary of all the major changes since version 4.0.0.
 Note that some of these changes were introduced during the development of SFTPPlus version 4.
 
-The server-side user account passwords stored in plain text are no longer supported.
-The plain text passwords are automatically converted to hashed passwords at start time.
-
 The following operating systems are no longer supported:
 
 * 32-bit Windows installations

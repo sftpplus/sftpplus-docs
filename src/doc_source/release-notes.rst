@@ -7,52 +7,6 @@ number (not by release date).
 .. release-notes-start
 
 
-Version 5.10.0, 2025-02-18
---------------------------
-
-
-New Features
-^^^^^^^^^^^^
-
-* Self-extractable installers are now available for Linux and macOS.
-  The tar.gz archives continue to be available for these operating systems. [#6197]
-* Self-extractable installers can now be used to update an already existing
-  installation of SFTPPlus. [#6973]
-* Any server-side account password that is stored in the legacy plain text format
-  is now automatically converted at startup into a secure hash format.
-  [server-side][security] [#6968]
-
-
-Defect Fixes
-^^^^^^^^^^^^
-
-* When using the SFTP protocol with support for blocking filesystems together with
-  operating system accounts, the main SFTPPlus process is no longer kept
-  in the security context of an OS account for which the filesystem access was
-  delayed by the operating system.
-  [server-side][sftp] [#6816]
-* For SFTPPlus installations on filesystems which make use of
-  Access Control Lists (ACLs) of files and directories, as set with setfacl(1),
-  using the scripts in `bin/` now scrubs the extended permissions
-  not only when installing, but also when updating and rolling back. [#6952]
-* When an user, that has an active Purview API session, logs out, SFTPPlus
-  will only logout the Purview API session associated with the current web
-  browser.
-  In previous version, when an user was logged out, or a session expired,
-  all Purview API sessions from all active browsers were logged out.
-  [server-side][purview] [#6983]
-
-
-Deprecations and Removals
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-* The event with ID `20069` was removed.
-  This event was emitted at SFTPPlus start time and was informing that the
-  process is not running as root.
-  This functionality was replaced with event `20008` which is now emitted when
-  SFTPPlus is running as root. [#6816]
-
-
 Version 5.9.1, 2025-01-29
 -------------------------
 
