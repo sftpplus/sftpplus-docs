@@ -118,9 +118,6 @@ email_subject
 
     .. include:: /configuration/event-context-variables.rst.include
 
-    * `handler.name`
-    * `handler.uuid`
-
 
 email_body
 ----------
@@ -133,9 +130,6 @@ email_body
     Template used for the body of the sent email.
 
     .. include:: /configuration/event-context-variables.rst.include
-
-    * `handler.name`
-    * `handler.uuid`
 
     Using these variables the `email_body` can be configured, for
     example, like the following::

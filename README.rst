@@ -9,12 +9,15 @@ The documentation for the SFTPPlus product.
 There is an `update-docs.sh` script that should be called, while the
 `chevah/server` repo is checkout at the release branch.
 
+
+    $ bash update-docs.sh ../PATH/TO/PRODUCT-REPO
+
 You should push the changes on the `main` branch.
 The main branch will be always updated with the latest release.
 You should also create a version dedicated branch with the format `v4-18-0`
 and push the changes for that version.
 
-To build the documentation you need a Python3.8 (or newer) environment.::
+To build the documentation you need a Python3.12 (or newer) environment.::
 
     virtualenv venv
     . venv/bin/activate
@@ -27,25 +30,6 @@ To test the docs for any errors and view in a browser::
     python -m http.server -d deploy/
     firefox http://localhost:8000
 
-
-Sync with product development
------------------------------
-
-Generate the documentation source and template from the product repository::
-
-    cd chevah-server
-    ./brink.sh documentation_website
-    cp -r build-server/doc_source ../sftpplus-docs/src/
-    cp -r build-server/lib/python2.7/site-packages/sftpplus_website/sphinx ../sftpplus-docs/
-
-Copy any source file documented via API docs to `doc_source/chevah`.
-
-Update doc_source/conf.py to load local theme files::
-
-    templates_path = ['../../sphinx']
-    html_static_path = ['_static']
-    html_theme_path = ['../../sphinx']
-    html_theme = 'integrated'
 
 
 Generate PDF file
