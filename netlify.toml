@@ -32,7 +32,7 @@
   PYTHON_VERSION = "3.12"
   DOCS_ROBOT = "noindex,nofollow"
 
-[context.main.environment]
+[context.production.environment]
   DOCS_ROBOT = "all"
 
 [context.deploy-preview.environment]
