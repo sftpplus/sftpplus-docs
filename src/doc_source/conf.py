@@ -18,6 +18,8 @@ templates_path = ["../../sphinx"]
 html_static_path = ['_static']
 html_theme_path = ["../../sphinx"]
 html_theme = 'integrated'
+html_baseurl = '/documentation/sftpplus/latest/'
+
 project = "SFTPPlus"
 copyright = "ProAtria Team"
 
