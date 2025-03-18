@@ -92,6 +92,23 @@ Generic and server-side common functionality
 
 
 
+20009
+^^^^^
+
+:Message: Failed to store new Let's Encrypt certificates for "%(domains)s" at %(path)s. %(details)s
+:Groups: operational, process, failure, failure-critical
+:From version: 5.11.0
+:Description: None
+:Data:
+  :domains: Comma-separated domain names for the new certificate.
+
+
+  :path: Path to the directory where the key and the certificates were to be saved.
+
+
+
+
+
 20010
 ^^^^^
 
@@ -129,6 +146,23 @@ Generic and server-side common functionality
 
 
 
+20015
+^^^^^
+
+:Message: Let's Encrypt certificate for "%(domains)s" generated at"%(path)s".
+:Groups: operational, process, informational
+:From version: 5.11.0
+:Description: None
+:Data:
+  :domains: Comma-separated domain names for the new certificate.
+
+
+  :path: Path to the directory where the key and the certificates were saved.
+
+
+
+
+
 20016
 ^^^^^
 
@@ -137,7 +171,7 @@ Generic and server-side common functionality
 :From version: 3.40.0
 :Description: None
 :Data:
-  :domains: Comma-separated list of domains with new certificates.
+  :domains: Comma-separated domain names for the new certificate.
 
 
   :service: Name of the service on which the new certificate is used.
@@ -1428,6 +1462,16 @@ Generic and server-side common functionality
   :username: User name under which the authentication was requested.
 
 
+
+
+
+20138
+^^^^^
+
+:Message: Failed to synchronize "%(component_family)s/%(component_uuid)s". Will retry in %(interval)ss. %(details)s
+:Groups: operational, session, failure
+:From version: 5.11.0
+:Description: None
 
 
 
@@ -4368,8 +4412,8 @@ FTP protocol
 ^^^^^
 
 
-:Message: Failed to reuse TLS session on data connection for "%(command)s".
-:Groups: authenticated, failure, failure-high, failure-specific, ftp
+:Message: Failed to setup TLS session on data connection for "%(command)s". %(details)s
+:Groups: authenticated, failure, failure-high, ftp
 :From version: 4.35.0
 :Description: FTP TLS handshake failed (client-side).
 
@@ -6821,8 +6865,44 @@ FTP protocol
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 SSH protocol
 ============
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13127,6 +13207,24 @@ HTTP/HTTPS protocol
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 40000
 ^^^^^
 
@@ -17408,6 +17506,24 @@ Management and Web Manager Events
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 50000
 ^^^^^
 
@@ -18538,6 +18654,24 @@ Management and Web Manager Events
 
 Transfer and client-side functionality
 ======================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

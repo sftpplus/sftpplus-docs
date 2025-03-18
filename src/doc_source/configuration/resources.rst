@@ -67,5 +67,6 @@ type
          * `email-client` - Email client configuration.
          * `lets-encrypt` - Let's Encrypt ACME client.
          * `analytics-engine` - Monitor computer resources used by SFTPPlus.
+         * `node-sync` - Controller group node synchronization.
 :Description:
     This option specifies the type of the resource.

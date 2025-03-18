@@ -258,15 +258,26 @@ dh_prime_size
     and a maximum of `4086`, the used value is `2048`.
 
 
-banner
-------
+before_login_message
+--------------------
 
-:Default value: `SFTPPlus`
+:Default value: `empty``
 :Optional: Yes
 :Values: * Any text message.
-:From version: 1.6.0
+:From version: 5.11.0
 :Description:
-    Message used by the service to welcome new SFTP client connections.
+    Message used by the service to welcome users, before asking for credentials.
+
+    The message is sent using UTF-8 encoding with the language tag at `en`.
+
+    Leave it `empty` not to send any pre authentication message.
+
+    ..  note::
+        Most SFTP GUI clients will ignore this message.
+        Only a few SFTP clients like WinSCP will show this message.
+
+        For command line or script SFTP clients the message might interfere with the scripted functionality.
+        For example, a SFTP script might expect a specif message and might break when the message is changed.
 
 
 ignore_create_permissions

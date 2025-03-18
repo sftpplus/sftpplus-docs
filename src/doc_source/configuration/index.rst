@@ -17,3 +17,4 @@ This section includes the reference documentation for general configuration opti
     analytics
     lets-encrypt
     sqlite
+    node-sync

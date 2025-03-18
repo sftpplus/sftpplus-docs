@@ -173,6 +173,45 @@ get in touch at support@proatria.com,
 and we will provide instructions for setting up an existing account.
 
 
+Store keys and certificates as files
+------------------------------------
+
+You can configure the SFTPPlus Let's Encrypt resource to automatically save the generated keys and certificates as files in a local directory of your choice.
+
+It will store the keys and certificates using a directory structure similar to the one used by `certbot`.
+There is a sub-directory for each certificate.
+Separate files are created for the private key, the certificate, the ca chain, and the certificate+ca chain.
+
+For example, with the configuration provided below::
+
+    [resources/17c97aa6-1c17-4485-878c-68b427b82f35]
+    type = lets-encrypt
+    name = lets-encrypt-public
+
+    store_directory = /etc/ssl
+
+When a Let's Encrypt certificate for domains `example.com, www.example.com` is obtained, the following files are saved:
+
+* /etc/ssl/example.com_www.example.com/privkey.pem - Private key for the certificate.
+* /etc/ssl/example.com_www.example.com/fullchain.pem - All certificates, including the domain certificate and_the certification authority chain certificates.
+* /etc/ssl/example.com_www.example.com/chain.pem - Only the domain certificate.
+* /etc/ssl/example.com_www.example.com/cert.pem - The certification authority chain certificates.
+
+Each time the keys and certificate files are updated, the event with ID `20015` is emitted for each domain.
+
+The keys and certificates files are also recreated each time the Let's Encrypt resource is started.
+If the content of the certificate is updated the event with ID `20015` is emitted.
+
+When failing to store the keys and certificates on the local filesystem, the event with ID `20009` is emitted.
+
+When `store_directory` is not configured, no external key or certificate file is created.
+
+..  note::
+    SFTPPlus does not automatically delete unused certificates or expired certificates.
+    Let's Encrypt certificates are valid for 90 days.
+    You can safely delete any files older than 90 days.
+
+
 Testing and Experimentation
 ---------------------------
 
@@ -201,7 +240,6 @@ For production, the configuration will look like::
     address = 0.0.0.0
     port = 80
     acme_url = https://acme-v02.api.letsencrypt.org/directory
-    contact_email = admin-contact@your.domain.tld
 
 
 For testing/staging, the configuration will look like::

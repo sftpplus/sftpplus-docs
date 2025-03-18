@@ -80,11 +80,22 @@ It can be used when there is no access to the Internet to automatically download
 Copy the package on the server running SFTPPlus, then call the script with the path to the package file.
 This example assumes you have copied the SFTPPlus installation package to the `/tmp/` directory::
 
-    $ sudo /opt/sftpplus/bin/update.sh /tmp/sftpplus-linux-x64-5.5.0.tar.gz
+    $ sudo /opt/sftpplus/bin/update.sh /tmp/sftpplus-os-arch-version.tar.gz
 
 The `bin/update.sh` script automatically stops and restarts the system SFTPPlus service as needed.
 
 Backups of the current installation are automatically created.
+
+
+Update using the self-extractable package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can also use the self-extractable SFTPPlus package relevent for your operating system to do an assisted update of an existing installation.
+Simply point the downloaded `.sh` package to the install path of SFTPPlus (either through a parameter or interactively)::
+
+    $ sudo /bin/sh ./sftpplus-os-arch-version.sh /opt/sftpplus
+
+After a few starting checks, the `bin/update.sh` script from your existing SFTPPlus installation is used to update your installation using the content of the self-extractable SFTPPlus package, exactly as describe above in the assisted update section.
 
 
 Update from trial version
@@ -92,6 +103,7 @@ Update from trial version
 
 To update to a licensed SFTPPlus installation when starting with the trial version,
 download the full version of SFTPPlus, then copy it to the system running the SFTPPlus trial version.
+Both the gzipped TAR and the self-extractable packages can be used.
 
 You can then follow the same steps as for the assisted update above.
 

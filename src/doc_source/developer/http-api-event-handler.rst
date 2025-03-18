@@ -51,6 +51,10 @@ The `events` array contains a list of `event` objects.
   removed in SFTPPlus v5.
   You should use the `server` attribute of each event.
 
+
+Request and response example
+----------------------------
+
 Below is an example for a `POST` request containing two JSON events::
 
     POST /remote/url

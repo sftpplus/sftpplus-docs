@@ -7,6 +7,72 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 5.11.0, 2025-03-18
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* Emails sent by the event handler can now include information to identify the
+  SFTPPlus server and the event handler that generated them.
+  [email] [#4532]
+* The `node-sync` resource was added to allow a secondary SFTPPlus instance to
+  synchronize from a primary SFTPPlus instance by automatically pulling
+  the configuration from the main/primary SFTPPlus node.
+  [manager] [#4984]
+* When loading a PFX/P12 certificate file through Web Manager,
+  you can now set it as the certificate
+  to be used for a relevant protocol of the SFTPPlus server.
+  [https][ftps][manager] [#6773]
+* When failing to setup the TLS session over the data channel of a
+  FTPS connection, the cause of the error is now logged in more detail.
+  [server-side][ftps] [#6970]
+* The filtering user interface from the Activity Log page now defaults to
+  searching the content of the logged messages.
+  [manager] [#6993-1]
+* The Activity Log page from SFTPPlus' Web Manager now defaults to showing logs
+  from the last 12 hours.
+  [manager] [#6993]
+* The Let's Encrypt resource can now save the obtained keys and certificates
+  as PEM files in a configurable local directory.
+  [lets-encrypt][manager] [#7006]
+* The SFTP server can now show its clients a banner message
+  before asking for user credentials.
+  This is configured via the `before_login_message` option.
+  [server-side][sftp][scp] [#7028]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* Generated TOTP QR code images are now visible when using SFTPPlus'
+  Web Manager behind an HTTP reverse proxy with a custom URL path.
+  [manager] [#6997]
+* When failing to get a response from the Purview API, two retries are now
+  scheduled with a delay period of 15 seconds.
+  This reduces the error rate caused by intermittent network issues
+  while using the Purview API.
+  [purview] [#7024-1]
+* Expired Purview sessions are now successfully cleaned from the SFTPPlus cache.
+  This is a regression introduced in version 5.10.0.
+  The Purview session cache could end in a state that
+  triggers the `AlreadyCalled()` error after each login,
+  which prevents obtaining a new session.
+  [purview] [#7024]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The Let's Encrypt `contact_email` configuration option was removed
+  because the Let's Encrypt service no longer sends notification emails.
+  [lets-encrypt] [#7006]
+* The SFTP and SCP server-side protocol `banner` configuration option was removed.
+  This configuration option was not associated with any functionality.
+  [server-side][scp] [#7028]
+
+
 Version 5.10.0, 2025-02-18
 --------------------------
 
@@ -15,31 +81,31 @@ New Features
 ^^^^^^^^^^^^
 
 * Self-extractable installers are now available for Linux and macOS.
-  The tar.gz archives continue to be available for these operating systems. [#6197]
+  The gzipped TAR archives continue to be available for these operating systems.
+  [#6197]
 * Self-extractable installers can now be used to update an already existing
   installation of SFTPPlus. [#6973]
-* Any server-side account password that is stored in the legacy plain text format
-  is now automatically converted at startup into a secure hash format.
+* All server-side account passwords stored in legacy plain-text format
+  are now automatically converted to a secure hash format when starting SFTPPlus.
   [server-side][security] [#6968]
 
 
 Defect Fixes
 ^^^^^^^^^^^^
 
-* When using the SFTP protocol with support for blocking filesystems together with
-  operating system accounts, the main SFTPPlus process is no longer kept
-  in the security context of an OS account for which the filesystem access was
-  delayed by the operating system.
-  [server-side][sftp] [#6816]
+* When using operating system accounts through SFTPPlus in conjunction with
+  the SFTP protocol and filesystems that can block, such as NFS,
+  the main SFTPPlus process is no longer kept in the security context
+  of an OS account for which the filesystem access was blocked
+  by the operating system. [server-side][sftp] [#6816]
 * For SFTPPlus installations on filesystems which make use of
   Access Control Lists (ACLs) of files and directories, as set with setfacl(1),
   using the scripts in `bin/` now scrubs the extended permissions
   not only when installing, but also when updating and rolling back. [#6952]
-* When an user, that has an active Purview API session, logs out, SFTPPlus
-  will only logout the Purview API session associated with the current web
-  browser.
-  In previous version, when an user was logged out, or a session expired,
-  all Purview API sessions from all active browsers were logged out.
+* When a user with an active Purview API session logs out, SFTPPlus
+  only ends the Purview API session associated with their web browser.
+  In previous version, when an user was logged out or a session expired,
+  all Purview API sessions from all connected web browsers were logged out.
   [server-side][purview] [#6983]
 
 
@@ -47,16 +113,17 @@ Deprecations and Removals
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * The event with ID `20069` was removed.
-  This event was emitted at SFTPPlus start time and was informing that the
+  This event was emitted at SFTPPlus start time, and was informing that the
   process is not running as root.
-  This functionality was replaced with event `20008` which is now emitted when
+  This functionality was replaced with event `20008`, which is now emitted when
   SFTPPlus is running as root. [#6816]
 
 
 Version 5.9.1, 2025-01-29
 -------------------------
 
-This is a bugfix release for version 5.9.0
+This is an update that fixes a few errors found in version 5.9.0.
+Version 5.9.0 was available only as a preview.
 
 
 New Features
@@ -73,40 +140,12 @@ New Features
 Defect Fixes
 ^^^^^^^^^^^^
 
-* The FTP/FTPS server is now compatible with FTP client that are sending the
+* The FTP/FTPS server is now compatible with FTP clients that are sending the
   passive transfer commands before establishing the new passive TCP connections.
   This is implemented via the `passive_wait_connection` configuration option.
   This makes SFTPPlus compatible with the Globalscape FTP/FTPS client.
   [server-side][ftp] [#6953]
-* The event handler web GUI now allows searching for specific component.
-  This is a regression introduced in SFTPPlus 5.6.0.
-  [manager] [#6960]
-
-
-Version 5.9.0, 2025-01-28
--------------------------
-
-
-New Features
-^^^^^^^^^^^^
-
-* The AS2 location can now send compressed files to AS2 servers with limited
-  support for parsing `smime-type` headers.
-  SFTPPlus now sends the value of the `smime-type` parameter from the
-  `Content-Type` header without using double quotes.
-  Some AS2 servers, like Boomi, were failing to detect the AS2 message type.
-  [client-side][as2] [#6910]
-
-
-Defect Fixes
-^^^^^^^^^^^^
-
-* The FTP/FTPS server is now compatible with FTP client that are sending the
-  passive transfer commands before establishing the new passive TCP connections.
-  This is implemented via the `passive_wait_connection` configuration option.
-  This makes SFTPPlus compatible with the Globalscape FTP/FTPS client.
-  [server-side][ftp] [#6953]
-* The event handler web GUI now allows searching for specific component.
+* The event handler web GUI now allows searching for specific components.
   This is a regression introduced in SFTPPlus 5.6.0.
   [manager] [#6960]
 

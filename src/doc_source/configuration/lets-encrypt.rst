@@ -33,7 +33,6 @@ the domain name for Let's Encrypt::
     address = 0.0.0.0
     port = 80
     acme_url = https://acme-v02.api.letsencrypt.org/directory
-    contact_email = admin-contact@your-domain.tld
     redirect_url = https://sftp.your-domain.tld/home/
 
     [services/1c17-4485-878c]
@@ -125,24 +124,17 @@ acme_url
     and should use the default value.
 
 
-contact_email
--------------
+store_directory
+---------------
 
 :Default value: Empty
 :Optional: Yes
-:Values: * Comma-separated list of contact emails for this domain.
-:From version: 3.54.0
+:Values: * Local filesystem directory path
+:From version: 5.11.0
 :Description:
-    Optional email contact information provided to the ACME server.
+    Optional directory path to store the generated keys and certificates.
 
-    You can provide multiple addresses as a comma-separated value.
-
-    Let's Encrypt can use these addresses to contact you for issues
-    related to certificates obtained by SFTPPlus.
-    For example, the server may wish to notify you about server-initiated
-    revocation or certificate expiration.
-
-    Leave it empty to not provide any contact information.
+    Leave it empty to not save the keys and certificates as external files.
 
 
 redirect_url
