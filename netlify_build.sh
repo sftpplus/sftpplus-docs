@@ -10,5 +10,6 @@ mkdir -p deploy/documentation/sftpplus/$TARGET/
 sphinx-build -b html --keep-going -W -D html_theme=standalone -A robots="$DOCS_ROBOT" src/doc_source/ deploy/
 # Build the integrated version to a path that will match the website.
 sphinx-build -b html --keep-going -W -D html_theme=integrated -A robots="$DOCS_ROBOT" src/doc_source/ deploy/documentation/sftpplus/$TARGET/
+cp src/doc_source/_static/versions.js deploy/documentation/sftpplus/versions.js
 
 ls -al deploy/
