@@ -9,6 +9,7 @@ of the SFTPPlus solely based on the available configuration.
     :maxdepth: 1
 
     transfers
+    transfer-scheduling
     client-shell
     filesystem-access
     ftp

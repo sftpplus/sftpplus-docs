@@ -22,6 +22,8 @@ Below is the list of supported authentication methods.
     local-file
     ldap
     entra-id
+    google-identity
+    okta-oidc
     radius
     deny-username
     ip-time-ban

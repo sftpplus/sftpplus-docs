@@ -1,18 +1,18 @@
 Microsoft Entra ID
 ==================
 
-The `entra-id` method is used to implement single sign-on authentication based on the Microsoft Entra ID service.
-
 ..  contents:: :local:
 
 
 Introduction
 ------------
 
-To integrate SFTPPlus with the online Azure Active Directory,
-you will need to set the Entra ID details in SFTPPlus,
+The `entra-id` method is used to implement single sign-on authentication based on the Microsoft Entra ID service.
+
+To integrate SFTPPlus with Entra ID,
+you need to configure the Entra ID details in SFTPPlus,
 and the SFTPPlus ones in the Entra ID configuration.
-In this way, SFTPPlus and Entra ID will be aware of each other and will work together.
+In this way, SFTPPlus and Entra ID are aware of each other and can work together.
 
 Entra ID provides both authentication and authorization processes.
 For SFTPPlus integration, Entra ID is primarily used for authentication.
@@ -22,6 +22,11 @@ before the `SFTPPlus Application Accounts` authentication.
 
 The Entra ID *authentication* process handles identifying and validating the access from an account/user/person.
 The SFTPPlus *authorization* process handles the set of file access permissions for the authenticated user.
+
+.. FIXME:4175:
+   Below note should be removed once we support reverse proxy.
+..  note::
+    Using the Entra ID authentication with SFTPPlus running behind a reverse proxy or an API gateway is not yet supported.
 
 ..  note::
     Only Entra ID public cloud is supported for now.
@@ -56,7 +61,7 @@ Below is the list of services used by SFTPPlus to communicate with Azure Cloud:
 
 ..  note::
     Only HTTPS file transfer user authentication and web management console are supported.
-    Get in touch if you need to authenticate SFTP users, FTPS users, or administrators using Entra ID.
+    Get in touch if you need to authenticate SFTP or FTPS users using Entra ID.
 
 
 Entra ID app configuration
@@ -130,8 +135,8 @@ directory_id
     This value can be viewed after registering SFTPPlus in Entra ID via the `App registrations` page.
 
 
-application_id
---------------
+client_id
+---------
 
 :Default value: Empty
 :Optional: No
@@ -140,6 +145,8 @@ application_id
 :Description:
     Application (client) ID of the SFTPPlus inside the Entra ID.
     This value is obtained after registering SFTPPlus in Entra ID via the `App registrations` page.
+
+    Before version 5.12.0, this was named `application_id`.
 
 
 base_groups
@@ -165,7 +172,7 @@ group_association
 :Default value: `base-groups`
 :Optional: No
 :Values: * `base-groups`
-         * `base-and-azure-groups`
+         * `base-and-cloud-groups`
 :From version: 4.22.0
 :Description:
     Defines the SFTPPlus groups that are associated with authenticated users.
@@ -173,7 +180,7 @@ group_association
     When set to `base-groups`, it will associate any Entra ID user with the
     list of groups configured via the `base_groups` configuration option.
 
-    When set to `base-and-azure-groups`,
+    When set to `base-and-cloud-groups`,
     it will associate the user with the list of groups defined via the `base_groups` option
     and the SFTPPlus groups having the same name as the Entra ID security groups that this user is a member of.
     If the user is associated with Entra ID groups not configured on SFTPPlus, those groups are ignored.

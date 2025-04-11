@@ -21,3 +21,4 @@ This section includes the reference documentation for client-side configuration 
     azure-file
     smb
     exchange-online
+    smtp

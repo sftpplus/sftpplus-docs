@@ -7,6 +7,105 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 5.12.0, 2025-04-11
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* SFTPPlus Web Client now supports single-sign-on (SSO)
+  authentication via Google Cloud,
+  and allows users to use the "Sign in with Google" service.
+  [server-side][http] [#2610]
+* The Okta OpenID Connect authentication method was added.
+  This allows using Okta accounts to authenticate in SFTPPlus.
+  [server-side] [#2618]
+* You can now schedule a transfer based on the day of a month.
+  [client-side] [#3232]
+* You can now configure the Operating System authentication method to allow
+  filesystem access as the SFTPPlus service account to authenticated OS users.
+  You can still configure SFTPPlus to restrict filesystem access
+  for authenticated OS users as configured at the operating system level.
+  [server-side][security] [#5031]
+* The `deny-username` authentication method now has a separate option to
+  configure the list of denied administrators.
+  In previous versions, denying access for both file transfer users
+  and administrators was done using the same list.
+  The configuration for existing authentication methods is automatically
+  migrated.
+  [server-side] [#5198]
+* Authentication methods configured for a service but stopped are now skipped.
+  Credentials can still be validated by remaining configured authentications.
+  In previous versions, authenticating a user immediately failed
+  when encountering a stopped configured authentication method.
+  [server-side] [#5647]
+* You can now use SFTPPlus transfer to send files as attachments to emails.
+  [client-side][smtp] [#7008]
+* When updating or upgrading an existing SFTPPlus installation
+  using a self-extractable package, its scripts are used
+  instead of those bundled with the installed version. [#7021]
+* When a new authentication method is created, it is now automatically
+  appended to the ordered list of default active authentications.
+  [server-side] [#7047]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The AS2 server-side URL now support URLs with a trailing slash.
+  This is a regression introduced in version 5.6.0.
+  [server-side][as2] [#5055]
+* When the `authentications` configuration option is left empty
+  for the Web Manager service, it no longer falls back to
+  the general list of authentication methods configured for SFTPPlus.
+  In previous versions, Web Manager would fall back to
+  the default SFTPPlus authentication methods.
+  [server-side] [#5198]
+* An internal server error is no longer generated when a remote SFTP connections
+  is requesting setting environment variables.
+  The request to set an environment variable is now just ignored.
+  [server-side][sftp] [#6703]
+* You can now set a CRL in association with a Certification Authority
+  certificate defined as PEM content inside the .INI configuration file.
+  In previous versions, the CRL was supported only in association with a
+  Certification Authority certificate stored as a separate file. [#6977]
+* When failing to get a response from the Purview API, 2 retries are now
+  scheduled with a delay period of 15 seconds.
+  This should fix Purview API errors triggered by intermittent network issues.
+  [purview] [#7024-1]
+* Expired Purview session are now successfully cleaned from the SFTPPlus cache.
+  This is a regression introduced in version 5.10.0.
+  The Purview session cache could end in a state which
+  triggered the `AlreadyCalled()` error after each login, preventing
+  the opening of a new session.
+  [purview] [#7024]
+* Events with IDs 20021, 20067, 20137, and 20142, emitted by the HTTP Web Client
+  are now associated with the service and user that triggered these events.
+  [server-side] [#7048]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The Entra ID authentication method now accepts for the `group_association`
+  configuration the value `base-and-cloud-groups` instead of
+  `base-and-azure-groups`.
+  The previous `base-and-azure-groups` continues to be supported.
+  Old configurations are automatically migrated.
+  [server-side][entra-id] [#2610]
+* The Entra ID configuration option `application_id` was removed and replaced
+  with the option `client_id`.
+  No manual configuration change is required.
+  Old configurations are automatically migrated.
+  [server-side][entra-id] [#2618]
+* The description of an OS account was changed from `os not in config` to `os`
+  and from `os` to `os with config`.
+  This is a cosmetic change only affecting messages for events with the ID
+  `20137`.
+  [server-side] [#7061]
+
+
 Version 5.11.0, 2025-03-18
 --------------------------
 

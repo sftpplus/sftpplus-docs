@@ -35,8 +35,9 @@ type
          * `anonymous` - Anonymous account authentication.
          * `ldap` - Authenticate against an LDAP server.
          * `local-file` - Authenticate the accounts from a separate local file.
-         *  `radius` - Authenticate via an RADIUS server.
-         *  `entra-id` - Microsoft Entra ID
+         * `radius` - Authenticate via a RADIUS server.
+         * `entra-id` - Microsoft Entra ID
+         * `google-identity` - Google Identity
 :Description:
     This option specifies the type of the method. Each type has a set
     of specific configuration options

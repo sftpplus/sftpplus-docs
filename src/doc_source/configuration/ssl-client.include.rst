@@ -9,6 +9,8 @@ ssl_certificate_authority
          * `set-on-first-connection` (Since 5.0.0)
          * `pin-public-key` (Since 5.1.0)
          * `${MOZILLA_CA_ROOTS}` (Since 5.0.0)
+         * `${GOOGLE_CA_ROOTS}` (Since 5.11.0)
+         * `${DIGICERT_CA_ROOTS}` (Since 5.12.0)
          * `${LETS_ENCRYPT_X3_CA}`
          * `${MICROSOFT_IT_CA}`
          * `${GO_DADDY_G2_G1}`
@@ -56,8 +58,10 @@ ssl_certificate_authority
     The bundle CAs are available under the following names:
 
     * `${MOZILLA_CA_ROOTS}` - All the root certification authorities accepted by the Mozilla's CA Certificate Program
+    * `${GOOGLE_CA_ROOTS}` - All the root certification authorities handled by Google Trust Services
     * `${LETS_ENCRYPT_X3_CA}` - For Let's Encrypt X3 certificate authority.
-    * `${MICROSOFT_IT_CA}` - For all Microsoft IT CA certificates,
+    * `${MICROSOFT_IT_CA}` - For all Microsoft IT CA certificates.
+    * `${DIGICERT_CA_ROOTS}` - For all Digicert CA certificates.
       used by SharePoint Online and other services provided by Microsoft.
     * `${GO_DADDY_G2_G1}` - For all GoDaddy Certificate Bundles,
       G2 With Cross to G1.

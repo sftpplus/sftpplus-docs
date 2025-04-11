@@ -1,24 +1,28 @@
 Operating system / Domain users
 ===============================
 
-An `os` authentication method can be used to authenticate users
-based on the authentication methods provided by the operating system.
-
 ..  contents:: :local:
 
 
 Introduction
 ------------
 
-It can also be used to authenticate administrators for the Web Manager
-service.
-For this, you will need to explicitly define a group or a set of groups
-in the `manager_allowed_groups` configuration options.
-By default, no administrators are allowed.
+The `os` authentication method can be used to grant access to SFTPPlus services
+for local users of the operating system that is running SFTPPlus.
+
+To prevent accidentally allowing SFTPPlus access to local users,
+the default SFTPPlus configuration rejects OS users.
+You need to explicitly configure the `allowed_groups` option to include
+the names of the OS groups for which you want to allow access to SFTPPlus services.
+
+The `os` authentication can also be used to authenticate administrators for the Web Manager service.
+For this, you need to explicitly define a group or a set of groups
+in the `manager_allowed_groups` configuration option.
 
 ..  warning::
-    On Unix-like systems, this authentication method can only be used
+    On Linux systems, this authentication method can only be used
     when the SFTPPlus service is started as `root`.
+    This restriction is enforced by the default Linux security model.
 
 You can overwrite some of the account's settings (e.g. home folder path), by
 defining an account of type `os` inside the configuration file.
@@ -32,15 +36,24 @@ The `os` authentication method will authenticate the following account types:
   by the Name Service Switch library.
 * Linux accounts with passwords defined in the ``/etc/shadow`` file.
 
+There are three types of accounts for operating system users:
+
+* `os` - OS accounts for which file transfers are performed as the OS user.
+* `os user` - OS accounts for which file transfers are performed as the SFTPPlus service account.
+* `os with config` - OS accounts also configured through SFTPPlus, for which file transfers are performed as the OS user. Their passwords are still managed by the operating system.
+
+
+Linux PAM
+---------
+
 On systems supporting PAM, PAM can also be used for authenticating users
 with username and password credentials.
 
-On many Unix-like systems, PAM is used for enabling various authentication
-methods, such as LDAP, PKCS#11 smart cards, or fingerprint authentication.
+On many Linux systems, PAM is used for enabling various authentication methods
+such as LDAP, System Security Services Daemon (SSSD), and PKCS#11 smart cards.
 
-When the PAM authentication request returns *PAM_SUCCESS*, the account is
-authorized.
-Any response other than *PAM_SUCCESS* will reject the account.
+When the PAM authentication request returns *PAM_SUCCESS*, the account is authorized.
+Any response other than *PAM_SUCCESS* results in the local account being rejected.
 
 PAM only handles authentication.
 The account configuration is retrieved using the same generic OS API.
@@ -73,6 +86,28 @@ These permissions are required to allow SFTPPlus to:
 * Set the user home folder as owned by the user itself.
 
 
+access_filesystem_as_service_user
+---------------------------------
+
+:Default value: `No`
+:Optional: Yes
+:Values: * `Yes`
+         * `No`
+:From version: 5.12.0
+:Description:
+    When set to `Yes`, authenticated OS local accounts
+    use the SFTPPlus service account for filesystem access.
+    After the users are authenticated, they are handled inside SFTPPlus as application accounts
+    with access to OS resources configured at the OS level for the local user running SFTPPlus.
+
+    This simplifies filesystem configuration at the operating system level.
+    System administrators only need to setup the file hierarchy with permissions for the SFTPPlus service account.
+    Then, the SFTPPlus web-based manager is used to define the actual access for each authenticated user.
+
+    When this is set to `No`, the actual file access for each user is defined using
+    SFTPPlus' Web Manager within the constraints of the low-level OS filesystem permissions.
+
+
 pam_usage
 ---------
 
@@ -80,6 +115,7 @@ pam_usage
 :Optional: Yes
 :Values: * `fallback`
          * `exclusive`
+         * `service` (Since 5.12.0)
          * Empty
 :From version: 3.3.0
 :Description:
@@ -87,19 +123,28 @@ pam_usage
     password credentials.
 
     The default mode is `fallback`.
-    In this mode it will first try to authenticate accounts based on the
+    In this mode it first tries to authenticate accounts based on the
     ``/etc/passwd`` file.
     If the password is set in the operating system as one of the following
     `x`, `NP`, `*NP*` or `*`, it will continue to authenticate with PAM.
 
-    In `exclusive` mode, it will exclusively use PAM for username and password
-    authentications.
+    In `exclusive` mode, the PAM authentication operations are executed under
+    the root account.
+    Only PAM is used for username and password authentications.
+
+    In `service` mode, the PAM authentication operation are executed under
+    the regular SFTPPlus service account.
+    Only PAM is used for username and password authentications.
+    The `service` mode might not be available on most Linux systems
+    because PAM is usually configured to require `root` privileges.
+    You can only use the `service` mode effectively
+    if your Linux system is configured to allow PAM access for non-root accounts.
 
     Leave it empty to completely disable PAM usage.
 
     ..  note::
-        On Windows, this option is always disabled as SFTPPlus has no support
-        for PAM on this platform.
+        On Windows, this option is always disabled
+        because PAM is not available on Windows.
 
 
 pam_service

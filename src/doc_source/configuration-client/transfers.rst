@@ -668,6 +668,10 @@ retry_wait
     As soon as a file transfer fails, it will be retried.
 
 
+..  FIXME:7019:
+    Update schedule once we support last days of month.
+
+
 schedule
 --------
 
@@ -677,7 +681,8 @@ schedule
 :Values:
     * Empty to have the transfer always active.
     * Comma-separated list of ``24HOUR:MINUTE-ACTION_NAME`` actions.
-    * Comma-separated list of ``WEEKDAY-24HOUR:MINUTE-ACTION_NAME`` actions.
+    * Comma-separated list of ``WEEK_DAY-24HOUR:MINUTE-ACTION_NAME`` actions (Since 3.44.0).
+    * Comma-separated list of ``MONTH_DAY-24HOUR:MINUTE-ACTION_NAME`` actions (Since 5.11.0).
     * Multiple lines of comma-separated values of actions.
 :Description:
     Comma-separated list with scheduled actions for this transfer.
@@ -689,7 +694,6 @@ schedule
     * `start`
     * `stop`
 
-    Week day values were introduced in version 3.44.0.
     Here are the valid week day values, in ISO 8601 order:
 
     * Monday
@@ -700,8 +704,24 @@ schedule
     * Saturday
     * Sunday
 
+    The month days values are in the format:
+    * month_day_1
+    * month_day_2
+    * month_day_3
+    * ...
+    * month_day_26
+    * month_day_27
+    * month_day_last
+
+    ..  note::
+        Scheduling on the days of 28, 29, 30 and 31 is not supported.
+        Get in touch if you need to schedule on these days and the
+        current support for `last day` scheduling doesn't work for you.
+
     For longer schedule definition you can define the actions across multiple
     lines.
+
+    You can't mix week based scheduling with month based scheduling.
 
     Time resolution is one minute.
     Please contact us if you need a higher resolution.

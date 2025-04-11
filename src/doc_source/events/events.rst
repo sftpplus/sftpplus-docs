@@ -362,7 +362,7 @@ Generic and server-side common functionality
 20037
 ^^^^^
 
-:Message: Certificate revocation list located at "%(uri)s" and issued by "%(issuer)s" was successfully updated and has now %(count)s entries. Next publish advertised as %(next_publish)s. Next update advertised as %(next_update)s. Next update scheduled in %(update_seconds)s seconds for UTC %(update_datetime)s.
+:Message: Certificate revocation list located at "%(uri)s" and issued by "%(issuer)s" was successfully updated and has now %(count)s entries. Next update advertised as %(next_update)s. Next update scheduled in %(update_seconds)s seconds for UTC %(update_datetime)s.
 :Groups: operational, authenticated, informational
 :From version: 3.13.0
 :Description: None
@@ -1151,6 +1151,23 @@ Generic and server-side common functionality
 
 
 
+20111
+^^^^^
+
+:Message: Skip auth "%(method_name)s" of type "%(method_type)s" because it is currently stopped. Consider starting the method or remove it from the list of authentication methods configured for this service.
+:Groups: session, informational
+:From version: 5.12.0
+:Description: Emitted when an authentication method is configured as active for a service, but it is stopped.
+:Data:
+  :method_name: Name of the authentication method that was skipped.
+
+
+  :method_type: Type of the authentication method that was skipped.
+
+
+
+
+
 20112
 ^^^^^
 
@@ -1428,7 +1445,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Account "%(account_name)s" of type "%(account_type)s" from groups/roles "%(group_name)s", authenticated by "%(method_name)s" of type "%(method_type)s" using %(credentials_type)s credentials as "%(username)s". %(ignored_groups)s
-:Groups: operational, session, informational
+:Groups: operational, authenticated, informational
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -6883,8 +6900,20 @@ FTP protocol
 
 
 
+
+
+
+
+
+
 SSH protocol
 ============
+
+
+
+
+
+
 
 
 
@@ -13225,6 +13254,12 @@ HTTP/HTTPS protocol
 
 
 
+
+
+
+
+
+
 40000
 ^^^^^
 
@@ -17524,6 +17559,12 @@ Management and Web Manager Events
 
 
 
+
+
+
+
+
+
 50000
 ^^^^^
 
@@ -18654,6 +18695,12 @@ Management and Web Manager Events
 
 Transfer and client-side functionality
 ======================================
+
+
+
+
+
+
 
 
 

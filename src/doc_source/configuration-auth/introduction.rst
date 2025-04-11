@@ -3,12 +3,18 @@ Authentication methods introduction
 
 ..  contents:: :local:
 
+
+Introduction
+------------
+
 You can define multiple authentication methods.
 You can configure the order in which these methods are used.
 
-..  note::
-    Not all authentication method types support authenticating the
-    administrators for the Web Manager service.
+It is important to note that authentication methods have different configuration options
+for authenticating regular file transfer users compared to SFTPPlus administrators.
+
+In addition, not all authentication method types support authenticating
+administrators for the Web Manager service.
 
 
 Adding a new authentication method via Web Manager
@@ -49,14 +55,15 @@ called ``First tier partners``::
 Activating an authentication method
 -----------------------------------
 
-Once defined, authentication methods require explicit activation by
-defining the ordered list of active authentication methods for the
-`server` authentication configuration option.
+Once defined, an authentication method in not used unless activated.
+To activate an authentication method, make sure it's added to the ordered list of
+active authentication methods for the `server` authentication configuration option.
 
-In this way, you can define multiple authentication methods and
-set their priorities.
-Once an account is successfully authenticated using a set method, the server
-will not try the remaining methods.
+A custom list of activated authentication methods can also be configured for any service.
+
+In this way, you can define multiple authentication methods for a service and set their priorities.
+Once an account is successfully authenticated using a method, SFTPPlus allows the user in
+without trying remaining methods in the ordered list of authentications.
 
 The following example will define a configuration in which the
 authentication with UUID ``b904ed23-a234-4ccf-8abd-edcae4d3324f`` is tried
@@ -69,3 +76,11 @@ will try to authenticate it using the method with UUID ``ed123e-4d4724f``::
     description = Frontend for FG partners.
 
     authentications = b904ed23-a234-4ccf-8abd-edcae4d3324f, ed123e-4d4724f
+
+Stopped authentication methods are skipped.
+Credentials are still authenticated against remaining configured authentication methods
+until the user is authenticated or the ordered list of authentications is exhausted.
+
+Failed or not yet operational authentication methods are not skipped.
+When encountering a method in such a state, user authentication fails immediately.
+Remaining configured methods are not tried.
