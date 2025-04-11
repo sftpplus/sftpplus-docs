@@ -70,19 +70,10 @@ Defect Fixes
   certificate defined as PEM content inside the .INI configuration file.
   In previous versions, the CRL was supported only in association with a
   Certification Authority certificate stored as a separate file. [#6977]
-* When failing to get a response from the Purview API, 2 retries are now
-  scheduled with a delay period of 15 seconds.
-  This should fix Purview API errors triggered by intermittent network issues.
-  [purview] [#7024-1]
-* Expired Purview session are now successfully cleaned from the SFTPPlus cache.
-  This is a regression introduced in version 5.10.0.
-  The Purview session cache could end in a state which
-  triggered the `AlreadyCalled()` error after each login, preventing
-  the opening of a new session.
-  [purview] [#7024]
-* Events with IDs 20021, 20067, 20137, and 20142, emitted by the HTTP Web Client
+* Events with IDs 20021, 20067, 20137, and 20142, emitted by the file transfer
+  services
   are now associated with the service and user that triggered these events.
-  [server-side] [#7048]
+  [server-side][sftp][ftp][http] [#7048]
 
 
 Deprecations and Removals
