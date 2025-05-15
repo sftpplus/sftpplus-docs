@@ -1,8 +1,9 @@
 # Command to build the docs on netfliy.
 cp -r chevah /opt/buildhome/python3.12/lib/python3.12/site-packages/
 
-TARGET="v/5.10.0"
-TARGET="latest"
+export
+TARGET="v/5.12.0"
+#TARGET="latest"
 
 mkdir -p deploy/documentation/sftpplus/$TARGET/
 
