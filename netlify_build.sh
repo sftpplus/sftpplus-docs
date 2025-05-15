@@ -2,10 +2,14 @@
 
 TARGET="latest"
 if [ $BRANCH ]; then
+  # Possible values
+  # BRANCH="main"
   # BRANCH="v5-12-0"
-  # Convert to v/5.12.0
-  TARGET="${BRANCH//-/.}"
-  TARGET="${TARGET/v/v/}"
+  if [ $BRANCH != "main" ]; then
+    # Convert to v/5.12.0
+    TARGET="${BRANCH//-/.}"
+    TARGET="${TARGET/v/v/}"
+  fi
 fi
 
 # Show all variables.
