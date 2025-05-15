@@ -1,8 +1,19 @@
-# Command to build the docs on netfliy.
+# Command to build the docs on Netlify.
+
+TARGET="latest"
+if [ $BRANCH ]; then
+  # BRANCH="v5-12-0"
+  # Convert to v/5.12.0
+  TARGET="${BRANCH//-/.}"
+  TARGET="${TARGET/v/v/}"
+fi
+
+# Show all variables.
+declare -p
+
+# Install example code.
 cp -r chevah /opt/buildhome/python3.12/lib/python3.12/site-packages/
 
-TARGET="v/5.10.0"
-TARGET="latest"
 
 mkdir -p deploy/documentation/sftpplus/$TARGET/
 
