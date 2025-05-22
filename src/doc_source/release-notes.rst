@@ -7,6 +7,95 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 5.13.0, 2025-05-22
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* The Google Identity and Okta OpenID Connect authentication methods can now
+  be used with SFTPPlus running behind an HTTP reverse proxy without
+  requiring the proxy to publish the SFTPPlus Web Manager as the root URL.
+  [server-side] [#4175]
+* Synchronized remote SFTPPlus nodes can now send their logs to the main
+  SFTPPlus controller.
+  [manager][cluster] [#4879]
+* You can now configure the event handlers to trigger based on events that
+  are forwarded from remote SFTPPlus instances.
+  [events] [#5320]
+* Support was added for running client-side transfer on cluster nodes.
+  [client-side][cluster] [#5795]
+* A transfer can now be configured to skip a source file if the source file
+  is removed after it was initially detected by the transfer.
+  [client-side] [#7009]
+* When updating or rolling back an SFTPPlus installation,
+  server logs are no longer backed up alongside SFTPPlus files.
+  Make sure you backup your server's logs independently of
+  the SFTPPlus backups automatically done during update and rollbacks. [#7037]
+* First time when you connect to the SFTPPlus Web Manager you have the
+  option to configure the SFTPPlus installation as a node from an SFTPPlus
+  cluster.
+  [manager][cluster] [#7051]
+* The SFTPPlus cluster now has a dedicated `controller` operation mode.
+  The `node-sync` resource now needs to be explicitly started and configured
+  in `cluster` mode to allow external SFTPPlus instances to access the
+  configuration.
+  [cluster] [#7052-1]
+* The SFTPPlus cluster operating parameters are now configured using the
+  `node-sync` resource running on the `controller` node.
+  [cluster] [#7052]
+* The Exchange Online location now supports remote to remote transfers,
+  when the Exchange Online is the source location.
+  [client-side][exchange-online] [#7073]
+* You can now use the Web Manager to define member of an SFTPPlus cluster.
+  This is done using the `node-sync` resource.
+  [cluster][manager] [#7088]
+* You can now configure a service, transfer, event handler, or resource to
+  be active only on specific cluster nodes.
+  [cluster] [#7090]
+* The nodes in a cluster can now be configured to send the events to the
+  central SFTPPlus controller.
+  [cluster][manager] [#7095]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* After a SFTPPlus version update, the default components are now automatically
+  created at first run.
+  This is a regression introduced in version 5.12.0 in which the default
+  components were only created on the second run.
+  [manager] [#4879]
+* When a file to the Azure File service is partially transferred,
+  the length of the file is now truncated to the size of the transferred data.
+  In previous versions, the file was kept with zero bytes at the end of the file.
+  [client-side][azure-file] [#7073]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `Roles` page was removed from the Web Manager.
+  It's content was moved to the `Administrators` page.
+  [manager] [#5545]
+* The event with ID `10093` was removed.
+  It was emitted when the Explicit FTPS server was reconfigured to an unsecure FTP
+  service and the server type was automatically updated.
+  This change will now require a service restart.
+  [server-side][ftp] [#7052]
+* The administration roles should no longe be configured with the `sync`
+  permission.
+  A `cluster-node` should now be created and it automatically has the
+  `sync` permission.
+  [manager][cluster] [#7088]
+* The `node_variables` option was removed from the configuration for an
+  administrator.
+  The configuration was moved to the `cluster-nodes` configuration.
+  The configuration is automatically migrated.
+  [manager] [#7089]
+
+
 Version 5.12.0, 2025-04-11
 --------------------------
 
@@ -321,7 +410,7 @@ Defect Fixes
   [client-side][exchange-online] [#6874]
 * The `set-on-first-connection` configuration option for TLS connections can now
   be used with URLs with no port explicitly defined.
-  [tls] [#6876]
+  [security] [#6876]
 
 
 Deprecations and Removals
@@ -492,7 +581,7 @@ Security Fixes
   `C:/Program.exe` executable. [windows] [#2609]
 * The TLS `secure` list of ciphers was updated to match the latest Mozilla
   recommended configuration for a general-purpose server.
-  [server-side][client-side][tls] [#6057]
+  [server-side][client-side][security] [#6057]
 * Support was added for `hmac-sha2-256-etm@openssh.com` and
   `hmac-sha2-256-etm@openssh.com` SSH hash-based message authentication code
   (HMAC) algorithms. [client-side][server-side][sftp] [#6717]
@@ -638,8 +727,8 @@ Security Fixes
 
 * The `ssl_certificate_authority` configuration option for TLS clients can now
   be configured with pinned public keys. This can be used to implement a
-  security policy that requires pinning public certificates/keys. [tls][https]
-  [#6562]
+  security policy that requires pinning public certificates/keys.
+  [security][https][#6562]
 
 
 New Features
@@ -1204,12 +1293,12 @@ Defect Fixes
 
 * When the `ssl_certificate_authority` is configured with an expired
   certificate, the component using the configured CA now fails to start and an
-  explicit error message is returned. [tls] [#6102-1]
+  explicit error message is returned. [security] [#6102-1]
 * The expired root CA certificates from the SFTPPlus predefined list of CA
   certificates like `${MICROSOFT_IT_CA}`, `${LETS_ENCRYPT_X3_CA}`, or
   `${GO_DADDY_G2_G1}` are now ignored. This allows you to continue using the
-  predefined list, even if one of the root certificates is now expired. [tls]
-  [#6102]
+  predefined list, even if one of the root certificates is now expired.
+  [security] [#6102]
 * The events emitted by the local filesystem monitor service are now associated
   with the service that triggered them. In previous versions, the events
   weren't associated to any SFTPPlus component. [#6126-1]
@@ -1908,7 +1997,7 @@ New Features
   permissions defined in all of the associated groups. [server-side] [#2184]
 * The Web Manager's user interface for configuring the list of SSL/TLS
   ciphers to be used by HTTPS and FTPS services has been improved to allow
-  selecting from a list of available ciphers. [ssl] [#5600]
+  selecting from a list of available ciphers. [security] [#5600]
 * The Python API extension `handle` method can now return a string to
   be emitted in an event and logged.
   [api] [#5626-1]
@@ -1956,7 +2045,7 @@ Defect Fixes
   for successful operations.
   [server-side][ftp] [#5588]
 * You can now enable DHE ciphers for server-side services. Previously, only
-  ECDHE-based ciphers were available. [server-side][ssl] [#5597]
+  ECDHE-based ciphers were available. [server-side][security] [#5597]
 
 
 Deprecations and Removals
@@ -2153,7 +2242,7 @@ Deprecations and Removals
 * To disable the usage of a SSL certificate, CA, or CRL for a connection, you
   should now set the `ssl_certificate`, `ssl_certificate_authority`, or
   `ssl_certificate_revocation_list` to empty values.
-  Using `disabled` is supported until the next major release. [ssl] [#2090]
+  Using `disabled` is supported until the next major release. [security] [#2090]
 * The `group_name` data attribute of event `20137` was updated to include a
   comma-separated list of all the groups or roles associated to an account or
   administrator. [server-side] [#3398-1]
@@ -2640,7 +2729,7 @@ New Features
   [#2198]
 * You can now configure an account to receive files over AS2 without requiring
   a password. Files received over AS2 still need to be validated for
-  signature and encryption. [server-side][as2] [#5490]
+  signature and encryption. [server-side][as2] [#5370]
 * HTTP connection requests to HTTPS services such as the Web Manager web
   administration interface or the HTTPS file transfer service are now
   automatically redirected to HTTPS. [server-side] [#5512]
@@ -2844,7 +2933,7 @@ New Features
 * When creating a matching expression based on globbing rules,
   you can now use the exclamation mark to reverse the meaning of the
   expression. This can be used to define exclusion rules.
-  [#5473]
+  [#5397]
 
 
 Defect Fixes
@@ -5421,7 +5510,7 @@ Defect Fixes
 * Database event handlers will now resume once the associated database becomes
   available again. [event-handlers] [#3258]
 * Services using TLS/SSL will now fail to start when configured with a CRL
-  which has a `Next Update` field earlier than current time. [ssl][tls] [#3266]
+  which has a `Next Update` field earlier than current time. [security] [#3266]
 * The configured certificate revocation list is now validated against the
   configured certificate authority. A failure is raised when the CA doesn't
   match the CRL. [security] [#3270]

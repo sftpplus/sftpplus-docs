@@ -23,7 +23,7 @@ and then running the assisted update process.
 The automated and assisted method automatically create backups of the existing installation,
 stopping and restarting the system SFTPPlus service as needed.
 
-The manual method is provided to help you understand how the SFTPPlus process works,
+The manual method to update is documented to help you understand how the SFTPPlus process works,
 and to allow creating custom update procedures.
 
 ..  note::
@@ -47,7 +47,11 @@ The `bin/auto-update.sh` script automatically downloads latest SFTPPlus package,
 backs up the existing application and configuration files,
 installs the latest version, and restarts the system SFTPPlus service.
 
-This script is typically called without any arguments::
+The configuration and logs of SFTPPlus are persisted in place.
+Configuration is also backed up alongside SFTPPlus-specific files during updating,
+but log files are not copied to the backup location because they can be very large.
+
+The auto-updating script is typically called without any arguments::
 
     $ sudo /opt/sftpplus/bin/auto-update.sh
 
@@ -85,12 +89,15 @@ This example assumes you have copied the SFTPPlus installation package to the `/
 The `bin/update.sh` script automatically stops and restarts the system SFTPPlus service as needed.
 
 Backups of the current installation are automatically created.
+The configuration and logs of SFTPPlus are persisted in place.
+Configuration is also backed up alongside SFTPPlus-specific files during updating,
+but log files are not copied to the backup location as they can be very large.
 
 
 Update using the self-extractable package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can also use the self-extractable SFTPPlus package relevent for your operating system to do an assisted update of an existing installation.
+You can also use the self-extractable SFTPPlus package relevant to your operating system to do an assisted update of an existing installation.
 Simply point the downloaded `.sh` package to the install path of SFTPPlus (either through a parameter or interactively)::
 
     $ sudo /bin/sh ./sftpplus-os-arch-version.sh /opt/sftpplus
@@ -115,7 +122,9 @@ or through the assisted method.
 Assisted rollback
 -----------------
 
-The `bin/rollback.sh` script is designed to assist you with reverting the SFTPPlus installation to a previous version.
+The `bin/rollback.sh` script is designed to assist you with reverting the SFTPPlus installation to a backed-up version.
+Rolling back to a previous SFTPPlus version overwrites current configuration with the one restored from backup.
+SFTPPlus logs are persisted in place.
 
 You can automatically rollback to the last saved backup
 by calling the script without any arguments::
@@ -153,15 +162,16 @@ Manual update
 Before bringing a SFTPPlus installation to the latest available version,
 you must stop the associated system service.
 
-Backup the entire SFTPPlus installation, especially the server configuration file.
+Backup the entire SFTPPlus installation, especially the configuration in `configuration/server.ini`.
+Remove everything in the existing installation sub-directory except `configuration/`, `log/`, and `extension/`.
 
-Extract the latest SFTPPlus package files over the existing installation sub-directory.
+Extract the content of the top-level directory inside the SFTPPlus package to the installation sub-directory.
 
-Review the permissions and ownership of the extracted files.
+Review the permissions and ownership of the extracted files, making sure to adjust them as needed.
 
 Once all new files are in place and their permissions are reviewed,
 you can restart the SFTPPlus service.
 
-To find out more about the latest SFTPPlus version and any relevant changes
+To find out more about the latest SFTPPlus version and all the relevant changes
 between the current version of your installation and the latest release, please consult
 the :doc:`Server Release Notes<../release-notes>`.

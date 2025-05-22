@@ -57,6 +57,10 @@ When a file with name `reports-January-2025.csv` is transferred, the email will 
         This is an automated message from "Send file to data team"
         Contact sysadmin@example.com
 
+..  note:
+    When setting up a transfer that send the files over email,
+    the destination path is ignored.
+
 
 SMTP mail server limitations
 ----------------------------

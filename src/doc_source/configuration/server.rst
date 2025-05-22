@@ -372,3 +372,22 @@ blocking_filesystem
 
     ..  attention::
         Enable this option has an important performance penalty of about 70%.
+
+
+failover_interval
+-----------------
+
+:Default value: 0
+:Optional: Yes
+:From version: 5.13.0
+:Values: * Number of seconds
+:Description:
+    This is the number of seconds used to increase the `stable_interval` configuration option for all transfers and filesystem monitors on this node.
+
+    This allows configuring *primary* and *secondary* nodes, in which the transfer are first executed on the primary node. If the primary node fails to transfer the files, the secondary node will try to transfer the files again with a delay configured via the `failover_interval`.
+
+    You should set this to `0` for the *primary node*.
+
+    This is primarily designed to be used as part of cluster operations.
+    For more details, see the
+    :doc:`transfers cluster </cluster/transfers>` documentation page.

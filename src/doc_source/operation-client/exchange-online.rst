@@ -82,6 +82,21 @@ If any of these limitations are a blocker for implementing SFTPPlus according to
 We can extend SFTPPlus to meet your requirements.
 
 
+Streaming attachments to remote locations
+-----------------------------------------
+
+It's recommend to use the local filesystem as the destination location for transfers that download attachments from Exchange Online.
+
+Due to a defect in MS Graph API, the total size of attachment is incorrectly advertise as part of the Exchange Online API.
+
+This complicates the implementation of direct transfers to servers like AS2, which require the exact total size of the file at the start of the transfer.
+
+Streaming support is enable in SFTPPlus by transferring the attached files twice.
+Once to detect the actual file size and then for the actual transfer.
+As a drawback, this can increase the network traffic.
+The impact should be minimal as in general the attachment files are small.
+
+
 Entra ID Authentication
 -----------------------
 

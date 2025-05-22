@@ -129,7 +129,7 @@ source_ip_filter
 permissions
 -----------
 
-:Default value: `*, all`
+:Default value: empty
 :Optional: Yes
 :From version: 4.15.0
 :Values: * Multiple lines of comma-separated definitions of permissions
@@ -138,7 +138,7 @@ permissions
     This defines the permissions available to administrators associated to
     this role.
 
-    When this option is empty, the role has full access to the web manager.
+    When this is `empty`, the role has full administrative permissions.
 
     The option is defined as a list of one or more definitions of permissions,
     with one definition per line.

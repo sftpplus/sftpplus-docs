@@ -22,11 +22,29 @@ Events emitted by actions done by local administrators or by the process itself.
 
 
 
+Analytics
+^^^^^^^^^
+
+
+Events emitted by the internal analytics engine.
+
+
+
+
 Authenticated
 ^^^^^^^^^^^^^
 
 
 Events emitted by authenticated accounts. All events have an `avatar` data field.
+
+
+
+
+Authentication
+^^^^^^^^^^^^^^
+
+
+Events emitted during the authentication process.
 
 
 
@@ -45,6 +63,15 @@ Compat
 
 
 Operating system compatibility layer.
+
+
+
+
+Component-activation
+^^^^^^^^^^^^^^^^^^^^
+
+
+Events emitted as part of the activation/deactivation/start/stop of a component.
 
 
 

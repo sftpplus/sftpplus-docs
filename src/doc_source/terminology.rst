@@ -66,6 +66,13 @@ managed file transfers.
 File transfer services, authentication methods, transfers, resources and event
 handlers are all components.
 
+For example a component can be:
+
+* A SFTP server
+* A transfer that downloads files from an FTP server
+* The connection details for an Azure Storage account
+* An event handler that sends emails under certain conditions
+
 
 Configuration file
 ------------------

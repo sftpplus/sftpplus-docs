@@ -221,7 +221,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to authenticate user "%(username)s" with "%(credentials_type)s" credentials. Possible typo in username. No authentication method was able to handle the credentials.
-:Groups: operational, session, failure, failure-specific
+:Groups: authentication, session, failure, failure-specific
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -893,7 +893,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Current resource usage: cpu=%(cpu_percent)s%% mem-res=%(memory_resident)s mem-virt=%(memory_virtual)s conn=%(connection_count)s file=%(file_count)s thread=%(thread_count)s cpus=%(global_cpus)s mem-available=%(global_memory_available)s.
-:Groups: operational, process, informational
+:Groups: analytics, process, informational
 :From version: 3.44.0
 :Description: None
 :Data:
@@ -922,7 +922,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Resource usage trigger: %(details)s.
-:Groups: operational, process, failure
+:Groups: analytics, process, failure
 :From version: 3.44.0
 :Description: None
 :Data:
@@ -984,7 +984,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to record analytics event. %(details)s
-:Groups: process, operational, failure
+:Groups: analytics, process, failure, failure-high
 :From version: 4.0.0
 :Description: None
 
@@ -1188,6 +1188,16 @@ Generic and server-side common functionality
 
 
 
+20113
+^^^^^
+
+:Message: Failed to read ingress JSON events. %(details)s
+:Groups: operational, authenticated, failure, failure-high
+:From version: 5.12.0
+:Description: None
+
+
+
 20115
 ^^^^^
 
@@ -1245,6 +1255,16 @@ Generic and server-side common functionality
   :sort_order: Sort order for the entries
 
 
+
+
+
+20118
+^^^^^
+
+:Message: Failed to send events to remote controller. Will retry in %(interval)ss. %(details)s
+:Groups: operational, session, failure, failure-high
+:From version: 5.12.0
+:Description: None
 
 
 
@@ -1419,7 +1439,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Account "%(username)s" forbidden by %(method_type)s authentication "%(method_name)s" using "%(credentials_type)s" credentials. %(details)s
-:Groups: operational, session, failure
+:Groups: authentication, session, failure
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -1445,7 +1465,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Account "%(account_name)s" of type "%(account_type)s" from groups/roles "%(group_name)s", authenticated by "%(method_name)s" of type "%(method_type)s" using %(credentials_type)s credentials as "%(username)s". %(ignored_groups)s
-:Groups: operational, authenticated, informational
+:Groups: authentication, authenticated, informational
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -1486,7 +1506,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to synchronize "%(component_family)s/%(component_uuid)s". Will retry in %(interval)ss. %(details)s
-:Groups: operational, session, failure
+:Groups: operational, session, failure, failure-high
 :From version: 5.11.0
 :Description: None
 
@@ -1534,7 +1554,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to get a valid response from the "%(method_name)s" authentication for the account "%(username)s" using %(credentials_type)s. %(details)s
-:Groups: operational, session, failure, failure-high
+:Groups: authentication, session, failure, failure-high
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -1699,7 +1719,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Successfully started %(family)s "%(name)s"%(kind)s. %(description)s
-:Groups: operational, authenticated, success
+:Groups: component-activation, authenticated, success
 :From version: 2.6.0
 :Description: None
 :Data:
@@ -1725,7 +1745,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Stopped %(family)s "%(name)s"%(kind)s. %(reason)s
-:Groups: operational, authenticated, success
+:Groups: component-activation, authenticated, success
 :From version: 2.6.0
 :Description: None
 :Data:
@@ -1751,7 +1771,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to start %(family)s "%(name)s"%(kind)s. %(details)s
-:Groups: operational, authenticated, failure
+:Groups: component-activation, authenticated, failure
 :From version: 2.6.0
 :Description: None
 :Data:
@@ -1774,7 +1794,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failed to stop %(family)s "%(name)s"%(kind)s. %(details)s
-:Groups: operational, authenticated, failure
+:Groups: component-activation, authenticated, failure
 :From version: 2.6.0
 :Description: None
 :Data:
@@ -2344,7 +2364,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Failure on %(operation)s operation for file transfer analytics. %(details)s
-:Groups: failure, process
+:Groups: analytics, failure, process, failure-high
 :From version: 4.24.0
 :Description: Emitted when failed to perform a transfer analytics operation.
 
@@ -2354,7 +2374,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Last day client-side transfer statistics. Successful files %(success_files)s, retried files %(retried_files)s, success jobs %(success_jobs)s, failed jobs %(failure_jobs)s, total size %(total_size)s bytes, total duration %(total_duration)s seconds.
-:Groups: informational, process, client-side
+:Groups: analytics, informational, process, client-side
 :From version: 4.24.0
 :Description: Emitted to inform the statistic for transferred files.
 :Data:
@@ -2416,7 +2436,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Account "%(account_name)s" was auto disabled as it was inactive in the last %(day_count)s days. Last login: %(last_login)s.
-:Groups: operational, process, success
+:Groups: analytics, process, success
 :From version: 4.32.0
 :Description: Account auto-disabled for inactivity
 :Data:
@@ -2439,7 +2459,7 @@ Generic and server-side common functionality
 ^^^^^
 
 :Message: Fail to check auto-disable for "%(account_name)s". %(details)s
-:Groups: operational, process, failure, failure-specific
+:Groups: analytics, process, failure, failure-specific
 :From version: 4.32.0
 :Description: Account with invalid auto-disabled configuration
 :Data:
@@ -3477,7 +3497,7 @@ FTP protocol
 
 
 :Message: User successfully logged on "%(real_path)s" as "%(virtual_path)s".
-:Groups: authenticated, success, ftp
+:Groups: authentication, authenticated, success, ftp
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -4050,7 +4070,7 @@ FTP protocol
 
 
 :Message: Failed to initiate FTP session. %(details)s
-:Groups: authenticated, failure, ftp
+:Groups: authentication, authenticated, failure, ftp
 :From version: 4.16.0
 :Description: None
 
@@ -4433,6 +4453,18 @@ FTP protocol
 :Groups: authenticated, failure, failure-high, ftp
 :From version: 4.35.0
 :Description: FTP TLS handshake failed (client-side).
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8458,6 +8490,18 @@ SSH protocol
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 30004
 ^^^^^
 
@@ -8532,7 +8576,7 @@ SSH protocol
 
 
 :Message: SSH protocol failure at userauth service. %(details)s
-:Groups: session, failure, failure-high, ssh
+:Groups: authentication, session, failure, failure-high, ssh
 :From version: 3.1.0
 :Description: None
 :Data:
@@ -8612,7 +8656,7 @@ SSH protocol
 
 
 :Message: Subsystem %(service_name)s successfully started in "%(real_path)s" as "%(virtual_path)s". Protected using %(host_key)s %(key_exchange)s %(in_hmac)s %(in_cipher)s compression:%(in_compression)s.
-:Groups: authenticated, success, ssh
+:Groups: authentication, authenticated, success, ssh
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -8832,7 +8876,7 @@ SSH protocol
 
 
 :Message: Internal error. Failure in the SSH userauth service for "%(username)s". %(details)s
-:Groups: session, failure, failure-critical, ssh
+:Groups: authentication, session, failure, failure-critical, ssh
 :From version: 1.8.1
 :Description: None
 :Data:
@@ -9488,7 +9532,7 @@ SSH protocol
 
 
 :Message: Could not read SSH key received from client. %(details)s
-:Groups: operational, session, failure, ssh
+:Groups: authentication, session, failure, ssh
 :From version: 2.10.0
 :Description: None
 
@@ -13260,6 +13304,18 @@ HTTP/HTTPS protocol
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 40000
 ^^^^^
 
@@ -13399,7 +13455,7 @@ HTTP/HTTPS protocol
 
 
 :Message: HTTP/HTTPS file access successfully started in "%(real_path)s" as "%(virtual_path)s".
-:Groups: authenticated, informational, http
+:Groups: authentication, authenticated, informational, http
 :From version: 1.8.0
 :Description: None
 :Data:
@@ -15181,6 +15237,18 @@ HTTP/HTTPS protocol
 
 Management and Web Manager Events
 ===================================
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -21247,6 +21315,18 @@ Transfer and client-side functionality
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 60000
 ^^^^^
 
@@ -21360,7 +21440,7 @@ Transfer and client-side functionality
 ^^^^^
 
 
-:Message: Transfer delayed for "%(path)s". %(details)s
+:Message: File "%(path)s" added to batch. %(details)s
 :Groups: transfer, informational, client-side
 :From version: 3.36.0
 :Description: None
@@ -21597,7 +21677,7 @@ Transfer and client-side functionality
 ^^^^^
 
 
-:Message: Transfer job failed at %(step_name)s after all retries. The following files failed: %(failed_paths)s. The following files succeeded: %(success_paths)s.
+:Message: Transfer job failed at %(step_name)s after all retries. The following files failed: %(failed_paths)s. The following files succeeded: %(success_paths)s. %(skip_paths)s
 :Groups: transfer-job, failure, failure-high, failure-specific, client-side
 :From version: 2.9.0
 :Description: None
@@ -21630,7 +21710,7 @@ Transfer and client-side functionality
 ^^^^^
 
 
-:Message: Transfer succeeded for source %(paths)s to %(destination_paths)s.
+:Message: Transfer succeeded for source %(paths)s to %(destination_paths)s. %(skip_paths)s
 :Groups: transfer-job, success, client-side
 :From version: 2.9.0
 :Description: None
@@ -21639,6 +21719,9 @@ Transfer and client-side functionality
 
 
   :paths: Comma-separated source paths which were transferred to the destination.
+
+
+  :skip_paths: Comma-separated list of files that were skipped.
 
 
   :success_list: List of source paths which were transferred.
@@ -22157,15 +22240,24 @@ Transfer and client-side functionality
 ^^^^^
 
 
-:Message: Started monitoring "%(path)s" on "%(location)s" (recursive %(recursive)s).
+:Message: Started monitoring %(recursive)s"%(path)s" on "%(location)s" every %(changes_poll_interval)ss (stable %(stable_interval)ss/%(failover_interval)ss).
 :Groups: success, authenticated, client-side
 :From version: 3.0.0
 :Description: None
 :Data:
+  :changes_poll_interval: Seconds at which path is monitored.
+
+
+  :failover_interval: Second after which failover is triggered in cluster operations
+
+
   :location: Name of the location on which this operation was performed.
 
 
   :recursive: Flag to signal if monitoring is recursive.
+
+
+  :stable_interval: Seconds after which actions are triggered for unchanged files.
 
 
 
@@ -23011,10 +23103,17 @@ Transfer and client-side functionality
 ^^^^^
 
 
-:Message: Skipping source file "%(path)s" as it already exist on destination.
+:Message: Transfer skipped for source "%(path)s". %(reason)s
 :Groups: transfer-job, informational, client-side
 :From version: 4.0.0
 :Description: None
+:Data:
+  :path: Source path of the file that was skipped.
+
+
+  :reason: Reason why the file was skipped.
+
+
 
 
 

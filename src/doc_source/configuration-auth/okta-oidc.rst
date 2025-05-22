@@ -36,13 +36,14 @@ it needs to be able to initiate **outgoing connections** to your Okta org author
 Make sure your firewall allows outgoing connections.
 An HTTP proxy can be used by SFTPPlus to connect to the Okta authorization server.
 
-.. FIXME:4175:
-   Below note should be removed once we support reverse proxy.
 ..  note::
-    Using the Okta authentication with SFTPPlus running behind a reverse proxy or an API gateway is not yet supported.
+    When using the Okta authentication with SFTPPlus running behind a reverse proxy or an API gateway,
+    make sure one of the following headers is set by your proxying setup:
+    `X-Forwarded-Proto`, `X-Forwarded-Host`, `X-Forwarded-For` or the `Forwarded` headers.
+    When using the `X-Forwarded-Host` header, make sure it contains the port number in its value.
 
 ..  note::
-    Only authenticating administrators and HTTPS file transfer users is supported.
+    Only authenticating administrators and HTTPS file transfer users are supported.
     Get in touch if you need to authenticate SFTP or FTPS users using Okta.
 
 

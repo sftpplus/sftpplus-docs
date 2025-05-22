@@ -8,6 +8,7 @@
 // pavement.py:release_notes
 //
 let SFTPPLUS_RELEASED_VERSIONS = [
+  '5.13.0',
   '5.12.0',
   '5.11.0',
   '5.10.0',

@@ -51,6 +51,9 @@ stable_interval
 
     These values should be greater than the value of `changes_poll_interval`.
 
+    When the transfer is executed on a `cluster node` this value is increased with the `failover_interval` configuration for that particular node.
+    On the `cluster controller`, there is no additional delay.
+
 
 source_filter
 -------------

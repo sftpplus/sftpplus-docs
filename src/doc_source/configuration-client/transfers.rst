@@ -78,6 +78,7 @@ description
     Human-readable text that describes the purpose of this transfer.
 
 
+.. include:: /configuration/cluster-activation.include.rst
 .. include:: /configuration/location-watch.include.rst
 
 
@@ -126,6 +127,24 @@ delete_source_parent_delay
         This configuration is ignored for non-recursive transfers.
         This configuration has no effect if the source file is not
         configured to also be removed via `delete_source_on_success`.
+
+
+ignore_missing_source_files
+---------------------------
+
+:Default value: `No`
+:Optional: yes
+:Values: * `Yes`
+         * `No`
+:From version: 5.13.0
+:Description:
+    Whether to ignore the fact that a file was first detected by the transfer,
+    but by the time the transfer needs to actually act on the file content the file is no longer present on the source.
+
+    If this is set to `No` the transfer will consider this case a failure and will emit a failure event.
+
+    If this is set to `Yes` the transfer is considered successful.
+    A separate event is emitted to inform that the file was ignored.
 
 
 minimum_transfer_count

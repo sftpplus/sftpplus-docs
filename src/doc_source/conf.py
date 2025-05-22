@@ -16,20 +16,21 @@ html4_writer = False
 html_experimental_html5_writer = True
 templates_path = ["../../sphinx"]
 html_static_path = ['_static']
+html_extra_path = ['versions.js']
 html_theme_path = ["../../sphinx"]
 html_theme = 'integrated'
 project = "SFTPPlus"
 copyright = "ProAtria Team"
 
-version = "5.12.0"
-release = "5.12.0"
+version = "5.13.0"
+release = "5.13.0"
 
 autodoc_default_flags = ['members']
 primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    'SFTPPlus-5.12.0',
+    'SFTPPlus-5.13.0',
     'SFTPPlus Documentation',
     'ProAtria Team',
     )]

@@ -79,6 +79,7 @@ html4_writer = False
 html_experimental_html5_writer = True
 templates_path = ['%(themes_path)s']
 html_static_path = ['_static']
+html_extra_path = ['versions.js']
 html_theme_path = ['%(themes_path)s']
 html_theme = '%(theme_name)s'
 project = "%(project)s"

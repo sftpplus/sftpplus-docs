@@ -12,6 +12,9 @@ enabled
     started afterwards from the Web Manager.
 
 
+.. include:: /configuration/cluster-activation.include.rst
+
+
 name
 ----
 

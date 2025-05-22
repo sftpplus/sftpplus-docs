@@ -43,14 +43,14 @@ Below is the list of sub-domains used by SFTPPlus to communicate with Google Clo
 * openidconnect.googleapis.com
 * www.googleapis.com
 
-.. FIXME:4175:
-   Below note should be removed once we support reverse proxy.
 ..  note::
-    Using the Google authentication with SFTPPlus running behind a reverse proxy or an API gateway is not yet supported.
-
+    When using the Google authentication with SFTPPlus running behind a reverse proxy or an API gateway,
+    make sure one of the following headers is set by your proxying setup:
+    `X-Forwarded-Proto`, `X-Forwarded-Host`, `X-Forwarded-For`, or the `Forwarded` headers.
+    When using the `X-Forwarded-Host` header, make sure it contains the port number in its value.
 
 ..  note::
-    Only HTTPS file transfer user authentication and web management console are supported.
+    Only authenticating administrators and HTTPS file transfer users are supported.
     Get in touch if you need to authenticate SFTP or FTPS users.
 
 
@@ -65,6 +65,7 @@ SFTPPlus interacts with Google Cloud as an OpenID Connect and OAuth2 application
 There are 4 main actions to configure inside your organization Google Cloud Console:
 
 * Create a dedicated project for SFTPPlus in Google Cloud. You can also use an existing project and enable the `Cloud Identity` API for the SFTPPlus project.
+* Setup Google Auth Platform for the SFTPPlus project
 * Create credentials for SFTPPlus.
 * Setup the authentication consent page and access scope.
 * In Google Workspaces Admin, grant access to Google users for the SFTPPlus project.
@@ -74,25 +75,40 @@ Google Cloud project setup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A Google Cloud project is used to setup the SFTPPlus interaction with the Google Cloud services.
-
-In your Google API Console, start by creating a new project and setting up the `consent screen <https://console.cloud.google.com/apis/credentials/consent>`_ for the project.
-You can also use an existing project.
-
 We recommend creating a separate project for each SFTPPlus installation.
 
-From Google Cloud `API Library <https://console.cloud.google.com/apis/library>`_, search for `Cloud Identity` and enable it.
+From Google Cloud `API Library <https://console.cloud.google.com/apis/library>`_, enable the `Cloud Identity <https://console.cloud.google.com/apis/library/cloudidentity.googleapis.com>`_ API.
+
+When searching for `cloud identity` inside Google **API Library**, make sure to select `Google Enterprise API` from the **Category** filter.
 
 
-Credentials for SFTPPlus
-^^^^^^^^^^^^^^^^^^^^^^^^
+Google Auth Platform setup
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Once you have created a new project or selected an existing project,
+assuming `Cloud Identity` is enabled,
+start by setting up the `Google Auth Platform <https://console.cloud.google.com/auth/overview/create>`_ for your project.
+
+**Branding**
+
+In the **Branding** page, add information to be visible to SFTPPlus users during the Google authentication process.
+
+**Audience**
+
+In the **Audience** page, leave `internal` as the user type.
+
+This way, SFTPPlus is limited to accessing Google Workspace users within your organization.
+
+**Clients**
+
+In the **Clients** page, create a new OAuth 2.0 Client for SFTPPlus.
 
 The credentials are used to identify and authorize access to Google Cloud for a specific SFTPPlus installation or deployment.
 
-Create new credentials of type `OAuth client ID` for SFTPPlus,
-using the `Google Cloud API Credentials <https://console.cloud.google.com/apis/credentials>`_ page.
-
-Select `Web Application` as the *application type* and define any name for these credentials.
+Select `Web Application` as the *application type*, then define a name for these credentials.
 Our suggestion is to use a name like `SFTPPlus UK PROD-01` or something that indicates which SFTPPlus installation uses these credentials.
+
+`Authorized JavaScript origins` are not required for SFTPPlus, it can be left empty.
 
 `Authorized redirect URIs` configuration is required for SFTPPlus operation.
 
@@ -101,19 +117,14 @@ where `SERVER:PORT` is replaced with the address for your HTTPS web file browser
 and `AUTH-UUID` with the unique ID of this authentication method:
 `https://SERVER.COM:PORT/?redirect-AUTH-UUID`
 
+**Data access**
 
-Access consent page
-^^^^^^^^^^^^^^^^^^^
-
-The consent page is used to setup the access level for the SFTPPlus application.
-
-Use the `OAuth consent screen` configuration to register the SFTPPlus application as an `Internal` application.
-In this mode, SFTPPlus is limited to accessing Google Workspace users within your organization.
+Use the *Add or remove scope* button to configure the scopes required by SFTPPlus.
 
 The following API scopes are required:
 
 * `openid` - for generic authentication
-* `email` - for finding the email and using it as username
+* `https://www.googleapis.com/auth/userinfo.email` - for finding the email and using it as username
 * `https://www.googleapis.com/auth/cloud-identity.groups.readonly`
 
 
@@ -121,26 +132,20 @@ Google Workspace Access
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 Inside the `Google Admin console <https://admin.google.com/u/1/ac/owl>`_, go to `Security > Access and data control > API controls`.
-You might need to click `Show more` to reveal the `Security` menu option.
 
-Select `Manage 3rd party apps <https://admin.google.com/u/1/ac/owl/list?tab=configuredApps>`_, then proceed with adding the SFTPPlus application.
+Select `Manage 3rd party apps`, then proceed with adding the SFTPPlus application.
 
-Click `Add app` and select `OAuth app name or client ID`.
+Click `Configure new app`.
 Use the client ID of the credentials that were previously created for SFTPPlus and click `Search`.
 
-Once the SFTPPlus credentials are located, you can enable access for SFTPPlus to all users from your organization or to selected groups.
+Once the SFTPPlus credentials are located, you can enable access for SFTPPlus to all users from your organization or to selected organization units.
 
-From the `Access to Google Data` configuration page, select `Limited` and then continue to confirm the new configuration.
+From the `Access to Google Data` configuration page, select `Specific Google data`, then continue to confirm the new configuration.
+
+..  note::
+    At this point, Google Cloud only allows settings access to 3rd party web apps based on the *Organizational Unit*.
 
 -----
-
-When you want SFTPPlus to apply different account configuration based on the Google group membership, the Google groups must be labelled as `Security`.
-
-To mark a group as a security group, from Google Workspace admin console go to `Directory -> Groups`,
-select the group that you want to modify.
-Click on the `Group information` panel.
-After that, you can click on the `Label` section to see the option to define this group as a `Security` group.
-
 
 .. include:: /configuration-auth/authentication-commons.include.rst
 

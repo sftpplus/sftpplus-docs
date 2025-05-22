@@ -9,6 +9,9 @@ name
     Human-readable short text used to identify this event handler.
 
 
+.. include:: /configuration/cluster-activation.include.rst
+
+
 description
 -----------
 
@@ -138,6 +141,27 @@ components
     mark (!).
 
     Leave it empty to handle events emitted by any component.
+
+
+servers
+-------
+
+:Default value: `empty`
+:Optional: Yes
+:From version: 5.13.0
+:Values: * UUID of an SFTPPlus servers
+         * Comma-separated list of UUIDs
+         * `all`
+:Description:
+    This is designed to be used with SFTPPlus cluster deployments.
+
+    When configured it will handle events from particular SFTPPlus servers.
+
+    When left empty, it will only handle events emitted by the local SFTPPlus server.
+
+    When set to `all`, it will handle events from all SFTPPlus servers.
+
+    It can be configured with one or multiple SFTPPlus server UUIDs.
 
 
 source_addresses

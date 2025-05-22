@@ -37,6 +37,7 @@ Unix-like systems, familiar with file transfer protocols.
     configuration-events/index
     configuration-identity/index
     configuration-auth/index
+    cluster/index
     operation/index
     operation-client/index
     developer/index

@@ -1,5 +1,5 @@
-User/Admin authentication sources
-=================================
+Authentication sources
+======================
 
 An authentication method configuration provides the required information to
 allow SFTPPlus to use a specific method in order to authenticate

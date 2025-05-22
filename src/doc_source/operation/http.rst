@@ -26,9 +26,6 @@ to the state of the `http` or `https` service:
 ..  image:: /_static/operation/http-https-enabled.png
 
 
-More resources about the HTTP / HTTPS service
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 For more details about the configuration options, please go to the dedicated
 :doc:`HTTP/HTTPS configuration</configuration-server/http-service>` page.
 

@@ -23,10 +23,11 @@ before the `SFTPPlus Application Accounts` authentication.
 The Entra ID *authentication* process handles identifying and validating the access from an account/user/person.
 The SFTPPlus *authorization* process handles the set of file access permissions for the authenticated user.
 
-.. FIXME:4175:
-   Below note should be removed once we support reverse proxy.
 ..  note::
-    Using the Entra ID authentication with SFTPPlus running behind a reverse proxy or an API gateway is not yet supported.
+    When using the Entra ID authentication with SFTPPlus running behind a reverse proxy or an API gateway,
+    make sure one of the following headers is set by your proxying setup:
+    `X-Forwarded-Proto`, `X-Forwarded-Host`, `X-Forwarded-For`, or the `Forwarded` headers.
+    When using the `X-Forwarded-Host` header, make sure it contains the port number in its value.
 
 ..  note::
     Only Entra ID public cloud is supported for now.
