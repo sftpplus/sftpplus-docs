@@ -1,4 +1,5 @@
 # Command to build the docs on Netlify.
+set -eo  # We want to stop the build on any error.
 
 TARGET="latest"
 if [ $BRANCH ]; then
