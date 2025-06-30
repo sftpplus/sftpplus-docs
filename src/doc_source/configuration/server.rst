@@ -1,5 +1,5 @@
-Server's process
-================
+General configuration
+=====================
 
 ..  contents:: :local:
 
@@ -345,6 +345,23 @@ ssh_host_private_keys
     You can also configure it with one or more absolute paths on the
     local filesystem to files containing private SSH keys.
     One path per line.
+
+
+proxy
+-----
+
+:Default value: ''
+:Optional: Yes
+:Values: * `URI` like expression.
+         * `connect://12.342.421.2:3128`
+:From version: 5.14.0
+:Description:
+    This configures the default proxy used by SFTPPlus to connect to HTTP/HTTPS
+    servers.
+
+    For now, only the HTTP/1.1 CONNECT tunneling proxy method is supported.
+
+    Leave it empty to not use a proxy.
 
 
 blocking_filesystem

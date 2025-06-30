@@ -209,14 +209,6 @@ IPv6 format.
 ..  note::
     The `--country` option does not support Unicode values.
 
-You can validate your certificate using the web-based
-`Symantec SSL Tools
-<https://cryptoreport.websecurity.symantec.com/checker/views/csrCheck.jsp>`_.
-
-You can check all fields of the generated certificate using a web-based
-decoder, such as the one provided by
-`Cert Logic <https://certlogik.com/decoder/>`_.
-
 
 .. _generate-uuid:
 

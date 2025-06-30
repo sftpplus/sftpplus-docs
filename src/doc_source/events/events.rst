@@ -197,6 +197,16 @@ Generic and server-side common functionality
 
 
 
+20018
+^^^^^
+
+:Message: Failed to reload the signature keys. %(details)s.
+:Groups: operational, process, failure, failure-critical
+:From version: 5.14.0
+:Description: None
+
+
+
 20019
 ^^^^^
 
@@ -424,7 +434,7 @@ Generic and server-side common functionality
 :Message: Invalid certificate %(serial_number)s "%(subject)s". %(details)s
 :Groups: operational, authenticated, failure
 :From version: 1.6.0
-:Description: None
+:Description: Generated when failing to validate the certificate of the peer.
 :Data:
   :subject: Certificate subject.
 
@@ -1553,7 +1563,7 @@ Generic and server-side common functionality
 20142
 ^^^^^
 
-:Message: Failed to get a valid response from the "%(method_name)s" authentication for the account "%(username)s" using %(credentials_type)s. %(details)s
+:Message: Authentication rejected by "%(method_name)s" for the account "%(username)s" using %(credentials_type)s. %(details)s
 :Groups: authentication, session, failure, failure-high
 :From version: 2.10.0
 :Description: None
@@ -6938,8 +6948,20 @@ FTP protocol
 
 
 
+
+
+
+
+
+
 SSH protocol
 ============
+
+
+
+
+
+
 
 
 
@@ -13316,6 +13338,12 @@ HTTP/HTTPS protocol
 
 
 
+
+
+
+
+
+
 40000
 ^^^^^
 
@@ -17633,6 +17661,12 @@ Management and Web Manager Events
 
 
 
+
+
+
+
+
+
 50000
 ^^^^^
 
@@ -18763,6 +18797,12 @@ Management and Web Manager Events
 
 Transfer and client-side functionality
 ======================================
+
+
+
+
+
+
 
 
 

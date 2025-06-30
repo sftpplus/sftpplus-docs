@@ -225,7 +225,7 @@ the following algorithms are enabled.
 These are listed below according to preference::
 
     # Host keys
-    ssh-ed25519'
+    ssh-ed25519
     ecdsa-sha2-nistp256
     ecdsa-sha2-nistp384
     ecdsa-sha2-nistp521

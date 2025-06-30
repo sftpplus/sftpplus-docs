@@ -86,13 +86,14 @@ and `AUTH-UUID` with the unique ID of this authentication method:
     Only single-tenant authentication is supported.
     Only a single Entra ID authentication method can be enabled for one HTTPS file transfer server.
     When multiple Entra ID authentications are defined, only the first one is used.
-    Get in touch if you need support for multitenant or personal Microsoft accounts.
+    Get in touch if you need support for multi-tenant or personal Microsoft accounts.
+
+`Client credentials` of type `client secret` is required to identity the SFTPPlus application to identify itself to the Entra ID authentication server.
 
 Once the SFTPPlus application is registered inside Azure you can optionally configure the logout URL.
 From `Essentials -> Redirect URIs`, define the front-channel logout URL:
 `https://SERVER.COM:PORT/__chsps__/logout`
 
-No application secret is required.
 SFTPPlus will use the Azure public keys to validate the ID and access tokens.
 
 From the Entra ID App registrations `Authentication` page,
@@ -148,6 +149,16 @@ client_id
     This value is obtained after registering SFTPPlus in Entra ID via the `App registrations` page.
 
     Before version 5.12.0, this was named `application_id`.
+
+
+password
+--------
+
+:Default value: Empty
+:Optional: No
+:Values: * plain text
+:From version: 4.24.0
+    This is the Azure client secret generated for the SFTPPlus application.
 
 
 base_groups
@@ -217,6 +228,34 @@ base_roles
         and from the `Users and Groups` configure the access.
 
 
+roles_association
+-----------------
+
+:Default value: `base-and-cloud-groups`
+:Optional: No
+:Values: * `base-roles`
+         * `base-and-cloud-groups`
+:From version: 5.14.0
+:Description:
+    Defines how the SFTPPlus roles are associated with authenticated administrators.
+
+    When set to `base-roles` it will associate the administrator to the list of roles defined by the `base_roles` option.
+
+    When set to `base-and-cloud-groups`,
+    it associates the administrator with the list of roles defined via the `base_roles` option
+    and the SFTPPlus roles having the same name as the Entra ID groups that this user is a member of.
+
+    If the user is associated with Entra ID groups for which there is no configured role in SFTPPlus, those groups are ignored.
+
+    If no Entra ID groups are found for this user matching any existing SFTPPlus role,
+    only the base roles are used.
+
+    If the authenticated user has no associated SFTPPlus roles in Entra ID cloud and `base_roles` is empty, the authentication fails.
+
+    The Entra ID groups are associated with SFTPPlus roles if they have the same name.
+    The matching of the roles is case-sensitive.
+
+
 proxy
 -----
 
@@ -224,11 +263,16 @@ proxy
 :Optional: Yes
 :Values: * `URI` like expression.
          * `connect://12.342.421.2:3128`
+         * `disabled` (since 5.14.0)
 :From version: 4.23.0
 :Description:
     This configures the proxy used by SFTPPlus to connect to the cloud services required by Entra ID.
 
     For now, only the HTTP/1.1 CONNECT tunneling proxy method is supported.
+
+    Leave it empty to use the general proxy configuration.
+
+    Set to `disable` to disable using a proxy.
 
 
 remove_username_suffix
@@ -248,7 +292,7 @@ remove_username_suffix
     while the remaining are ignored.
 
     For example, if the Entra ID username is ``Jane.R@sftpplus.onmicrosoft.com``,
-    and you want SFTPPlus to handle the user as Jane.R, you can configure
+    and you want SFTPPlus to handle the user as ``Jane.R``, you can configure
     this as ``remove_username_suffix = @sftpplus.onmicrosoft.com``.
 
 
@@ -269,17 +313,3 @@ api_scopes
 
     Multiple API scopes can be defined.
     Each scope should be defined on a separate line.
-
-
-password
---------
-
-:Default value: Empty
-:Optional: Yes
-:Values: * plain text
-:From version: 4.24.0
-    This is the Azure client secret generated for the SFTPPlus application.
-
-    This is only required if you configure `api_scopes`.
-
-    When `api_scopes` is not configured, this value is ignored and not used.

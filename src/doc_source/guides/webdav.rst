@@ -1,12 +1,5 @@
-.. container:: tags pull-left
-
-    `client-side`
-    `security`
-    `since-version:3.20.0`
-
-
-Using WebDAV
-============
+Using WebDAV and SharePoint
+===========================
 
 ..  contents:: :local:
 
@@ -27,7 +20,7 @@ feel free to contact us.
 
 
 Connecting with locations under proxy
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------
 
 A WebDAV :doc:`resource </configuration/resources>` location under a proxy is
 supported.
@@ -44,7 +37,7 @@ configuration should match your network's correct proxy configuration.
 
 
 Troubleshooting audit events
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 The SFTPPlus audit events will provide details in regards to WebDAV
 transfer failures.
@@ -74,7 +67,7 @@ a text :doc:`configuration </configuration/configuration-file>` file available.
 The examples below can be added in the configuration file or modified in the
 Web Manager.
 
-The example below will create a new ``webdavs`` location using the Sharepoint
+The example below will create a new `webdavs` location using the Sharepoint
 Online credentials at the specified Sharepoint Online address and port::
 
     [locations/b9787c72-2c8b-4725-a049-ee628aa0abc1]
@@ -88,6 +81,16 @@ Online credentials at the specified Sharepoint Online address and port::
     authentication_method = sharepoint-online
     connection_retry_count = 0
     connection_retry_interval = 30
+
+To define the source or destination path on SharePoint Online, you will configure the transfer with a path using the following convention::
+
+  /SITE-NAME/Library Name/Path to/some folder/
+
+Where:
+
+* `SITE-NAME` is the name of the SharePoint site
+* `Library Name` is the name of a library from the SharePoint site
+* `Path to/some folder` is any path or sub-path to the folder to and from where files are transferred.
 
 The example below will set up an automatic transfer to move files from a local
 disk as indicated by the `source_path` to a remote SharePoint online folder
@@ -127,4 +130,3 @@ Here is a sample configuration for SharePoint online::
 
     [locations/0ef580fe-45cb-47e0-b434-c0e44557b364]
     ssl_certificate_authority = ${MICROSOFT_IT_CA}
-    ssl_certificate_revocation_list = ${MICROSOFT_IT_CRL}

@@ -207,6 +207,34 @@ base_roles
         which is **separated** from the Okta application dedicated to file transfers.
 
 
+roles_association
+-----------------
+
+:Default value: `base-and-cloud-groups`
+:Optional: No
+:Values: * `base-roles`
+         * `base-and-cloud-groups`
+:From version: 5.14.0
+:Description:
+    Defines how the SFTPPlus roles are associated with authenticated administrators.
+
+    When set to `base-roles` it will associate the administrator to the list of roles defined by the `base_roles` option.
+
+    When set to `base-and-cloud-groups`,
+    it associates the administrator with the list of roles defined via the `base_roles` option
+    and the SFTPPlus roles having the same name as the Okta groups that this user is a member of.
+
+    If the user is associated with Okta groups for which there is no configured role in SFTPPlus, those groups are ignored.
+
+    If no Okta groups are found for this user matching any existing SFTPPlus role,
+    only the base roles are used.
+
+    If the authenticated user has no associated SFTPPlus roles in Okta cloud and `base_roles` is empty, the authentication fails.
+
+    The Okta groups are associated with SFTPPlus roles if they have the same name.
+    The matching of the roles is case-sensitive.
+
+
 proxy
 -----
 
@@ -214,8 +242,51 @@ proxy
 :Optional: Yes
 :Values: * `URI` like expression.
          * `connect://12.342.421.2:3128`
+         * `disabled` (since 5.14.0)
 :From version: 5.12.0
 :Description:
     This configures the proxy used by SFTPPlus to connect to the Okta cloud services.
 
     For now, only the HTTP/1.1 CONNECT tunnelling proxy method is supported.
+
+    Leave it empty to use the general proxy configuration.
+
+
+remove_username_suffix
+----------------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Text
+         * Multiple values, one value per line.
+:From version: 5.14.0
+:Description:
+    Suffix of the Okta ID username to be removed by SFTPlus when generating the username used for file transfer operations.
+
+    You can configure SFTPPlus to remove multiple suffixes.
+    Define each suffix that should be removed on a separate line.
+    The first suffix matching the Okta ID username is used,
+    while the remaining are ignored.
+
+    For example, if the Okta ID username is ``Jane.R@sftpplus.example.com``,
+    and you want SFTPPlus to handle the user as ``Jane.R``, you can configure
+    this as ``remove_username_suffix = @sftpplus.example.com``.
+
+
+api_scopes
+----------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Okta API scope name
+         * Multiple scope names, one scope per line.
+:From version: 5.14.0
+    This allows SFTPPlus to ask for extra Okta API permissions when an account is authenticated.
+
+    The extra API access token is available to the SFTPPlus Python API extensions.
+    It is used for implementing custom extensions that integrate with Okta.
+
+    You can leave this empty if you don't plan to use custom SFTPPlus extensions.
+
+    Multiple API scopes can be defined.
+    Each scope should be defined on a separate line.

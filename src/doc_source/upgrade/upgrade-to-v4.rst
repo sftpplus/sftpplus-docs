@@ -158,5 +158,5 @@ Below is the list of low-level configuration change made when upgrading from SFT
   authentication method.
   The legacy WebAdmin authentication method is no longer supported.
   If your previous url was configured as
-  "http://admin.example.com/SFTPPlus" you should
-  now use "http://admin.example.com/SFTPPlus/TransferLoginSimple.php"
+  `http://admin.example.com/SFTPPlus` you should
+  now use `http://admin.example.com/SFTPPlus/TransferLoginSimple.php`

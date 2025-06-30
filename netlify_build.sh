@@ -27,4 +27,8 @@ sphinx-build -b html --keep-going -W -D html_theme=standalone -A robots="$DOCS_R
 sphinx-build -b html --keep-going -W -D html_theme=integrated -A robots="$DOCS_ROBOT" src/doc_source/ deploy/documentation/sftpplus/$TARGET/
 cp src/doc_source/_static/versions.js deploy/documentation/sftpplus/versions.js
 
+# Update the download pages
+mkdir -p deploy/documentation/sftpplus/trial/
+cp -r download_pages/trial.html deploy/documentation/sftpplus/trial/index.html
+
 ls -al deploy/

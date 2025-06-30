@@ -7,13 +7,13 @@ docs.sftpplus.com
 The documentation for the SFTPPlus product.
 
 There is an `update-docs.sh` script that should be called, while the
-`chevah/server` repo is checkout at the release branch.
-
+`chevah/server` repo is checkout at the release branch::
 
     $ bash update-docs.sh ../PATH/TO/PRODUCT-REPO
 
 You should push the changes on the `main` branch.
 The main branch will be always updated with the latest release.
+
 You should also create a version dedicated branch with the format `v4-18-0`
 and push the changes for that version.
 

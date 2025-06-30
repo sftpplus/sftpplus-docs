@@ -82,13 +82,16 @@ proxy
 :Optional: Yes
 :Values: * `URI` like expression.
          * `connect://12.342.421.2:3128`
+         * `disabled` (since 5.14.0)
 :From version: 3.20.0
 :Description:
     This configuration adds the proxy used to connect to the final URL.
 
     For now, only the HTTP/1.1 CONNECT tunneling proxy method is supported.
 
-    Leave it empty to not use a proxy.
+    Leave it empty to use the general proxy configuration.
+
+    Set to `disable` to disable using a proxy.
 
 
 authentication_method

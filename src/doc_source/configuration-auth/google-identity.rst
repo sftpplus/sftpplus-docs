@@ -11,6 +11,10 @@ The `google-identity` method is used to implement single sign-on authentication 
 
 This allows using Google accounts to authenticate in SFTPPlus as administrators or file transfer accounts.
 
+Google accounts that want to access SFTPPlus need to be member in at least one **security label group**.
+To improve security and avoid accidentally giving access to SFTPPlus,
+users that are member of *mailing groups* are not accepted by SFTPPlus.
+
 To integrate SFTPPlus with a Google account,
 you need to set the Google Cloud API details in SFTPPlus.
 Google Identity is part of the Google Cloud service.
@@ -23,6 +27,8 @@ You have to define the authorization rules inside the SFTPPlus configuration.
 
 It is recommended to configure the Google Identity authentication method as the first method in your authentication chain,
 before the `SFTPPlus Application Accounts` authentication.
+
+It is recommended to created dedicated **security label groups** for the client or administrators of SFTPPlus.
 
 SFTPPlus always asks to confirm the selected Google user for authentication.
 Get in touch if you would like SFTPPlus to automatically use the default Google user without a prompt.
@@ -239,6 +245,34 @@ base_roles
         which is **separated** from the Google Cloud application dedicated to file transfers.
 
 
+roles_association
+-----------------
+
+:Default value: `base-and-cloud-groups`
+:Optional: No
+:Values: * `base-roles`
+         * `base-and-cloud-groups`
+:From version: 5.14.0
+:Description:
+    Defines how the SFTPPlus roles are associated with authenticated administrators.
+
+    When set to `base-roles` it will associate the administrator to the list of roles defined by the `base_roles` option.
+
+    When set to `base-and-cloud-groups`,
+    it associates the administrator with the list of roles defined via the `base_roles` option
+    and the SFTPPlus roles having the same name as the Google groups that this user is a member of.
+
+    If the user is associated with Google groups for which there is no configured role in SFTPPlus, those groups are ignored.
+
+    If no Google groups are found for this user matching any existing SFTPPlus role,
+    only the base roles are used.
+
+    If the authenticated user has no associated SFTPPlus roles in Google cloud and `base_roles` is empty, the authentication fails.
+
+    The Google groups are associated with SFTPPlus roles if they have the same name.
+    The matching of the roles is case-sensitive.
+
+
 proxy
 -----
 
@@ -246,8 +280,51 @@ proxy
 :Optional: Yes
 :Values: * `URI` like expression.
          * `connect://12.342.421.2:3128`
+         * `disabled` (since 5.14.0)
 :From version: 5.11.0
 :Description:
     This configures the proxy used by SFTPPlus to connect to the cloud services.
 
     For now, only the HTTP/1.1 CONNECT tunnelling proxy method is supported.
+
+    Leave it empty to use the general proxy configuration.
+
+
+remove_username_suffix
+----------------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Text
+         * Multiple values, one value per line.
+:From version: 5.14.0
+:Description:
+    Suffix of the Google ID username to be removed by SFTPlus when generating the username used for file transfer operations.
+
+    You can configure SFTPPlus to remove multiple suffixes.
+    Define each suffix that should be removed on a separate line.
+    The first suffix matching the Google username is used,
+    while the remaining are ignored.
+
+    For example, if the Google username is ``Jane.R@sftpplus.example.com``,
+    and you want SFTPPlus to handle the user as ``Jane.R``, you can configure
+    this as ``remove_username_suffix = @sftpplus.example.com``.
+
+
+api_scopes
+----------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Google Cloud API scope name
+         * Multiple scope names, one scope per line.
+:From version: 5.14.0
+    This allows SFTPPlus to ask for extra Google Cloud API permissions when an account is authenticated.
+
+    The extra API access token is available to the SFTPPlus Python API extensions.
+    It is used for implementing custom extensions that integrate with Google Cloud.
+
+    You can leave this empty if you don't plan to use custom SFTPPlus extensions.
+
+    Multiple API scopes can be defined.
+    Each scope should be defined on a separate line.

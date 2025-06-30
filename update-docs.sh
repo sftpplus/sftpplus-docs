@@ -9,6 +9,11 @@ cd $1
 SERVER_ROOT=`pwd`
 PY_VER='3.12'
 
+rm dist/*.html
+./pythia.sh download_pages production
+mkdir -p $DOCS_ROOT/download_pages
+cp dist/trial.html $DOCS_ROOT/download_pages/trial.html
+
 ./pythia.sh documentation_website
 cp -r build-py3/doc_source $DOCS_ROOT/src/
 cp chevah/server/static/documentation/versions.js $DOCS_ROOT/src/doc_source/_static/

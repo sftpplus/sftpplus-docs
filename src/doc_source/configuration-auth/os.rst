@@ -24,6 +24,9 @@ in the `manager_allowed_groups` configuration option.
     when the SFTPPlus service is started as `root`.
     This restriction is enforced by the default Linux security model.
 
+..  note::
+    OS authentication is not supported on macOS or Linux distributions that don't support PAM (like Alpine Linux).
+
 You can overwrite some of the account's settings (e.g. home folder path), by
 defining an account of type `os` inside the configuration file.
 

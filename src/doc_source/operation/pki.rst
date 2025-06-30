@@ -101,8 +101,7 @@ such as working with external partners, please get in touch with them to
 obtain logs from the other side.
 
 When there is an error code and message, the log information corresponds with
-the diagnostic information provided by
-`OpenSSL <https://www.openssl.org/docs/man1.0.2/apps/verify.html>`_.
+the diagnostic information provided by `OpenSSL verify` function.
 
 
 Certificate Chaining

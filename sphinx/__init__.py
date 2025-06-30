@@ -53,6 +53,17 @@ def _create_configuration(
         'canonical_site': (
             'https://www.sftpplus.com/documentation/sftpplus/latest/'),
         }
+
+    if 'standalone' not in theme_name:
+        # Only add "Edit source" for non-standalone themes.
+        html_context_values.update({
+            "source_type": "github",
+            "source_user": "sftpplus",
+            "source_repo": "sftpplus-docs",
+            "source_version": "main",  # Optional
+            "source_docs_path": "/src/doc_source/",  # Optional
+            })
+
     if html_context:
         html_context_values.update(html_context)
     html_context_parts = ['html_context = {']
@@ -63,10 +74,6 @@ def _create_configuration(
 
     content = """
 
-extensions = [
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.autodoc',
-    ]
 suppress_warnings = ['toc.secnum']
 source_suffix = '.rst'
 # Ignore included files in root and in child folders from being reported
@@ -78,10 +85,12 @@ smartquotes = False
 html4_writer = False
 html_experimental_html5_writer = True
 templates_path = ['%(themes_path)s']
+
 html_static_path = ['_static']
 html_extra_path = ['versions.js']
 html_theme_path = ['%(themes_path)s']
 html_theme = '%(theme_name)s'
+
 project = "%(project)s"
 copyright = "%(copyright)s"
 
@@ -104,6 +113,8 @@ pdf_toc_depth = 2
 extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.autodoc',
+    'sphinx_copybutton',
+    'sphinx_design',
     ]
 
 %(html_context)s
@@ -128,6 +139,7 @@ def build_documentation(
     arguments=None,
     theme='standalone',
     html_context=None,
+    source_dir='docs',
         ):
     """
     Build project documentation and return exit code.
@@ -139,7 +151,7 @@ def build_documentation(
         arguments = []
 
     _create_configuration(
-        destination=[pave.path.build, 'doc_source', 'conf.py'],
+        destination=[source_dir, 'conf.py'],
         project=project,
         version=version,
         theme_name=theme,
@@ -149,11 +161,13 @@ def build_documentation(
     destination = [pave.path.build, 'doc', 'html']
     exit_code = _create_html(
         arguments=arguments,
-        source=[pave.path.build, 'doc_source'],
+        source=[source_dir],
         target=destination,
         )
-
-    print("Documentation files generated in %s" % (
-        pave.fs.join(destination)))
+    print('Documentation "{}" generated in {}'.format(
+        theme, pave.fs.join(destination)))
     print("Exit with %d." % (exit_code))
+
+    # Remove the sphinx configuration file.
+    pave.fs.deleteFile([source_dir, 'conf.py'])
     return exit_code

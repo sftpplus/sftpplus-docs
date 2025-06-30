@@ -1,5 +1,5 @@
-HTTP / HTTPS
-============
+HTTP / HTTPS / AS2
+==================
 
 The `http` / `https` service allows the same level of file access as the
 other available file transfer services, such as FTPS or SFTP.

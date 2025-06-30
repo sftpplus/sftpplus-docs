@@ -963,6 +963,55 @@ Deprecations and Removals
   [ftps][server-side][client-side] [#6509]
 
 
+Version 4.36.0, 2024-12-11
+--------------------------
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* The Python runtime has been patched with security fixes from ActiveState to
+  account for CVE-2017-18207, CVE-2021-4189, CVE-2022-45061, CVE-2022-48565,
+  and CVE-2024-7592. On Linux and macOS, the following security issues were
+  also fixed: CVE-2022-48560, CVE-2022-48566, CVE-2023-40217, and
+  CVE-2024-0397. [#6781-2]
+* The OpenSSL 1.1.1 libraries used for Python's `cryptography` on Windows,
+  generic Linux, Alpine Linux, and macOS were patched to fix CVE-2023-5678,
+  CVE-2024-0727, CVE-2024-2511, CVE-2024-4741, and CVE-2024-5535. [#6781]
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure a transfer to send the file to the destination location
+  using a relative path. [client-side] [#6901]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* When using automated updates on Linux, file capabilities such as binding
+  privileged ports are now preserved for SFTPPlus installations. [#6498]
+
+
+Version 4.35.1, 2024-07-17
+--------------------------
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* An internal error is no longer generated when listing empty folders over
+  FTPS. When listing an empty folders, some FTPS server close the data
+  connection before confirming the end via the command connection. This was
+  causing SFTPPlus to fail to validate the server connection. This is a
+  regression introduced in SFTPPlus 4.34.0. [client-side][ftps] [#4346]
+* The FTP/FTPS server now closes any file for which an upload request was
+  started, but for which the upload operation failed. On previous version, if a
+  file transfer failed during the data transfer, the uploaded file was kept
+  opened on the server operating system. [server-side][ftp] [#6514]
+
+
 Version 4.35.0, 2024-01-12
 --------------------------
 
@@ -3428,10 +3477,10 @@ Deprecations and Removals
 
 * Let's Encrypt ACME v1 protocol is no longer supported. You will need to
   manually update your configuration to use an ACME v2 server. For example, you
-  can use: https://acme-v02.api.letsencrypt.org/directory. If
+  can use: `https://acme-v02.api.letsencrypt.org/directory`. If
   you were using the Let's Encrypt V1 server at
-  https://acme-v1.api.letsencrypt.org/directory, it will be automatically
-  upgraded to https://acme-v02.api.letsencrypt.org/directory. [#5351]
+  acme-v1.api.letsencrypt.org/directory, it will be automatically
+  upgraded to acme-v02.api.letsencrypt.org/directory. [#5351]
 
 
 Version 3.53.0, 2020-01-17
