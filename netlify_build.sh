@@ -16,6 +16,8 @@ fi
 # Show all variables.
 declare -p
 
+python -m site
+
 # Install example code.
 cp -r chevah /opt/buildhome/python3.12/lib/python3.12/site-packages/
 
