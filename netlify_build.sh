@@ -13,13 +13,15 @@ if [ $BRANCH ]; then
   fi
 fi
 
+# Install example code.
+python3 -m site
+export SITE_PACKAGES=`python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])'
+`
+
 # Show all variables.
 declare -p
 
-# Install example code.
-python -m site
-SITE_PACKAGES=`python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])'
-`
+
 cp -r chevah $SITE_PACKAGES
 
 
