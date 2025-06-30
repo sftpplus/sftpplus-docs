@@ -7,6 +7,62 @@ number (not by release date).
 .. release-notes-start
 
 
+Version 5.14.0, 2025-06-27
+--------------------------
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* **(Breaking Change)** The Entra ID authentication method now requires to be configured using a
+  `client secret` via the `password` configuration option.
+  [entra-id] [#7057]
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure an HTTP proxy that is used by default for any
+  component, via the `[server] proxy` configuration option.
+  In previous versions, each component required a separate direct proxy
+  configuration.
+  [client-side] [#3975-1]
+* The Azure BLOB and Azure File location now support connecting via an HTTP
+  proxy.
+  [client-side][azure-file][azure-blob] [#3975]
+* You can now configure the Google and Okta single sign-on authentication
+  method to allow access only to members of specific cloud groups.
+  [security][google-cloud][okta] [#6098]
+* The Okta and Google Identity authentication method now support the
+  `remove_username_suffix` and `api_scopes` configuration.
+  [server-side] [#7057-1]
+* You can now configure the Entra ID authentication method to allow access to
+  administrators based on specific cloud groups.
+  [server-side][entra-id] [#7057-2]
+* The Entra ID authentication method now allows access to both direct group
+  members as well as to transitive membership.
+  [entra-id][server-side] [#7057]
+* You can now configure the `application` authentication method to
+  restrict user access only to the filtered groups.
+  This is done using the `strict_group_access = yes` configuration option.
+  In previous versions users would get access to all their associated
+  groups as long as they were a member of at least one of the allowed
+  groups for the authentication method.
+  [server-side] [#7121]
+* When the Web Manager service is configured with an invalid TLS certificate,
+  the service will start using a fallback certificate.
+  Administrators can then connect to the Web Manager and resolve the issue.
+  [manager] [#7126]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The OS authentication method now generates an error when trying to use it
+  on Alpine Linux, since it is not supported.
+  [linux] [#7059]
+
+
 Version 5.13.0, 2025-05-22
 --------------------------
 

@@ -15,7 +15,7 @@ mkdir -p $DOCS_ROOT/download_pages
 cp dist/trial.html $DOCS_ROOT/download_pages/trial.html
 
 ./pythia.sh documentation_website
-cp -r build-py3/doc_source $DOCS_ROOT/src/
+cp -r chevah/server/static/documentation/* $DOCS_ROOT/src/doc_source/
 cp chevah/server/static/documentation/versions.js $DOCS_ROOT/src/doc_source/_static/
 cp extension/* $DOCS_ROOT/extension/
 cp -r build-py3/lib/python$PY_VER/site-packages/sftpplus_website/sphinx $DOCS_ROOT

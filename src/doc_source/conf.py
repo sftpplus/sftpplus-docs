@@ -10,11 +10,11 @@ pygments_style = 'sphinx'
 smartquotes = False
 html4_writer = False
 html_experimental_html5_writer = True
-templates_path = ['../../sphinx']
+templates_path = ["../../sphinx"]
 
 html_static_path = ['_static']
 html_extra_path = ['versions.js']
-html_theme_path = ['../../sphinx']
+html_theme_path = ["../../sphinx"]
 html_theme = 'integrated'
 
 project = "SFTPPlus"
