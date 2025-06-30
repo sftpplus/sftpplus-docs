@@ -37,7 +37,7 @@ folder of the default SFTPPlus installation.
 Below is an example extension code that is also used to document the
 available API and functionalities.
 
-..  literalinclude:: ../../../../../extension/demo_event_handler.py
+..  literalinclude:: ../../../extension/demo_event_handler.py
     :language: python
     :linenos:
 
