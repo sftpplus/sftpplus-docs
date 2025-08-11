@@ -28,10 +28,10 @@ cp -r chevah $SITE_PACKAGES
 mkdir -p deploy/documentation/sftpplus/$TARGET/
 
 # Build the standalone version in root.
-sphinx-build -b html --keep-going -W -D html_theme=standalone -A robots="$DOCS_ROBOT" src/doc_source/ deploy/
+sphinx-build -b html --keep-going -W -D html_theme=standalone -A robots="$DOCS_ROBOT" docs/ deploy/
 # Build the integrated version to a path that will match the website.
-sphinx-build -b html --keep-going -W -D html_theme=integrated -A robots="$DOCS_ROBOT" src/doc_source/ deploy/documentation/sftpplus/$TARGET/
-cp src/doc_source/_static/versions.js deploy/documentation/sftpplus/versions.js
+sphinx-build -b html --keep-going -W -D html_theme=integrated -A robots="$DOCS_ROBOT" docs/ deploy/documentation/sftpplus/$TARGET/
+cp docs/_static/versions.js deploy/documentation/sftpplus/versions.js
 
 # Update the download pages
 mkdir -p deploy/documentation/sftpplus/trial/
