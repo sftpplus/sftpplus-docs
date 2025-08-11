@@ -70,7 +70,7 @@ service::
     password: test_password
     port: 10022
 
-..  image:: /_static/guides/winscp-sftpplus-1.png
+..  image:: /static/guides/winscp-sftpplus-1.png
     :alt: Initial account details for the SFTP service.
     :width: 500px
 
@@ -82,7 +82,7 @@ Please check the server key prior to accepting.
 To use your own SSH keys, please configure the
 :doc:`SFTP service </configuration-server/ssh-service>` accordingly.
 
-..  image:: /_static/guides/winscp-sftpplus-2.png
+..  image:: /static/guides/winscp-sftpplus-2.png
     :alt: Self-signed certificate for the SFTP service.
     :width: 500px
 
@@ -103,7 +103,7 @@ service::
     password: test_password
     port: 10021
 
-..  image:: /_static/guides/winscp-sftpplus-4.png
+..  image:: /static/guides/winscp-sftpplus-4.png
     :alt: Initial account details for the SFTP service.
     :width: 500px
 
@@ -115,7 +115,7 @@ To use your own certificate, please configure the
 :doc:`FTPS service </configuration-server/ftp-service>` accordingly.
 For production, we highly recommend using your own certificate.
 
-..  image:: /_static/guides/winscp-sftpplus-5.png
+..  image:: /static/guides/winscp-sftpplus-5.png
     :alt: Verify the self-signed certificate.
     :width: 500px
 
@@ -142,7 +142,7 @@ command is denied by SFTPPlus server as it it outside of the SCP scope.
 From SFTPPlus Web Manager, you will see this message, which is
 expected.
 
-..  image:: /_static/guides/winscp-sftpplus-8.png
+..  image:: /static/guides/winscp-sftpplus-8.png
     :alt: SCP listing folder not available
     :width: 600px
 

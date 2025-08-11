@@ -70,4 +70,4 @@ new PGP key.
 Below is a screenshot with the PGP key generation page from the Web Manager
 web-based administration console:
 
-..  image:: /_static/guides/lm-gpg-key-generation.png
+..  image:: /static/guides/lm-gpg-key-generation.png

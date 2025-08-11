@@ -10,6 +10,7 @@ This section includes the reference documentation for general configuration opti
     configuration-file
     local-manager
     server
+    security-policy
     matching-expression
     resources
     monitor-resource

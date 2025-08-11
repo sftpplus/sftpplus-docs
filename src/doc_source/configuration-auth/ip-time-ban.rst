@@ -1,16 +1,19 @@
 Banning IP addresses
 ====================
 
-An `ip-time-ban` authentication method can be used to block/deny
-authentication requests coming from a specific IP address if they generate
-a number of consecutive authentication failures.
-This option can be used to help mitigate DDOS attempts to SFTPPlus services.
-
 ..  contents:: :local:
+
+..  warning::
+    This authentication method is now deprecated as it was replaced by the `security-policies` configuration.
 
 
 Introduction
 ------------
+
+An `ip-time-ban` authentication method can be used to block/deny
+authentication requests coming from a specific IP address if they generate
+a number of consecutive authentication failures.
+This option can be used to help mitigate DDOS attempts to SFTPPlus services.
 
 The ban is active for a time interval, after which authentication requests
 made from the IP address are accepted again.

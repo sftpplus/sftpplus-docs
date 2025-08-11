@@ -27,7 +27,7 @@ The `anonymous` account is locked inside the home folder and will have
 full access to all files and directories located in the home folder, just like
 a normal application account.
 
-..  image:: /_static/gallery/gallery-add-anon-auth.png
+..  image:: /static/gallery/gallery-add-anon-auth.png
 
 .. include:: /configuration-auth/authentication-commons.include.rst
 

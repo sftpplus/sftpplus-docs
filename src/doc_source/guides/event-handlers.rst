@@ -89,7 +89,7 @@ When SFTPPlus is deployed as a cluster, you can use the Activity Log to view eve
 
 See below for an example page.
 
-..  image:: /_static/gallery/gallery-pastactivity.png
+..  image:: /static/gallery/gallery-pastactivity.png
 
 Note that the embedded database, used by default by the Web Manager,
 is not suitable for high volume installations.
@@ -107,7 +107,7 @@ Account Activity page in Web Manager
 
 Activities of accounts set up in SFTPPlus are reported in Web Manager.
 
-..  image:: /_static/gallery/gallery-reports-page.png
+..  image:: /static/gallery/gallery-reports-page.png
 
 
 The Audit Trail

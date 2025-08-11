@@ -33,7 +33,7 @@ By default the Web Manager provides a dedicated administrator account
 which is not tied to the operating system.
 More administrator accounts can be created using the Web Manager or by
 manually editing the configuration file, please see
-(:doc:`the page on configuring administrators </configuration-identity/administrators>`).
+(:doc:`the page on configuring administrators </configuration-auth/administrators>`).
 
 ..  note::
     The default account name is `admin` and the default password is `pass`.

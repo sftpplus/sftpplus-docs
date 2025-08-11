@@ -72,7 +72,7 @@ The values used are::
 
 These values would also change depending on your own setup.
 
-..  image:: /_static/guides/filezilla-ftps-1.png
+..  image:: /static/guides/filezilla-ftps-1.png
     :alt: Initial login of the account from Filezilla.
 
 After logging in for the first time, Filezilla will present details
@@ -81,19 +81,19 @@ The default certificate being used is a self-signed certificate.
 To use your own certificate, please configure the
 :doc:`FTPS service </configuration-server/ftp-service>` accordingly.
 
-..  image:: /_static/guides/filezilla-ftps-2.png
+..  image:: /static/guides/filezilla-ftps-2.png
     :alt: Filezilla presenting the server certificate.
 
 After successfully logging in, you are presented with the home
 folder, files and directories associated with the account.
 
-..  image:: /_static/guides/filezilla-ftps-3.png
+..  image:: /static/guides/filezilla-ftps-3.png
     :alt: Filezilla presenting the home folder and files in the FTPS server.
 
 Drag and drop files to upload, use the GUI to rename files/folders
 and process other actions.
 
-..  image:: /_static/guides/filezilla-ftps-4.png
+..  image:: /static/guides/filezilla-ftps-4.png
     :alt: Filezilla drag and drop of files to be uploaded to the FTPS server.
 
 
@@ -103,7 +103,7 @@ Using Filezilla Client with SFTPPlus SFTP Server for the first time
 Similar to using the FTPS server, change the entry to use the SFTP
 port and address:
 
-..  image:: /_static/guides/filezilla-ftps-5.png
+..  image:: /static/guides/filezilla-ftps-5.png
     :alt: Filezilla change details for SFTP server.
 
 And after connection, you will be presented with the SFTP server
@@ -114,7 +114,7 @@ Please check the server key prior to accepting.
 To use your own SSH keys, please configure the
 :doc:`SFTP service </configuration-server/ssh-service>` accordingly.
 
-..  image:: /_static/guides/filezilla-ftps-6.png
+..  image:: /static/guides/filezilla-ftps-6.png
     :alt: Filezilla drag and drop of files to be uploaded to the SFTP service.
 
 

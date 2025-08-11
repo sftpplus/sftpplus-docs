@@ -18,7 +18,7 @@ The configuration options are detailed in the
 Below is a screenshot of the Web Manager authentication page, notice
 that it is only available over **HTTPS**:
 
-..  image:: /_static/operation/local-manager-login.png
+..  image:: /static/operation/local-manager-login.png
 
 ----
 
@@ -66,7 +66,7 @@ configuration for a service.
 Hovering over a `Failed at start` state can also show the administrator
 further details of the issue to help troubleshoot the problem.
 
-..  image:: /_static/operation/http-invalid-cipher-list.png
+..  image:: /static/operation/http-invalid-cipher-list.png
 
 
 Reviewing changes made in Web Manager
@@ -75,14 +75,14 @@ Reviewing changes made in Web Manager
 Prior to applying changes, administrators have the option of reviewing their
 changes.
 
-..  image:: /_static/gallery/gallery-addsftp-review.png
+..  image:: /static/gallery/gallery-addsftp-review.png
 
 ----
 
 Some of these changes will require restarting the affected, changed or updated
 components.
 
-..  image:: /_static/gallery/gallery-addsftp-req-restart.png
+..  image:: /static/gallery/gallery-addsftp-req-restart.png
 
 
 Supported Web Browsers

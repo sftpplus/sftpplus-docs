@@ -1,5 +1,18 @@
+Uninstalling
+============
+
+SFTPPlus can be uninstalled from any supported operating system,
+including Windows, Linux, and macOS.
+
+Uninstalling SFTPPlus is not a destructive process,
+as it does not remove the configuration and log files created during the operation of the server.
+
+This allows you to reinstall SFTPPlus later and use the same configuration and log files
+without having to reconfigure the server.
+
+
 Uninstalling SFTPPlus on Windows
-================================
+--------------------------------
 
 Uninstalling SFTPPlus is a straightforward process, and it can
 be initiated using any of the following methods:
@@ -17,8 +30,7 @@ is completed:
 * `log`
 
 
-Silently uninstalling SFTPPlus
-------------------------------
+**Silently uninstalling SFTPPlus**
 
 In order to silently uninstall SFTPPlus,
 open a command line with full administrator access rights
@@ -39,7 +51,7 @@ Where:
 
 
 Uninstalling SFTPPlus on Linux and macOS
-========================================
+----------------------------------------
 
 To uninstall SFTPPlus on Linux and macOS systems,
 you may use the `bin/uninstall.sh` script in the hierarchy of SFTPPlus files
@@ -47,22 +59,15 @@ to uninstall it automatically.
 But you can also uninstall it manually, as documented further in this page.
 
 
-Uninstalling automatically
---------------------------
+**Uninstalling automatically**
 
 Following examples assume paths typical for a default SFTPPlus installation.
 
-**On Linux**::
-
-    /opt/sftpplus/bin/uninstall.sh
-
-**On macOS**::
-
-    /Library/sftpplus/bin/uninstall.sh
+* **On Linux**: `/opt/sftpplus/bin/uninstall.sh`
+*  **On macOS**: `/Library/sftpplus/bin/uninstall.sh`
 
 
-Uninstalling manually
----------------------
+**Uninstalling manually**
 
 If you prefer to uninstall SFTPPlus manually, first make sure it is stopped.
 Then save its configuration and logs, if relevant.

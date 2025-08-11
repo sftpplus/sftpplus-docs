@@ -1,0 +1,3 @@
+This is a special folder used by Sphinx.
+Don't use it for generic content like images/screenshots/etc.
+Use the separate `docs/static` folder.

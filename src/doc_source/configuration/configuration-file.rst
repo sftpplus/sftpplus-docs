@@ -15,7 +15,11 @@ The configuration file is generated during the initial installation process.
 During the upgrade process, the configuration file is preserved.
 Obsolete configuration values are automatically migrated.
 
-This documentation page describes in detail how to configure the server via the configuration file.
+SFTPPlus uses a single configuration file for all it's components.
+A component in SFTPPlus can be a user configuration, a file transfer server,
+an event handler, email server configuration, and many more.
+
+This documentation page describes in detail how to configure SFTPPlus via the configuration file.
 
 
 Manual configuration
@@ -33,6 +37,93 @@ For opening and editing the configuration file on Windows, we recommend avoiding
 
 Changes made by editing the configuration file are not applied to already started server processes.
 To apply your changes, restart the SFTPPlus service.
+
+
+INI file format
+---------------
+
+The configuration file uses the standard INI file format.
+
+..  warning::
+    With manual editing, you have full control of the file's content,
+    which may result in an invalid INI file.
+    The SFTPPlus server needs a valid INI configuration file to start.
+
+Each new server configuration option needs a new line, and the name
+of the option should be at the beginning of that line.
+There should be no space or tab characters before its name.
+
+The new line should look as follows::
+
+    >option = value
+
+and shouldn't have any space at the beginning, such as::
+
+    >   option = value
+
+We use `>` here as the graphical marker for a new line,
+it must not be included in the configuration file.
+
+.INI sections are used to group and organize related configurations.
+Each component is defined in a separate .INI section.
+A section starts with the name of the section, on a single line,
+in square brackets.
+
+For example, the main SFTPPlus process is defined inside the `[server]` section::
+
+    [server]
+    uuid = c1ca58b2-6d36-11f0-9b48-571d4666b214
+    created = 2024-12-12 10:23:44
+    changed = 2025-03-07 15:23:28
+    name = SFTPPlus
+    umask = 022
+
+An account is configured in a section with a name starting with `accounts/` followed by the account unique ID::
+
+    [accounts/bdb99c31-1119-4b8b-b609-63672a9a0b6f]
+    name = test_user
+    enabled = yes
+    created = 2025-02-15 17:19:52
+    changed = 2025-03-07 15:23:28
+
+More information about the section name and available option is found on the configuration page dedicated to each component.
+
+
+Creation and changed dates
+--------------------------
+
+When SFTPPlus creates the configuration for a new component,
+it will automatically set the `created` configuration option to the current date and time.
+
+..  note::
+    When the .INI file is manged outside of the SFTPPlus process,
+    for example when using *devops* tools,
+    you will need to set and update the creation and change dates yourself.
+
+Each component of SFTPPlus has separate creation and change configuration options::
+
+    [accounts/bdb99c31-1119-4b8b-b609-63672a9a0b6f]
+    name = test_user
+    enabled = yes
+    created = 2025-02-15 17:19:52
+    changed = 2025-03-07 15:23:28
+
+    [accounts/8beced6c-6d37-11f0-9196-8b226af66b5c]
+    name = other_user
+    enabled = yes
+    created = 2024-12-12 10:23:44
+    changed = 2025-03-07 15:23:28
+
+The values are defined using a less strict version of the ISO 8601 format.
+The timezone value is not included, and the values are considered as using the local timezone.
+The `T` character that separates the date and time is not required and can be replaced by a space character.
+
+You can define these values using only the date, omitting the time value::
+
+    [accounts/8beced6c-6d37-11f0-9196-8b226af66b5c]
+    name = other_user
+    enabled = yes
+    created = 2024-12-12
 
 
 Overriding configuration
@@ -86,32 +177,6 @@ The content of the `configuration/server.override.ini` file used on the producti
 
     [event-handlers/DEFAULT-FILE]
     path = log/server-production.log
-
-
-INI file format
----------------
-
-The configuration file uses the standard INI file format.
-
-..  warning::
-    With manual editing, you have full control of the file's content,
-    which may result in an invalid INI file.
-    The SFTPPlus server needs a valid INI configuration file to start.
-
-Each new server configuration option needs a new line, and the name
-of the option should be at the beginning of that line.
-There should be no space or tab characters before its name.
-
-The new line should look as follows::
-
-    >option = value
-
-and shouldn't have any space at the beginning, such as::
-
-    >   option = value
-
-We use `>` here as the graphical marker for a new line,
-it must not be included in the configuration file.
 
 
 Configuration file reset

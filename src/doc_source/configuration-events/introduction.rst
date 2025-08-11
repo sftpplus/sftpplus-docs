@@ -30,7 +30,7 @@ Adding a new event handler via Web Manager
 A new event handler can be added or changed via Web Manager below.
 Options will differ depending on which event handler is used.
 
-..  image:: /_static/gallery/gallery-add-event-handler.png
+..  image:: /static/gallery/gallery-add-event-handler.png
 
 
 Adding a new event handler via text configuration

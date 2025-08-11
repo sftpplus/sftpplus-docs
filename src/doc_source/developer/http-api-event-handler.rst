@@ -414,5 +414,5 @@ by following the `Slack Incoming Webhooks <https://api.slack.com/messaging/webho
 
 On Slack, the message will look something like this.
 
-..  image:: /_static/guides/http-event-slack.png
+..  image:: /static/guides/http-event-slack.png
     :alt: HTTP Event as received on Slack.

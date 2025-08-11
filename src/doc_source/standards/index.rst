@@ -1,5 +1,5 @@
-Standards, Compliance, Obligation and Certification
-===================================================
+Standards, Compliance, Certification
+====================================
 
 This section includes various stand-alone articles which document the
 server and client side compliance with various standards and obligations.

@@ -20,7 +20,7 @@ affecting all file transfer services.
 
 You can access the section via the 'Server' page in Web Manager.
 
-..  image:: /_static/gallery/gallery-test-server.png
+..  image:: /static/gallery/gallery-test-server.png
 
 ----
 
@@ -205,11 +205,16 @@ password_minimum_strength
     This defines the minimum strength element of the password policy
     applied when setting passwords through Web Manager.
 
-    This does not enforce the policy for already defined passwords or
-    for passwords defined outside of SFTPPlus, such as OS passwords.
+    The strength of a password is computed based on the `zxcvbn` password strength estimator.
 
     The available values are from `0` to `4` where `0` is a weak password
     while `4` is a password which is considered strong.
+
+    It accepts many password styles as long as it detects sufficient complexity.
+    Passphrases are rated highly given enough uncommon words, keyboard patterns are ranked based on length and number of turns, and capitalization adds more complexity when it's unpredictable.
+
+    Password composition policies are not used.
+    Rules like "passwords must contain three of lower, upper, numbers, symbols" are not used to decide the strength of the password.
 
     The following minimum lengths are defined for each strength level:
 
@@ -218,6 +223,9 @@ password_minimum_strength
     * 2 - 7 characters
     * 3 - 9 characters
     * 4 - 11 characters
+
+    This does not enforce the policy for already defined passwords or
+    for passwords defined outside of SFTPPlus, such as OS passwords.
 
 
 password_minimum_length

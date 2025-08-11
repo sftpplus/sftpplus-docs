@@ -207,14 +207,14 @@ If the new SFTPPlus `os` account is a Windows Domain Controller Account, the
 username is provided in the UPN format (like ``username@domain.com``).
 This format is needed if there is an Active Directory forest.
 
-..  image:: /_static/operation/windowsdomain-user.png
+..  image:: /static/operation/windowsdomain-user.png
 
 ----
 
 You can allow the account to create a new folder in the account using the
 home folder's path (``c:\\ftp-files``) and make sure to lock access.
 
-..  image:: /_static/operation/windowsdomain-accounthomefolder.png
+..  image:: /static/operation/windowsdomain-accounthomefolder.png
 
 ----
 
@@ -227,7 +227,7 @@ will create a folder in the home folder path.
 
 The final path for this account is now ``c:\\ftp-files\\john``.
 
-..  image:: /_static/operation/windowsdomain-filesystem.png
+..  image:: /static/operation/windowsdomain-filesystem.png
 
 
 Authenticating without any account configuration via DEFAULT_GROUP
@@ -247,7 +247,7 @@ that particular account.
 One item to note is that if the user configuration is missing and then this
 `DEFALT_GROUP` is used.
 
-..  image:: /_static/operation/windowsdomain-homefolder-group.png
+..  image:: /static/operation/windowsdomain-homefolder-group.png
 
 
 Troubleshooting Windows Domain authentication

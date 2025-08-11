@@ -21,6 +21,13 @@ The following formats are supported:
  * tar.bz2 - extract content of TAR.BZ2 archive to destination path.
  * zip - Extract as standard ZIP.
 
+For ZIP files, the following encryption methods are supported:
+
+ * ZipCrypto / Zip Legacy - this is the default encryption method used by
+   most ZIP tools.
+ * AES-128 / AES-192 / AES-256 - this is the modern encryption method
+   used by some ZIP tools.
+
 The event handler will fail if the file to be extracted from the archive
 already exists.
 
@@ -125,5 +132,3 @@ password
     This is the password used to decrypt archives.
 
     Leave if empty if the archives are not encrypted.
-
-    For ZIP files, only the `ZipCrypto / Zip Legacy` encryption is supported.

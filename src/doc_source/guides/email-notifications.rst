@@ -60,7 +60,7 @@ recipients for each notification, email subject and body.
 
 Below is a screenshot demonstrating some of the configuration options.
 
-..  image:: /_static/guides/send-as-email-options.png
+..  image:: /static/guides/send-as-email-options.png
     :alt: Send as email configuration options
 
 

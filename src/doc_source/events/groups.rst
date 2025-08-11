@@ -1,4 +1,6 @@
 
+.. _events-groups:
+
 Server Event Groups
 ===================
 

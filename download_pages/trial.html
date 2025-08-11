@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>
-        Version 5.14.0 Trial Downloads | Secure file transfer software
+        Version 5.15.0 Trial Downloads | Secure file transfer software
   </title>
 
   <meta name="author" content="Pro:Atria Team" />
@@ -64,7 +64,7 @@
 <a class=" nav-item nav-link" href="/articles/category/solutions/">Solutions</a>
 <a class=" nav-item nav-link" href="/articles/category/platforms/">Platforms</a>
 <a class=" nav-item nav-link" href="/support/">Support</a>
-<a class=" nav-item nav-link" href="/documentation/sftpplus/latest/">Docs</a>
+<a class=" nav-item nav-link" href="/documentation-dev/sftpplus/latest/">Docs</a>
 <a class=" nav-item nav-link" href="/articles/">News</a>
             </div>
           </div>
@@ -80,8 +80,8 @@
   <div class="container">
     <div class="row text-center justify-content-center align-items-center">
       <div class="col">
-        <h1>Version 5.14.0 Trial Downloads</h1>
-          <h3 class="font-weight-normal">The trial version expires on 2025-10-08</h3>
+        <h1>Version 5.15.0 Trial Downloads</h1>
+          <h3 class="font-weight-normal">The trial version expires on 2025-11-19</h3>
       </div>
     </div>
   </div>
@@ -194,7 +194,8 @@ systems and CPU architectures.</p>
             Windows 10, Windows 11,
             Windows 2016 Server,
             Windows 2019 Server,
-            Windows 2022 Server
+            Windows 2022 Server,
+            Windows 2025 Server
             running on the 64-bit PC architecture.
             
                   </p>
@@ -240,7 +241,8 @@ systems and CPU architectures.</p>
             Windows 2012 Server,
             Windows 2016 Server,
             Windows 2019 Server,
-            Windows 2022 Server
+            Windows 2022 Server,
+            Windows 2025 Server
             running on the 64-bit PC architecture.
             
                   </p>
@@ -651,58 +653,76 @@ systems and CPU architectures.</p>
   <div class="container py-0">
     <div id="release-changelog" class="download-release-notes doc-body row mb-0 justify-content-center">
       <div class="col">
-        <div class="document" id="version-5-14-0-2025-06-27">
-<h1 class="title">Version 5.14.0, 2025-06-27</h1>
+        <div class="document" id="version-5-15-0-2025-08-11">
+<h1 class="title">Version 5.15.0, 2025-08-11</h1>
 <div class="section" id="security-fixes">
 <h1>Security Fixes</h1>
 <ul class="simple">
-<li><strong>(Breaking Change)</strong> The Entra ID authentication method now requires to be configured using a
-<cite>client secret</cite> via the <cite>password</cite> configuration option.
-[entra-id] [#7057]</li>
+<li>During Let's Encrypt initialization, a unique TLS placeholder certificate
+is now used.
+The TLS placeholder certificate is unique to each SFTPPlus installation and
+each SFTPPlus version.
+Previous versions were using a static placeholder certificate.
+[lets-encrypt] [#7127]</li>
 </ul>
 </div>
 <div class="section" id="new-features">
 <h1>New Features</h1>
 <ul class="simple">
-<li>You can now configure an HTTP proxy that is used by default for any
-component, via the <cite>[server] proxy</cite> configuration option.
-In previous versions, each component required a separate direct proxy
-configuration.
-[client-side] [#3975-1]</li>
-<li>The Azure BLOB and Azure File location now support connecting via an HTTP
-proxy.
-[client-side][azure-file][azure-blob] [#3975]</li>
-<li>You can now configure the Google and Okta single sign-on authentication
-method to allow access only to members of specific cloud groups.
-[security][google-cloud][okta] [#6098]</li>
-<li>The Okta and Google Identity authentication method now support the
-<cite>remove_username_suffix</cite> and <cite>api_scopes</cite> configuration.
-[server-side] [#7057-1]</li>
-<li>You can now configure the Entra ID authentication method to allow access to
-administrators based on specific cloud groups.
-[server-side][entra-id] [#7057-2]</li>
-<li>The Entra ID authentication method now allows access to both direct group
-members as well as to transitive membership.
-[entra-id][server-side] [#7057]</li>
-<li>You can now configure the <cite>application</cite> authentication method to
-restrict user access only to the filtered groups.
-This is done using the <cite>strict_group_access = yes</cite> configuration option.
-In previous versions users would get access to all their associated
-groups as long as they were a member of at least one of the allowed
-groups for the authentication method.
-[server-side] [#7121]</li>
-<li>When the Web Manager service is configured with an invalid TLS certificate,
-the service will start using a fallback certificate.
-Administrators can then connect to the Web Manager and resolve the issue.
-[manager] [#7126]</li>
+<li>An event is now emitted when a configured certificate is about to expire.
+[security] [#4508]</li>
+<li>The <cite>security-policy</cite> configuration was added to unify the configuration for
+the <cite>deny-username</cite> and <cite>ip-time-ban</cite> authentication method.
+The <cite>security-policy</cite> is now automatically applied to all services.
+[server-side] [#5240]</li>
+<li>You can now use component name and event groups as filters for the
+Activity Log UI.
+[manager] [#5886]</li>
+<li>The <cite>extract-archive</cite> event handler now supports extracting Zip archive encrypted
+using the WinZIP AES.
+[event-handler][zip] [#7120]</li>
+<li>The Web Client GUI now has a button that allows selecting all the files
+from the current directory.
+[server-side][https] [#7134]</li>
+<li>Any configuration component now has a <cite>created</cite> and <cite>changed</cite> value.
+These values contain the date and time when that configuration was
+created or last changed.
+[manager] [#7144]</li>
 </ul>
 </div>
 <div class="section" id="defect-fixes">
 <h1>Defect Fixes</h1>
 <ul class="simple">
-<li>The OS authentication method now generates an error when trying to use it
-on Alpine Linux, since it is not supported.
-[linux] [#7059]</li>
+<li>The <cite>account_auto_disable_grace_interval</cite> configuration option was added to
+delay auto-disabling an account that was re-enabled but didn't have the
+opportunity to trigger a successful login yet.
+In previous versions, when an account was auto-disabled due to inactivity,
+if an administrator was re-enabling that account, the account was
+automatically disabled right away as the account still did not have a
+recent login time.
+[server-side] [#7141]</li>
+<li>The account created date is kept when the configuration for the account is
+synchronized to nodes.
+In previous version, the account creation date was not included in the
+synchronized data.
+[cluster][manager] [#7144]</li>
+<li>The failure to start the <cite>os</cite> authentication method on Linux was fixed.
+This was a defect introduced in SFTPPlus 5.14.0
+[server-side][os] [#7149]</li>
+<li>The Let's Encrypt resource was fixed.
+This was a regression introduced in SFTPPlus version 5.13.0
+[server-side][https][lets-encrypt] [#7150]</li>
+</ul>
+</div>
+<div class="section" id="deprecations-and-removals">
+<h1>Deprecations and Removals</h1>
+<ul class="simple">
+<li>The <cite>deny-username</cite> and <cite>ip-time-ban</cite> authentication methods are now deprecated.
+Their functionality was replaced by the <cite>security-policy</cite> configuration.
+The authentication method continue to be supported until the next major version.
+It is recommended to review the configuration for the <cite>security-policy</cite> and then
+delete these deprecated authentication methods.
+[server-side] [#5240]</li>
 </ul>
 </div>
 </div>

@@ -155,6 +155,12 @@ restart the file transfer services configured to use those certificates.
 If a certificate is about to **expire in less than 15 days**, SFTPPlus will
 emit a dedicated failure event and will try again the next day.
 
+When `lets'encrypt` is started for the first time for a file transfer service,
+there is no previous certificate available for that service.
+The service requires a certificate in order to start.
+SFTPPlus will use **a temporary TLS placeholder** certificate while a new certificate is obtained from Let's Encrypt.
+This placeholder certificate is automatically generated when SFTPPlus is installed and is regenerated at each update.
+
 
 Account Registration
 --------------------

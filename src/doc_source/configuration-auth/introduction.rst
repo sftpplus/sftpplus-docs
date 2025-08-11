@@ -26,7 +26,7 @@ Options will differ depending on which authentication method is used.
 See below for an example starting configuration for the LDAP method of
 authentication.
 
-..  image:: /_static/gallery/gallery-add-ldap-auth.png
+..  image:: /static/gallery/gallery-add-ldap-auth.png
 
 
 Adding a new authentication method via text configuration

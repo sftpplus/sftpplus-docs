@@ -79,7 +79,7 @@ In our example, the file is located at ``c:\\Users\\sftp_access\\John_keys``
 Go to the account's configuration page and enter the path in the
 `Allowed SSH Keys Path` field.
 
-..  image:: /_static/configuration/Accounts-Allowed-SSH-Keys.png
+..  image:: /static/configuration/Accounts-Allowed-SSH-Keys.png
 
 
 For the above configuration, the account's home folder is in
@@ -92,7 +92,7 @@ Configuring the list of authorized SSH keys for a Group:
 Note that the path must contain the `${USER}` value as a placeholder linking
 to the username.
 
-..  image:: /_static/configuration/Groups-Allowed-SSH-Keys.png
+..  image:: /static/configuration/Groups-Allowed-SSH-Keys.png
 
 In the example above, the file path included `${USER}`.
 The text file equivalent::

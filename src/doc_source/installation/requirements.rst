@@ -5,7 +5,7 @@ System Requirements
 Supported Operating Systems
 ---------------------------
 
-* Windows 10, 11, 2016 Server, 2019 Server, 2022 Server on x86_64.
+* Windows 10, 11, 2016 Server, 2019 Server, 2022 Server, 2025 Server on x86_64.
 
 * Red Hat Enterprise Linux 8 and 9 on x86_64.
   Clones such as Oracle Linux, Rocky Linux, AlmaLinux etc. are also supported.

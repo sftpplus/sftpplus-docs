@@ -98,10 +98,9 @@ SFTP or FTPS server.
 
 See below for an example:
 
-..  image:: /_static/guides/recursivefiletransfer.png
+..  image:: /static/guides/recursivefiletransfer.png
     :alt: Example of a recursive file transfer via the changes poll interval
     :align: center
-    :target: /_static/guides/recursivefiletransfer.png
 
 The files will be transferred to the destination using a folder structure
 relative to the source path.
@@ -119,10 +118,9 @@ single request.
 
 See below for a simplified example:
 
-..  image:: /_static/guides/nonrecursivefiletransfer.png
+..  image:: /static/guides/nonrecursivefiletransfer.png
     :alt: A non-recursive file transfer using specific transfer rules
     :align: center
-    :target: /_static/guides/nonrecursivefiletransfer.png
 
 In the above scenario,
 only two sub-folders have transfer rules associated with them.

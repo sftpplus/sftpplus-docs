@@ -10,7 +10,7 @@ Introduction
 A cluster `node` represents the secure access of a cluster node to the remote cluster controller.
 The configuration of the `node` is done via the remote cluster controller.
 
-This section describe the secure access configuration option available to the nodes from a cluster.
+This section describes the secure access configuration options available to be used for the nodes from the cluster.
 
 The cluster `node` configuration is defined as part of the SFTPPlus cluster `controller`. The configuration is not required on cluster `nodes`.
 
@@ -39,7 +39,7 @@ node's UUID.
 The node's UUID can be any unique string used to identify the node.
 Once defined, the UUID should not be changed.
 
-For example, to add a new role named **node-A**::
+For example, to add a new node named **node-A**::
 
     [cluster-nodes/a904e3a6-a59b-4bbf-8abd-edcae4d3774f]
     name = node-A
@@ -105,7 +105,7 @@ source_ip_filter
 
     The node configuration option is similar to the group configuration.
     For more details, see the
-    :doc:`group configuration </configuration-identity/groups>` documentation page.
+    :doc:`group configuration </configuration-auth/groups>` documentation page.
 
 
 failover_interval

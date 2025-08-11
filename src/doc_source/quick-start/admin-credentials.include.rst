@@ -13,7 +13,7 @@ Ensure that this account is enabled and that the default `admin` account is
 disabled as shown in the screenshot below:
 
 
-..  image:: /_static/guides/main-admin-page.png
+..  image:: /static/guides/main-admin-page.png
     :alt: PuttyGen main window
 
 

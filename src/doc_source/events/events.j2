@@ -1,22 +1,18 @@
 {#-
 This is the Jinja2 events ID documentation template.
 -#}
+.. _events-{{category}}:
 
 
-Generic and server-side common functionality
-============================================
+{{ title }}
+{{ '=' * (title|length) }}
+
 
 {#-
 Unpack the event_id and use Jinja dictsort
 #}
-{%- for event_id, event in events | dictsort -%}
-{%- if not event_id.startswith('__') -%}
-
-{#-
-Only show event ID that starts with a certain number
--#}
-
-{% if event_id.startswith("2") %}
+{%- for event_id, event in events | dictsort %}
+{% if not event_id.startswith('__') %}
 
 {{ event.id }}
 {{ '^' * event.id|count }}
@@ -34,192 +30,6 @@ Add the events JSON as a table under each event ID
   :{{ data_name }}: {{ data_value }}
 
 {% endfor %}
-{% endif %}
 {% endif %}
 {%- endif %}
 {%- endfor %}
-
-
-FTP protocol
-============
-
-{#
-Unpack the event_id and use Jinja dictsort
-#}
-{% for event_id, event in events | dictsort %}
-{%- if not event_id.startswith('__') %}
-
-{#
-Only show event ID that starts with a certain number
-#}
-
-{% if event_id.startswith("1") %}
-
-{{ event.id }}
-{{ '^' * event.id|count }}
-
-{#
-Add the events JSON as a table under each event ID
-#}
-:Message: {{ event.message|indent(4) }}
-:Groups: {{ ", ".join(event.group_names) }}
-:From version: {{ event.version_added }}
-:Description: {{ event.description|d('None', true)|indent(4) }}
-{% if event.data -%}
-:Data:
-{%- for data_name, data_value in event.data|dictsort %}
-  :{{ data_name }}: {{ data_value }}
-
-{% endfor %}
-{% endif %}
-{% endif %}
-{% endif %}
-{% endfor %}
-
-
-SSH protocol
-============
-
-{#
-Unpack the event_id and use Jinja dictsort
-#}
-{% for event_id, event in events | dictsort %}
-{%- if not event_id.startswith('__') %}
-
-{#
-Only show event ID that starts with a certain number
-#}
-
-{% if event_id.startswith("3") %}
-
-{{ event.id }}
-{{ '^' * event.id|count }}
-
-{#
-Add the events JSON as a table under each event ID
-#}
-:Message: {{ event.message|indent(4) }}
-:Groups: {{ ", ".join(event.group_names) }}
-:From version: {{ event.version_added }}
-:Description: {{ event.description|d('None', true)|indent(4) }}
-{% if event.data -%}
-:Data:
-{%- for data_name, data_value in event.data|dictsort %}
-  :{{ data_name }}: {{ data_value }}
-
-{% endfor %}
-{% endif %}
-{% endif %}
-{% endif %}
-{% endfor %}
-
-
-HTTP/HTTPS protocol
-===================
-
-{#
-Unpack the event_id and use Jinja dictsort
-#}
-{% for event_id, event in events | dictsort %}
-{%- if not event_id.startswith('__') %}
-
-{#
-Only show event ID that starts with a certain number
-#}
-
-{% if event_id.startswith("4") %}
-
-{{ event.id }}
-{{ '^' * event.id|count }}
-
-{#
-Add the events JSON as a table under each event ID
-#}
-:Message: {{ event.message|indent(4) }}
-:Groups: {{ ", ".join(event.group_names) }}
-:From version: {{ event.version_added }}
-:Description: {{ event.description|d('None', true)|indent(4) }}
-{% if event.data -%}
-:Data:
-{%- for data_name, data_value in event.data|dictsort %}
-  :{{ data_name }}: {{ data_value }}
-
-{% endfor %}
-{% endif %}
-{% endif %}
-{% endif %}
-{% endfor %}
-
-
-Management and Web Manager Events
-===================================
-
-{#
-Unpack the event_id and use Jinja dictsort
-#}
-{% for event_id, event in events | dictsort %}
-{%- if not event_id.startswith('__') %}
-
-{#
-Only show event ID that starts with a certain number
-#}
-
-{% if event_id.startswith("5") %}
-
-{{ event.id }}
-{{ '^' * event.id|count }}
-
-{#
-Add the events JSON as a table under each event ID
-#}
-:Message: {{ event.message|indent(4) }}
-:Groups: {{ ", ".join(event.group_names) }}
-:From version: {{ event.version_added }}
-:Description: {{ event.description|d('None', true)|indent(4) }}
-{% if event.data -%}
-:Data:
-{%- for data_name, data_value in event.data|dictsort %}
-  :{{ data_name }}: {{ data_value }}
-
-{% endfor %}
-{% endif %}
-{% endif %}
-{% endif %}
-{% endfor %}
-
-
-Transfer and client-side functionality
-======================================
-
-{#
-Unpack the event_id and use Jinja dictsort
-#}
-{% for event_id, event in events | dictsort %}
-{%- if not event_id.startswith('__') %}
-
-{#
-Only show event ID that starts with a certain number
-#}
-
-{% if event_id.startswith("6") %}
-
-{{ event.id }}
-{{ '^' * event.id|count }}
-
-{#
-Add the events JSON as a table under each event ID
-#}
-:Message: {{ event.message|indent(4) }}
-:Groups: {{ ", ".join(event.group_names) }}
-:From version: {{ event.version_added }}
-:Description: {{ event.description|d('None', true)|indent(4) }}
-{% if event.data -%}
-:Data:
-{%- for data_name, data_value in event.data|dictsort %}
-  :{{ data_name }}: {{ data_value }}
-
-{% endfor %}
-{% endif %}
-{% endif %}
-{% endif %}
-{% endfor %}

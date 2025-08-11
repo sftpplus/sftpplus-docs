@@ -300,7 +300,7 @@ the home folder is `E:\\SFTP-Files\\AcmeCo\\report`.
 
 
 Enable access to the Web Manager service
-==========================================
+========================================
 
 While the LDAP server holds all the accounts for your organization,
 most probably only a few of those accounts should get **administration** access

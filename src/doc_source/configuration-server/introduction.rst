@@ -27,7 +27,7 @@ Options will differ depending on which service type is used.
 
 See below for an example of an initial configuration with the SFTP service.
 
-..  image:: /_static/gallery/gallery-add-sftp-service.png
+..  image:: /static/gallery/gallery-add-sftp-service.png
 
 
 Adding a new service via text configuration

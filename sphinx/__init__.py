@@ -169,5 +169,5 @@ def build_documentation(
     print("Exit with %d." % (exit_code))
 
     # Remove the sphinx configuration file.
-    #pave.fs.deleteFile([source_dir, 'conf.py'])
+    pave.fs.deleteFile([source_dir, 'conf.py'])
     return exit_code

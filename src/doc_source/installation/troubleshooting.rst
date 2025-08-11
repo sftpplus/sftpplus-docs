@@ -1,5 +1,5 @@
-Installation Validation and Troubleshooting
-===========================================
+Install Validation and Troubleshooting
+======================================
 
 ..  contents:: :local:
 

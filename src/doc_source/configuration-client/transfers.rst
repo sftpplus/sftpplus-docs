@@ -14,7 +14,7 @@ A new location can be added or changed via Web Manager below.
 
 See below for an example of an initial configuration for a move transfer.
 
-..  image:: /_static/gallery/gallery-add-transfer.png
+..  image:: /static/gallery/gallery-add-transfer.png
 
 
 Adding a new transfer via text configuration

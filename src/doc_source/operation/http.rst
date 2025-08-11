@@ -23,7 +23,7 @@ while the HTTPS protocol is based on
 The Web Manager GUI provides configuration options and status indications
 to the state of the `http` or `https` service:
 
-..  image:: /_static/operation/http-https-enabled.png
+..  image:: /static/operation/http-https-enabled.png
 
 
 For more details about the configuration options, please go to the dedicated
@@ -36,14 +36,14 @@ refer to our :doc:`Developer Documentation </developer/index>`.
 File management functionality
 -----------------------------
 
-..  image:: /_static/operation/http-service.png
+..  image:: /static/operation/http-service.png
 
 
 Above is a screenshot of the HTTP / HTTPS file management functionality.
 
 ----
 
-..  image:: /_static/operation/http-invalid-folder-structure.png
+..  image:: /static/operation/http-invalid-folder-structure.png
 
 
 Above is a screenshot of how errors are communicated - in this case, when an
@@ -253,7 +253,7 @@ groups.
       Cancel, info, USERS_GROUPS_UUID
       Raise incident, danger
 
-..  image:: /_static/operation/http-service-custom-buttons.png
+..  image:: /static/operation/http-service-custom-buttons.png
 
 
 Load Balancer

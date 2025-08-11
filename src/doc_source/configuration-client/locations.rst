@@ -33,7 +33,7 @@ Options will differ depending on which location type is used.
 
 See below for an example of an initial configuration with the FTPES location.
 
-..  image:: /_static/gallery/gallery-add-ftps-location.png
+..  image:: /static/gallery/gallery-add-ftps-location.png
 
 
 Adding a new location via text configuration

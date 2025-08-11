@@ -53,8 +53,8 @@ configuration file in which we enable a test account named
 The files for this account are stored in ``/tmp/test_user-files``.
 SFTPPlus comes with extensive documentation for all of the sections:
 
-* :doc:`accounts </configuration-identity/accounts>` and
-  :doc:`groups </configuration-identity/groups>`
+* :doc:`accounts </configuration-auth/accounts>` and
+  :doc:`groups </configuration-auth/groups>`
 
 * :doc:`authentication methods </configuration-auth/index>`
 
@@ -106,15 +106,15 @@ You can find all the options we need to change below:
 * File access -> Path: ``/tmp/test_user-files/``
 * Advanced account configurations -> Create missing home folder: **Yes**
 
-..  figure:: /_static/guides/2_account.png
+..  figure:: /static/guides/2_account.png
     :alt: SFTPPlus Account Configuration
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 
-..  figure:: /_static/guides/2_account_home.png
+..  figure:: /static/guides/2_account_home.png
     :alt: SFTPPlus Account Home Folder Configuration
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 
-..  figure:: /_static/guides/2_account_create_home.png
+..  figure:: /static/guides/2_account_create_home.png
     :alt: SFTPPlus Account Home Folder Creation
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 
@@ -123,7 +123,7 @@ click **Review and apply**. SFTPPlus will show all the changed configurations
 to be applied and show which components require a restart.
 To proceed, click **Apply all changes**.
 
-..  figure:: /_static/guides/2_review.png
+..  figure:: /static/guides/2_review.png
     :alt: SFTPPlus Review Configuration Changes
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 
@@ -147,7 +147,7 @@ FileZilla to point to a location with a file for upload.
 In the screenshot, we created and uploaded an empty text file from the Desktop
 folder.
 
-..  figure:: /_static/guides/3_upload.png
+..  figure:: /static/guides/3_upload.png
     :alt: SFTPPlus FileZilla Upload
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 

@@ -173,8 +173,8 @@ To accept and validate the client, the server will use the following files:
  * ``client_cert.pem`` as the accepted Certificate Authority.
 
 
-How to enable PKI X.509 SSL certificate-based authentication in FTPS?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+How to enable PKI X.509 SSL certificate-based authentication in FTPS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 SSL certificate-based authentication allows clients to authenticate using
 username and SSL certificate pair credentials.
@@ -194,8 +194,8 @@ A valid SSL certificate should have the value of the Common Name (CN) field
 match the authenticated username.
 
 
-How to disable SSL certificate-based authentication?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+How to disable SSL certificate-based authentication
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To disable SSL certificate-based authentication, you will have to set the
 following option inside the FTP/FTPS service configuration section (located by
@@ -214,22 +214,40 @@ SSH (SFTP/SCP) Service
 ----------------------
 
 
-How to generate RSA and DSA SSH private and public keys?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+How to generate RSA and DSA SSH private and public keys
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Web Manager service provides a tool for generating new SSH keys
-or converting existing SSH keys.
+To generate new SSH private and public keys, you can use the Web Manager service,
+which provides a built-in tool for creating RSA and DSA key pairs.
+
+Alternatively, you can use the `ssh-keygen` command-line utility available on most operating systems.
+
+For example, to generate an RSA key pair using `ssh-keygen`::
+
+  $ ssh-keygen -t rsa -b 2048 -f id_rsa
+
+To generate a DSA key pair::
+
+  $ ssh-keygen -t dsa -b 1024 -f id_dsa
+
+After running these commands, you will have a private key file (e.g., `id_rsa` or `id_dsa`)
+and a corresponding public key file (e.g., `id_rsa.pub` or `id_dsa.pub`).
+These keys can be used for SSH authentication with SFTPPlus.
 
 
-How to enable / disable SSH key-based authentication?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+How to enable / disable SSH key-based authentication
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Please refer to
+SSH key-based authentication allows users to log in using a cryptographic key pair.
+This method enhances security and is commonly used for automated or secure access. You can configure
+an account to have both password and SSH keys authentication methods enabled at the same time.
+
+For detailed steps on enabling or disabling SSH key-based authentication, please refer to
 :doc:`the SSH service configuration page</configuration-server/ssh-service>`.
 
 
-How to use PKI X.509 SSL certificates for authenticating over SFTP?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+How to use PKI X.509 SSL certificates for authenticating over SFTP
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 At this moment, the SFTPPlus SFTP service does not support PKI X.509
 SSL certificate authentication.

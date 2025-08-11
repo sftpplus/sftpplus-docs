@@ -8,15 +8,14 @@ Introduction
 ------------
 
 The `analytics` resource is defined for monitoring and recording the
-activity of SFTPPlus.
+activity and state of SFTPPlus.
 
 For example, it collects last user login information that can be
 later retrieved and displayed as a report inside the Web Manager.
 The logins span across all services configured on the server (FTP, SFTP,
 Web Manager, etc.).
 
-At the configured interval, a dedicated event containing the usage counters
-is generated.
+At the configured interval, a dedicated event containing the usage counters is generated.
 
 Exceptional events are emitted when the usage for a resource hits a certain
 value / limit.
@@ -60,10 +59,10 @@ monitor_interval
 :Values: * Number of seconds
 :From version: 3.44.0
 :Description:
-    Time interval, in seconds, between system resources measurements.
+    Time interval, in seconds, between system checks.
 
-    This value is only used for metrics which require taking constant
-    snapshots of the system state.
+    This value is only used by analytics functionality that requires constant monitoring.
+    For example, checking the resource usage or auto-disabling of inactive accounts.
 
     Login date, time, and transfer activity is recorded in real time.
 
@@ -175,3 +174,50 @@ thread_count_trigger
 
     Leave it to 0 to disable triggering an event based on the usage of this
     resource.
+
+
+certificate_expiration_warning
+------------------------------
+
+:Default value: 21
+:Optional: Yes
+:Values: * Number of days
+         * 0
+:From version: 5.15.0
+:Description:
+    A warning is generated in Web Manager and an event is emitted if
+    SFTPPlus is configured with a certificate that is about to expire in less than the configured number of days.
+
+    This is configured as number of days.
+
+    The certificates expiration is checked once per day, at midnight.
+    The check is also performed when SFTPPlus starts.
+
+    Set it to `0` to disable triggering these alerts.
+
+
+account_auto_disable_grace_interval
+-----------------------------------
+
+:Default value: `7`
+:Optional: Yes
+:Values: * Number of days
+:From version: 5.15.0
+:Description:
+    Number of days to delay auto-disabling of an inactive account,
+    based on date it was last changed.
+
+    Inactive accounts are accounts that don't have successful logins,
+    in the time interval configured for each account or each group using the `disable_on_inactivity` configuration option.
+
+    For example, when an account is auto-disabled,
+    you can manually re-enable the account and the `account_auto_disable_grace_interval` is the interval for which the account remains active.
+    If no successful logins are performed in the grace interval,
+    the account will be auto-disabled again.
+
+    This configuration is also used for accounts that don't have any login records at all.
+    For those accounts, the account configuration changed date is used as the base for the grace period.
+
+    This should be configured with a value equal or greater than 1 day.
+
+    It is recommended to configure it to a value smaller than the one configured for the `disable_on_inactivity` option set for accounts or groups.

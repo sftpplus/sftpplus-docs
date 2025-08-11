@@ -3,6 +3,9 @@ Banning users
 
 ..  contents:: :local:
 
+..  warning::
+    This authentication method is now deprecated as it was replaced by the `security-policies` configuration.
+
 
 Introduction
 ------------
@@ -55,8 +58,8 @@ administrators
 
     This list is not used to deny access to the file transfer services.
 
-    Leave it empty to allow any username to authenticate as administrators.
-    The value of `administrators =`` in the INI file means that administrators are explicitly defined and that you don't want to block any admin.
+    Leave this option empty to allow any username to authenticate as an administrator.
+    In the INI file, an empty value (e.g., `administrators =`) is treated as an empty list, thus not blocking any administrator.
 
     ..  note::
         When the `administrators` configuration option is not defined at all inside the .INI configuration file,

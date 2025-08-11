@@ -12,7 +12,7 @@ complete the installation. During the installation, define the administrator
 name and password that will be later used to access the SFTPPlus management
 interface.
 
-..  figure:: /_static/guides/1_installation.png
+..  figure:: /static/guides/1_installation.png
     :alt: SFTPPlus Windows Installation
     :class: "mb-2 grayscale"
 
@@ -35,7 +35,7 @@ You can replace `127.0.0.1` with the IP address of the system on which
 SFTPPlus was installed.
 
 
-..  image:: /_static/guides/status-small.png
+..  image:: /static/guides/status-small.png
     :alt: Web Manager Status page
     :align: center
 
@@ -65,15 +65,15 @@ You can find all the options we need to change below:
 * File access -> Path: ``C:\Users\«YOUR_USERNAME»\Documents\sftpplus-test``
 * Advanced account configurations -> Create missing home folder: **Yes**
 
-..  figure:: /_static/guides/2_account.png
+..  figure:: /static/guides/2_account.png
     :alt: SFTPPlus Account Configuration
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 
-..  figure:: /_static/guides/2_account_home.png
+..  figure:: /static/guides/2_account_home.png
     :alt: SFTPPlus Account Home Folder Configuration
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 
-..  figure:: /_static/guides/2_account_create_home.png
+..  figure:: /static/guides/2_account_create_home.png
     :alt: SFTPPlus Account Home Folder Creation
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 
@@ -82,7 +82,7 @@ click **Review and apply**. SFTPPlus will show all the changed configurations
 to be applied and show which components require a restart.
 To proceed, click **Apply all changes**.
 
-..  figure:: /_static/guides/2_review.png
+..  figure:: /static/guides/2_review.png
     :alt: SFTPPlus Review Configuration Changes
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 
@@ -109,7 +109,7 @@ In the screenshot, we created and uploaded an empty text file from the Desktop
 folder.
 
 
-..  figure:: /_static/guides/3_upload.png
+..  figure:: /static/guides/3_upload.png
     :alt: SFTPPlus FileZilla Upload
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 
@@ -130,11 +130,11 @@ Change the settings to the values below:
 
 * Destination configuration path: ``C:\Users\«YOUR_USERNAME»\Documents``
 
-..  figure:: /_static/guides/4_transfer_source.png
+..  figure:: /static/guides/4_transfer_source.png
     :alt: SFTPPlus Transfer Source Configuration
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 
-..  figure:: /_static/guides/4_transfer_destination.png
+..  figure:: /static/guides/4_transfer_destination.png
     :alt: SFTPPlus Transfer Destination Configuration
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 
@@ -143,7 +143,7 @@ To start the new transfer, go to the **General** status section and find the
 list of available transfers. You should be able to start the transfer from
 there.
 
-..  figure:: /_static/guides/4_transfer_status.png
+..  figure:: /static/guides/4_transfer_status.png
     :alt: SFTPPlus Transfer Status
     :class: "mb-1 pt-2 bg-gray rounded-sm border-img grayscale"
 

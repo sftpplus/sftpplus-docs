@@ -1,0 +1,106 @@
+Documentation Development
+==========================
+
+Documentation is using ReStructuredText format.
+It is converted into HTML using Python Sphinx.
+
+We generate documentation for 2 use cases:
+
+* website integrated into public website.
+* standalone, include into distributable for offline and Web Manager access.
+
+The documentation website has Netlify as a frontend via the
+chevah/sftpplus.com repo and site.
+The actual documentation is hosted on yeovil.sftpplus.com VM on vultr.
+Netlify will reverse-proxy the content to make it look like a single site.
+
+For standalone version, static files (images, fonts, CSS) are copied from the
+website package.
+The integrated version is triggered by the publish process.
+The standalone version is triggered by the distributable build process.
+
+The following annotation classes are available:
+
+* seealso - green
+* tip - green
+* note - blue - use to highlight a paragraph.
+* danger - strong red
+* warning - red
+* attention - yellow
+* admonition:: Since Version - no color yet
+
+The following tags are available for guide pages:
+
+* client-side - for client-side functionalities and operations
+* server-side - for server-side functionalities and operations
+* file-transfer - for file transfer related operations, regardless of
+  client and server side
+* security - for security related topics
+* since-version - for informing when the functionality was added
+
+You can build the documentation using the following command.
+Files are
+generated in build-py3/doc/html::
+
+    $ ./pythia.sh documentation_standalone
+
+
+Images
+------
+
+Images should be copied to the 'docs/static' folder.
+Don't use the 'docs/_static' folder as that folder is used by Sphinx.
+Once the documentation is build, the images are copied to
+'build/doc/html/_images'.
+In this way, the images that are not used in the documentation are not
+copied to the final site.
+
+
+Intra-documentation links
+-------------------------
+
+Always use Sphinx references to link to pages or sections.
+Don't use raw URLs.
+In this way, any dead links are automatically detected.
+
+Link to a page::
+
+    You can use it inline with :doc:`link text</link-target>`.
+
+    .. grid-item-card:: :octicon:`package-dependents` Install and Update
+        :link-type: doc
+        :link: installation/index
+
+        Find out more about how to install SFTPPlus on your system
+
+
+Link to an arbitrary section. Use `.. _example-reference:` inside the
+targeted document.
+Then link it as::
+
+    You can use it inline with :ref:`link text<example-reference>`.
+
+    .. grid-item-card:: :octicon:`moon` Event groups
+        :link-type: ref
+        :link: example-reference
+
+        This section describes all the available event groups.
+
+
+
+Website integration
+-------------------
+
+The version design to integrate into website can be generated using this
+command, but it is much harder to test. To test, you will need to publish it
+or run `chevah/sftpplus.com` repo on the local system::
+
+    $ ./pythia.sh documentation_website
+    Build and start sftpplus.com website on your local system and then
+    copy the latest docs
+    $ rm -rf ../sftpplus.com/venv/deploy/documentation/sftpplus/latest
+    $ cp -r build-*/doc/html \
+        ../sftpplus.com/venv/deploy/documentation/sftpplus/latest
+    You can now get the docs at
+    http://localhost:8080/documentation/sftpplus/latest
+

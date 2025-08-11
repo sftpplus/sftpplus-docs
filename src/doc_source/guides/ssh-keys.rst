@@ -131,7 +131,7 @@ Puttygen for Windows can be downloaded from::
 Open **puttygen**, select the type of key to generate and the number of bits for
 the key.
 
-..  image:: /_static/guides/puttygen-1.png
+..  image:: /static/guides/puttygen-1.png
     :alt: PuttyGen main window
 
 ----
@@ -139,7 +139,7 @@ the key.
 Click "Generate" and move your mouse over the blank area until the keys are
 generated.
 
-..  image:: /_static/guides/puttygen-2.png
+..  image:: /static/guides/puttygen-2.png
     :alt: PuttyGen generate key process
 
 ----
@@ -152,7 +152,7 @@ on the local disk in unencrypted format.
 Add a comment that should help you identify the key (more so, its purpose) at a
 later time.
 
-..  image:: /_static/guides/puttygen-3.png
+..  image:: /static/guides/puttygen-3.png
     :alt: PuttyGen generated key
 
 
@@ -166,7 +166,7 @@ format to a key stored in OpenSSH format.
 
 To export an already opened key: Conversions -> Export OpenSSH key.
 
-..  image:: /_static/guides/puttygen-4.png
+..  image:: /static/guides/puttygen-4.png
     :alt: PuttyGen Export key in OpenSSH format
 
 ----
@@ -175,7 +175,7 @@ To export the public key in OpenSSH format, open a text editor and copy-paste
 the contents of the "OpenSSH public key" text box.
 Save it as a plain text file.
 
-..  image:: /_static/guides/puttygen-5.png
+..  image:: /static/guides/puttygen-5.png
     :alt: PuttyGen copy public key
 
 
@@ -252,4 +252,4 @@ SSH Keys Management in SFTPPlus Web Manager
 Users can also generate new SSH keys and convert/read existing SSH keys via the
 SFTPPlus Web Manager.
 
-..  image:: /_static/gallery/gallery-key-management.png
+..  image:: /static/gallery/gallery-key-management.png
