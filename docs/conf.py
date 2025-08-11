@@ -20,8 +20,8 @@ html_theme = 'integrated'
 project = "SFTPPlus"
 copyright = "ProAtria Team"
 
-version = "5.14.0"
-release = "5.14.0"
+version = "5.15.0"
+release = "5.15.0"
 
 autodoc_default_flags = ['members']
 primary_domain = 'py'
