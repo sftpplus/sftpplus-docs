@@ -21,7 +21,6 @@ export SITE_PACKAGES=`python3 -c 'import sysconfig; print(sysconfig.get_paths()[
 # Show all variables.
 declare -p
 
-
 cp -r chevah $SITE_PACKAGES
 
 

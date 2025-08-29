@@ -20,15 +20,15 @@ html_theme = 'integrated'
 project = "SFTPPlus"
 copyright = "ProAtria Team"
 
-version = "5.15.0"
-release = "5.15.0"
+version = "5.16.0"
+release = "5.16.0"
 
 autodoc_default_flags = ['members']
 primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    'SFTPPlus-5.14.0',
+    'SFTPPlus-5.16.0',
     'SFTPPlus Documentation',
     'ProAtria Team',
     )]
