@@ -795,3 +795,13 @@ HTTP / HTTPS / AS2 / REST / Cloud events
 :Groups: authenticated, failure, failure-high, http, file-operation
 :From version: 4.35.0
 :Description: None
+
+
+
+40060
+^^^^^
+
+:Message: Failed response from API backend for "%(path)s". Details: %(details)s
+:Groups: authenticated, failure, failure-high, http, file-operation
+:From version: 5.15.0
+:Description: None

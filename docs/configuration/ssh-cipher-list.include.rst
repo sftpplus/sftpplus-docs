@@ -20,7 +20,7 @@ ssh_cipher_list
     * HMACs
     * key exchanges
 
-    For SFTP service, the list of public keys is extracted from the SSH keys configured at `ssh_host_private_keys`.
+    For SFTP service, when no public key algorithm is configured, it will accept any algorithm.
 
     For SFTP locations the configuration must include at least one algorithm from each of:
 

@@ -127,8 +127,8 @@ The permissions need to be added to `MS Graph`:
 Exchange Online permissions
 ---------------------------
 
-SFTPPlus access Exchange Online mailboxes fully automated, without user interaction.
-The access is done using the identity of the SFTPPlus application registered via Entra ID, as opposed to an Entra ID / domain user.
+SFTPPlus access to Exchange Online mailboxes is fully automated, without user interaction.
+The access is done using the identity of the SFTPPlus application registered via Entra ID, as opposed to an Entra ID domain user.
 
 While no user interaction is needed, Exchange Online admins will need to provide specific mailbox access (using Exchange Online PowerShell) for applications' service principals to access the mailboxes.
 

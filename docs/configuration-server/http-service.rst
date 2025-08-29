@@ -483,4 +483,94 @@ announce_session_authentication
     web browsers should include an SSL certificate signed by the same
     certificate authority.
 
+
+api_backend_uuid
+----------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Empty
+         * UUID of an HTTP event handler
+:From version: 5.16.0
+:Description:
+    This is configured with an UUID of an event handler.
+    When a file is successfully uploaded,
+    SFTPPlus will trigger this event handler.
+    It will wait for the response from the HTTP event handler before sending back the response to the HTTP client that requested the file upload.
+
+    Together with the `api_passthrough_headers` configuration option,
+    the HTTP event handler can be used to return dynamic HTTP headers in the response for a file upload.
+
+    The HTTP file upload process will block until the HTTP event handler returns with a response.
+
+    The HTTP event handler needs to be setup with the following filters::
+
+        [event-handlers/6a485d56-7140-11f0-91e0-6b3abd6aa2c9]
+        target: 40017
+        data_filter: api_backend, yes
+
+    This will ensure that the event handler is only active for the HTTP service API requests, which is a blocking / synchronous request.
+    Otherwise, the event handler will be triggered for the default non-blocking / asynchronous requests.
+
+    Leave it empty to not use a blocking HTTP event handler.
+
+
+api_passthrough_headers
+-----------------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Lower-case name of HTTP header
+         * Comma-separated names for HTTP headers
+:From version: 5.16.0
+:Description:
+    This configuration option can be used to define which headers are forwarded from the API backend to the HTTP client that has requested a file upload.
+
+    For example, when a file is uploaded, SFTPPlus will connect to the API backend,
+    using the HTTP event handler,
+    and will forward to the HTTP client the value for the ``filename`` and ``order_id`` headers,
+    as returned by the API backend::
+
+        [services/9ac4-1054-f0e4]
+        name = HTTPS File Transfer Service
+        type = https
+        api_passthrough_headers = filename, order_id
+
+
+api_partial_success_headers
+---------------------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Single header with a name and at least one value.
+         * Multiple headers, each header on a separate line.
+:From version: 5.16.0
+:Description:
+    This configuration option can be used to define which headers sent to the HTTP client,
+    when no valid response was obtained from the API backend.
+
+    Each line should start with the header name, followed by `:`.
+    Each line should end with the header's values.
+
+    For example::
+
+        [services/9ac4-1054-f0e4]
+        name = HTTPS File Transfer Service
+        type = https
+        api_partial_success_headers = error: No response from API backend
+
+    You can configure multiple headers by defining each header on a separate
+    line::
+
+        [services/5300-19d0-92ce]
+        type = http
+        api_partial_success_headers =
+          filename: Unknown
+          error: No response from API backend
+
+    ..  note::
+        Header names are case insensitive and will always be sent in lowercase.
+        Multiple headers with the same name are not supported.
+
+
 .. include:: /configuration-server/service-http.include.rst

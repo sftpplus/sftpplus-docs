@@ -416,3 +416,71 @@ On Slack, the message will look something like this.
 
 ..  image:: /static/guides/http-event-slack.png
     :alt: HTTP Event as received on Slack.
+
+
+Forward HTTP response headers to HTTP file uploads
+--------------------------------------------------
+
+For files uploaded over HTTP/HTTPS,
+you can configure the SFTPPlus HTTP/HTTPS service to connect to an external HTTP API endpoint and forward the API response headers to the initial file upload request.
+
+The request flow is as follows::
+
+            /-upload-(1)--->\          /-HTTP-event-(2)--->\
+    End User                  SFTPPlus>                     API Server
+            \<-response-(4)-/          \<-API-response-(3)-/
+
+With the following steps:
+
+1. End users request a file upload to SFPPlus.
+   SFTPPlus receives the file and store it on disk.
+2. After the file was received, SFTPPlus sends an HTTP request to an external HTTP API endpoint
+3. The external HTTP API endpoint will return a response and a set of response headers.
+4. SFTPPlus will forward the API endpoint headers to the end user.
+
+You can configure which headers are send to end users.
+
+When the file is fully received, but SFTPPlus failed to get a valid response from the HTTP API endpoint,
+you can configure SFTPPlus to forward to the end user a set of predefined headers.
+
+The HTTP event handler that is designed to be used together with an HTTP file upload,
+will receive events that will contain that `api_backend: yes` attribute:
+
+You will configure the HTTP event handler with `target = 40017` and `data_filter = api_backend, yes`::
+
+    [event-handlers/69ac315c-8026-11f0-864c-2fb5d87d556d]
+    enabled = yes
+    type = http
+    name = Uploaded files backend API
+    description = Used when files are uploaded, to notify our backend API
+
+    url = https://10.12.0.12/internal-api
+
+    target = 40017
+    data_filter = api_backend, yes
+
+The SFTPPlus HTTP/HTTPS file server used by end users is configured as::
+
+  [services/d98653b8-8026-11f0-9ae2-936c37146441]
+  enabled: Yes
+  name: Customer Web UI
+  type: http
+
+  api_backend_uuid = 69ac315c-8026-11f0-864c-2fb5d87d556d
+  api_passthrough_headers = filename, size
+  api_partial_success_headers =
+    error_message: File was received. No full name yet.
+    filename: no-file-generated
+    size: 0
+
+With this configuration SFTPPlus will forward to end users the headers `filename` and `size`,
+as received from the response from `https://10.12.0.12/internal-api`.
+
+If the `https://10.12.0.12/internal-api` server is not available, end users will receive the following response::
+
+    < HTTP/1.1 201 Created
+    < Date: Sat, 23 Aug 2025 11:54:51 GMT
+    < Server-Path: /path-as-request/by-end-user.txt
+    < Filename: no-file-generated
+    < Size: 0
+    < Error_message: File was received. No full name yet.

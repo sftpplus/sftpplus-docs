@@ -191,6 +191,11 @@ headers
 :Description:
     This defines a set of extra headers which are sent with each HTTP request.
 
+    ..  note::
+        If you want to set a custom `User-Agent` header,
+        you need to define it in *capitalized* format.
+        Defining as lower-case ``user-agent`` is not supported.
+
 
 extra_data
 ----------

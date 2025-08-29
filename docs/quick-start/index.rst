@@ -34,7 +34,8 @@ concepts used by SFTPPlus.
 
 ..  toctree::
     :titlesonly:
-    :maxdepth: 2
+    :maxdepth: 1
+    :hidden:
 
     on-windows
     on-linux

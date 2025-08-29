@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>
-        Version 5.15.0 Trial Downloads | Secure file transfer software
+        Version 5.16.0 Trial Downloads | Secure file transfer software
   </title>
 
   <meta name="author" content="Pro:Atria Team" />
@@ -80,8 +80,8 @@
   <div class="container">
     <div class="row text-center justify-content-center align-items-center">
       <div class="col">
-        <h1>Version 5.15.0 Trial Downloads</h1>
-          <h3 class="font-weight-normal">The trial version expires on 2025-11-19</h3>
+        <h1>Version 5.16.0 Trial Downloads</h1>
+          <h3 class="font-weight-normal">The trial version expires on 2025-12-07</h3>
       </div>
     </div>
   </div>
@@ -653,76 +653,67 @@ systems and CPU architectures.</p>
   <div class="container py-0">
     <div id="release-changelog" class="download-release-notes doc-body row mb-0 justify-content-center">
       <div class="col">
-        <div class="document" id="version-5-15-0-2025-08-11">
-<h1 class="title">Version 5.15.0, 2025-08-11</h1>
+        <div class="document" id="version-5-16-0-2025-08-28">
+<h1 class="title">Version 5.16.0, 2025-08-28</h1>
 <div class="section" id="security-fixes">
 <h1>Security Fixes</h1>
 <ul class="simple">
-<li>During Let's Encrypt initialization, a unique TLS placeholder certificate
-is now used.
-The TLS placeholder certificate is unique to each SFTPPlus installation and
-each SFTPPlus version.
-Previous versions were using a static placeholder certificate.
-[lets-encrypt] [#7127]</li>
+<li>The SFTP server can now be configured to enforce the public key algorithms
+defined via the <cite>ssh_cipher_list</cite> service configuration.
+In previous versions it was accepting any public key algorithm.
+To maintain backward compatibility, SFTPPlus will continue to accept any
+public key algorithm, as long as no specific public key algorithm
+is defined in <cite>ssh_cipher_list</cite>
+[server-side][sftp] [#7153]</li>
 </ul>
 </div>
 <div class="section" id="new-features">
 <h1>New Features</h1>
 <ul class="simple">
-<li>An event is now emitted when a configured certificate is about to expire.
-[security] [#4508]</li>
-<li>The <cite>security-policy</cite> configuration was added to unify the configuration for
-the <cite>deny-username</cite> and <cite>ip-time-ban</cite> authentication method.
-The <cite>security-policy</cite> is now automatically applied to all services.
-[server-side] [#5240]</li>
-<li>You can now use component name and event groups as filters for the
-Activity Log UI.
-[manager] [#5886]</li>
-<li>The <cite>extract-archive</cite> event handler now supports extracting Zip archive encrypted
-using the WinZIP AES.
-[event-handler][zip] [#7120]</li>
-<li>The Web Client GUI now has a button that allows selecting all the files
-from the current directory.
-[server-side][https] [#7134]</li>
-<li>Any configuration component now has a <cite>created</cite> and <cite>changed</cite> value.
-These values contain the date and time when that configuration was
-created or last changed.
-[manager] [#7144]</li>
+<li>The <cite>http</cite> file transfer service can be configured with a blocking HTTP
+event handler for file upload operation.
+When a file is uploaded, SFTPPlus can trigger a separate request to a backend
+HTTP API and will forward the HTTP response headers to the initial HTTP client
+that triggered the initial request.
+[server-side][http][api] [#2606]</li>
+<li>The <cite>content-check</cite> event handler was added to check if a file does or does not
+contain a specific content.
+[event-handler] [#7147]</li>
+<li>You can now define <cite>User-Agent</cite> as a custom header for HTTP event handlers and
+HTTP authentication methods.
+In previous versions, SFTPPlus was always overwriting a predefined value.
+[event-handler][http] [#7148]</li>
+<li>A new location dedicated to SharePoint Online was added.
+This uses the OAuth2 authentication with MS Graph API.
+[client-side][sharepoint] [#7166]</li>
 </ul>
 </div>
 <div class="section" id="defect-fixes">
 <h1>Defect Fixes</h1>
 <ul class="simple">
-<li>The <cite>account_auto_disable_grace_interval</cite> configuration option was added to
-delay auto-disabling an account that was re-enabled but didn't have the
-opportunity to trigger a successful login yet.
-In previous versions, when an account was auto-disabled due to inactivity,
-if an administrator was re-enabling that account, the account was
-automatically disabled right away as the account still did not have a
-recent login time.
-[server-side] [#7141]</li>
-<li>The account created date is kept when the configuration for the account is
-synchronized to nodes.
-In previous version, the account creation date was not included in the
-synchronized data.
-[cluster][manager] [#7144]</li>
-<li>The failure to start the <cite>os</cite> authentication method on Linux was fixed.
-This was a defect introduced in SFTPPlus 5.14.0
-[server-side][os] [#7149]</li>
-<li>The Let's Encrypt resource was fixed.
-This was a regression introduced in SFTPPlus version 5.13.0
-[server-side][https][lets-encrypt] [#7150]</li>
+<li>The Purview extension was updated to automatically retry on error.
+The configuration for the extension was updated to include <cite>sdk_timeout</cite>,
+<cite>retry_count</cite>, and <cite>retry_wait</cite> options.
+When communicating with the Purview API server,
+the default timeout was increased to 10 minutes.
+Previously, the timeout was 1 minute.
+[server-side] [#7136]</li>
+<li>When defining custom <cite>headers</cite> for the HTTP event handler you can now define
+a custom <tt class="docutils literal"><span class="pre">Content-Type</span></tt> header.
+[event-handler][http] [#7148]</li>
+<li>The SFTP location can now authenticate using RSA SSH keys to SFTP servers that
+don't support the <cite>ssh-rsa</cite> algorithm and only support the
+<cite>rsa-sha2-256</cite> or <cite>rsa-sha2-512</cite>.
+[client-side][sftp] [#7153]</li>
 </ul>
 </div>
 <div class="section" id="deprecations-and-removals">
 <h1>Deprecations and Removals</h1>
 <ul class="simple">
-<li>The <cite>deny-username</cite> and <cite>ip-time-ban</cite> authentication methods are now deprecated.
-Their functionality was replaced by the <cite>security-policy</cite> configuration.
-The authentication method continue to be supported until the next major version.
-It is recommended to review the configuration for the <cite>security-policy</cite> and then
-delete these deprecated authentication methods.
-[server-side] [#5240]</li>
+<li>The <cite>file-digest</cite> event handler was converted to the <cite>content-check</cite>
+event handler.
+The configuration is automatically migrated.
+[event-handler] [#7147]</li>
 </ul>
 </div>
 </div>

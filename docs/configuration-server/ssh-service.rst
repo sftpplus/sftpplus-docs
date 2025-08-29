@@ -218,6 +218,12 @@ ssh_host_private_keys
     We recommend to store keys in PEM OpenSSH format, but Putty or Tectia
     formats are also supported.
 
+    ..  note::
+        The SSH key types configured here are advertised during SSH handshake
+        as the list of supported host key algorithms.
+        If you want to restrict the RSA host key variants,
+        configure the list accepted RSA host key algorithms via `ssh_cipher_list`.
+
 
 dh_prime_size
 -------------

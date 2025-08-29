@@ -1,34 +1,23 @@
 Cluster deployment
 ==================
 
-..  contents:: :local:
-
-Below are the configuration reference pages for the `node-sync` resource and the cluster `node` access control.
-
-..  toctree::
-    :maxdepth: 1
-
-    node-sync
-    nodes
-    operation
-    transfers
-
-
-Introduction
-------------
-
-SFTPPlus can operate in self-configured cluster to implement a high-availability file transfer service, both server-side and client-side.
+SFTPPlus can operate in a self-configured cluster to implement
+a high-availability file transfer service, both server-side and client-side.
 
 The SFTPPlus cluster only handles SFTPPlus configuration synchronization.
 The actual files are not synchronized.
-For local files, make sure all the nodes have access to the files using a Windows Share, an Unix NFS share, or similar network attacked storage.
+For local files, make sure all the nodes have access to the files using
+a Windows Share, an Unix NFS share, or similar network attacked storage.
 
 This section describes how to setup SFTPPlus in **active-active** cluster mode.
-Get in touch if you want to setup SFTPPlus in *active-passive* or *disaster recovery* mode.
+Get in touch if you want to setup SFTPPlus in *active-passive* or
+*disaster recovery* mode.
 
-The deployment and provisioning of the actual VM and SFTPPlus software is outside of the scope of the cluster configuration.
-SFTPPlus can work with any automated provisioning tool like Amazon Cloud Formation,
-Azure Resource Manage, Google Deployment Manager, or Ansible, to name just a few.
+The deployment and provisioning of the actual VM and SFTPPlus software is
+outside of the scope of the cluster configuration.
+SFTPPlus can work with any automated provisioning tool like Amazon Cloud
+Formation, Azure Resource Manage, Google Deployment Manager, or Ansible,
+to name just a few.
 
 ..  note::
     The documentation from this section can be used to implement Kubernetes clusters.
@@ -39,53 +28,48 @@ Azure Resource Manage, Google Deployment Manager, or Ansible, to name just a few
     Get in touch if you plan to use SFTPPlus with auto-scale VMs.
 
 
-Cluster components
-------------------
+.. grid:: 1 1 2 2
+    :gutter: 2
+    :padding: 0
+    :class-container: surface
 
-A common challenge with clustered environments is maintaining configuration consistency across all nodes.
-SFTPPlus MFT solves this with a primary-secondary architecture for configuration management.
+    .. grid-item-card:: :octicon:`book` Introduction
+        :link-type: doc
+        :link: ./introduction
 
-There are 2 types of SFTPPlus operation modes for the cluster:
+        This section provide information about cluster nodes, network and storage setup.
 
-* `controller` - Handles configuration management and can perform file transfers.
-* `node` - Pulls configuration from the `controller` and performs file transfers.
-  Can be configured only via the `controller`
+    .. grid-item-card:: :octicon:`book` Cluster synchronization
+        :link-type: doc
+        :link: ./node-sync
 
-Both the `controller` and the `node` are designed to operate independently.
-The `node` will continue to perform file transfer operations even if the `controller` is not available, and vice versa.
+        Learn how cluster synchronization works and how to configure the `node-sync` resource.
 
-You can configure various SFTPPlus components, like file transfers or event handlers, to be active only on the controller, only on nodes or only on a specific node.
+    .. grid-item-card:: :octicon:`terminal` Nodes definition
+        :link-type: doc
+        :link: ./nodes
 
-You designate one SFTPPlus MFT instance as the **controller node**.
-This is the single source of truth where you make all your configuration changes.
-The other instances in the cluster act as **secondary nodes** and are configured to automatically synchronize their configuration from the primary node.
-This is achieved through a `node-sync` resource defined in the configuration of the secondary nodes, which pulls the latest configuration from the primary.
+        Discover the security settings and access controls you can configure for cluster nodes.
 
-A crucial aspect of this design is that a complete copy of the SFTPPlus MFT configuration is distributed to every member of the cluster.
-This means that even if the **controller VM is offline**,
-the secondary nodes continue to operate with their last known good configuration,
-and the load balancer will continue to direct traffic to them.
+    .. grid-item-card:: :octicon:`stack` Cluster operation
+        :link-type: doc
+        :link: ./operation
+
+        This section explains the different cluster operation modes and provides guidance on their configuration.
+
+    .. grid-item-card:: :octicon:`stack` Client-side transfers with failover
+        :link-type: doc
+        :link: ./transfers
+
+        In this section you will find out how to configure client-side file transfers with failover support.
 
 
-Network and storage setup
--------------------------
+..  toctree::
+    :maxdepth: 1
+    :hidden:
 
-There are 2 main area to handle the high availability:
-
-* inbound connections - all SFTPPlus instances in the cluster will be actively handling inbound connections
-* outbound connections - one SFTPPlus instance will be actively handling the outbound connections, while the other acting as failover in the case the main SFTPPlus instance fails to perform the client-side transfer.
-
-For inbound connections you will need to use an external load balancer
-that will forward the TCP/HTTP connection to the SFTPPlus services.
-
-For outbound connections there are no requirements or dependencies on 3rd party network infrastructure.
-
-The `controller` needs to allow **inbound** network connections to the Web Manager from the `node` instances.
-
-The SFTPPlus cluster configuration is persisted as configuration files stored on the cluster *controller* instance.
-You will need to make sure that the SFTPPlus configuration files are safely stored and included in your backup process.
-
-The SFTPPlus cluster will only handle SFTPPlus configuration and events.
-It doesn't handle storage.
-
-All the nodes that perform file transfer operations should  have access to the files using a Windows Share, an Unix NFS share, or similar network attached storage.
+    introduction
+    node-sync
+    nodes
+    operation
+    transfers

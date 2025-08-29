@@ -490,6 +490,23 @@ Operation events
 
 
 
+20044
+^^^^^
+
+:Message: Content rule triggered for %(path)s. %(rule_details)s
+:Groups: operational, authenticated, success
+:From version: 5.16.0
+:Description: The event handler was triggered for a file that has a content matching one of the configured rules.
+:Data:
+  :path: Path of the file that triggered the event
+
+
+  :rule_details: Details of the rule for which the content was matched.
+
+
+
+
+
 20045
 ^^^^^
 

@@ -5,16 +5,16 @@ SFTPPlus documentation
 Introduction
 ------------
 
-SFTPPlus is a Managed File Transfer (:ref:`MFT<term-mft>`) software, with support for protcools like: FTPS, SFTP, HTTPS, AS2, and cloud providers like Azure, Google Cloud, and Amazon S3.
+SFTPPlus is a Managed File Transfer (:ref:`MFT<term-mft>`) software, with support for protocols like: FTPS, SFTP, HTTPS, AS2, and cloud providers like Azure, Google Cloud, and Amazon S3.
 
-It operates as standalone software, runnig as a background service,
+It operates as standalone software, running as a background service,
 without requiring any additional dependencies,
 such as a database or web server.
 
 The configuration is done via a text file, which can be edited using any text editor,
 or via an embedded web-based configuration tool, which is accessible via any modern web browser.
 
-Security, correctness, easy-of-use, and file transfer capabilites are all important factors and we focus on them in this
+Security, correctness, easy-of-use, and file transfer capabilities are all important factors and we focus on them in this
 order.
 
 .. grid:: 1 1 2 2
@@ -114,7 +114,7 @@ order.
         :link-type: doc
         :link: standards/index
 
-        Find out more about the supported standards, cryptographic algorithms, and certifications obligtations.
+        Find out more about the supported standards, cryptographic algorithms, and certifications obligations.
 
 
 Using the documentation
@@ -216,6 +216,7 @@ Icons used in the documentation:
 
 ..  toctree::
     :titlesonly:
+    :hidden:
     :maxdepth: 2
 
     installation/index

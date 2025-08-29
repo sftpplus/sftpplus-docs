@@ -1,5 +1,5 @@
-General location options
-========================
+Locations
+=========
 
 ..  contents:: :local:
 
@@ -7,12 +7,23 @@ General location options
 Introduction
 ------------
 
-A location configuration provides the required information to allow
-SFTPPlus to connect to local or remote locations in order to perform
-file transfers between locations.
+Locations can be used to connect to various types of local or remote systems,
+including local file systems, SFTP servers, FTP servers, HTTP servers,
+and cloud storage services like Amazon S3 or Microsoft Azure Blob Storage.
 
-Please consult the `type` configuration option to see the list of
-supported location types.
+Supported client-side protocols include:
+
+- **Local Filesystem**: Access files stored on the local machine.
+- **SFTP**: Secure File Transfer Protocol for encrypted file transfers.
+- **FTP**: File Transfer Protocol for standard file transfers.
+- **FTPS (Explicit/Implicit)**: FTP over SSL/TLS for secure transfers.
+- **HTTP Pull**: Download files using HTTP requests.
+- **WebDAV**: Web Distributed Authoring and Versioning for remote file access.
+- **AS2**: Applicability Statement 2 for secure B2B data exchange.
+- **Azure Blob/File**: Integrate with Microsoft Azure storage services.
+- **SMB**: Server Message Block for network file sharing.
+- **Exchange Online**: Connect to Microsoft Exchange for email and file access.
+- **SMTP**: Send files via email using Simple Mail Transfer Protocol.
 
 Locations are auto-started when a transfer or another component needs them and
 the location is not started and connected.

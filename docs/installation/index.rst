@@ -26,6 +26,7 @@ It is very probable that SFTPPlus already works on that OS, it's just that we do
         :link-type: doc
         :link: ./requirements
 
+        This document covers the system requirements for SFTPPlus.
         There are minimal requirements for SFTPPlus.
         No external dependencies or 3rd party software are required.
 
@@ -53,7 +54,9 @@ It is very probable that SFTPPlus already works on that OS, it's just that we do
         :link-type: doc
         :link: ./linux-advanced
 
-        Here you can find more advanced instalaltion options, designd for DevOps, such as Docker, Kubernetes, and other customized setups.
+        Here you can find more advanced installation options,
+        designed for DevOps, such as Docker, Kubernetes,
+        and other customized setups.
 
 
     .. grid-item-card:: :octicon:`package-dependents` macOS install
@@ -67,12 +70,12 @@ It is very probable that SFTPPlus already works on that OS, it's just that we do
         :link: ./linux-and-macos-upgrade
 
         Check the steps for upgrading to a newer SFTPPlus version on Linux and MacOS,
-        or uprading to a newer version of the operating system.
+        or upgrading to a newer version of the operating system.
 
 
     .. grid-item-card:: :octicon:`move-to-top` Upgrade and updates
         :link-type: doc
-        :link: ./upgrade-intro
+        :link: ./upgrade
 
         Find out the difference between an update and an upgrade,
         and how to perform them on SFTPPlus.
@@ -94,6 +97,7 @@ It is very probable that SFTPPlus already works on that OS, it's just that we do
 
 ..  toctree::
     :maxdepth: 1
+    :hidden:
 
     release-notes
     requirements
@@ -105,8 +109,4 @@ It is very probable that SFTPPlus already works on that OS, it's just that we do
     linux-and-macos-upgrade
     troubleshooting
     uninstall
-    upgrade-intro
-    upgrade-to-v5
-    upgrade-to-v4
-    upgrade-to-v3
-    upgrade-to-v2
+    upgrade
