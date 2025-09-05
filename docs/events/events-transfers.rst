@@ -499,7 +499,7 @@ Automated file transfers events
 60031
 ^^^^^
 
-:Message: File "%(path)s" is going to be transfered as "%(destination_path)s" for "%(name)s" as a file with same name already exists on the destination.
+:Message: File "%(path)s" is going to be transferred as "%(destination_path)s" for "%(name)s" as a file with same name already exists on the destination.
 :Groups: transfer-job, informational, client-side
 :From version: 3.0.0
 :Description: None
@@ -1266,7 +1266,7 @@ Automated file transfers events
 ^^^^^
 
 :Message: Successfully removed archived file "%(path)s" older than %(days)s days.
-:Groups: transfer, informational, client-side
+:Groups: transfer, informational, file-operation, client-side
 :From version: 3.51.0
 :Description: None
 

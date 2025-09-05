@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>
-        Version 5.16.0 Trial Downloads | Secure file transfer software
+        Version 5.16.1 Trial Downloads | Secure file transfer software
   </title>
 
   <meta name="author" content="Pro:Atria Team" />
@@ -80,8 +80,8 @@
   <div class="container">
     <div class="row text-center justify-content-center align-items-center">
       <div class="col">
-        <h1>Version 5.16.0 Trial Downloads</h1>
-          <h3 class="font-weight-normal">The trial version expires on 2025-12-07</h3>
+        <h1>Version 5.16.1 Trial Downloads</h1>
+          <h3 class="font-weight-normal">The trial version expires on 2025-12-14</h3>
       </div>
     </div>
   </div>
@@ -653,67 +653,37 @@ systems and CPU architectures.</p>
   <div class="container py-0">
     <div id="release-changelog" class="download-release-notes doc-body row mb-0 justify-content-center">
       <div class="col">
-        <div class="document" id="version-5-16-0-2025-08-28">
-<h1 class="title">Version 5.16.0, 2025-08-28</h1>
-<div class="section" id="security-fixes">
-<h1>Security Fixes</h1>
-<ul class="simple">
-<li>The SFTP server can now be configured to enforce the public key algorithms
-defined via the <cite>ssh_cipher_list</cite> service configuration.
-In previous versions it was accepting any public key algorithm.
-To maintain backward compatibility, SFTPPlus will continue to accept any
-public key algorithm, as long as no specific public key algorithm
-is defined in <cite>ssh_cipher_list</cite>
-[server-side][sftp] [#7153]</li>
-</ul>
-</div>
-<div class="section" id="new-features">
-<h1>New Features</h1>
-<ul class="simple">
-<li>The <cite>http</cite> file transfer service can be configured with a blocking HTTP
-event handler for file upload operation.
-When a file is uploaded, SFTPPlus can trigger a separate request to a backend
-HTTP API and will forward the HTTP response headers to the initial HTTP client
-that triggered the initial request.
-[server-side][http][api] [#2606]</li>
-<li>The <cite>content-check</cite> event handler was added to check if a file does or does not
-contain a specific content.
-[event-handler] [#7147]</li>
-<li>You can now define <cite>User-Agent</cite> as a custom header for HTTP event handlers and
-HTTP authentication methods.
-In previous versions, SFTPPlus was always overwriting a predefined value.
-[event-handler][http] [#7148]</li>
-<li>A new location dedicated to SharePoint Online was added.
-This uses the OAuth2 authentication with MS Graph API.
-[client-side][sharepoint] [#7166]</li>
-</ul>
-</div>
+        <div class="document" id="version-5-16-1-2025-09-05">
+<h1 class="title">Version 5.16.1, 2025-09-05</h1>
+<p>This is a maintenance bugfix release.</p>
 <div class="section" id="defect-fixes">
 <h1>Defect Fixes</h1>
 <ul class="simple">
-<li>The Purview extension was updated to automatically retry on error.
-The configuration for the extension was updated to include <cite>sdk_timeout</cite>,
-<cite>retry_count</cite>, and <cite>retry_wait</cite> options.
-When communicating with the Purview API server,
-the default timeout was increased to 10 minutes.
-Previously, the timeout was 1 minute.
-[server-side] [#7136]</li>
-<li>When defining custom <cite>headers</cite> for the HTTP event handler you can now define
-a custom <tt class="docutils literal"><span class="pre">Content-Type</span></tt> header.
-[event-handler][http] [#7148]</li>
-<li>The SFTP location can now authenticate using RSA SSH keys to SFTP servers that
-don't support the <cite>ssh-rsa</cite> algorithm and only support the
-<cite>rsa-sha2-256</cite> or <cite>rsa-sha2-512</cite>.
-[client-side][sftp] [#7153]</li>
+<li>When the SFTP server authentication fails
+before obtaining a valid password or key,
+the error details will now contain the name of the associated user.
+[server-side][sftp] [#6979]</li>
+<li>An internal error is no longer generated after removing a service that had
+an expired certificate.
+[server-side][manager] [#7177]</li>
+<li>For HTTP uploads, the backend API is now called for any upload method.
+In the previous release it was called only for uploads done using the PUT
+method.
+[server-side][http] [#7181]</li>
+<li>The events emitted when handling SFTP files now contain the <cite>requested_path</cite>
+attribute. This is the path requested by end user, and it might be different
+to the actual file used to store the file.
+For example, when SFTPPlus will automatically add a UUID to the stored filename.
+[server-side][sftp] [#7184]</li>
 </ul>
 </div>
 <div class="section" id="deprecations-and-removals">
 <h1>Deprecations and Removals</h1>
 <ul class="simple">
-<li>The <cite>file-digest</cite> event handler was converted to the <cite>content-check</cite>
-event handler.
-The configuration is automatically migrated.
-[event-handler] [#7147]</li>
+<li>The following events were removed from the <cite>success</cite> event group and moved
+to the <cite>informational</cite> event group: 10020, 10030, 10033, 10034, 10063, 10065,
+10066, 10081, 10083, 10100, 10101, 30014.
+[server-side][ftp][sftp][event-handler] [#6979]</li>
 </ul>
 </div>
 </div>

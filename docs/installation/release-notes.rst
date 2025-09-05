@@ -14,6 +14,42 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
+Version 5.16.1, 2025-09-05
+--------------------------
+
+This is a maintenance bugfix release.
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* When the SFTP server authentication fails
+  before obtaining a valid password or key,
+  the error details will now contain the name of the associated user.
+  [server-side][sftp] [#6979]
+* An internal error is no longer generated after removing a service that had
+  an expired certificate.
+  [server-side][manager] [#7177]
+* For HTTP uploads, the backend API is now called for any upload method.
+  In the previous release it was called only for uploads done using the PUT
+  method.
+  [server-side][http] [#7181]
+* The events emitted when handling SFTP files now contain the `requested_path`
+  attribute. This is the path requested by end user, and it might be different
+  to the actual file used to store the file.
+  For example, when SFTPPlus will automatically add a UUID to the stored filename.
+  [server-side][sftp] [#7184]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The following events were removed from the `success` event group and moved
+  to the `informational` event group: 10020, 10030, 10033, 10034, 10063, 10065,
+  10066, 10081, 10083, 10100, 10101, 30014.
+  [server-side][ftp][sftp][event-handler] [#6979]
+
+
 Version 5.16.0, 2025-08-28
 --------------------------
 
@@ -26,7 +62,9 @@ Security Fixes
   In previous versions it was accepting any public key algorithm.
   To maintain backward compatibility, SFTPPlus will continue to accept any
   public key algorithm, as long as no specific public key algorithm
-  is defined in `ssh_cipher_list`
+  is defined in `ssh_cipher_list`.
+  If `ssh_cipher_list = secure` it will still restrict the public keys
+  algorithms to the list of secure ones.
   [server-side][sftp] [#7153]
 
 

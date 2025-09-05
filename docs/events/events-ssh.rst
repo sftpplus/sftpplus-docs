@@ -56,7 +56,7 @@ SFTP / SCP / SSH events
 30007
 ^^^^^
 
-:Message: SSH protocol failure at userauth service. %(details)s
+:Message: SSH protocol failure at userauth service for "%(username)s". %(details)s
 :Groups: authentication, session, failure, failure-high, ssh
 :From version: 3.1.0
 :Description: None
@@ -193,7 +193,7 @@ SFTP / SCP / SSH events
 ^^^^^
 
 :Message: New SSH connection made.
-:Groups: session, success, ssh
+:Groups: session, informational, ssh
 :From version: 1.6.0
 :Description: None
 
@@ -264,7 +264,10 @@ SFTP / SCP / SSH events
   :read_speed: Average bytes / second read.
 
 
-  :total_read: Total bytes read from the file,
+  :requested_path: The path as it was requested by the client.
+
+
+  :total_read: Total bytes read from the file.
 
 
   :total_write: Total bytes written to the file.
@@ -600,7 +603,10 @@ SFTP / SCP / SSH events
   :read_speed: Average bytes / second read.
 
 
-  :total_read: Total bytes read from the file,
+  :requested_path: The path as it was requested by the client.
+
+
+  :total_read: Total bytes read from the file.
 
 
 
@@ -615,6 +621,9 @@ SFTP / SCP / SSH events
 :Description: None
 :Data:
   :duration: Total time in seconds for which the file was opened.
+
+
+  :requested_path: The path as it was requested by the client.
 
 
   :total_write: Total bytes written to the file.
@@ -634,10 +643,7 @@ SFTP / SCP / SSH events
 :From version: 1.6.0
 :Description: None
 :Data:
-  :mode: Open mode requested for the file
-
-
-  :path: Virtual path of the opened file.
+  :mode: Open mode requested for the file.
 
 
   :requested_path: The path as it was requested by the client.
@@ -674,6 +680,15 @@ SFTP / SCP / SSH events
   :details: More details about the failure.
 
 
+  :length: Number of bytes that were attempted to be read.
+
+
+  :offset: Offset in the file where the read was attempted.
+
+
+  :requested_path: The path as it was requested by the client.
+
+
 
 
 
@@ -688,6 +703,15 @@ SFTP / SCP / SSH events
   :details: More details about the failure.
 
 
+  :length: Number of bytes that were attempted to be written.
+
+
+  :offset: Offset in the file where the write was attempted.
+
+
+  :requested_path: The path as it was requested by the client.
+
+
 
 
 
@@ -700,6 +724,9 @@ SFTP / SCP / SSH events
 :Description: None
 :Data:
   :mode: Mode in which the file was opened.
+
+
+  :requested_path: The path as it was requested by the client.
 
 
 
@@ -854,6 +881,9 @@ SFTP / SCP / SSH events
   :details: More details about the failure.
 
 
+  :requested_path: The path as it was requested by the client.
+
+
 
 
 
@@ -928,7 +958,10 @@ SFTP / SCP / SSH events
   :read_speed: Average bytes / second read.
 
 
-  :total_read: Total bytes read from the file,
+  :requested_path: The path as it was requested by the client.
+
+
+  :total_read: Total bytes read from the file.
 
 
 
@@ -946,6 +979,9 @@ SFTP / SCP / SSH events
 
 
   :mode: Mode in which the file was opened.
+
+
+  :requested_path: The path as it was requested by the client.
 
 
   :total_write: Total bytes written to the file.
@@ -1057,6 +1093,10 @@ SFTP / SCP / SSH events
 :Groups: authenticated, failure, file-operation, ssh, failure-specific
 :From version: 3.51.0
 :Description: None
+:Data:
+  :requested_path: The path as it was requested by the client.
+
+
 
 
 

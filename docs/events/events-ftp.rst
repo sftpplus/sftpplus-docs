@@ -221,7 +221,7 @@ FTP / FTPS events
 ^^^^^
 
 :Message: Extended Passive transfer requested.
-:Groups: operational, authenticated, ftp
+:Groups: operational, authenticated, informational, ftp
 :From version: 1.8.1
 :Description: None
 
@@ -342,7 +342,7 @@ FTP / FTPS events
 ^^^^^
 
 :Message: Data connection closed. Protected using %(encryption)s. Received: %(received)s. Sent %(sent)s. Speed %(speed)s bytes/second. Duration %(duration)s. %(host_address)s:%(host_port)s - %(peer_address)s:%(peer_port)s . Client certificate: %(certificate)s
-:Groups: authenticated, success, ftp
+:Groups: authenticated, informational, ftp
 :From version: 1.8.1
 :Description: None
 :Data:
@@ -444,7 +444,7 @@ FTP / FTPS events
 ^^^^^
 
 :Message: New FTP/FTPS client connection made.
-:Groups: session, success, ftp
+:Groups: session, informational, ftp
 :From version: 1.6.0
 :Description: None
 
@@ -454,7 +454,7 @@ FTP / FTPS events
 ^^^^^
 
 :Message: Command connection closed. Protected using %(encryption)s. Client connected with certificate: %(certificate)s
-:Groups: authenticated, success, ftp
+:Groups: authenticated, informational, ftp
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -766,7 +766,7 @@ FTP / FTPS events
 ^^^^^
 
 :Message: Successfully initiated active connection to destination %(address)s:%(port)s using source %(source_address)s:%(source_port)s.
-:Groups: authenticated, success, ftp
+:Groups: authenticated, informational, ftp
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -812,7 +812,7 @@ FTP / FTPS events
 ^^^^^
 
 :Message: Requesting current folder.
-:Groups: authenticated, success, ftp
+:Groups: authenticated, informational, ftp
 :From version: 1.6.0
 :Description: None
 
@@ -822,7 +822,7 @@ FTP / FTPS events
 ^^^^^
 
 :Message: Closing current FTP session.
-:Groups: session, success, ftp
+:Groups: session, informational, ftp
 :From version: 1.6.0
 :Description: None
 
@@ -1000,7 +1000,7 @@ FTP / FTPS events
 ^^^^^
 
 :Message: FTP representation type set to "%(type)s".
-:Groups: authenticated, success, ftp
+:Groups: authenticated, informational, ftp
 :From version: 2.12.0
 :Description: None
 :Data:
@@ -1028,7 +1028,7 @@ FTP / FTPS events
 ^^^^^
 
 :Message: Listening on port %(port)s for the next passive request.
-:Groups: authenticated, success, session, ftp
+:Groups: authenticated, informational, session, ftp
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -1234,7 +1234,7 @@ FTP / FTPS events
 ^^^^^
 
 :Message: Secure %(channel_type)s channel successfully initialized. Protected using: %(encryption)s. Client certificate: %(certificate)s
-:Groups: authenticated, success, ftp
+:Groups: authenticated, informational, ftp
 :From version: 4.33.0
 :Description: FTP TLS handshake done (server-side).
 :Data:
@@ -1251,7 +1251,7 @@ FTP / FTPS events
 ^^^^^
 
 :Message: Secure %(channel_type)s channel successfully initialized. Protected using: %(encryption)s. Server certificate: %(certificate)s
-:Groups: authenticated, success, ftp, client-side
+:Groups: authenticated, informational, ftp, client-side
 :From version: 4.33.0
 :Description: FTP TLS handshake done (client-side).
 :Data:
