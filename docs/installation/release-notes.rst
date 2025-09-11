@@ -14,6 +14,37 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
+Version 5.17.0, 2025-09-11
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now configure a transfer to archive the files on a remote location.
+  [client-side] [#6981]
+* You can now use SFTPPlus to transfer files from SharePoint Online directories
+  that have mor e than 1000 files.
+  [client-side][sharepoint] [#7179]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The UI for the documentation embedded with Web Manager was fixed.
+  [manager] [#7188]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* When *archive on failure* is enabled for a transfer, it is now supported only
+  when the source location is a local filesystem.
+  In previous versions, when the source was a remote location an empty file or
+  partial file was archived.
+  [client-side] [#6981]
+
+
 Version 5.16.1, 2025-09-05
 --------------------------
 

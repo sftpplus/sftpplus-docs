@@ -123,22 +123,68 @@ The permissions need to be added to `MS Graph`:
 ..  note::
     After adding the permissions you need to `Grant admin consent` on the SFTPPlus EntraID application for your organization.
 
-
-SharePoint Online permissions
------------------------------
-
 SFTPPlus access to SharePoint Online sites is fully automated,
 without user interaction.
 The access is done using the identity of the SFTPPlus application registered via Entra ID, as opposed to an Entra ID domain user.
 
-SharePoint Online admins will need to provide specific site access (using SharePoint Online PowerShell) for applications' service principals to access the files hosted by the Document Libraries from sites.
+SharePoint Online admins will need to provide specific site access for SFTPPlus applications to access the files hosted by the Document Libraries from sites.
 
 When you register the STPPlus application in Entra ID with `Sites.Selected`,
 Entra ID will not allow access to any SharePoint site from your organization.
 
 You will need to grant access for the SFTPPlus Entra ID application to the SharePoint Sites that you want SFTPPlus to manage the files.
 
-Start by making sure you use PowerShell version 7 or newer.
+You can read more about the `Sites.Selected` permission in this `Microsoft Devblog post <https://devblogs.microsoft.com/microsoft365dev/updates-on-controlling-app-specific-access-on-specific-sharepoint-sites-sites-selected/>`_.
+
+More advanced permissions are available.
+Check the Microsoft documentation page covering the `Selected permissions in OneDrive and SharePoint <https://learn.microsoft.com/en-us/graph/permissions-selected-overview>`_.
+
+
+Site permissions via SharePoint App Permissions
+-----------------------------------------------
+
+Site level permissions can be configured using the SharePoint Online App registration administrative page.
+
+You need to configure the permissions for each site or sub-site that SFTPPlus will access.
+
+Start by identifying the base URL of your SharePoint Online site.
+For most organizations this will be ``https://<your-organization>.sharepoint.com/sites/<site-name>``.
+For example, for our test site this is ``https://proatria.sharepoint.com/sites/manual-test-site``.
+
+To access the SharePoint Online App Permissions page, go to the following URL, replacing the ``<site-name>`` with your site name::
+
+    https://<your-organization>.sharepoint.com/sites/<site-name>/_layouts/15/appinv.aspx
+
+Below is an example of the page.
+
+..  container:: image-1
+
+    ..  image:: /static/operation/sharepoint-entra-app-permissions.png
+        :width: 800
+        :align: center
+
+Enter the SFTPPlus application ID in the `App Id` field and click on `Lookup`.
+For `App domain` enter a dummy value like `localhost`.
+For `Redirect URI` enter a dummy value like `https://localhost`.
+SFTPPlus does not use these values, but they are required by the SharePoint Online form.
+
+For the `App's permission request` use the following value::
+
+    <AppPermissionRequests AllowAppOnlyPolicy="true">
+        <AppPermissionRequest
+            Scope="http://sharepoint/content/sitecollection/web"
+            Right="Write"/>
+    </AppPermissionRequests>
+
+You can read more about the available permissions in the `SharePoint App Permissions documentation <https://learn.microsoft.com/en-us/sharepoint/dev/sp-add-ins/>`_.
+
+
+Site permissions via PowerShell
+-------------------------------
+
+Site level permissions can be configured using the PowerShell command line tools.
+
+Start by making sure you use PowerShell version 7.5 or newer.
 The default PowerShell found on Windows Server 2022 or older **does not work** with the SharePoint PowerShell commands.
 To install PowerShell 7 on Windows Server, `check the Windows install guide <https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.5#msi>`_.
 

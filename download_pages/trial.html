@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>
-        Version 5.16.1 Trial Downloads | Secure file transfer software
+        Version 5.17.0 Trial Downloads | Secure file transfer software
   </title>
 
   <meta name="author" content="Pro:Atria Team" />
@@ -80,8 +80,8 @@
   <div class="container">
     <div class="row text-center justify-content-center align-items-center">
       <div class="col">
-        <h1>Version 5.16.1 Trial Downloads</h1>
-          <h3 class="font-weight-normal">The trial version expires on 2025-12-14</h3>
+        <h1>Version 5.17.0 Trial Downloads</h1>
+          <h3 class="font-weight-normal">The trial version expires on 2025-12-20</h3>
       </div>
     </div>
   </div>
@@ -653,37 +653,33 @@ systems and CPU architectures.</p>
   <div class="container py-0">
     <div id="release-changelog" class="download-release-notes doc-body row mb-0 justify-content-center">
       <div class="col">
-        <div class="document" id="version-5-16-1-2025-09-05">
-<h1 class="title">Version 5.16.1, 2025-09-05</h1>
-<p>This is a maintenance bugfix release.</p>
+        <div class="document" id="version-5-17-0-2025-09-11">
+<h1 class="title">Version 5.17.0, 2025-09-11</h1>
+<div class="section" id="new-features">
+<h1>New Features</h1>
+<ul class="simple">
+<li>You can now configure a transfer to archive the files on a remote location.
+[client-side] [#6981]</li>
+<li>You can now use SFTPPlus to transfer files from SharePoint Online directories
+that have mor e than 1000 files.
+[client-side][sharepoint] [#7179]</li>
+</ul>
+</div>
 <div class="section" id="defect-fixes">
 <h1>Defect Fixes</h1>
 <ul class="simple">
-<li>When the SFTP server authentication fails
-before obtaining a valid password or key,
-the error details will now contain the name of the associated user.
-[server-side][sftp] [#6979]</li>
-<li>An internal error is no longer generated after removing a service that had
-an expired certificate.
-[server-side][manager] [#7177]</li>
-<li>For HTTP uploads, the backend API is now called for any upload method.
-In the previous release it was called only for uploads done using the PUT
-method.
-[server-side][http] [#7181]</li>
-<li>The events emitted when handling SFTP files now contain the <cite>requested_path</cite>
-attribute. This is the path requested by end user, and it might be different
-to the actual file used to store the file.
-For example, when SFTPPlus will automatically add a UUID to the stored filename.
-[server-side][sftp] [#7184]</li>
+<li>The UI for the documentation embedded with Web Manager was fixed.
+[manager] [#7188]</li>
 </ul>
 </div>
 <div class="section" id="deprecations-and-removals">
 <h1>Deprecations and Removals</h1>
 <ul class="simple">
-<li>The following events were removed from the <cite>success</cite> event group and moved
-to the <cite>informational</cite> event group: 10020, 10030, 10033, 10034, 10063, 10065,
-10066, 10081, 10083, 10100, 10101, 30014.
-[server-side][ftp][sftp][event-handler] [#6979]</li>
+<li>When <em>archive on failure</em> is enabled for a transfer, it is now supported only
+when the source location is a local filesystem.
+In previous versions, when the source was a remote location an empty file or
+partial file was archived.
+[client-side] [#6981]</li>
 </ul>
 </div>
 </div>

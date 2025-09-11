@@ -539,6 +539,21 @@ execute_on_destination_after_failure
     The commands are executed if the file or the batch transfer has failed.
 
 
+archive_location_uuid
+---------------------
+
+:Default value: `DEFAULT-LOCAL-FILESYSTEM``
+:Optional: Yes
+:From version: 5.17.0
+:Values:
+    * UUID of a location that support write operations
+    * Empty
+:Description:
+    Location used to store the archived files.
+
+    When left `empty`, it will use the default local filesystem.
+
+
 archive_success_path
 --------------------
 
@@ -546,11 +561,21 @@ archive_success_path
 :Optional: Yes
 :From version: 3.0.0
 :Values:
-    * Path on the local filesystem.
+    * Path.
     * Empty
 :Description:
-    Path to a folder in the local file system used to keep a copy of
-    successfully transferred files.
+    Path to a folder used to keep a copy of successfully transferred files.
+
+    The configured path is based on the location configured via `archive_location_uuid`.
+
+    The archiving is done by transferring the source file again to the archive location.
+    The file is archived with the same content as the one used to transfer to the destination.
+    The archived content might differ from the source content when the transfer is configured with content transformations.
+
+    ..  note::
+        The archiving is not done using the `move` operation as many servers don't support the rename/move operation.
+        For example, cloud-native storage protocols like Azure BLOB or Amazon S3 don't support rename/move operations.
+        The users might not have permissions to perform a rename.
 
     To disable archiving, leave this option empty.
 
@@ -569,10 +594,6 @@ archive_success_path
     ``README.2014-12-03-13-00-57-967636-036.rst``, while a file named
     ``README`` is ``README.2014-12-03-13-00-57-967636-036``.
 
-    ..  note::
-        Archiving is disabled when a transfer source or destination location
-        is not a local folder.
-
 
 archive_failure_path
 --------------------
@@ -581,12 +602,17 @@ archive_failure_path
 :Optional: Yes
 :From version: 3.0.0
 :Values:
-    * Path in the local file system.
+    * Path
     * Empty
 :Description:
     Path to the local folder in the local file system used to keep a copy of unsuccessful started file transfers.
 
-    To disable archiving, leave this option empty.
+    ..  note::
+        This is only supported when the source location is a local filesystem.
+        If the source is a remote location and the transfers fails,
+        there is no file content to archive.
+
+    To disable archiving on failure, leave this option empty.
 
     When `execute_before` or `execute_on_destination_before` commands fail,
     the file transfer is not considered started, and the archiving stage is
@@ -595,16 +621,6 @@ archive_failure_path
     To prevent overwriting previous files, new files are copied to the archive
     folder with timestamps inserted in their names.
     See `archive_success_path` for more details about the timestamp format.
-
-    When the remote file is partially transferred, the partial file is
-    archived.
-
-    ..  note::
-        When the source is in a remote location and the file has not yet been copied to the local file system, an empty file is copied to the archive.
-
-    ..  note::
-        Archiving is disabled when a transfer has both source and destination
-        as remote locations.
 
 
 archive_format

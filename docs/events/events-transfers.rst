@@ -1340,7 +1340,7 @@ Automated file transfers events
 ^^^^^
 
 :Message: Failed to delete parent directory %(path)s for a source file. %(details)s
-:Groups: transfer, failure, client-side
+:Groups: transfer, failure, failure-high, client-side
 :From version: 4.10.0
 :Description: None
 
@@ -1355,5 +1355,22 @@ Automated file transfers events
 :Description: None
 :Data:
   :location: Name of the location on which this operation was performed.
+
+
+
+
+
+60086
+^^^^^
+
+:Message: Source directory at "%(path)s" has a large number of files. Found %(files_count)s files. This can affect the performance of the transfer.
+:Groups: session, informational, client-side
+:From version: 5.17.0
+:Description: None
+:Data:
+  :files_count: Number of files found in the source directory.
+
+
+  :path: Path to the source directory.
 
 
