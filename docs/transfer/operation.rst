@@ -1,14 +1,22 @@
 ..  _contact us: mailto:support@proatria.com
 
 
-Client-Side Transfers Operations
-================================
+Transfers operations
+====================
 
 ..  contents:: :local:
 
 
 Introduction
 ------------
+
+This page describes how to implement client-side transfers using SFTPPlus
+
+Check the separate :doc:`reference documentation for transfers</transfer/transfers>`,
+which describes all the configuration options available when defining a transfer.
+
+There is a separate documentation page :doc:`dedicated to transfers scheduling</transfer/transfer-scheduling>`,
+which goes into more detail about how to scheduled transfers.
 
 Transfers are the pro-active component of SFTPPlus.
 While a file transfer service only acts in response to requests from remote
@@ -437,13 +445,13 @@ It can be used for inserting a timestamp in an arbitrary position,
 based on the current date and time.
 The following placeholders are available:
 
-    * `{now.cwa_14051}`
-    * `{now.iso_8601}`
-    * `{now.iso_8601_fractional}`
-    * `{now.iso_8601_local}`
-    * `{now.iso_8601_basic}`
-    * `{now.iso_8601_compact}`
-    * `{now.timestamp}`
+  * `{now.cwa_14051}` - Human readable date and time
+  * `{now.iso_8601}` - ISO 8601 date and time
+  * `{now.iso_8601_fractional}`
+  * `{now.iso_8601_local}`
+  * `{now.iso_8601_basic}`
+  * `{now.iso_8601_compact}` - ISO 8601 compatible with Windows file names
+  * `{now.timestamp}` - Unix timestamp
 
 Having the following configuration::
 

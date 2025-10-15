@@ -117,11 +117,10 @@ Upon completion, this file should be available in the earlier defined home
 folder location.
 
 
-Enable the file transfer automations
-------------------------------------
+Enable the file transfer automation
+-----------------------------------
 
-SFTPPlus provides :doc:`a powerful framework for pre- and post-transfer
-operations </configuration-client/transfers>`.
+SFTPPlus provides :doc:`a powerful framework for pre- and post-transfer operations </transfer/transfers>`.
 In the SFTPPlus Web Manager, go to **Transfers**, and select **Add transfer**.
 Change the settings to the values below:
 

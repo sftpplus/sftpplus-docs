@@ -1,4 +1,4 @@
-Command-Line Client-Shell
+Command-line client-shell
 =========================
 
 ..  contents:: :local:
@@ -40,6 +40,22 @@ we suggest trying a better suited FTP/FTPS/SFTP/SCP client such as FileZilla,
 WinSCP or Cyberduck.
 
 
+Limitations
+-----------
+
+The `client-shell` is not intended for high-performance file transfers or large-scale operations.
+It is designed to help with troubleshooting and implement simple batch scripts.
+
+For full automation of file transfers you should use the automated SFTPPlus *transfers*.
+
+Below is the list of current limitations:
+
+* Only a single connection to a remote server is supported at a time.
+* There is no support for remote to remote transfers.
+* The SSH keys or TLS keys should be loaded without password protection.
+* When connecting to a remote SFTP server, only a single server identity is supported.
+
+
 Command-line arguments and shell options
 ----------------------------------------
 
@@ -62,6 +78,52 @@ To set the username as ``john`` inside the `client-shell`::
 To show all available options inside the `client-shell`::
 
     > show
+
+
+Keyboard shortcuts
+------------------
+
+The following keyboard shortcuts are available. They try to follow the same conventions as the other Linux command-line tools:
+
+* `Ctrl + r` - search the command history
+* `Ctrl + w` - delete the word before the cursor
+* `Ctrl + u` - delete the entire line before the cursor
+* `Ctrl + k` - delete the entire line after the cursor
+* `Ctrl + l` - clear the screen
+* `Ctrl + d` - exit the shell (if the current line is empty)
+* `Ctrl + a` - move the cursor to the beginning of the line
+* `Ctrl + e` - move the cursor to the end of the line
+* `Tab` - auto-complete commands and file paths
+* `Up` - show the previous command in the history
+* `Down` - show the next command in the history
+* `Left` - move the cursor left
+* `Right` - move the cursor right
+
+
+Loading a configuration file
+----------------------------
+
+You can load the configuration for a location via the SFTPPlus main configuration file.
+
+To load from the configuration file, you will need to provide the path to the configuration file and the UUID of the location::
+
+    client-shell --config configuration/server.ini a5eacec-92f1-11f0-815a-bfa45
+
+When loading from the configuration file, the following settings are reset:
+
+* `connection_retry_count = 0`
+
+Once the `client-shell` is started and the configuration is loaded, you can change the configuration options via the normal `set OPTION` command::
+
+    client-shell --config configuration/server.ini a5eacec-92f1-11f0-815a-bfa45
+    > show connection_retry_count
+    0
+    > set connection_retry_count 1
+    > show connection_retry_count
+    1
+
+The `client-shell` is not an editor for the configuration file.
+Changes made via the `set OPTION` command are not saved back to the configuration file.
 
 
 Shell operation
@@ -214,6 +276,16 @@ made to different servers::
     > ls
     > close
 
+After the `client-shell` is started with a configuration file,
+you can also switch the configuration for another location::
+
+    client-shell --config configuration/server.ini a5eacec-92f1-11f0-815a-bfa45
+    > show protocol
+    protocol: sftp
+    > set uuid e88f45a6-92f3-11f0-9bb6-63760a893d3f
+    > show protocol
+    protocol: sharepoint-online
+
 
 Batch mode
 ----------
@@ -273,8 +345,8 @@ See below for the corresponding server-side events from a third-party server::
       550 File not found
 
 
-Azure Files and other cloud storage services
---------------------------------------------
+Azure Files, Sharepoint, and other cloud services
+-------------------------------------------------
 
 The Azure Files cloud storage service is accessed over HTTPS using the fixed
 port 443 and an address automatically generated based on the account name.
@@ -286,5 +358,10 @@ a password which is securely entered at runtime::
 
     Password: ENTER YOUR PASSWORD HERE
 
-    SFTPPlus (3.47.0) file transfer client shell
+    SFTPPlus file transfer client shell
     > connect
+
+SharePoint Online always uses the HTTPS protocol.
+The URL is configured to your SharePoint Online site or sub-site::
+
+    $ ./bin/client-shell.sh sharepoint-online://YOUR-DOMAIN.sharepoint.com/sites/YOUR-SITE/OR-SUBSITE

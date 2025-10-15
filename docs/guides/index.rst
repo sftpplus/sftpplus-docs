@@ -1,4 +1,4 @@
-User's Guides
+User's guides
 =============
 
 This section includes various stand-alone articles which document the
@@ -154,6 +154,13 @@ server and client side functionalities, and contain specific usage examples.
         SFTPPlus can be configured to run in debug mode, allowing
         for more detailed logging and easier troubleshooting.
 
+    .. grid-item-card:: :octicon:`terminal` Frequently Asked Questions
+        :link-type: doc
+        :link: ./q-and-a
+
+        This section provides answers to common questions about SFTPPlus,
+        including troubleshooting tips and best practices.
+
 
 ..  toctree::
     :maxdepth: 1
@@ -179,3 +186,4 @@ server and client side functionalities, and contain specific usage examples.
     winscp-sftpplus-guide
     filezilla-sftpplus-server
     testing
+    q-and-a

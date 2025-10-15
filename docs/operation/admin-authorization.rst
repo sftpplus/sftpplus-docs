@@ -82,24 +82,28 @@ Below is a list of the target groups that can be targeted based on
 member UUIDs, with or without an option name::
 
 * me
-* configuration/accounts
-* configuration/groups
-* configuration/roles
-* configuration/administrators
-* configuration/authentications
-* configuration/resources
-* configuration/event_handlers
-* configuration/services
-* configuration/locations
-* configuration/transfers
-* operation/authentications
-* operation/resources
-* operation/event_handlers
-* operation/services
-* operation/locations
-* operation/transfers
+* configuration/accounts[/{UUID}]
+* configuration/groups[/{UUID}]
+* configuration/roles[/{UUID}]
+* configuration/administrators[/{UUID}]
+* configuration/authentications[/{UUID}]
+* configuration/resources[/{UUID}]
+* configuration/event_handlers[/{UUID}]
+* configuration/services[/{UUID}]
+* configuration/locations[/{UUID}]
+* configuration/transfers[/{UUID}]
+* operation/authentications[/{UUID}]
+* operation/resources[/{UUID}]
+* operation/event_handlers[/{UUID}]
+* operation/services[/{UUID}]
+* operation/locations[/{UUID}]
+* operation/locations/{UUID}/browse/[{PATH}]
+* operation/transfers[/{UUID}]
 * node_variables
 * status
+
+Values in square brackets are optional.
+Values in curly brackets should be replaced with the actual UUID or PATH.
 
 You can target a class of configurations,
 or any configuration of a certain type.

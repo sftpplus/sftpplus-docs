@@ -1,10 +1,19 @@
-Transfers
-=========
+Transfers configuration
+=======================
+
+..  contents:: :local:
+
+
+Introduction
+------------
+
+This page is a reference documentation for the configuration options available when defining a client-side file transfer in SFTPPlus.
 
 A transfer configuration defines the rules based on which files or folders
 are transferred between two locations or inside a location.
 
-..  contents:: :local:
+For more information about how to implement secure file transfers,
+see the separate documentation page for :doc:`transfers operations</transfer/operation>`.
 
 
 Adding a new transfer via Web Manager
@@ -365,7 +374,7 @@ batch_marker_path
     Leave it empty to not delay the transfer based on a marker/flag file path.
 
     For more details about defining a transfer with a file marker,
-    see the :doc:`transfer operation guide </operation-client/transfers>`.
+    see the :doc:`transfer operation guide </transfer/operation>`.
 
 
 execute_timeout
@@ -496,7 +505,7 @@ execute_on_destination_before
     The shell is already connected to the destination location.
     There is no need for an explicit *open* command.
     For the list of supported commands, please check the
-    :doc:`client-shell documentation</operation-client/client-shell>`.
+    :doc:`client-shell documentation</transfer/client-shell>`.
 
     Transfer continues only if commands are successful.
     When one of the commands fails, the file is not transferred (copied /
@@ -762,8 +771,7 @@ schedule
     Please contact us if you need a higher resolution.
 
     For more details about defining a transfer with a scheduler,
-    see the :doc:`transfer operation guide
-    </operation-client/transfers>`.
+    see the :doc:`transfer operation guide </transfer/operation>`.
 
 
 overwrite_rule
@@ -873,8 +881,7 @@ destination_path_actions
       source. This action has no parameters.
 
     For more details and examples on the available actions,
-    see :doc:`the client-side file transfer usage guide.
-    </operation-client/transfers>`
+    see :doc:`the client-side file transfer usage guide. </transfer/operation>`
 
 
 destination_content_actions
@@ -920,8 +927,7 @@ destination_content_actions
         destination_content_actions = *.txt, encoding, utf-16-to-ascii`
 
     For more details and examples on the available actions,
-    see :doc:`the client-side file transfer usage guide.
-    </operation-client/transfers>`
+    see :doc:`the client-side file transfer usage guide. </transfer/operation>`
 
 
 destination_fallback_path
@@ -947,4 +953,4 @@ destination_fallback_path
     This is designed to be used together with `destination_path_actions`,
     when the destination path is dynamic.
 
-    See also the `operation guide here <../operation-client/transfers.html#fallback-destination-path>`_.
+    See also the :doc:`transfer operation guide</transfer/operation>`.

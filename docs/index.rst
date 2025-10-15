@@ -11,6 +11,19 @@ It operates as standalone software, running as a background service,
 without requiring any additional dependencies,
 such as a database or web server.
 
+SFTPPlus allows from the **server perspective** remote file transfer clients to
+be securely authenticated and authorized for accessing files located on local
+file systems or remote file systems (CIFS/NFS) used by the operating system
+running SFTPPlus.
+
+From the **client perspective**, it connects to remote file transfer servers to
+perform file transfer operations.
+
+It is designed to be totally automated, prompt-less, and without interaction.
+Once installed and configured properly, it should operate in the
+background and need no direct attention from the user or the administrator.
+
+
 The configuration is done via a text file, which can be edited using any text editor,
 or via an embedded web-based configuration tool, which is accessible via any modern web browser.
 
@@ -37,44 +50,50 @@ order.
 
 
 
-    .. grid-item-card:: :octicon:`sliders` General config
+    .. grid-item-card:: :octicon:`sliders` General configuration
         :link-type: doc
+        :columns: 12
         :link: configuration/index
 
-        Here you can find an introduction on how to configure and manage SFTPPlus.
+        This section will guide you through the main concepts and approaches on configuring SFTPPlus,
+        help you understand the terminology used in the documentation, and provide information about
+        the main resources available in SFTPPlus.
+
 
     .. grid-item-card:: :octicon:`server` :octicon:`verified` Authentication, Users and Admins
         :link-type: doc
         :link: configuration-auth/index
 
-        This section covers the users and administrators that interact with SFTPPlus.
-        In includes documentation about SFTPPlus embedded authentication and user management capabilities.
-        Authenticating users and admins from external sources like, local OS, Active Directory, LDAP and cloud single-sign on services is also covered here.
+        This section covers user and admin management in SFTPPlus, including built-in and external authentication (OS, Active Directory, LDAP, cloud SSO).
+
+    .. grid-item-card:: :octicon:`stack` Client-side transfers
+        :link-type: doc
+        :link: transfer/index
+
+        This sections describes how to configure and use SFTPPlus to implement client-side file transfer operations.
+        Configure transfer between remote servers or exchange files with cloud providers.
 
 
-
-    .. grid-item-card:: :octicon:`server` :octicon:`sliders` Server-side configuration
+    .. grid-item-card:: :octicon:`server` :octicon:`sliders` Server-side protocols
         :link-type: doc
         :link: configuration-server/index
 
         Reference documentation for the server-side components of SFTPPlus.
 
-    .. grid-item-card:: :octicon:`server` Server-side operation
+    .. grid-item-card:: :octicon:`server` Server guides
         :link-type: doc
         :link: operation/index
 
         Guides on configuring and managing the server-side components of SFTPPlus.
 
 
-
-
-    .. grid-item-card:: :octicon:`stack` :octicon:`sliders` Client-side configuration
+    .. grid-item-card:: :octicon:`stack` :octicon:`sliders` Client-side protocols
         :link-type: doc
         :link: configuration-client/index
 
         Reference documentation for the client-side components of SFTPPlus.
 
-    .. grid-item-card:: :octicon:`stack` Client-side operation
+    .. grid-item-card:: :octicon:`stack` Client transfer guides
         :link-type: doc
         :link: operation-client/index
 
@@ -108,7 +127,12 @@ order.
 
         Documentation for setting up and managing SFTPPlus clusters, including high availability and load balancing.
 
+    .. grid-item-card:: :octicon:`git-pull-request` User's guides
+        :link-type: doc
+        :link: guides/index
 
+        This section includes various stand-alone articles which document the server and client side functionalities,
+        and contain specific usage examples.
 
     .. grid-item-card:: :octicon:`law` Compliance and certifications
         :link-type: doc
@@ -225,6 +249,7 @@ Icons used in the documentation:
     configuration-auth/index
     configuration-server/index
     operation/index
+    transfer/index
     configuration-client/index
     operation-client/index
     configuration-events/index
@@ -233,11 +258,7 @@ Icons used in the documentation:
     developer/index
     guides/index
     standards/index
-    operation-principles
-    terminology
-    q-and-a
     known-issues
-
 
 The documentation covers the features and functionality for the |version|
 release of SFTPPlus, and was last updated on |today|.

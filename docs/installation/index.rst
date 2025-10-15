@@ -1,5 +1,5 @@
-Install
-=======
+Install guides
+==============
 
 SFTPPlus is specially designed to operate on all major server operating systems and major CPUs.
 

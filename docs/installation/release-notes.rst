@@ -14,6 +14,75 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
+Version 5.18.0, 2025-10-14
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* The interactive command line tool now support editing the input line,
+  and session command history.
+  [cli] [#3941]
+* You can now create multiple security policies and associate them to different
+  file transfer services.
+  [server-side][security] [#4133]
+* The Web Manager now has an UI to browse and select a path for locations.
+  This can be used to configure the source, destination, or archive paths
+  for a transfer.
+  [client-side] [#5880]
+* You can now test the configuration of a component,
+  protocols, locations, resources,
+  without having to save the configuration.
+  [client-side] [#5893]
+* The `client-shell` command line tool can now load location configuration
+  from the SFTPPlus configuration file.
+  [cli][client-side] [#6250]
+* You can now configure SFTPPlus to block the source IPs when the connection is
+  made.
+  In previous version, there was only the option to block during the
+  authentication process.
+  [server-side][security] [#6678]
+* You can now view the list of blocked source IP for a security policy,
+  and delete a particular source IP.
+  [manager] [#7053]
+* The `client-shell` command line tool will now keep the history of commands
+  from previous sessions.
+  [client-side][cli] [#7179]
+* The `oracle-db` location was added to allow sending and receiving files
+  with content stored as rows in Oracle Database tables.
+  [client-side][db] [#7194]
+* The SMB location can now show the list of all available shares on the server.
+  This is not available for Azure Windows Share servers from the Azure File
+  service.
+  [client-side][azure-file][azure-storage] [#7208]
+* The Azure File location can now show the list of all available shares.
+  [client-side][azure-file][azure-storage] [#7209]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The security policy focused on blocking of source IP that triggered
+  multiple authentication failures was fixed.
+  [server-side][security] [#4133]
+* The SFTPPlus server now supports using RSA host keys, signed with SHA256 or
+  SHA512, together with the
+  `diffie-hellman-group14-sha256`,
+  `diffie-hellman-group15-sha512`,
+  `diffie-hellman-group16-sha512`,
+  `diffie-hellman-group17-sha512`,
+  `diffie-hellman-group18-sha512`,
+  `diffie-hellman-group-exchange-sha256`
+  key exchange algorithms.
+  In previous version, for this combination of algorithms,
+  SFTPPlus was failing with errors like
+  `Disconnecting the SSH connection. bad packet length` or
+  `Signature from server's host key is invalid`,
+  since SFTPPlus was trying to sign using the SHA1 algorithm.
+  [server-side][sftp][scp] [#7225]
+
+
 Version 5.17.0, 2025-09-11
 --------------------------
 
@@ -24,7 +93,7 @@ New Features
 * You can now configure a transfer to archive the files on a remote location.
   [client-side] [#6981]
 * You can now use SFTPPlus to transfer files from SharePoint Online directories
-  that have mor e than 1000 files.
+  that have more than 1000 files.
   [client-side][sharepoint] [#7179]
 
 

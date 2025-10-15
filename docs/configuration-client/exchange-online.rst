@@ -1,15 +1,18 @@
 Exchange Online Mailbox
 =======================
 
-An `exchange-online` location provides access to an Exchange Online mailbox.
-
 ..  contents:: :local:
 
 
 Introduction
 ------------
 
-This page covers the SFTPPlus configuration options for connecting to an Exchange Online mailbox.
+An `exchange-online` location provides access to an Exchange Online mailbox.
+
+This page is dedicated to the configuration options available for connecting to an Exchange Online mailbox.
+
+For more information about how to implement Exchange Online mailbox based transfers,
+see the separate documentation page for :doc:`implementing Exchange Online transfers</operation-client/exchange-online>`.
 
 In order for SFTPPlus to be able to connect to Exchange Online,
 SFTPPlus needs to be registered as an application on Entra ID and given permissions to read or write emails.

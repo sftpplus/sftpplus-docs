@@ -9,6 +9,14 @@ Transfers scheduling
 Introduction
 ------------
 
+This page describes how to implement transfers that are active based on a schedule.
+
+Check the separate :doc:`reference documentation for transfers</transfer/transfers>`,
+which describes all the configuration options available when defining a transfer.
+
+There is a separate documentation page :doc:`dedicated to transfer configuration</transfer/transfers>`,
+which describes other functionalities available when implementing transfers.
+
 A transfer can be configured to be active all the time
 or be active based on a simple scheduler.
 

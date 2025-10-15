@@ -1,23 +1,27 @@
 SharePoint Online Sites
 =======================
 
-An `sharepoint-online` location provides access to an SharePoint Online site hosted in Azure cloud.
-
-..  note::
-    For on-premise SharePoint sites use the `webdav` location.
-
 ..  contents:: :local:
 
 
 Introduction
 ------------
 
-This page covers the SFTPPlus configuration options for connecting to an SharePoint Online site.
+This page covers the SFTPPlus configuration options for connecting to a SharePoint Online site.
+
+A `sharepoint-online` location provides access to a SharePoint Online site hosted in Azure cloud.
+
+Check the separate documentation :doc:`page for implementing SharePoint Online transfers</operation-client/sharepoint-online>` to find out more about how to integrate SFTPPlus with SharePoint Online sites.
+
+..  note::
+    For on-premise SharePoint sites,
+    see the :doc:`webdav location transfers</configuration-client/webdav>`.
 
 In order for SFTPPlus to be able to connect to SharePoint Online,
 SFTPPlus needs to be registered as an application on Entra ID and given read and write permissions to the specific SharePoint site.
 
 Check the :doc:`registering SFTPPlus application for SharePoint Online </operation-client/sharepoint-online>` documentation, to find out more about how to configure Entra ID and SharePoint Online.
+
 
 .. include:: /configuration-client/locations-commons.include.rst
 

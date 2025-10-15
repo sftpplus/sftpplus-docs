@@ -9,6 +9,9 @@ Overview
 
 This page describes how to configure Entra ID and Exchange Online to allow SFTPPlus to read or write emails.
 
+Check the separate :doc:`reference documentation for Exchange Online</configuration-client/exchange-online>`,
+which describes all the configuration options available for a `exchange-online` location.
+
 There are 2 main non-SFTPPlus components that needs to be configured:
 
 * Entra ID authentication and authorization

@@ -1,4 +1,4 @@
-Server Guides
+Server guides
 =============
 
 The instructions found in this section are targeted at system administrators or

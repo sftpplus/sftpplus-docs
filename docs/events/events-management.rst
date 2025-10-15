@@ -117,6 +117,23 @@ Administration action events
 
 
 
+50008
+^^^^^
+
+:Message: Blocked IP "%(source_ip)s" removed from security policy "%(policy_name)s".
+:Groups: administration, success, local-manager
+:From version: 5.18.0
+:Description: Generated when an administrator removes a blocked host from a security policy.
+:Data:
+  :policy_name: Name of the security policy from which the host was removed.
+
+
+  :source_ip: The source IP address of the blocked host. Set to 'all' when all blocked hosts are removed.
+
+
+
+
+
 50009
 ^^^^^
 
@@ -394,5 +411,22 @@ Administration action events
 
 
   :size: Number of rows returned.
+
+
+
+
+
+50029
+^^^^^
+
+:Message: Location "%(location)s" browsed at path "%(path)s".
+:Groups: administration, success, local-manager
+:From version: 5.18.0
+:Description: None
+:Data:
+  :location: Name of the location that was browsed.
+
+
+  :path: Path that was accessed.
 
 

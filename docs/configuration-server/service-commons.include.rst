@@ -129,9 +129,48 @@ authentications
     If this configuration option is empty or is left out the global
     authentication methods are used.
 
-    ..  note::
-        This configuration option is ignored for the `monitor` service
-        as this service does not authenticate clients.
+
+security_policy
+---------------
+
+:Default value: `DEFAULT-SECURITY-POLICY`
+:Optional: Yes
+:Values: * ID of a security policy.
+:From version: 5.18.0
+:To version:
+:Description:
+    UUID of the security policy to be used by this service.
+
+    If this configuration option is empty or is left out the default
+    security policy with UUID `DEFAULT-SECURITY-POLICY` is used.
+
+
+block_source_at_connection
+--------------------------
+
+:Default value: `No`
+:Optional: Yes
+:Values: * `Yes`
+         * `No`
+:From version: 5.18.0
+:To version:
+:Description:
+    This determines whether the client is blocked at the moment of connection,
+    or later during the authentication phase.
+
+    The clients are blocked based on the configured security policy.
+
+    When set to `Yes`, the client is blocked as soon as it connects to the SFTPPlus service.
+
+    Blocking the client at connection time is more secure and efficient,
+    as SFTPPlus will not allocate resources for clients that are going to be blocked anyway.
+
+    The downside is that the clients are disconnected without having the opportunity to receive any explanation,
+    which may be confusing for some users.
+
+    For HTTP-based services where user interaction with SFTPPlus is expected,
+    it is recommended to set this option to `No`,
+    so that the user can see a message explaining why they are blocked.
 
 
 debug

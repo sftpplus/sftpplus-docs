@@ -523,7 +523,7 @@ the certification in question is the PKI X.509 certificate format.
 If you are intending to generate an X.509 SSL self-signed certificate and/or
 implementing mutual X.509 SSL authentication using only self-signed
 certificates please go to the
-:doc:`Q and A section for the FTP and FTPS Service </q-and-a>`.
+:doc:`Q and A section for the FTP and FTPS Service </guides/q-and-a>`.
 
 To enable SSL certificate-based authentication, set the following option inside
 the FTP/FTPS service configuration section (located by default in

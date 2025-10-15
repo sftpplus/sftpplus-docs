@@ -1,7 +1,16 @@
 AS2
 ===
 
+..  contents:: :local:
+
+
+Introduction
+------------
+
 An `as2` location allows sending files to a remote AS2 server.
+This page is the reference documentation for the configuration options available for an `as2` location.
+For more information about how to implement AS2 based transfers,
+see the separate documentation page for :doc:`implementing AS2 based transfers</operation-client/as2-send>`.
 
 The AS2 protocol can use HTTP or HTTPS (secure) connections.
 
@@ -11,11 +20,11 @@ The AS2 protocol can use HTTP or HTTPS (secure) connections.
     If you need to receive files over the AS2 protocol, you will need to
     configure the HTTP file transfer service.
 
+
 Unlike a typical web browser connection, to protect an AS2 HTTPS connection
 you will have to explicitly configure the list of trusted CAs and
 the location of the CRLs.
 
-..  contents:: :local:
 
 .. include:: /configuration-client/locations-commons.include.rst
 

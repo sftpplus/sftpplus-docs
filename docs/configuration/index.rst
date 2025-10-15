@@ -1,4 +1,4 @@
-General configuration
+General Configuration
 =====================
 
 SFTPPlus offers a wide range of configuration options to tailor both client-side and server-side transfers to your specific needs.
@@ -26,6 +26,12 @@ The sub-sections below will guide you through the initial server setup, includin
         :link: ./introduction
 
         Understand the main concepts and approaches for configuring SFTPPlus.
+
+    .. grid-item-card:: :octicon:`book` Terminology
+        :link-type: doc
+        :link: ./terminology
+
+        Get familiar with the key terms and concepts used in SFTPPlus.
 
     .. grid-item-card:: :octicon:`file-code` Configuration file
         :link-type: doc
@@ -96,6 +102,7 @@ The sub-sections below will guide you through the initial server setup, includin
     :hidden:
 
     introduction
+    terminology
     configuration-file
     local-manager
     server

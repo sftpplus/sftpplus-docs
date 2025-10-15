@@ -1,5 +1,5 @@
-Client Guides
-=============
+Client transfers guides
+=======================
 
 The instructions found in this section are targeted to system administrators
 or application developers looking to use the client-side capabilities
@@ -12,35 +12,6 @@ client-side protocol, including examples and best practices.
     :gutter: 2
     :padding: 0
     :class-container: surface
-
-    .. grid-item-card:: :octicon:`book` Client-Side Transfers Operations
-        :link-type: doc
-        :link: ./transfers
-
-        This vast sub-section will guide you through SFTPPlus transfers,
-        from their implementation, and capabilities to the configuration settings available for each transfer type.
-
-    .. grid-item-card:: :octicon:`book` Transfers scheduling
-        :link-type: doc
-        :link: ./transfer-scheduling
-
-        A transfer can be configured to be active all the time or be
-        active based on a simple scheduler.
-
-    .. grid-item-card:: :octicon:`terminal` Command-Line Client-Shell
-        :link-type: doc
-        :link: ./client-shell
-
-        A command-line shell is provided to access remote file transfer servers
-        using an interactive interface. Learn how to upload, download,
-        and manage file transfers using this shell.
-
-    .. grid-item-card:: :octicon:`stack` File system access
-        :link-type: doc
-        :link: ./filesystem-access
-
-        Learn how SFTPPlus handles native file system access
-        on both Unix-like and Windows platforms for the client-side operations.
 
     .. grid-item-card:: :octicon:`stack` FTP/FTPS Client Side Operation Mode
         :link-type: doc
@@ -71,6 +42,11 @@ client-side protocol, including examples and best practices.
         Learn how to configure Entra ID and SharePoint Online to allow
         SFTPPlus to manage files from SharePoint Online sites.
 
+    .. grid-item-card:: :octicon:`stack` Oracle Database
+        :link-type: doc
+        :link: ./oracle-database
+
+        Read more about how to setup file transfer to and from Oracle Database.
 
     .. grid-item-card:: :octicon:`stack` Exchange Online attachments
         :link-type: doc
@@ -84,12 +60,9 @@ client-side protocol, including examples and best practices.
     :maxdepth: 1
     :hidden:
 
-    transfers
-    transfer-scheduling
-    client-shell
-    filesystem-access
     ftp
     http
     as2-send
     exchange-online
     sharepoint-online
+    oracle-database

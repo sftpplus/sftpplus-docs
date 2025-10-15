@@ -1,5 +1,5 @@
-HTTP / HTTPS Client Operations
-==============================
+HTTPS client operations
+=======================
 
 ..  contents:: :local:
 

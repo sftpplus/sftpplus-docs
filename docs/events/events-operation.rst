@@ -69,6 +69,20 @@ Operation events
 
 
 
+20005
+^^^^^
+
+:Message: Source IP blocked by "%(policy_name)s". %(details)s
+:Groups: operational, session, failure
+:From version: 3.6.0
+:Description: The source IP was blocked by the security policy.
+:Data:
+  :policy_name: Name of the security policy that blocked the source IP.
+
+
+
+
+
 20007
 ^^^^^
 
@@ -120,6 +134,16 @@ Operation events
 :Groups: operational, process, failure, failure-critical
 :From version: 3.1.0
 :Description: None
+
+
+
+20011
+^^^^^
+
+:Message: Event triggered manually during the configuration check.
+:Groups: authenticated, informational
+:From version: 3.1.0
+:Description: This is used to help test the configuration of an event handler.
 
 
 

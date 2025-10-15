@@ -31,10 +31,17 @@ type
          * `ftp` - FTP protocol without any encryption.
          * `ftpse` - Explicit FTPS protocol.
          * `ftpsi` - Implicit FTPS protocol.
-         * `webdavs` - WebDAV over HTTPS.
+         * `smb` - SMB / Windows Share
          * `as2` - AS2 over HTTP or HTTPS
          * `azure-file` - Azure File Service.
-         * `smb` - SMB / Windows Share
+         * `azure-blob` - Azure BLOB Storage.
+         * `sharepoint-online` - SharePoint via MS Graph API.
+         * `oracle-database` - Oracle Database.
+         * `exchange-online` - Microsoft Exchange Online.
+         * `http-pull` - HTTP or HTTPS for pulling files.
+         * `smtp` - SMTP protocol for sending emails.
+         * `webdavs` - WebDAV over HTTPS.
+
 :Description:
     This option specifies the type of the location.
     Each type has a set of specific configuration options
@@ -100,6 +107,10 @@ connection_retry_count
     initial connection fails.
 
     Set to `0` to not retry.
+
+    When the connection still fails after all the retries,
+    the location is marked as `failed` and no re-connections or transfers are attempted.
+    An administrator needs to review the error, fix the issue, and manually restart the location.
 
 
 connection_retry_interval

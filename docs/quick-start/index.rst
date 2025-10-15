@@ -1,4 +1,4 @@
-Quick Start
+Quick start
 ===========
 
 The following pages are a high level introduction to the main components and

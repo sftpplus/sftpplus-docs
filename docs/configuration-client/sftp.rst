@@ -109,7 +109,7 @@ password
     To disable password authentication, set this to an empty string.
 
     ..  note::
-        Prio to version 5.7.0,
+        Prior to version 5.7.0,
         when a password is configured together with the `ssh_private_key` configuration,
         the password was used to decrypt the SSH key.
         In current SFTPPlus version, there is a separate `ssh_private_key_password` configuration option, dedicated to the decryption password for the SSH key.

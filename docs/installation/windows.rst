@@ -230,10 +230,6 @@ The following also describes the permissions required for the service account.
 * `.\\extension` - `read-only`
   Contains custom extensions implemented using the SFTPPlus API.
 
-* `.\\include` - `read-only` -
-  This folder is for developers interested in extending the
-  functionality of the server.
-  May be missing on some releases.
 
 * `.\\lib` - `read-only` -
   This folder is for internal server use.
@@ -243,3 +239,6 @@ The following also describes the permissions required for the service account.
   SFTPPlus will write log entries into the log files.
   When log rotation is enabled, it will also create new rotated files and
   delete old rotated files.
+
+* `.\\run` - `read`, `write`, `create file` and `delete file`
+  Stores various SFTPPlus runtime information.

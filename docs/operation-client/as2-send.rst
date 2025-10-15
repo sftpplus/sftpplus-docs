@@ -7,6 +7,11 @@ Send files over AS2
 Introduction
 ------------
 
+This page describes how to configure SFTPPlus to send file to a remote AS2 server.
+
+Check the separate :doc:`reference documentation for AS2</configuration-client/as2>`,
+which describes all the configuration options available for a `as2` location.
+
 `AS2` is a file transfer protocol defined on top of the HTTP protocol.
 
 The AS2 protocol specifications from

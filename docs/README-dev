@@ -45,6 +45,14 @@ generated in build-py3/doc/html::
     $ ./pythia.sh documentation_standalone
 
 
+Page title capitalization
+-------------------------
+
+* The name of top-level pages should only have first word capitalized.
+* Sub-pages should only have the first word capitalized,
+  unless other words are proper nouns.
+
+
 Images
 ------
 

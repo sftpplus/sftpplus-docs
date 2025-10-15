@@ -1,5 +1,5 @@
-FTP/FTPS Client Side Operation Mode
-===================================
+FTPS client operations
+======================
 
 ..  contents:: :local:
 
@@ -9,6 +9,12 @@ Introduction
 
 This page contains information about the usage and behaviour of the FTP
 commands implemented by the FTP location/client.
+
+Check the separate reference documentation for
+:doc:`FTP</configuration-client/ftp>`,
+:doc:`FTP Explicit</configuration-client/ftps-explicit>`,
+and :doc:`FTP Implicit</configuration-client/ftps-implicit>`,
+which describes all the configuration options available for FTP based locations.
 
 The FTP/FTPS implementation is designed to follow the RFCs as much as possible.
 

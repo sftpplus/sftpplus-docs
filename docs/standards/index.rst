@@ -1,8 +1,12 @@
-Standards, Compliance, Certification
+Standards, compliance, certification
 ====================================
 
 This section includes various stand-alone articles which document the
 server and client side compliance with various standards and obligations.
+
+To assure correct functionality of SFTPPlus,
+we are continually re-building the product after each change and run an extensive automated test suite.
+The software is tested at the source code level as well as at the end to end functional level on all the supported operating systems and hardware architectures.
 
 .. grid:: 1 1 2 1
     :gutter: 2

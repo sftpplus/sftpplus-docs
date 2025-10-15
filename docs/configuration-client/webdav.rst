@@ -1,13 +1,18 @@
-WebDAV / SharePoint Online
-==========================
+WebDAV / SharePoint On-Premise
+==============================
+
+..  contents:: :local:
+
+
+Introduction
+------------
 
 A `webdavs` location provides access to a WebDAV server over a protected HTTPS
 connection.
 
-SharePoint Online is the only WebDAV server currently supported.
+On-premise, self-hosted, SharePoint servers are supported.
 Only username and password credentials are supported to authenticate against
-the WebDAV server provided by SharePoint Online as part of the Office 365
-claims-based authentication.
+the WebDAV server.
 
 It is assumed that the WebDAV server handles the path in a case-insensitive
 manner.
@@ -16,7 +21,11 @@ Please get in touch if your WebDAV server is case-sensitive.
 Unlike a web browser, to protect the HTTPS connection you will have to
 explicitly configure the list of trusted CA and the location of the CRLs.
 
-..  contents:: :local:
+For Azure Cloud SharePoint Online sites,
+check the :doc:`documentation for the dedicated sharepoint-online location. </operation-client/sharepoint-online>`
+
+This page is a reference for the configuration options available
+for a `webdavs` location.
 
 .. include:: /configuration-client/locations-commons.include.rst
 

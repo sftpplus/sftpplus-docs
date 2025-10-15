@@ -1,4 +1,4 @@
-Authentication, Users and Admins
+Authentication, users and admins
 ================================
 
 An authentication method configuration provides the required information to

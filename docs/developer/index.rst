@@ -1,4 +1,4 @@
-Developer Documentation
+Developer documentation
 =======================
 
 This section documents using the SFTPPlus API and integrate SFTPPlus with HTTP microservices or Python applications.

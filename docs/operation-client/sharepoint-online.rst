@@ -1,5 +1,5 @@
-SharePoint Online Sites access
-==============================
+SharePoint Online sites
+=======================
 
 ..  contents:: :local:
 
@@ -8,6 +8,9 @@ Overview
 --------
 
 This page describes how to configure Entra ID and SharePoint Online to allow SFTPPlus to manage files from a SharePoint Online sites, hosted in the Azure Cloud.
+
+Check the separate :doc:`reference documentation for SharePoint Online</configuration-client/sharepoint-online>`,
+which describes all the configuration options available for a `sharepoint-online` location.
 
 There are 2 main non-SFTPPlus components that needs to be configured:
 
@@ -22,7 +25,7 @@ The authentication to MS Graph is done via the Entra ID OAuth2 HTTPS method.
 Paths configuration
 -------------------
 
-The path configured for SFTPPlus for an SharePoint Online site document library is different to the *web URL* used by SharePoint Online.
+The path configured for SFTPPlus for a SharePoint Online site document library is different from the *web URL* used by SharePoint Online.
 
 In SharePoint Online the URL is defined as ``https://sftpplus.sharepoint.com/sites/test-site/test_lib?id=%2Fsites%2Ftest-site%2FReports%2F2025``
 
@@ -100,7 +103,7 @@ Disadvantages of `sharepoint-online`:
 Entra ID Authentication
 -----------------------
 
-To connect to an SharePoint Online site you need to setup an Entra ID application registration for SFTPPlus.
+To connect to a SharePoint Online site you need to set up an Entra ID application registration for SFTPPlus.
 
 The SFTPPlus application will be registered for your directory ID (tenant ID) and will receive a unique application ID.
 

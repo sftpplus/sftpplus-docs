@@ -1,14 +1,29 @@
 Client-side protocols
 =====================
 
+
+Introduction
+------------
+
 SFTPPlus supports a variety of client-side protocols to facilitate file
 transfers and interactions with remote systems.
 
-These protocols include SFTP, FTP, FTPS (both explicit and implicit),
-HTTP pull, WebDAV, AS2, Azure Blob Storage, Azure File Storage,
-SMB, Exchange Online, and SMTP.
+Locations are used to connect to various types of local or remote systems,
+including local file systems, SFTP servers, FTP servers, HTTP servers,
+and cloud storage services like Amazon S3 or Microsoft Azure Blob Storage.
 
-SFTPPlus uses ``locations`` and ``transfers`` to define how to connect to
+
+Locations are auto-started when a transfer or another component needs them and
+the location is not started and connected.
+
+They are also fault-tolerant, allowing retries for interrupted connections.
+
+Transfers using a failed location will also fail and will
+not trigger a new connection attempt for the location.
+In this type of scenario, the failed location must be manually started first,
+after resolving the initial error.
+
+SFTPPlus uses `locations` and :doc:`transfers </transfer/transfers>` to define how to connect to
 remote systems and manage file transfers.
 Locations specify the connection details for remote servers, while transfers
 define the rules for file transfers between these locations.
@@ -20,18 +35,6 @@ client-side protocol, including examples and best practices.
     :gutter: 2
     :padding: 0
     :class-container: surface
-
-    .. grid-item-card:: :octicon:`book` Locations
-        :link-type: doc
-        :link: ./locations
-
-        Learn how to create and configure locations for connecting to remote systems using SFTPPlus.
-
-    .. grid-item-card:: :octicon:`book` Transfers
-        :link-type: doc
-        :link: ./transfers
-
-        Learn about file transfers and configuration options available.
 
     .. grid-item-card:: :octicon:`sliders` SFTP
         :link-type: doc
@@ -100,6 +103,12 @@ client-side protocol, including examples and best practices.
 
         Learn how to configure an SMB location to provide access to an SMB server over TCP.
 
+    .. grid-item-card:: :octicon:`sliders` Oracle Database SQL
+        :link-type: doc
+        :link: ./oracle-database
+
+        Learn how to configure an Oracle Database location to send and receive files using SQL statements, with data stored in the database.
+
     .. grid-item-card:: :octicon:`sliders` Exchange Online Mailbox
         :link-type: doc
         :link: ./exchange-online
@@ -119,13 +128,44 @@ client-side protocol, including examples and best practices.
         See the available configuration options for the Local Filesystem location.
 
 
+Adding a new location via Web Manager
+-------------------------------------
+
+A new location can be added or changed via Web Manager below.
+Options will differ depending on which location type is used.
+
+See below for an example of an initial configuration with the FTPES location.
+
+..  image:: /static/gallery/gallery-add-ftps-location.png
+
+
+Adding a new location via text configuration
+--------------------------------------------
+
+Adding a new location configuration is done by creating a new section
+inside the configuration file.
+The name of the section should be prefixed with ``locations/`` and followed by
+the location's UUID.
+
+The location's UUID can be any unique string used to identify the location.
+Once defined, the UUID should not be changed.
+
+For more information, please see
+:doc:`the dedicated UUID documentation </configuration/introduction>`.
+
+For example, to add a new location configuration of type `filesystem`
+called ``Local file system``::
+
+    [locations/b904e6h6-c295-4ccf-8abd-edcae4d3324f]
+    name = Local file system
+    description = File system accesses as service account.
+    type = filesystem
+
+
 ..  toctree::
     :maxdepth: 1
     :hidden:
 
-    locations
-    transfers
-    local-filesystem
     sftp
     ftp
     ftps-explicit
@@ -138,4 +178,6 @@ client-side protocol, including examples and best practices.
     smb
     exchange-online
     sharepoint-online
+    oracle-database
     smtp
+    local-filesystem

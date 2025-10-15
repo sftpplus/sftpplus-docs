@@ -11,8 +11,8 @@ We highly recommend going through the
 :doc:`Getting Started on Linux guide</quick-start/on-linux>`
 first as it contains additional tips for new SFTPPlus installations.
 
-There is also an :doc:`FAQ section </q-and-a>` if you have an idea, but are in
-search of answers.
+There is also an :doc:`FAQ section </guides/q-and-a>`
+if you have an idea, but are in search of answers.
 
 If you want to skip ahead, the
 :doc:`Configuration Instructions </configuration/index>` or the :doc:`Usage

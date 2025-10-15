@@ -1,6 +1,12 @@
 HTTP(S) file download
 =====================
 
+..  contents:: :local:
+
+
+Introduction
+------------
+
 The `http-pull` location allows downloading content from a remote HTTP or HTTPS server.
 The download is stored in a file.
 
@@ -31,7 +37,6 @@ Get in touch if you need a different authentication method.
 Unlike a web browser, to protect the HTTPS connection you will have to
 explicitly configure the list of trusted CA and the location of the CRLs.
 
-..  contents:: :local:
 
 .. include:: /configuration-client/locations-commons.include.rst
 

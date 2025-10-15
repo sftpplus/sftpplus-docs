@@ -254,7 +254,7 @@ SSL certificate authentication.
 SSL certificate authentication, together with self-signed SSL certificates
 are supported using the FTPS protocol.
 For more information, please refer to
-:doc:`FTP/FTPS service configuration page<configuration-server/ftp-service>`.
+:doc:`FTP/FTPS service configuration page</configuration-server/ftp-service>`.
 
 The reason why SSL certificate authentication is not available for SFTP
 is that this is not a standard authentication method for the SSH and the SFTP

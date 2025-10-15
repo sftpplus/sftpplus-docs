@@ -1,4 +1,4 @@
-Events Reference
+Events reference
 ================
 
 While SFTPPlus operates it generate a set of events based on the performed operations.
