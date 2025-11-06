@@ -55,6 +55,13 @@ client-side protocol, including examples and best practices.
         Learn how to configure Entra ID and Exchange Online to allow
         SFTPPlus to read or write emails.
 
+    .. grid-item-card:: :octicon:`stack` IBM MQ Transfers
+        :link-type: doc
+        :link: ./ibm-mq
+
+        This page describes how to SFTPPlus interacts with IBM MQ channels
+        to send and receive files.
+
 
 ..  toctree::
     :maxdepth: 1
@@ -66,3 +73,4 @@ client-side protocol, including examples and best practices.
     exchange-online
     sharepoint-online
     oracle-database
+    ibm-mq

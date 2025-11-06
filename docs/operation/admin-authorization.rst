@@ -145,14 +145,14 @@ For example, with the following configuration::
     [roles/21951ed4-c281]
     name = Transfers Operator
     permissions =
-      /runnables/*, read
+      /operation/*, read
       /configuration/transfers/*, all
-      /runnables/transfers/*, all
+      /operation/transfers/*, all
 
     [roles/94a9caefd093-4677]
     name = Users Operator
     permissions =
-      /runnables/*, read
+      /operation/*, read
       /configuration/*, read
       /configuration/accounts/*, all
 
@@ -163,9 +163,9 @@ For example, with the following configuration::
 The `John Admin` administrator will have the following permissions,
 based on the order in which the administrator roles are configured::
 
-      /runnables/*, read
+      /operation/*, read
       /configuration/transfers/*, all
-      /runnables/transfers/*, all
+      /operation/transfers/*, all
       /configuration/*, read
       /configuration/accounts/*, all
 
@@ -186,15 +186,15 @@ For example, with the configuration below::
     [roles/6b4b0fc2-e9c1]
     name = Read Only Admin
     permissions =
-      /runnables/*, read
+      /operation/*, read
       /configuration/*, read
-      /runnables/*, deny
+      /operation/*, deny
       /configuration/*, deny
 
     [roles/94a9caefd093-4677]
     name = Users Operator
     permissions =
-      /runnables/*, read
+      /operation/*, read
       /configuration/*, read
       /configuration/accounts/*, all
 
@@ -204,9 +204,9 @@ For example, with the configuration below::
 
 When administrator `John Admin` is authenticated it will have the following permissions::
 
-      /runnables/*, read
+      /operation/*, read
       /configuration/*, read
-      /runnables/*, deny
+      /operation/*, deny
       /configuration/*, deny
       /configuration/accounts/*, all
 

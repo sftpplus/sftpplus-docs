@@ -14,6 +14,54 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
+Version 5.19.0, 2025-11-10
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* IBM MQ server support was added as a location that can be used to send and
+  receive messages from a queue and transfer them as files. [#7197]
+* The `timeout` option was added to the Oracle Database location to configure
+  the time to wait for the remote server to return a response.
+  If no response is returned in the configured time, SFTPPlus will consider
+  the connection lost.
+  [client-side][oracle-database] [#7231]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* When the connection to the Oracle Database is lost,
+  it now automatically reconnects.
+  [client-side][oracle-database] [#7231]
+* The Web Manager UI for configuring seconds will no longer automatically
+  normalize the measurement unit.
+  In previous versions, if you would configure a value to 60 minutes,
+  it was automatically converted to 1 hours.
+  Now it stays as 60 minutes.
+  The unit normalization is now performed only when the page is loaded.
+  [manager] [#7234]
+* The Oracle Database location now supports transferring empty files.
+  [client-side][oracle-database] [#7240]
+* The Web Manager UI is now functional for administrators that have
+  permissions to only the configuration,
+  without any permissions to server operations.
+  For a better experience, it is recommended that configuration administrators
+  have at least read permissions for the `/operations/` components.
+  [manager] [#7243]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `/runnables/` role permissions was renamed to `/operation/`.
+  The configuration is automatically migrated.
+  The `/runnables/` permissions accidentally documented in version 5.1.0.
+  [manager] [#7243]
+
+
 Version 5.18.0, 2025-10-14
 --------------------------
 

@@ -73,12 +73,6 @@ client-side protocol, including examples and best practices.
         Learn how to configure the SharePoint Online client protocols for accessing SharePoint sites hosted in the Azure Cloud.
         For on-premise SharePoint sites, use the `webdav` location.
 
-    .. grid-item-card:: :octicon:`sliders` WebDAV / On-premise SharePoint
-        :link-type: doc
-        :link: ./webdav
-
-        Learn how to configure the WebDAV and on-premise SharePoint client protocols for accessing remote files and folders.
-
     .. grid-item-card:: :octicon:`sliders` AS2
         :link-type: doc
         :link: ./as2
@@ -109,11 +103,23 @@ client-side protocol, including examples and best practices.
 
         Learn how to configure an Oracle Database location to send and receive files using SQL statements, with data stored in the database.
 
+    .. grid-item-card:: :octicon:`sliders` IBM MQ Channel
+        :link-type: doc
+        :link: ./ibm-mq
+
+        This section describes how to configure SFTPPlus to send and receive files via IBM MQ queues.
+
     .. grid-item-card:: :octicon:`sliders` Exchange Online Mailbox
         :link-type: doc
         :link: ./exchange-online
 
         This section provides details on how to configure the Exchange Online location for downloading attached files in an Exchange Online mailbox.
+
+    .. grid-item-card:: :octicon:`sliders` WebDAV / On-premise SharePoint
+        :link-type: doc
+        :link: ./webdav
+
+        Learn how to configure the WebDAV and on-premise SharePoint client protocols for accessing remote files and folders.
 
     .. grid-item-card:: :octicon:`sliders` Send files as email attachments
         :link-type: doc
@@ -171,7 +177,6 @@ called ``Local file system``::
     ftps-explicit
     ftps-implicit
     http-pull
-    webdav
     as2
     azure-blob
     azure-file
@@ -179,5 +184,7 @@ called ``Local file system``::
     exchange-online
     sharepoint-online
     oracle-database
+    ibm-mq
+    webdav
     smtp
     local-filesystem

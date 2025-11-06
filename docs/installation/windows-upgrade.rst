@@ -28,6 +28,11 @@ At first, manually stop the SFTPPlus Windows service.
 Its default name is `SFTPPlus MFT`.
 It might have a different name on custom installs.
 
+Create a backup copy of the `configuration` directory
+from the SFTPPlus installation path,
+in case you need to revert the upgrade.
+The default installation path is `C:\\Program Files\\SFTPPlus\\configuration`.
+
 Execute the installer, selecting the same instance name and installation path
 as the existing installation to be updated.
 

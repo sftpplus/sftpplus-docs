@@ -73,6 +73,19 @@ service_name
     Name of the database/PDB to connect to.
 
 
+timeout
+-------
+
+:Default value: `120`
+:Optional: Yes
+:Values: * Number of seconds.
+:From version: 5.19.0
+:Description:
+    Duration, in seconds, to wait for a response from the server.
+
+    If a response is not received during this period, the connection is considered lost.
+
+
 sql_file_column_type
 --------------------
 

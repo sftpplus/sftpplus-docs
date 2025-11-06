@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>
-        Version 5.18.0 Trial Downloads | Secure file transfer software
+        Version 5.19.0 Trial Downloads | Secure file transfer software
   </title>
 
   <meta name="author" content="Pro:Atria Team" />
@@ -80,8 +80,8 @@
   <div class="container">
     <div class="row text-center justify-content-center align-items-center">
       <div class="col">
-        <h1>Version 5.18.0 Trial Downloads</h1>
-          <h3 class="font-weight-normal">The trial version expires on 2026-01-23</h3>
+        <h1>Version 5.19.0 Trial Downloads</h1>
+          <h3 class="font-weight-normal">The trial version expires on 2026-02-14</h3>
       </div>
     </div>
   </div>
@@ -653,71 +653,50 @@ systems and CPU architectures.</p>
   <div class="container py-0">
     <div id="release-changelog" class="download-release-notes doc-body row mb-0 justify-content-center">
       <div class="col">
-        <div class="document" id="version-5-18-0-2025-10-14">
-<h1 class="title">Version 5.18.0, 2025-10-14</h1>
+        <div class="document" id="version-5-19-0-2025-11-10">
+<h1 class="title">Version 5.19.0, 2025-11-10</h1>
 <div class="section" id="new-features">
 <h1>New Features</h1>
 <ul class="simple">
-<li>The interactive command line tool now support editing the input line,
-and session command history.
-[cli] [#3941]</li>
-<li>You can now create multiple security policies and associate them to different
-file transfer services.
-[server-side][security] [#4133]</li>
-<li>The Web Manager now has an UI to browse and select a path for locations.
-This can be used to configure the source, destination, or archive paths
-for a transfer.
-[client-side] [#5880]</li>
-<li>You can now test the configuration of a component,
-protocols, locations, resources,
-without having to save the configuration.
-[client-side] [#5893]</li>
-<li>The <cite>client-shell</cite> command line tool can now load location configuration
-from the SFTPPlus configuration file.
-[cli][client-side] [#6250]</li>
-<li>You can now configure SFTPPlus to block the source IPs when the connection is
-made.
-In previous version, there was only the option to block during the
-authentication process.
-[server-side][security] [#6678]</li>
-<li>You can now view the list of blocked source IP for a security policy,
-and delete a particular source IP.
-[manager] [#7053]</li>
-<li>The <cite>client-shell</cite> command line tool will now keep the history of commands
-from previous sessions.
-[client-side][cli] [#7179]</li>
-<li>The <cite>oracle-db</cite> location was added to allow sending and receiving files
-with content stored as rows in Oracle Database tables.
-[client-side][db] [#7194]</li>
-<li>The SMB location can now show the list of all available shares on the server.
-This is not available for Azure Windows Share servers from the Azure File
-service.
-[client-side][azure-file][azure-storage] [#7208]</li>
-<li>The Azure File location can now show the list of all available shares.
-[client-side][azure-file][azure-storage] [#7209]</li>
+<li>IBM MQ server support was added as a location that can be used to send and
+receive messages from a queue and transfer them as files. [#7197]</li>
+<li>The <cite>timeout</cite> option was added to the Oracle Database location to configure
+the time to wait for the remote server to return a response.
+If no response is returned in the configured time, SFTPPlus will consider
+the connection lost.
+[client-side][oracle-database] [#7231]</li>
 </ul>
 </div>
 <div class="section" id="defect-fixes">
 <h1>Defect Fixes</h1>
 <ul class="simple">
-<li>The security policy focused on blocking of source IP that triggered
-multiple authentication failures was fixed.
-[server-side][security] [#4133]</li>
-<li>The SFTPPlus server now supports using RSA host keys, signed with SHA256 or
-SHA512, together with the
-<cite>diffie-hellman-group14-sha256</cite>,
-<cite>diffie-hellman-group15-sha512</cite>,
-<cite>diffie-hellman-group16-sha512</cite>,
-<cite>diffie-hellman-group17-sha512</cite>,
-<cite>diffie-hellman-group18-sha512</cite>,
-<cite>diffie-hellman-group-exchange-sha256</cite>
-key exchange algorithms.
-In previous version, for this combination of algorithms,
-SFTPPlus was failing with errors like
-<cite>Disconnecting the SSH connection. bad packet length</cite> or
-<cite>Signature from server's host key is invalid</cite>,
-since SFTPPlus was trying to sign using the SHA1 algorithm.
-[server-side][sftp][scp] [#7225]</li>
+<li>When the connection to the Oracle Database is lost,
+it now automatically reconnects.
+[client-side][oracle-database] [#7231]</li>
+<li>The Web Manager UI for configuring seconds will no longer automatically
+normalize the measurement unit.
+In previous versions, if you would configure a value to 60 minutes,
+it was automatically converted to 1 hours.
+Now it stays as 60 minutes.
+The unit normalization is now performed only when the page is loaded.
+[manager] [#7234]</li>
+<li>The Oracle Database location now supports transferring empty files.
+[client-side][oracle-database] [#7240]</li>
+<li>The Web Manager UI is now functional for administrators that have
+permissions to only the configuration,
+without any permissions to server operations.
+For a better experience, it is recommended that configuration administrators
+have at least read permissions for the <cite>/operations/</cite> components.
+[manager] [#7243]</li>
+</ul>
+</div>
+<div class="section" id="deprecations-and-removals">
+<h1>Deprecations and Removals</h1>
+<ul class="simple">
+<li>The <cite>/runnables/</cite> role permissions was renamed to <cite>/operation/</cite>.
+The configuration is automatically migrated.
+The <cite>/runnables/</cite> permissions accidentally documented in version 5.1.0.
+[manager] [#7243]</li>
 </ul>
 </div>
 </div>

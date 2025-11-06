@@ -34,6 +34,7 @@ Check if any custom paths or instance names are used for your installation.
 You can check the installation path and instance name using the event `20072` from the log file, or the information deployed in the Web Manager Console.
 
 Below are the default values:
+
 * Installation path: `C:/Program Files/SFTPPlus/`
 * Instance name: `SFTPPlus`
 
