@@ -85,7 +85,7 @@ Delivery of the file is subject to the limitations, security policy and throttli
 The SMTP mail server will confirm to SFTPPlus that the message was successfully received for processing,
 but will not send the final delivery report.
 
-This is a limitation of the SMTP protocol, introduced in 1981 for for which `S` stands for `simple`.
+This is a limitation of the SMTP protocol, introduced in 1981 for which `S` stands for `simple`.
 Get in touch with our support team to review any alternative delivery options, like AS2 or SFTP.
 
 

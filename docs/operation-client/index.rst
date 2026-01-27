@@ -13,6 +13,12 @@ client-side protocol, including examples and best practices.
     :padding: 0
     :class-container: surface
 
+    .. grid-item-card:: :octicon:`book` TLS client configuration
+        :link-type: doc
+        :link: ./tls-client
+
+        This section explains how to configure the security for TLS clients for connecting to external servers.
+
     .. grid-item-card:: :octicon:`stack` FTP/FTPS Client Side Operation Mode
         :link-type: doc
         :link: ./ftp
@@ -67,6 +73,7 @@ client-side protocol, including examples and best practices.
     :maxdepth: 1
     :hidden:
 
+    tls-client
     ftp
     http
     as2-send

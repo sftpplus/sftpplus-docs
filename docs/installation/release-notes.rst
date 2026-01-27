@@ -14,6 +14,135 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
+Version 5.20.0, 2026-01-24
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* You can now store certificate and private key pairs as vault items. [#2221]
+* The `vault` resource was added to allow storing vault items
+  in a single external file or have separate external files for each vault item.
+  [manager] [#2229]
+* The HTTP server now supports the WebDAV methods PROPFIND, MOVE, and COPY.
+  This is WebDAV Class 1
+  [server-side][http][webdav] [#2997]
+* SSH private keys can now be configured as vault items.
+  [server-side][client-side][sftp] [#3249]
+* The PGP event handler's public and private keys are now configured via
+  separate vault items.
+  [event-handler][openpgp][manager] [#3292]
+* The PGP and SSH keys can now be stored inside the configuration file as separate
+  `vault-items`.
+  [manager][pgp][ssh][sftp] [#3535]
+* The private content of vault items can be exported, with optional encryption.
+  [manager] [#7174]
+* The `description` configuration option from the Web Manager was moved at the
+  end of the page, together with other administrative information like
+  component unique ID or component creation or modification time.
+  [manager] [#7213]
+* You can now configure the LDAP authentication to authenticate administrators
+  associated with different roles, based on their LDAP attributes.
+  [server-side][ldap] [#7266]
+* You can now store certification authority chains and trusted external
+  certificates inside the SFTPPlus vault.
+  [manager] [#7282]
+* You can create self-signed certificates as private-certificates vault items.
+  [manager] [#7299]
+* You can now create PGP keys with expiration dates.
+  [manager] [#7306]
+* The `destination_content_actions` configuration option for transfers was
+  extended to support `utf-8-to-iso-8859-15`, `utf-8-to-utf-16`,
+  `ascii-to-utf-16`, and `iso-8859-15-to-utf-8` encodings.
+  [client-side] [#7307]
+* The SFTP/SCP servers now support `hostbased` authentication method,
+  as specified in RFC 4252.
+  The `hostbased` method is disabled by default.
+  It can be enabled via the `ssh_hostbased_auth` group configuration option.
+  [server-side][sftp] [#7317]
+* When SSH key authentication fails, the log message now contains the
+  SHA256 fingerprint of the SSH key used during the authentication.
+  [server-side][sftp] [#7317]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The Web Manager UI is now available for administrators that have
+  permissions to only read the configuration,
+  without any permissions to server operations.
+  For a better experience, it is recommended that configuration administrators
+  have at least read permissions for the `/operations/` components.
+  [manager] [#7243]
+* The transfer will now fail at start when configured with temporary file names,
+  but the destination location does not support the rename operation.
+  [client-side] [#7252-1]
+* The transfer will now fail at start when configured with a destination location
+  that can only be used as a source.
+  [client-side] [#7252-3]
+* The transfer will now fail at start when configured with overwrite
+  protection enabled, but the destination location does not support overwrite
+  detection.
+  [client-side] [#7252]
+* The `local-file` authentication method can now authenticate users.
+  This was a defect introduced in SFTPlus version 5.14.0
+  [server-side] [#7270]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `--ssl-key` and `--ssl-key-password` command line argument were removed
+  from the `client-shell` CLI tools.
+  Only the `--ssl-certificate` argument is now supported and should be use
+  with the path of a file containing both certificate and the associated,
+  non encrypted, private key. [#2221-1]
+* The `ssl_certificate` and `ssl_key` together with `ssl_key_password`
+  configuration options were removed
+  and replaced by `tls_private_certificate` configuration
+  options that is now configured as a vault item. [#2221]
+* The event with id `40055` is no longer generated when renaming folders via the
+  HTTP API.
+  The new event with id `40065` is emitted when renaming folders.
+  [server-side][http] [#2997]
+* The `ssh_private_key` configuration option was removed and replaced by the new
+  `ssh_client_key` option.
+  The SSH private keys are now stored via the embedded vault items.
+  The existing configuration is automatically migrated to new vault items.
+  There is no need for manual configuration.
+  [client-side][sftp] [#3249-1]
+* The `ssh_host_private_keys` configuration option was removed and replaced
+  by `ssh_server_keys` configuration option that is now used to configure SSH
+  private keys using vault items.
+  The existing configuration is automatically migrated.
+  [server-side][sftp] [#3249-2]
+* The `ssh_private_key_password` configuration option was removed.
+  This functionality was designed to help with the migration of legacy
+  configuration and was giving a false sense of security.
+  The SSH private keys are now stored via the embedded vault items,
+  which can be configured with automatic encryption.
+  The existing configuration is automatically migrated to new vault items.
+  There is no need for manual configuration.
+  [client-side][sftp] [#3249]
+* The `encryption_public_keys` and `decryption_private_keys` PGP event handler
+  options are now configured as unique IDs for vault items.
+  The existing keys are automatically migrated to new vault items.
+  [event-handler][openpgp] [#3292]
+* The `/runnables/` role permissions was renamed to `/operation/`.
+  The configuration is automatically migrated.
+  The `/runnables/` permissions accidentally documented in version 5.1.0.
+  [manager] [#7243]
+* When downloading multiple files from `Web client` as ZIP archive,
+  the files inside the archive no longer have the full path.
+  [server-side][http] [#7269]
+* The `ssl_certificate_authority` configuration option was removed and replaced
+  with the new `tls_mutual_certification_authorities` that stores the content as
+  vault items.
+  The existing configuration was automatically migrated.
+  [ftps][https][server-side] [#7282]
+
+
 Version 5.19.0, 2025-11-10
 --------------------------
 

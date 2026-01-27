@@ -20,6 +20,13 @@ The software is tested at the source code level as well as at the end to end fun
         This section provides information about the cryptography method,
         protocols, and algorithms supported by SFTPPlus.
 
+    .. grid-item-card:: :octicon:`book` SSL / TLS / SSH protocols overview
+        :link-type: doc
+        :link: ./protocols-overview
+
+        Learn about SSL/TLS/SSH protocols and their usage in SFTPPlus.
+
+
     .. grid-item-card:: :octicon:`book` IPv6 Support
         :link-type: doc
         :link: ./ipv6
@@ -62,6 +69,7 @@ The software is tested at the source code level as well as at the end to end fun
     :hidden:
 
     cryptography
+    protocols-overview
     ipv6
     fips140-2
     iso27001

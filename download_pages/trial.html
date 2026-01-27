@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>
-        Version 5.19.0 Trial Downloads | Secure file transfer software
+        Version 5.20.0 Trial Downloads | Secure file transfer software
   </title>
 
   <meta name="author" content="Pro:Atria Team" />
@@ -80,8 +80,8 @@
   <div class="container">
     <div class="row text-center justify-content-center align-items-center">
       <div class="col">
-        <h1>Version 5.19.0 Trial Downloads</h1>
-          <h3 class="font-weight-normal">The trial version expires on 2026-02-17</h3>
+        <h1>Version 5.20.0 Trial Downloads</h1>
+          <h3 class="font-weight-normal">The trial version expires on 2026-05-07</h3>
       </div>
     </div>
   </div>
@@ -653,53 +653,131 @@ systems and CPU architectures.</p>
   <div class="container py-0">
     <div id="release-changelog" class="download-release-notes doc-body row mb-0 justify-content-center">
       <div class="col">
-        <div class="document" id="version-5-19-0-2025-11-10">
-<h1 class="title">Version 5.19.0, 2025-11-10</h1>
+        <div class="document" id="version-5-20-0-2026-01-24">
+<h1 class="title">Version 5.20.0, 2026-01-24</h1>
 <div class="section" id="new-features">
 <h1>New Features</h1>
 <ul class="simple">
-<li>IBM MQ server support was added as a location that can be used to upload and
-download files. [#7197]</li>
-<li>The <cite>timeout</cite> option was added to the Oracle Database location to configure
-the time to wait for the remote server to return a response.
-If no response is returned in the configured time, SFTPPlus will consider
-the connection lost.
-[client-side][oracle-database] [#7231]</li>
+<li>You can now store certificate and private key pairs as vault items. [#2221]</li>
+<li>The <cite>vault</cite> resource was added to allow storing vault items
+in a single external file or have separate external files for each vault item.
+[manager] [#2229]</li>
+<li>The HTTP server now supports the WebDAV methods PROPFIND, MOVE, and COPY.
+This is WebDAV Class 1
+[server-side][http][webdav] [#2997]</li>
+<li>SSH private keys can now be configured as vault items.
+[server-side][client-side][sftp] [#3249]</li>
+<li>The PGP event handler's public and private keys are now configured via
+separate vault items.
+[event-handler][openpgp][manager] [#3292]</li>
+<li>The PGP and SSH keys can now be stored inside the configuration file as separate
+<cite>vault-items</cite>.
+[manager][pgp][ssh][sftp] [#3535]</li>
+<li>The private content of vault items can be exported, with optional encryption.
+[manager] [#7174]</li>
+<li>The <cite>description</cite> configuration option from the Web Manager was moved at the
+end of the page, together with other administrative information like
+component unique ID or component creation or modification time.
+[manager] [#7213]</li>
+<li>You can now configure the LDAP authentication to authenticate administrators
+associated with different roles, based on their LDAP attributes.
+[server-side][ldap] [#7266]</li>
+<li>You can now store certification authority chains and trusted external
+certificates inside the SFTPPlus vault.
+[manager] [#7282]</li>
+<li>You can create self-signed certificates as private-certificates vault items.
+[manager] [#7299]</li>
+<li>You can now create PGP keys with expiration dates.
+[manager] [#7306]</li>
+<li>The <cite>destination_content_actions</cite> configuration option for transfers was
+extended to support <cite>utf-8-to-iso-8859-15</cite>, <cite>utf-8-to-utf-16</cite>,
+<cite>ascii-to-utf-16</cite>, and <cite>iso-8859-15-to-utf-8</cite> encodings.
+[client-side] [#7307]</li>
+<li>The SFTP/SCP servers now support <cite>hostbased</cite> authentication method,
+as specified in RFC 4252.
+The <cite>hostbased</cite> method is disabled by default.
+It can be enabled via the <cite>ssh_hostbased_auth</cite> group configuration option.
+[server-side][sftp] [#7317]</li>
+<li>When SSH key authentication fails, the log message now contains the
+SHA256 fingerprint of the SSH key used during the authentication.
+[server-side][sftp] [#7317]</li>
 </ul>
 </div>
 <div class="section" id="defect-fixes">
 <h1>Defect Fixes</h1>
 <ul class="simple">
-<li>When the connection to the Oracle Database is lost,
-it now automatically reconnects.
-[client-side][oracle-database] [#7231]</li>
-<li>The Web Manager UI for configuring seconds will no longer automatically
-normalize the measurement unit.
-In previous versions, if you would configure a value to 60 minutes,
-it was automatically converted to 1 hour.
-Now it stays as 60 minutes.
-The unit normalization is now performed only when the page is loaded.
-[manager] [#7234]</li>
-<li>The Oracle Database location now supports transferring empty files.
-[client-side][oracle-database] [#7240]</li>
-<li>The Web Manager UI is now functional for administrators that have
-permissions to only manage the configuration,
-without any permissions to server's operations.
+<li>The Web Manager UI is now available for administrators that have
+permissions to only read the configuration,
+without any permissions to server operations.
 For a better experience, it is recommended that configuration administrators
 have at least read permissions for the <cite>/operations/</cite> components.
 [manager] [#7243]</li>
-<li>The locations and event handlers <cite>Test</cite> functionality now works for newly
-created components that require a password.
-[manager] [#7230]</li>
+<li>The transfer will now fail at start when configured with temporary file names,
+but the destination location does not support the rename operation.
+[client-side] [#7252-1]</li>
+<li>The transfer will now fail at start when configured with a destination location
+that can only be used as a source.
+[client-side] [#7252-3]</li>
+<li>The transfer will now fail at start when configured with overwrite
+protection enabled, but the destination location does not support overwrite
+detection.
+[client-side] [#7252]</li>
+<li>The <cite>local-file</cite> authentication method can now authenticate users.
+This was a defect introduced in SFTPlus version 5.14.0
+[server-side] [#7270]</li>
 </ul>
 </div>
 <div class="section" id="deprecations-and-removals">
 <h1>Deprecations and Removals</h1>
 <ul class="simple">
-<li>The <cite>/runnables/</cite> role permissions were renamed to <cite>/operation/</cite>.
+<li>The <cite>--ssl-key</cite> and <cite>--ssl-key-password</cite> command line argument were removed
+from the <cite>client-shell</cite> CLI tools.
+Only the <cite>--ssl-certificate</cite> argument is now supported and should be use
+with the path of a file containing both certificate and the associated,
+non encrypted, private key. [#2221-1]</li>
+<li>The <cite>ssl_certificate</cite> and <cite>ssl_key</cite> together with <cite>ssl_key_password</cite>
+configuration options were removed
+and replaced by <cite>tls_private_certificate</cite> configuration
+options that is now configured as a vault item. [#2221]</li>
+<li>The event with id <cite>40055</cite> is no longer generated when renaming folders via the
+HTTP API.
+The new event with id <cite>40065</cite> is emitted when renaming folders.
+[server-side][http] [#2997]</li>
+<li>The <cite>ssh_private_key</cite> configuration option was removed and replaced by the new
+<cite>ssh_client_key</cite> option.
+The SSH private keys are now stored via the embedded vault items.
+The existing configuration is automatically migrated to new vault items.
+There is no need for manual configuration.
+[client-side][sftp] [#3249-1]</li>
+<li>The <cite>ssh_host_private_keys</cite> configuration option was removed and replaced
+by <cite>ssh_server_keys</cite> configuration option that is now used to configure SSH
+private keys using vault items.
+The existing configuration is automatically migrated.
+[server-side][sftp] [#3249-2]</li>
+<li>The <cite>ssh_private_key_password</cite> configuration option was removed.
+This functionality was designed to help with the migration of legacy
+configuration and was giving a false sense of security.
+The SSH private keys are now stored via the embedded vault items,
+which can be configured with automatic encryption.
+The existing configuration is automatically migrated to new vault items.
+There is no need for manual configuration.
+[client-side][sftp] [#3249]</li>
+<li>The <cite>encryption_public_keys</cite> and <cite>decryption_private_keys</cite> PGP event handler
+options are now configured as unique IDs for vault items.
+The existing keys are automatically migrated to new vault items.
+[event-handler][openpgp] [#3292]</li>
+<li>The <cite>/runnables/</cite> role permissions was renamed to <cite>/operation/</cite>.
 The configuration is automatically migrated.
-The <cite>/runnables/</cite> permissions were accidentally documented in version 5.1.0.
+The <cite>/runnables/</cite> permissions accidentally documented in version 5.1.0.
 [manager] [#7243]</li>
+<li>When downloading multiple files from <cite>Web client</cite> as ZIP archive,
+the files inside the archive no longer have the full path.
+[server-side][http] [#7269]</li>
+<li>The <cite>ssl_certificate_authority</cite> configuration option was removed and replaced
+with the new <cite>tls_mutual_certification_authorities</cite> that stores the content as
+vault items.
+The existing configuration was automatically migrated.
+[ftps][https][server-side] [#7282]</li>
 </ul>
 </div>
 </div>

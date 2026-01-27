@@ -21,7 +21,7 @@ This page contains a general overview for further understanding of PKI.
 For operational details, please consult the section relevant to the
 file transfer service.
 For further readings on security concepts in relation to PKI, please go to our
-:doc:`dedicated section here </guides/security>`.
+:doc:`dedicated section here </standards/protocols-overview>`.
 
 
 About PKI

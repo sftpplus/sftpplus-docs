@@ -191,7 +191,7 @@ specified using `shell options`::
     > set address sftp-acct1.example.com
     > set port 10022
     > set username john
-    > set ssh_private_key test_data/ssh/test-ssh-rsa-1024
+    > set ssh_client_key test_data/ssh/test-ssh-rsa-1024
     > set ssh_server_identity 06:cb:46:2b:9a:9a:c4:10:54:f0:ea:2f:b6:05:cb
     > open
     > ls
@@ -262,7 +262,7 @@ made to different servers::
     > set address sftp-acct1.example.com
     > set port 10022
     > set username john
-    > set ssh_private_key test_data/ssh/test-ssh-rsa-1024
+    > set ssh_client_key test_data/ssh/test-ssh-rsa-1024
     > set ssh_server_identity gm1FRm5gr5gSFIXy80r4d+FLrgQ=
     > open
     > ls
@@ -307,7 +307,7 @@ list the content of its root directory::
     set address sftp-acct1.example.com
     set port 10022
     set username john
-    set ssh_private_key test_data/ssh/test-ssh-rsa-1024
+    set ssh_client_key test_data/ssh/test-ssh-rsa-1024
     set ssh_server_identity 06:cb:46:2b:9a:9a:c4:10:54:f0:ea:2f:b6:05:cb
 
     open

@@ -1,25 +1,13 @@
-.. container:: tags pull-left
-
-    `server-side`
-    `client-side`
-    `containers`
-    `deployment`
-
-
-Deploying file transfers with Docker containers
-###############################################
-
-This page describes how you can deploy your SFTPPlus instance as a Docker
-container.
+Docker deployment
+=================
 
 ..  contents:: :local:
 
 
 Introduction
-============
+------------
 
-The SFTPPlus application can be executed in a Docker container
-without losing any functionality.
+The SFTPPlus application can be executed in a Docker container without losing any functionality.
 
 At this time, this guide targets the Docker Linux containers.
 SFTPPlus can also be executed in Windows Server native container and we will
@@ -49,7 +37,7 @@ used to produce the logs.
 
 
 Image Generation
-================
+----------------
 
 We provide a `Dockerfile` and a set of scripts to help you get started
 with creating a Docker image for SFTPPlus to suit your environment.
@@ -62,7 +50,7 @@ environment.
 
 
 Docker Logging
-==============
+--------------
 
 SFTPPlus can be integrated with the `json-file` Docker log driver and make
 the log out available to the `docker log` command.
@@ -86,7 +74,7 @@ for more details about the available filters.
 
 
 Docker Storages
-===============
+---------------
 
 Dedicated Docker volumes should be used for storing user files and configuration
 outside of the SFTPPlus container.
@@ -107,7 +95,7 @@ a typical command to mount them in an SFTPPlus container would be::
 
 
 Container and Service-Oriented Architecture (SOA)
-=================================================
+-------------------------------------------------
 
 SFTPPlus is designed to be flexible and adaptable to any existing
 infrastructure.

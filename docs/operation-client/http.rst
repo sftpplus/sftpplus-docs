@@ -128,7 +128,7 @@ WebDAV over HTTPS Extension
 ---------------------------
 
 The HTTPS WebDAV extension is supported on the client-side while interacting
-with the Office 365 SharePoine Online server.
+with the on-premise SharePoint server.
 
 Uploading empty files to SharePoint is not supported.
 
@@ -138,9 +138,5 @@ Percent Encoding `%20` character.
 If a path contains the `+` (plus) sign, it may not be replaced with the
 `space` or URL Percent `%20` Encoding characters.
 
-The SharePoint WebDAV Path is case-insensitive.
-For the transferred files, the names are kept using the cases presented by
-the WebDAV server.
-
-Please see our :doc:`WebDAV User's Guide </guides/webdav>` page for a guide on
-getting started with WebDAV.
+SFTPPlus can also connect to cloud SharePoint Online sites.
+See the dedicated :doc:`SharePoint Online integration </operation-client/sharepoint-online>` page for a guide on getting started with SharePoint Online.

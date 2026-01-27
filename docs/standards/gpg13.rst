@@ -20,7 +20,7 @@ To help assist those with Protective Monitoring obligations, we have created
 this page to outline which portion of SFTPPlus functionality applies to a
 Protective Monitoring Control.
 
-As mentioned in the Guide, organisations are reminded that any particular
+As mentioned in the Guide, organizations are reminded that any particular
 Protective Monitoring product or service is subject to some form of *independent
 assurance* plus extensive acceptance testing by the business.
 
@@ -51,8 +51,6 @@ PMC-2 Recording Related to Business Traffic Crossing a Boundary
 
 * For activities like AV detection, the software can function suitably when AV
   applications are installed.
-  See the :doc:`page on interoperability with antiviruses</guides/antivirus>`
-  for more details.
 
 
 PMC-3 Recording relating to suspicious behaviour at a boundary
@@ -165,7 +163,7 @@ handler to send emails each time an event with ID `20157` is created by the
 log/audit system.
 
 Further details in the
-:doc:`email notifications</guides/email-notifications>` page.
+:doc:`email notifications</configuration-events/email-sender>` page.
 
 
 PMC-10 Reporting on The Status of The Audit System

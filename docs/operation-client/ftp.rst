@@ -134,12 +134,19 @@ a remote peer).
 Without defining a CA, the trust model is incomplete and the remote serve
 certificates are not validated.
 
-To define a certificate authority, the administrator must add the following
-to the location configuration::
+To define a certificate authority, the administrator must add the following to the location configuration::
 
     [locations/234a-bc34-9812]
-    ssl_certificate_authority: path/to/ca-cert.pem
-    adderss: same.name-as-CN-or-SAN.tld
+    tls_mutual_certification_authorities: cfcfdaf8-d54c-11f0-9950-5ff805199a63
+    address: same.name-as-CN-or-SAN.tld
+
+    [vault-items/cfcfdaf8-d54c-11f0-9950-5ff805199a63]
+    name: Trusted remote CA for FTPS server
+    type: trusted-certificates
+    content:
+        -----BEGIN CERTIFICATE-----
+        CONTENT FOR CA CERTIFICATES
+        -----END CERTIFICATE-----
 
 Once a CA is defined, SFTPPlus will
 check that the certificate presented by the remote peer is signed by the
@@ -171,7 +178,7 @@ This assumes that the remote server supports this type of credentials.
 
 For client validation, the client proving its identity to the remote server,
 ensure that the client key and certificate specified by the
-`ssl_key` and `ssl_certificate` configuration options.
+`tls_private_certificate` configuration option.
 
 When the SFTPPlus client-side does not send its certificate due to a
 misconfiguration, the server-side might not

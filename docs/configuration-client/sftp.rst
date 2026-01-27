@@ -108,66 +108,18 @@ password
     It is provided in plain text.
     To disable password authentication, set this to an empty string.
 
-    ..  note::
-        Prior to version 5.7.0,
-        when a password is configured together with the `ssh_private_key` configuration,
-        the password was used to decrypt the SSH key.
-        In current SFTPPlus version, there is a separate `ssh_private_key_password` configuration option, dedicated to the decryption password for the SSH key.
 
-
-ssh_private_key
----------------
+ssh_client_key
+--------------
 
 :Default value: Empty
 :Optional: Yes
-:From version: 3.0.0
-:Values: * Absolute path on the local filesystem.
-         * Content of the SSH private key (Since 3.40.0).
+:From version: 5.20.0
+:Values: * UUID to an SSH private key vault item.
          * Empty.
 :Description:
     SSH private key used to authenticate to the remote SSH server.
     Leave it empty to disable SSH key authentication.
-
-    It can be configured with a path on the local filesystem containing the
-    content of the SSH key.
-
-    You can also define the content of the SSH key directly as a text value.
-    In this case the configuration will look like the following example.
-    It's important to start each line with at least one space character and
-    keep the number of leading spaces constant::
-
-        [locations/b904e6h6-c295-4ccf-8abd-edcae4d3324f]
-        name = SFTP Acme Server
-        type = sftp
-        ssh_private_key = -----BEGIN RSA PRIVATE KEY-----
-            Proc-Type: 4,ENCRYPTED
-            DEK-Info: AES-128-CBC,ACD9A45C68DD1924FF2A1A54BE2A7BF4
-
-            RAHH7yMbPk/vrhT5jkSDGIUdH+nG0OQpeSWcQXd4JJ6pqdJh/cw/havtxlHFp1yz
-            ...
-            MORE SSH KEY CONTENT
-            ...
-            Pkf+23OGZln2dLz/pkJkiRRzmsWgT2hUv/EK4NYRQq1kEAXLf3J6xZqLlR3ZBLJm
-            -----END RSA PRIVATE KEY-----
-
-    We recommend to store the key in PEM OpenSSH format, but Putty or Tectia
-    formats are also supported.
-
-    When the configured key is encrypted, the value configured in `ssh_private_key_password`
-    is used to decrypt the key.
-
-
-ssh_private_key_password
-------------------------
-
-:Default value: Empty
-:Optional: Yes
-:From version: 5.7.0
-:Values: * Text
-:Description:
-    The password used to decrypt the SSH key configured via `ssh_private_key`.
-
-    Leave this option empty when the configured SSH key is not encrypted.
 
 
 proxy

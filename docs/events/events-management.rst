@@ -307,12 +307,18 @@ Administration action events
 50021
 ^^^^^
 
-:Message: Failed to get data. Unknown source: "%(source)s".
-:Groups: operational, authenticated, informational, local-manager
-:From version: 2.6.0
-:Description: None.
+:Message: Vault item part "%(part_index)s:%(identifier)s" removed from "%(item_name)s".
+:Groups: authenticated, success, local-manager
+:From version: 5.20.0
+:Description: None
 :Data:
-  :source: Data source name.
+  :identifier: Identifier of the removed part.
+
+
+  :item_name: The name of the item from which the part was removed.
+
+
+  :part_index: Index of the removed part.
 
 
 

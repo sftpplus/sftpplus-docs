@@ -1,27 +1,14 @@
 LDAP / Active Directory
 =======================
 
-The `ldap` authentication method can be used to authenticate
-`application` type accounts using the information provided by a remote LDAP
-server.
-
-LDAP and Secure LDAP over TLS/SSL (LDAPS) protocols are supported.
-
-..  note::
-    Only IPv4 LDAPS servers are supported.
-    If you require IPv6 LDAPS, contact our support team.
-    IPv6 LDAP servers are supported when configured using
-    IPv6 address literals.
-
-..  note::
-    LDAP StartTLS method is not yet supported.
-    If you require it, contact our support team.
-
 ..  contents:: :local:
 
 
 Introduction
 ------------
+
+The `ldap` authentication method can be used to authenticate
+`application` type accounts using the information provided by a remote LDAP server.
 
 Simple BIND operation is used for authenticating an account against the
 LDAP server in order to validate the credentials received from a file
@@ -31,19 +18,14 @@ When an authentication request is made for a transfer client session, SFTPPlus
 will use the provided credentials (username and password) and forward them
 to the configured LDAP server for validation.
 
-..  note::
-    The LDAP authentication method is a terminal method. Once the
-    authentication chain has reached it, it will either accept or reject
-    the credential and will not allow any other authentication to continue
-    with validating the credentials.
-
-
-..  note::
-    Only LDAP v3 is supported. If you require a different version
-    please contact our support team.
-
 Successfully authenticated accounts are associated to the default group,
 or to a specific group based on the `group_mapping` configuration.
+
+This page covers the SFTPPlus configuration options for connecting to an LDAP server to authenticate accounts (file transfer users) and administrators.
+
+Check the :doc:`LDAP integration </operation/ldap>` documentation,
+to find out more about how to configure LDAP authentication for various scenarios.
+
 
 .. include:: /configuration-auth/authentication-commons.include.rst
 
@@ -380,7 +362,7 @@ group_mapping
     will associate all the LDAP authenticated
     accounts to the SFTPPlus groups having that UUID.
     For more details, see the
-    :doc:`dedicated LDAP group mapping documentation</guides/ldap>`.
+    :doc:`dedicated LDAP group mapping documentation</operation/ldap>`.
 
     You can create complex group mapping by specifying multiple groups which
     are selected based on targeted LDAP values.
@@ -389,6 +371,34 @@ group_mapping
 
     Leave this configuration option empty to use the default
     SFTPPlus group configuration.
+
+
+roles_mapping
+-------------
+
+:Default value: ''
+:Optional: Yes
+:Values: * Role UUID
+         * Comma separated list of role UUIDs.
+         * Comma separated LDAP attribute name, matching value, and role UUID.
+         * Comma separated list of role UUIDs
+         * Empty value.
+:From version: 5.20.0
+:Description:
+    The LDAP role mapping configuration is used to associate an LDAP authentication administrator to a specific Web manager role.
+
+    Setting to a single role UUID, or a list of UUIDs,
+    will associate all the LDAP authenticated administrators to the SFTPPlus roles having that UUID.
+    For more details, see the
+    :doc:`dedicated LDAP role mapping documentation</operation/ldap>`.
+
+    You can create complex role mapping by specifying multiple roles which
+    are selected based on targeted LDAP values.
+
+    The matching for LDAP attribute names is case insensitive.
+
+    Leave this configuration option *empty* to use the default
+    SFTPPlus role configuration.
 
 
 .. include:: /configuration/ssl-client.include.rst

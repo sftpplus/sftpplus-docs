@@ -30,7 +30,7 @@ The server supports all FIPS-140 compliant cryptographic algorithms, as well
 as other algorithms required by older or non FIPS-140 compliant endpoints.
 
 To read more about the Public Key Infrastructure (PKI), please go to our
-:doc:`dedicated section here </operation/pki>`.
+:doc:`dedicated section here </administration/pki>`.
 
 
 Key Management

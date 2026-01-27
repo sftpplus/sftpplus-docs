@@ -1,18 +1,18 @@
-.. container:: tags pull-left
-
-    `server-side`
-    `security`
-    `authentication`
-
-
-Integrating with an LDAP Server
-###############################
+LDAP integration
+================
 
 ..  contents:: :local:
 
 
-Basic Operation
-===============
+Introduction
+------------
+
+This page covers the integration of SFTPPlus with an LDAP server to authenticate accounts (file transfer users) and administrators.
+
+Check the :doc:`LDAP configuration </configuration-auth/ldap>` documentation,
+to find all the available LDAP authentication configuration options.
+
+LDAP and Secure LDAP over TLS/SSL (LDAPS) protocols are supported.
 
 To perform a successful authentication, SFTPPlus connects to the LDAP
 server, BINDs the connection to validate the credentials, retrieves the LDAP
@@ -60,8 +60,22 @@ Successfully authenticated administrator accounts are associated to the
 default role.
 
 
+Limitations
+-----------
+
+Below is a list of known limitations of the SFTPPlus LDAP implementation.
+If you require any of the missing features, please contact our support team:
+
+* The LDAP authentication method is a terminal method.
+  Once the authentication chain has reached it it will either accept or reject the credential and will not allow any other authentication to continue with validating the credentials.
+* Only IPv4 LDAPS servers are supported.
+  IPv6 LDAP servers are supported when configured using IPv6 address literals.
+* LDAP StartTLS method is not yet supported.
+* Only LDAP v3 is supported.
+
+
 Security considerations
-=======================
+-----------------------
 
 When integrating SFTPPlus authentication with an LDAP server, we assume
 end users only have at most read-only access to their LDAP account data
@@ -81,7 +95,7 @@ bypassing the security measures defined in SFTPPlus.
 
 
 Retrieving the configuration for a username
-===========================================
+-------------------------------------------
 
 Once the account is authenticated, SFTPPlus performs a search on LDAP
 to retrieve the home folder for the account.
@@ -93,7 +107,7 @@ The `email_attribute` configuration option can be used to retrieve the email for
 
 
 Absolute DN as username
-=======================
+-----------------------
 
 You can have SFTPPlus authenticate against LDAP with the full DN as the
 username.
@@ -113,7 +127,7 @@ An FTP authentication session using type `absolute` looks like this::
 
 
 Relative DN as username
-=======================
+-----------------------
 
 When users accessing file transfer services are located in different
 branches of the LDAP tree, you can have accounts authenticated only with
@@ -138,7 +152,7 @@ This performs the LDAP BIND using DN - cn=john,ou=det,dc=example,dc=com
 
 
 Active Directory Integration
-============================
+----------------------------
 
 An Active Directory LDAP server can be used in the same way as any standard
 LDAP server.
@@ -221,7 +235,7 @@ the configuration should look like the following example::
 
 
 Selective access to the file transfer services
-==============================================
+----------------------------------------------
 
 While the LDAP server holds all the accounts for your organization,
 it might be the case that only a few of those accounts should get access
@@ -238,7 +252,7 @@ you can use the following configuration::
 
 
 Restrict access to a set of organizational units (OU) or LDAP sub-trees
-=======================================================================
+-----------------------------------------------------------------------
 
 The authentication can be configured with multiple base DNs that are used
 when searching to authentication an account.
@@ -271,7 +285,7 @@ the authentication fails.
 
 
 Advanced configuration for home directory path
-==============================================
+----------------------------------------------
 
 The LDAP authentication method can be configured to define the user home
 folder path based on a configured template augmented with the the LDAP
@@ -300,7 +314,7 @@ the home folder is `E:\\SFTP-Files\\AcmeCo\\report`.
 
 
 Enable access to the Web Manager service
-========================================
+----------------------------------------
 
 While the LDAP server holds all the accounts for your organization,
 most probably only a few of those accounts should get **administration** access
@@ -324,8 +338,8 @@ Contact us if you need to associate LDAP administrators with one or multiple
 arbitrary roles.
 
 
-SFTPPlus Group Mapping without extra LDAP attributes
-====================================================
+SFTPPlus group mapping based on LDAP attributes
+-----------------------------------------------
 
 In SFTPPlus, you can associate an account of which the configuration is stored
 in LDAP,
@@ -430,8 +444,16 @@ LDAP attributes used as part of group mapping expression,
 and multiple values match multiple group mapping expressions, then the exact result may different based on the LDAP server implementation.
 
 
+SFTPPlus role mapping based on LDAP attributes
+----------------------------------------------
+
+Similar to the `group_mapping` configuration, you can associate LDAP-based
+administrator accounts with SFTPPlus roles based on existing LDAP attributes.
+This is done using the `roles_mapping` configuration option.
+
+
 TOTP Multi-Factor Authentication integrations with LDAP servers
-===============================================================
+---------------------------------------------------------------
 
 SFTPPlus can authenticate an LDAP-based account using
 a password and a TOTP code.

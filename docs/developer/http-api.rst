@@ -16,7 +16,7 @@ while others are just design principles without any standardization body.
 The following variants of HTTP APIs are available:
 
 * OpenAPI RESTful with JSON representation (not JSON-RPC).
-* WebDAV, which is well-standardized.
+* WebDAV, DAV Compliance Class 1, which is well-standardized.
 * GET and POST with HTML integration, for managing files via any web browser.
 
 The OpenAPI 3.0.3 file is available at the following URL `/____chsps__/openapi.yaml`.
@@ -29,6 +29,10 @@ To have SFTPPlus respond via the JSON API, make the request using the
 Regardless of the used API,
 URLs for folders should always end with a trailing forward slash (/).
 Any URL without a trailing forward slash is considered a file URL.
+
+..  note::
+    Avoid using names that contain '# ? &' characters for files and folders.
+    They can be handled by HTTP clients as URL query or fragment parts.
 
 All APIs are mapped to the same URL space.
 This means that you can mix APIs by
@@ -720,7 +724,7 @@ The request will look like::
 HTTP WebDAV API
 ---------------
 
-SFTPPlus HTTP service implements a subset of the WebDAV HTTP extension,
+SFTPPlus HTTP service implements DAV Compliance Class 1 of the WebDAV HTTP extension,
 as defined in `RFC 4918 <https://tools.ietf.org/html/rfc4918>`_.
 
 We are working to fully implement the WebDAV extensions as documented in the
@@ -731,12 +735,54 @@ Anything that is not documented here can be considered as not yet implemented.
 Get in contact with us if you want a WebDAV feature which is not yet
 implemented.
 
-A WebDAV client-side implementation is available in SFTPPlus as
-: :doc:`a WebDAV location</configuration-client/webdav>`
+A WebDAV client-side implementation is available in SFTPPlus as :doc:`a WebDAV location </configuration-client/webdav>`
 
 In the context of the SFTPPlus server-side implementation,
 the WebDAV collection resources are folders/directories
 while non-collection resources are files.
+
+..  note::
+    Windows File Explorer and Windows Mapped Drives are not supported.
+    The WebDAV protocol was supported in Windows using the WebClient service.
+    The `WebClient is no longer present <https://help.nextcloud.com/t/end-of-microsoft-support-for-its-webclient-service-on-windows-10-and-11/174121>`_
+    in recent Windows versions.
+    Also, for older versions of Windows, the WebClient service was only supporting `non-authenticated WebDAV servers <https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/credentials-prompt-access-webdav-fqdn-sites>`_.
+
+
+PROPFIND
+^^^^^^^^
+
+The returned properties are using the `http://apache.org/dav/props/` namespace:
+
+* `displayname` - name of the file or folder.
+* `getcontentlength` - size of the file in bytes.
+  This property is omitted for folders (collections), as per RFC 4918.
+* `getlastmodified` - last modified date of the file or folder.
+* `resourcetype` - present if the resource is a folder. Contains the child element `collection`.
+* `iscollection` - present if the resource is a folder / directory.
+
+The `Depth` request header is supported with values of `0` and `1`,
+with the optional `noroot` value.
+
+`infinity` depth is not supported and will be handled as depth `1`.
+
+
+PROPPATCH
+^^^^^^^^^
+
+SFTPPlus does not allow modifying the properties of files or folders.
+Any PROPPATCH request will respond with `403 Forbidden`.
+
+
+MKCOL
+^^^^^
+
+When requested for a path which does not exist, it will create a new folder.
+
+It will fail if the folder already exists or
+if there is already a file with the same name, as requested by the WebDAV specification.
+
+It is not supported for file URLs.
 
 
 GET and HEAD
@@ -749,15 +795,11 @@ HEAD has the same behaviour and will return the same response codes as for GET,
 with the exception that the body is always empty.
 
 
-MKCOL
-^^^^^
+DELETE
+^^^^^^
 
-When requested for a path which does not exist, it will create a new folder.
-
-It will fail if the folder already exists or
-if there is already a file with the same name.
-
-It is not supported for file URLs.
+As defined by the WebDAV specification, DELETE will remove/delete a file.
+When requested for a folder, it will do a recursive delete for that folder.
 
 
 PUT
@@ -767,14 +809,49 @@ In SFTPPlus, a PUT request in the context of WebDAV has the same behaviour as
 the REST API.
 
 The specification does not define the behaviour of the PUT method for
-existing or non-existing folders. In SFTPPlus it will behave like the REST API.
+existing or non-existing folders.
+In SFTPPlus it will behave like the REST API.
+
+To create a folder, make sure the URL ends with a trailing forward slash (`/`).
+Otherwise, a PUT request will be considered as a file upload request.
 
 
-DELETE
-^^^^^^
+COPY
+^^^^
 
-As defined by the WebDAV specification, DELETE will remove/delete a file.
-When requested for a folder, it will do a recursive delete for that folder.
+The `COPY` method is supported only for files (non-collection resources).
+
+The `Overwrite: F` header is supported.
+If the destination file already exists and the `Overwrite: F` header is set,
+the server will respond with a `412 Precondition Failed` response code.
+
+Response `400` is returned if the request does not contain the `Destination` header.
+
+The following response codes are returned:
+
+* 201 (Created) - The source resource was successfully copied.
+  The COPY operation resulted in the creation of a new resource.
+* 204 (No Content) - The source resource was successfully copied to a preexisting destination resource.
+* 403 (Forbidden) - The operation is forbidden.
+  A special case for COPY could be that the source and destination resources are the same resource.
+* 412 (Precondition Failed) - A precondition header check failed,
+  e.g., the Overwrite header is "F" and the destination URL is already mapped to a resource.
+
+`COPY` for Collections/folders is not yet supported.
+
+
+MOVE
+^^^^
+
+The `MOVE` method is supported for files and directories
+
+* 201 (Created) - The source resource was successfully moved.
+  The MOVE operation resulted in the creation of a new resource.
+* 204 (No Content) - The source resource was successfully moved to a preexisting destination resource.
+* 403 (Forbidden) - The operation is forbidden.
+  A special case for MOVE could be that the source and destination resources are the same resource.
+* 412 (Precondition Failed) - A precondition header check failed,
+  e.g., the Overwrite header is "F" and the destination URL is already mapped to a resource.
 
 
 Browser HTML API

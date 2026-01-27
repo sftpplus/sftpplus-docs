@@ -1,5 +1,5 @@
-Command-Line Administration-Shell
-=================================
+Administration shell
+====================
 
 ..  contents:: :local:
 

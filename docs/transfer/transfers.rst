@@ -913,11 +913,15 @@ destination_content_actions
     * `no-action` - Keeps the original content from the source.
       This action has no parameters.
 
-    The supported `encoding`` conversions parameters are:
+    The supported `encoding` conversions parameters are:
 
-    * `utf-16-to-ascii` for  UTF-16 to ASCII
-    * `utf-16-to-utf-8` UTF-16 to UTF-8
-
+    * `utf-16-to-ascii` - For UTF-16 to ASCII conversion
+    * `ascii-to-utf-16` - UTF-16 is created with Little Endian BOM
+    * `utf-16-to-utf-8` - For UTF-16 to UTF-8 conversion
+    * `utf-8-to-utf-16` - UTF-16 is created with Little Endian BOM
+    * `utf-8-to-iso-8859-15` - ISO-8859-15 also known as latin-9
+    * `iso-8859-15-to-utf-8` - Any file can be valid iso-8859-15. This is why
+      SFTPPlus can't detect invalid iso-8859-15 files.
 
     When source file is UTF-16 without byte order mark (BOM),
     the file is handled as little endian.

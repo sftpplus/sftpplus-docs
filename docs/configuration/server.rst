@@ -293,66 +293,33 @@ password_hashing_scheme
     from our Supported Cryptographic Standards documentation page.
 
 
-ssl_certificate
+tls_private_certificate
+-----------------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * UUID of a `private-certificates` vault item.
+         * Empty
+:From version: 5.20.0
+:Description:
+    The default private key and certificate to be used by components for TLS communication.
+
+    This certificate is sent to the remote peer during the SSL/TLS handshake process.
+
+    When left empty, no default certificate is used.
+
+
+ssh_server_keys
 ---------------
 
 :Default value: Empty
 :Optional: Yes
-:Values: * Absolute path on the local filesystem.
-         * Certificate in PEM text format.
-         * Certificate in PKCS12 / PXF binary format.
+:Values: * UUID to SSH private key vault item.
          * Empty
-:From version: 1.6.0
+:From version: 5.20.0
 :Description:
-    Certificate or chain of certificates in Privacy-Enhanced Mail (PEM) format
-    or an absolute path on the local filesystem for a file containing
-    a certificate or a chain of certificates in PEM format
-    to be used by default for TLS/SSL services.
-
-    File content must be encoded in the Privacy-Enhanced Mail (PEM) or
-    the PKCS12 / PFX formats.
-
-
-ssl_key
--------
-
-:Default value: Empty
-:Optional: Yes
-:Values: * Absolute path on the local filesystem.
-         * Key as PEM text format.
-         * Empty
-:From version: 4.0.0
-:Description:
-    X.509 private key in Privacy-Enhanced Mail (PEM) format
-    or an absolute path on the local filesystem for a file containing
-    a X.509 private key to be used by default for TLS/SSL services.
-
-
-ssh_host_private_keys
----------------------
-
-:Default value: Empty
-:Optional: Yes
-:Values: * Absolute path on the local filesystem.
-         * Multiple absolute paths on the local filesystem, one per line.
-         * Text version of a SSH private key.
-         * Multiple concatenated SSH private keys in PEM format.
-         * Empty.
-:From version: 4.9.0
-:Description:
-    One or more SSH host private keys used by default for the SSH-based
-    services (SFTP/SCP).
-
-    It can be one or more concatenated SSH private keys in PEM format.
-
-    For Putty keys, since they are not using a PEM format,
-    only a single private key is supported.
-    If you have to use multiple Putty keys here,
-    convert them to a PEM format such as the OpenSSH one.
-
-    You can also configure it with one or more absolute paths on the
-    local filesystem to files containing private SSH keys.
-    One path per line.
+    One or more SSH private keys used by default for the SSH-based services (SFTP/SCP).
+    These are used as SSH server host keys.
 
 
 proxy

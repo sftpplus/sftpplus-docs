@@ -507,27 +507,17 @@ rather than `501 Syntax error in parameters or arguments` as documented in
 the RFC.
 
 
-SSL certificate-based authentication
+TLS certificate-based authentication
 ------------------------------------
 
-SSL certificate-based authentication allows clients to authenticate using
-username and SSL certificate pair credentials.
+Certificate-based authentication allows clients to authenticate using username and TLS certificate pair credentials.
 A password is no longer required in this case.
 
 This applies to both implicit FTPS (FTPIS) and explicit FTPES (FTPES) and is
 not available for plain FTP.
 
-Note that while the page references SSL certificate authentication,
-the certification in question is the PKI X.509 certificate format.
-
-If you are intending to generate an X.509 SSL self-signed certificate and/or
-implementing mutual X.509 SSL authentication using only self-signed
-certificates please go to the
-:doc:`Q and A section for the FTP and FTPS Service </guides/q-and-a>`.
-
-To enable SSL certificate-based authentication, set the following option inside
-the FTP/FTPS service configuration section (located by default in
-configuration/server.ini)::
+To enable TLS certificate-based authentication,
+set the following option inside the FTP/FTPS service configuration section (located by default in configuration/server.ini)::
 
     [services/03288e36-cf6b-4bd5-a9be-f421372f17e6]
     type = ftp
@@ -536,21 +526,22 @@ configuration/server.ini)::
 
     enable_ssl_certificate_authentication = Yes
 
-In the Web Manager FTPS services configuration, set to
-`Enable SSL certificate-based authentication`.
+In the Web Manager FTPS services configuration, set to `Enable TLS certificate-based authentication`.
 
 This option is enabled by default, so you should already have this option set.
 
-FTPS clients who want to authenticate using username and SSL certificate will
-have to send an SSL certificate signed by an allowed Certificate Authority
-(CA), as configured by the `ssl_certificate_authority` configuration option.
-The SSL certificate presented by the client should have the value of the
+FTPS clients who want to authenticate using username and TLS certificate will
+have to send a TLS certificate signed by an allowed Certificate Authority
+(CA), as configured by the `tls_mutual_certification_authorities` configuration option.
+The TLS certificate presented by the client should have the value of the
 Common Name (CN) field match the authenticated username.
 
-Each account should have `allow_certificate_authentication = yes`
-(Allow SSL certificates` in Web Manager) or enabled by group inheritance.
+You can read more about configuring the mutual TLS authentication
+in :doc:`the server-side TLS configuration page </operation/server-side-tls>`.
 
-Based on the following account configuration, SSL certificate authentication
+Each account should have `allow_certificate_authentication = yes`
+(Allow TLS certificates` in Web Manager) or enabled by group inheritance.
+Based on the following account configuration, TLS certificate authentication
 is enabled, and FTPS clients should provide a certificate issued for
 CN ``JohnD`` ::
 
@@ -562,11 +553,11 @@ The CN field and username matching is case-sensitive.
 A certificate issued for CN ``JohnD`` will not be valid for an account
 with name ``johnd`` (all lowercase).
 
-Setting `enable_ssl_certificate_authentication = No` will disable SSL-based
+Setting `enable_ssl_certificate_authentication = No` will disable TLS-based
 authentication and accounts will have to authenticate using other methods,
 like username and password.
 
-After disabling SSL certificate-based authentication, you must check that
+After disabling TLS certificate-based authentication, you must check that
 password-based authentication is enabled.
 Otherwise, clients will have no other authentication method available to log
 in::

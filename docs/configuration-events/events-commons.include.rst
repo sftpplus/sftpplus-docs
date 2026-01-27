@@ -208,7 +208,7 @@ data_filter
         [event-handlers/b904ed23-a234-4ccf-8abd-edcae4d3324f]
         data_filter = path, */folderA/*
 
-    See :doc:`the usage instructions </guides/event-handlers>` for more operational details.
+    See :doc:`the usage instructions </administration/event-handlers>` for more operational details.
 
     You can filter based on multiple data members using multiple rules.
     Each rule is defined on a separate line.

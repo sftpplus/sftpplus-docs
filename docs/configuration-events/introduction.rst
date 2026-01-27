@@ -21,7 +21,7 @@ The server can be configured with an arbitrary number of handlers and you
 can configure multiple handlers of the same type.
 
 For more information on using event handlers, please see
-:doc:`the usage instructions page </guides/event-handlers>`.
+:doc:`the usage instructions page </administration/event-handlers>`.
 
 
 Adding a new event handler via Web Manager

@@ -1,5 +1,5 @@
-General Configuration
-=====================
+Configuration
+=============
 
 SFTPPlus offers a wide range of configuration options to tailor both client-side and server-side transfers to your specific needs.
 
@@ -83,6 +83,19 @@ The sub-sections below will guide you through the initial server setup, includin
         SFTPPlus allows setting up different alarms based on user-defined criteria,
         and provides a way to monitor the server's performance.
 
+    .. grid-item-card:: :octicon:`sliders` Vault resource
+        :link-type: doc
+        :link: ./vault-resource
+
+        The vault resource is used to configure how sensitive information is stored and managed.
+
+    .. grid-item-card:: :octicon:`sliders` Vault items
+        :link-type: doc
+        :link: ./vault-items
+
+        Use vault items to store sensitive information, such as PGP keys,
+        SSH keys, certificates, etc.
+
     .. grid-item-card:: :octicon:`sliders` Let's Encrypt client / CertBot
         :link-type: doc
         :link: ./lets-encrypt
@@ -112,5 +125,7 @@ The sub-sections below will guide you through the initial server setup, includin
     monitor-resource
     email-client
     analytics
+    vault-resource
+    vault-items
     lets-encrypt
     sqlite

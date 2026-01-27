@@ -1,7 +1,11 @@
-TLS Client Configuration
+TLS client configuration
 ========================
 
 ..  contents:: :local:
+
+
+Introduction
+------------
 
 SFTPPlus acts as a TLS client in the following scenarios:
 

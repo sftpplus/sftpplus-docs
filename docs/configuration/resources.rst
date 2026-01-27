@@ -36,7 +36,7 @@ configuration options:
 
 
 name
-^^^^
+----
 
 :Default value: ''
 :Optional: No
@@ -47,7 +47,7 @@ name
 
 
 description
-^^^^^^^^^^^
+-----------
 
 :Default value: ''
 :Optional: Yes
@@ -58,7 +58,7 @@ description
 
 
 type
-^^^^
+----
 
 :Default value: ''
 :Optional: No

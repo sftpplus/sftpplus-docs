@@ -17,7 +17,7 @@ This page will focus on the Authentication component.
 For the Authorization part, check
 :doc:`the authentication documentation</operation/authorization>`
 while for the Accounting, check
-:doc:`the account documentation</guides/event-handlers>`.
+:doc:`the account documentation</administration/event-handlers>`.
 
 Here are a few methods / sources used to authenticate accounts.
 For a full list please check the

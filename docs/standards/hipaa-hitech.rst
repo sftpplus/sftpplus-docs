@@ -45,7 +45,7 @@ Such processes will vary according to the specific scenario, organization scale
 and other factors.
 
 For example, one of the key requirements revolves around the audit trail.
-Please see the :doc:`page on the audit trail</guides/event-handlers>`
+Please see the :doc:`page on the audit trail</administration/event-handlers>`
 for more details.
 
 Please note that readership of this page is oriented towards those with
@@ -118,7 +118,7 @@ available (before and after installation).
 Since there is a number of components that can be configured when managing file
 transfers - such as protocols, listening ports, user / group authentication,
 event handlers, email notifications and more - there is a
-:doc:`page on the audit trail</guides/event-handlers>` available for further
+:doc:`page on the audit trail</administration/event-handlers>` available for further
 reading on what is available.
 
 *Corresponding HIPAA requirements:* § 164.312 (b)

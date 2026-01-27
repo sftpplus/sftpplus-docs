@@ -57,8 +57,8 @@ it provides generic functionalities for implementing clustering.
 
 We have customers deploying SFTPPlus resilience configuration on MSCS,
 Red Hat Linux, and other type of clusters.
-To read more about our approach to fault tolerance and zero redundancy
-:doc:`deployments please see our guide</guides/fault-tolerant-environment>`.
+To read more about our approach to fault tolerance and zero redundancy deployments,
+check the :doc:`cluster configuration</cluster/index>` section.
 
 On MSCS, SFTPPlus can be deployed as a Generic Service
 Resource or a Generic Script Resource.

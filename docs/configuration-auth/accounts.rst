@@ -482,7 +482,9 @@ ssh_authorized_keys_content
          * X.509 SSL/TLS certificate.
          * Empty
 :Description:
-    This option specifies the list of valid SSH public keys for this account.
+    This option specifies the list of valid SSH public keys for this account,
+    to be used for `publickey` and `hostbased` authentication method,
+    as covered by RFC 4252.
 
     The public SSH key can also be extracted from an X.509 certificate.
     When that is the case, only a single key per X.509 certificate is supported.

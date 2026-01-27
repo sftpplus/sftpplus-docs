@@ -14,7 +14,7 @@ This pages focuses on the Authorization component.
 For the Authentication part, check
 :doc:`the authentication documentation</operation/authentication>`
 while for the Accounting, check
-:doc:`the account documentation</guides/event-handlers>`.
+:doc:`the account documentation</administration/event-handlers>`.
 
 Once an account is authorized as part of the login procedure of each file
 transfer service, SFTPPlus will receive the configuration for that account.

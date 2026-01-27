@@ -80,11 +80,12 @@ It is very probable that SFTPPlus already works on that OS, it's just that we do
         Find out the difference between an update and an upgrade,
         and how to perform them on SFTPPlus.
 
-    .. grid-item-card:: :octicon:`repo-deleted` Uninstall
+    .. grid-item-card:: :octicon:`book` Docker Deployment
         :link-type: doc
-        :link: ./uninstall
+        :link: ./docker
 
-        Here you can find the steps for uninstalling SFTPPlus on Windows, Linux or macOs.
+        SFTPPlus can be deployed as a Docker container. Learn more about the
+        deployment process and best practices in this section.
 
     .. grid-item-card:: :octicon:`codescan-checkmark` Install Troubleshooting
         :link-type: doc
@@ -92,6 +93,11 @@ It is very probable that SFTPPlus already works on that OS, it's just that we do
 
         This section provides helpful information to troubleshoot issues with starting or running the server.
 
+    .. grid-item-card:: :octicon:`repo-deleted` Uninstall
+        :link-type: doc
+        :link: ./uninstall
+
+        Here you can find the steps for uninstalling SFTPPlus on Windows, Linux or macOs.
 
 
 
@@ -107,6 +113,7 @@ It is very probable that SFTPPlus already works on that OS, it's just that we do
     linux-advanced
     macos
     linux-and-macos-upgrade
+    upgrade
+    docker
     troubleshooting
     uninstall
-    upgrade

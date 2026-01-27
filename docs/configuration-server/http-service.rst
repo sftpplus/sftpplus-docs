@@ -479,9 +479,8 @@ announce_session_authentication
     SSL-specific options are only available for the `https` service type.
 
 ..  warning::
-    When the `ssl_certificate_authority` configuration option is enabled,
-    web browsers should include an SSL certificate signed by the same
-    certificate authority.
+    When the `tls_mutual_certification_authorities` configuration option is enabled,
+    web browsers should include an SSL certificate signed by the same certificate authority.
 
 
 api_backend_uuid

@@ -25,13 +25,22 @@ Starting in debug mode
 If you encounter problems while launching or operating the server,
 you can try launching the server in `debug` mode.
 
-On Unix-like systems::
+For testing the product or trying out various configuration options,
+SFTPPlus can be launched in debug mode in order to provide quick feedback to
+internal server operations.
+
+While running in debug mode, the service will remain attached to the console
+and will output all logging entries to the console.
+
+On *Linux and macOS* use the following command.
+To close the debug instance, press Ctrl+C.::
 
     cd /opt/sftpplus
     ./bin/admin-commands.sh debug -c configuration/server.ini
 
-On Windows, you can either start it using the shortcut provided inside the
-*Start menu*, or from the command prompt::
+On *Windows*, you can either start it using the shortcut provided inside the
+*Start menu*, or from the command prompt.
+To close the debug instance, close the command prompt window or press Ctrl+C.::
 
     CMD> cd 'c:\Program Files\SFTPPlus'
     CMD> debug.bat

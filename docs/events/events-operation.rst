@@ -323,7 +323,7 @@ Operation events
 20032
 ^^^^^
 
-:Message: Failed to initialize the SSL/TLS context. Using cert:%(cert)s key:%(key)s ca:%(ca)s crl:%(crl)s. %(details)s
+:Message: Failed to initialize the SSL/TLS context. Using %(vault_item)s ca:%(ca)s. %(details)s
 :Groups: operational, process, failure, failure-high
 :From version: 1.6.0
 :Description: None
@@ -331,13 +331,10 @@ Operation events
   :ca: Path to the certificate of the CA used by this SSL/TLS context.
 
 
-  :cert: Path to X509 certificates.
-
-
   :crl: CRL used by this SSL/TLS context
 
 
-  :key: Path to the key associated to the certificate.
+  :vault_item: Name of the vault item used for the private certificate.
 
 
 

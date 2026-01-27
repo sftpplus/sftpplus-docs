@@ -1,19 +1,34 @@
-Web Manager Console
-###################
+Web manager console
+===================
 
 ..  contents:: :local:
 
 
 Introduction
-============
+------------
 
 SFTPPlus provides a web-based administration console / GUI which can be used to configure and operate the SFTPPlus server.
 
 By default, the interface is available over HTTPS on port 10020.
 
+The network configuration options for the web management console are similar to the
+:doc:`HTTPS service configuration options </operation/server-side-tls>`.
+
+
+TLS and certificate options
+---------------------------
+
+The default web manager configuration uses the general SFTPPlus TLS certificate.
+
+There is the option to configure a dedicated TLS certificate for the web management console.
+
+
+Check the
+:doc:`TLS server-side protocol configuration </configuration-server/http-service>` documentation to find out more about the available options.
+
 
 Reverse Proxy / API Gateway integration
-=======================================
+---------------------------------------
 
 The administration page can be served via any frontend, be it a reverse HTTP proxy or a load balancer.
 
@@ -49,7 +64,7 @@ To allow unsecure operation over HTTP, you can configure the SFTPPlus management
 
 
 Reverse proxy examples
-======================
+----------------------
 
 SFTPPlus works with any standard HTTP proxy.
 For reference, we provide a few examples of configuring 3rd party proxy servers

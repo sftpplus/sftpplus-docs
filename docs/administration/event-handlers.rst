@@ -1,11 +1,4 @@
-.. container:: tags pull-left
-
-    `server-side`
-    `client-side`
-    `configuration`
-
-
-Events, Event Handlers and the audit trail
+Events, event handlers and the audit trail
 ##########################################
 
 ..  contents:: :local:
@@ -97,9 +90,8 @@ is not suitable for high volume installations.
 In the case in which your installation generates thousand of entries each day,
 we recommend using specialized log management tools external to
 SFTPPlus.
-For more information about managing logs in high volume websites, see
-
-see :doc:`the authorization section</guides/log-management>`.
+For more information about managing logs in high volume websites,
+see :doc:`the authorization section</administration/log-management>`.
 
 
 Account Activity page in Web Manager

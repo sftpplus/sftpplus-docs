@@ -1,12 +1,35 @@
 Command line administration
 ===========================
 
+..  contents:: :local:
+
+
+Introduction
+------------
+
 SFTPPlus provides a command line utility for managing the product.
 
-The `admin-commands` utility is the main tool for administering
-SFTPPlus from the command line.
+The `admin-commands` utility is the main tool for administering SFTPPlus from the command line.
 
-..  contents:: :local:
+
+Validate server configuration
+-----------------------------
+
+When the configuration changes are done from within the Web Manager the
+changes are validated when they are applied.
+Invalid changes are not applied.
+
+These steps are only needed when the configuration file was changed using
+a text editor or external tools.
+
+To validate the server configuration, use the following command::
+
+    $ ./bin/admin-commands.sh validate (on Unix-like systems)
+    CMD> admin-commands.bat validate (on Windows)
+
+After the command is executed, it will list whether the configuration is valid or not on standard output.
+
+If the configuration is *not valid*, the exit code is `1`.
 
 
 .. _generate-encrypted-password:

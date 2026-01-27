@@ -23,138 +23,20 @@ ssl_domains
     For this option to be used, you need to define a `lets-encrypt` resource.
 
 
-ssl_certificate
----------------
+tls_private_certificate
+-----------------------
 
 :Default value: Empty
 :Optional: Yes
-:Values: * Absolute path on the local filesystem.
-         * Certificate in PEM text format (Since 3.40.0).
-         * Certificate in PKCS12 / PXF binary format (Since 4.0.0).
+:Values: * UUID of a `private-certificates` vault item.
          * Empty
-:From version: 1.6.0
+:From version: 5.20.0
 :Description:
-    This can be defined as an absolute path on the local filesystem
-    to the file containing the SSL certificate or chain of certificates
-    used by the component.
+    The private key and certificate to be used by this component for TLS communication.
 
-    File content should be encoded in the Privacy-Enhanced Mail (PEM) or
-    PKCS12 / PFX formats.
+    This certificate is sent to the remote peer during the SSL/TLS handshake process.
 
-    File extension should be `.p12` or `.pfx` for the file to be recognized
-    as a PCKS-12 certificate.
-    The password for the PCKS12 / PFX certificate should be set in the
-    `ssl_key_password` configuration option.
-
-    ..  note::
-        The path should not be longer than 256 characters.
-
-    You can also define the content of the certificate as text in PEM format.
-    In this case the configuration will look as in the following example.
-    It's important to start each line with at least one space character and
-    keep the number of leading spaces constant::
-
-        ssl_certificate = -----BEGIN CERTIFICATE-----
-            MIICaDCCAdGgAwIBAgIBDjANBgkqhkiG9w0BAQUFADBGMQswCQYDVQQGEwJHQjEP
-            ...
-            MORE CERTIFICATE DATA
-            ...
-            JZQaMjV9XxNTFOlNUTWswff3uE677wSVDPSuNkxo2FLRcGfPUxAQGsgL5Ts=
-            -----END CERTIFICATE-----
-
-    When the value contains both the certificate and the key, the configuration
-    will look as in the following example::
-
-        ssl_certificate = -----BEGIN RSA PRIVATE KEY-----
-            MIICXgIBAAKBgQDOoZUYd8KMYbre5zZIwR+V6dO2+cCYVS46BHbRbqt7gczkoIWh
-            ...
-            MORE KEY DATA
-            ...
-            Wh+QF3UArO8r8RYv3HRcnBjrGh+yEK93wIifVNGgy63FIQ==
-            -----END RSA PRIVATE KEY-----
-            -----BEGIN CERTIFICATE-----
-            MIICaDCCAdGgAwIBAgIBDjANBgkqhkiG9w0BAQUFADBGMQswCQYDVQQGEwJHQjEP
-            ...
-            MORE CERTIFICATE DATA
-            ...
-            JZQaMjV9XxNTFOlNUTWswff3uE677wSVDPSuNkxo2FLRcGfPUxAQGsgL5Ts=
-            -----END CERTIFICATE-----
-
-    This certificate is sent to the remote peer during the SSL/TLS handshake
-    process.
-
-    The certificate file can contain both the certificate and the private key,
-    in which case you don't need to set the path to the private key.
-    Only supported for PEM encoding.
-
-    The certificate file can contain the full chain of certificates.
-    The targeted certificate should be first in the file,
-    followed by the chained certificates.
-    It will advertise the certificate chain in the same order as listed in
-    the file.
-    Only supported for PEM encoding.
-    (Since 3.22.0)
-
-    For server-side components using TLS/SSL secure communication, this
-    configuration option is required.
-    If no value is defined here, the global `ssl_certificate` value is
-    used.
-
-    For the client-side component using TLS/SSL, you can disable sending the
-    certificate as part of the handshake, by leaving this configuration
-    option empty.
-
-
-ssl_key
--------
-
-:Default value: Empty
-:Optional: Yes
-:Values: * Absolute path on the local filesystem.
-         * Key as PEM text format (Since 3.40.0).
-         * Empty
-:From version: 1.6.0
-:Description:
-    This can be defined as an absolute path on the local filesystem to the
-    X.509 private key file used by this component.
-
-    File content should be encoded in the Privacy-Enhanced Mail (PEM) format.
-
-    ..  note::
-        The path should not be longer than 256 characters.
-
-    When the value is defined as PEM text, the configuration
-    will look as in the following example::
-
-        ssl_key = -----BEGIN RSA PRIVATE KEY-----
-            MIICXgIBAAKBgQDOoZUYd8KMYbre5zZIwR+V6dO2+cCYVS46BHbRbqt7gczkoIWh
-            ...
-            MORE KEY DATA
-            ...
-            Wh+QF3UArO8r8RYv3HRcnBjrGh+yEK93wIifVNGgy63FIQ==
-            -----END RSA PRIVATE KEY-----
-
-    If `ssl_certificate` is not defined, any value defined for this
-    `ssl_key` configuration is ignored
-    and the global `ssl_key` value is used.
-
-    If the value defined in `ssl_certificate` option already contains
-    the private key, this option can be omitted by leaving it empty.
-
-
-ssl_key_password
-----------------
-
-:Default value: Empty
-:Optional: Yes
-:Values: * Password as plain text.
-         * Empty
-:From version: 1.7.19
-:Description:
-    This is used to define the password of the private key, when the private
-    X.509 key is stored as an encrypted file.
-
-    Leave it empty to not use a password for the private key file.
+    When left empty, the default certificate is used.
 
 
 ssl_certificate_revocation_list
@@ -252,7 +134,7 @@ ssl_certificate_revocation_list_refresh
     after one day.
 
     For more details about the CRL reloading see
-    :doc:`the documentation for CRL reloading rules </guides/security>`
+    :doc:`the documentation for CRL reloading rules </standards/protocols-overview>`
 
     ..  note::
         This option is ignored if ``ssl_certificate_authority`` is not

@@ -94,7 +94,7 @@ is the service identifier for the SSH/SFTP service::
     authentications = 0022b17a-30a0-4b70, ffa17005-51c2-42f1
 
     ; Other SSH-specific options.
-    ssh_host_private_keys = path/to/ssh.key
+    ssh_server_keys = e22d97b8-c335-11f0-a83a-77d4d87f71a1
     sftp = Yes
     scp = No
 

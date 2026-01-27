@@ -732,13 +732,13 @@ HTTP / HTTPS / AS2 / REST / Cloud events
 :From version: 2.3.0
 :Description: None
 :Data:
-  :from: Old file/folder path.
+  :from: Old file path.
 
 
-  :path: New file/folder path.
+  :path: New file path.
 
 
-  :to: New file/folder path.
+  :to: New file path.
 
 
 
@@ -747,7 +747,7 @@ HTTP / HTTPS / AS2 / REST / Cloud events
 40056
 ^^^^^
 
-:Message: Failed to rename file from "%(from)s" to "%(to)s". "%(details)s"
+:Message: Failed to rename file or folder from "%(from)s" to "%(to)s". "%(details)s"
 :Groups: authenticated, failure, http, file-operation, operation-rename
 :From version: 2.3.0
 :Description: None
@@ -767,11 +767,14 @@ HTTP / HTTPS / AS2 / REST / Cloud events
 40057
 ^^^^^
 
-:Message: Internal error during HTTP/HTTP service processing for "%(uri)s". "%(details)s"
+:Message: Internal error during HTTP/HTTP service processing for %(method)s "%(uri)s". "%(details)s"
 :Groups: session, failure, failure-critical
 :From version: 4.29.0
 :Description: None
 :Data:
+  :method: HTTP method used in the request.
+
+
   :uri: The page that generated this error.
 
 
@@ -805,3 +808,83 @@ HTTP / HTTPS / AS2 / REST / Cloud events
 :Groups: authenticated, failure, failure-high, http, file-operation
 :From version: 5.15.0
 :Description: None
+
+
+
+40061
+^^^^^
+
+:Message: Start copy file from "%(path)s" to "%(destination_path)s" (exists:%(destination_exists)s).
+:Groups: authenticated, informational, http, file-operation
+:From version: 5.20.0
+:Description: None
+:Data:
+  :destination_exists: Indicates if the destination file already exists.
+
+
+  :destination_path: Destination file path where content was copied.
+
+
+  :path: Source file path.
+
+
+
+
+
+40062
+^^^^^
+
+:Message: Start rename file from "%(path)s" to "%(destination_path)s" (exists:%(destination_exists)s).
+:Groups: authenticated, informational, http, file-operation
+:From version: 5.20.0
+:Description: None
+:Data:
+  :destination_exists: Indicates if the destination file already exists.
+
+
+  :destination_path: Destination file path where content was renamed.
+
+
+  :path: Source file path.
+
+
+
+
+
+40063
+^^^^^
+
+:Message: Start rename directory from "%(path)s" to "%(destination_path)s" (exists:%(destination_exists)s).
+:Groups: authenticated, informational, http, file-operation
+:From version: 5.20.0
+:Description: None
+:Data:
+  :destination_exists: Indicates if the destination directory already exists.
+
+
+  :destination_path: Destination directory path where content was renamed.
+
+
+  :path: Source directory path.
+
+
+
+
+
+40065
+^^^^^
+
+:Message: Successfully renamed directory from "%(from)s" to "%(to)s".
+:Groups: authenticated, success, http, file-operation, operation-rename
+:From version: 5.20.0
+:Description: None
+:Data:
+  :from: Old directory path.
+
+
+  :path: New directory path.
+
+
+  :to: New directory path.
+
+

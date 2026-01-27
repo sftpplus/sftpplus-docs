@@ -50,15 +50,19 @@ order.
 
 
 
-    .. grid-item-card:: :octicon:`sliders` General configuration
+    .. grid-item-card:: :octicon:`sliders` Configuration
         :link-type: doc
-        :columns: 12
         :link: configuration/index
 
         This section will guide you through the main concepts and approaches on configuring SFTPPlus,
         help you understand the terminology used in the documentation, and provide information about
         the main resources available in SFTPPlus.
 
+    .. grid-item-card:: :octicon:`sliders` Administration
+        :link-type: doc
+        :link: administration/index
+
+        This section includes information about administrative tasks and operating an SFTPPlus deployment for both server-side and client-side operations.
 
     .. grid-item-card:: :octicon:`server` :octicon:`verified` Authentication, Users and Admins
         :link-type: doc
@@ -246,6 +250,7 @@ Icons used in the documentation:
     installation/index
     quick-start/index
     configuration/index
+    administration/index
     configuration-auth/index
     configuration-server/index
     operation/index

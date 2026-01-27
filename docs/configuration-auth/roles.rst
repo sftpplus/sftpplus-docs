@@ -190,4 +190,4 @@ permissions
     the process continues to check following defined permissions rules.
 
     More information and examples are available on the
-    :doc:`Administrators authorization </operation/admin-authorization>` page.
+    :doc:`Administrators authorization </administration/admin-authorization>` page.

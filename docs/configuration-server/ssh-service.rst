@@ -167,56 +167,17 @@ scp
     Enable/Disable support for the SCP protocol.
 
 
-ssh_host_private_keys
----------------------
+ssh_server_keys
+---------------
 
 :Default value: Empty
 :Optional: Yes
-:Values: * Absolute path on the local filesystem.
-         * Multiple absolute paths on the local filesystem, one per line.
-         * Text version of a SSH private key.
-         * Multiple concatenated SSH private keys in PEM format.
-         * Empty.
-:From version: 4.9.0
+:Values: * UUID to SSH private key vault item.
+         * Empty
+:From version: 5.20.0
 :Description:
-    One or more SSH host private keys used by default for the SSH-based
-    services (SFTP/SCP).
-
-    It can be one or more concatenated SSH private keys in PEM format.
-
-    It's important to start each line with at least one space character and
-    keep the number of leading spaces constant::
-
-        [server/b904e6h6-c295-4ccf-8abd-edcae4d3324f]
-        name = SFTP Internal Server
-        type = sftp
-        rsa_private_key = -----BEGIN RSA PRIVATE KEY-----
-            Proc-Type: 4,ENCRYPTED
-            DEK-Info: AES-128-CBC,ACD9A45C68DD1924FF2A1A54BE2A7BF4
-
-            RAHH7yMbPk/vrhT5jkSDGIUdH+nG0OQpeSWcQXd4JJ6pqdJh/cw/havtxlHFp1yz
-            ...
-            MORE SSH KEY CONTENT
-            ...
-            Pkf+23OGZln2dLz/pkJkiRRzmsWgT2hUv/EK4NYRQq1kEAXLf3J6xZqLlR3ZBLJm
-            -----END RSA PRIVATE KEY-----
-            -----BEGIN DSA PRIVATE KEY-----
-            H7yMbPk/vrhT5jkSDGIUdH+nG0OQpeSWcQXd4JJ6pqdJh/cw/havtxlHFp1yz
-            MORE SSH KEY CONTENT
-            OGZln2dLz/pkJkiRRzmsWgT2hUv/EK4NYRQq1kEAXLf3J6xZqLlR3ZBLJm
-            -----END DSA PRIVATE KEY-----
-
-    For Putty keys, since they are not using a PEM format,
-    only a single private key is supported.
-    If you have to use multiple Putty keys here,
-    convert them to a PEM format such as the OpenSSH one.
-
-    You can also configure it with one or more absolute paths on the
-    local filesystem to files containing private SSH keys.
-    One path per line.
-
-    We recommend to store keys in PEM OpenSSH format, but Putty or Tectia
-    formats are also supported.
+    One or more SSH private keys used by default for the SSH-based services (SFTP/SCP).
+    These are used as SSH server host keys.
 
     ..  note::
         The SSH key types configured here are advertised during SSH handshake
