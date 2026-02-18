@@ -299,7 +299,7 @@ remove_username_suffix
          * Multiple values, one value per line.
 :From version: 5.14.0
 :Description:
-    Suffix of the Google ID username to be removed by SFTPlus when generating the username used for file transfer operations.
+    Suffix of the Google ID username to be removed by SFTPPlus when generating the username used for file transfer operations.
 
     You can configure SFTPPlus to remove multiple suffixes.
     Define each suffix that should be removed on a separate line.

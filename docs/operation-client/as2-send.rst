@@ -27,7 +27,7 @@ push those files to you.
 
 If you need to receive files over AS2, you will need to use the HTTP AS2
 server protocol as documented on
-:doc:`the HTTP AS2 service configuration page </operation/http>`.
+:doc:`the HTTP AS2 service configuration page </operation/as2-server>`.
 
 This section documents setting up a transfer to send files over AS2.
 
@@ -77,16 +77,13 @@ to request a MDN receipt confirmation (signed or unsigned) when sending a file.
 You can set encryption and digest algorithms via the
 `as2_encryption_algorithm` and `as2_signature_algorithm` configuration options.
 
-When sent files are to be signed, SFTPPlus signs them using the private key
-configured in the `as2_own_private_key` option for the location configuration.
+When sent files are to be signed, SFTPPlus signs them using the private key configured in the vault item specified by the `as2_own_private_certificate` option for the location configuration.
 
-When sent files are to be encrypted, SFTPPlus encrypts them using the public key
-from the first partner certificate configured in the
-`as2_partner_certificates` option for the location configuration.
+When sent files are to be encrypted,
+SFTPPlus encrypts them using the public key from the first partner certificate configured in the vault item specified by the `as2_partner_trusted_certificates` option for the location configuration.
 
-When receiving a signed MDN, SFTPPlus validates the signature using any
-of the partner certificates configured in the
-`as2_partner_certificates` option for the location configuration.
+When receiving a signed MDN,
+SFTPPlus validates the signature using any of the partner certificates configured in the vault item specified by the `as2_partner_trusted_certificates` option for the location configuration.
 
 
 MDN Received Content MIC

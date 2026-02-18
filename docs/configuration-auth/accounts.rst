@@ -595,57 +595,45 @@ as2_require_http_authentication
     For increased security, we recommend setting this to `Yes`.
 
 
-as2_certificates
-^^^^^^^^^^^^^^^^
+as2_trusted_certificates
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 :Default value: Empty
 :Optional: Yes
-:From version: 4.5.0
-:Values: * Single public X.509 SSL certificate in PEM format
-         * Multiple concatenated certificates in PEM format
+:From version: 5.21.0
+:Values: * UUID of a *trusted-certificates* vault item
          * Empty
 :Description:
-    This option specifies one or more certificates used to validate
-    signatures for received files.
+    This option specifies the trusted certificates used to validate signatures for received files.
 
-    The certificates should be defined in PEM format.
+    The certificates are configured as vault item UUID.
 
-    Most of the time, this will be configured with a single certificate.
+    Most of the time, the vault item will contain a single certificate.
 
-    Multiple certificates are usually configured when an existing certificate
-    is about to expire and there is a transition period in which both
+    Multiple certificates are usually configured when an existing certificate is about to expire and there is a transition period in which both
     the existing certificate and a new certificate might be used.
 
-    For asynchronous MDNs requests, the configured certificates are used
-    to validate and authenticate the remote MDN receiver server.
+    For asynchronous MDNs requests,
+    the configured certificates are used to validate and authenticate the remote MDN receiver server.
 
 
-as2_async_mdn_ca
-^^^^^^^^^^^^^^^^
+as2_async_mdn_https_trusted_certificates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Default value: `Disabled`
+:Default value: `disabled`
 :Optional: Yes
-:From version: 4.9.0
-:Values: * Absolute path on the local file.
-         * Content of the CA chain in PEM.
-         * Empty value.
-         * `Disabled`
+:From version: 5.21.0
+:Values: * UUID of a *trusted-certificates* vault item
+         * Empty
+         * `disabled`
 :Description:
-    This is used to configure the certificate authority or the list of
-    certificates authorities for validating the remote HTTPS server
-    during an asynchronous MDN response.
+    This is used to configure the list of certificates authorities for validating the remote HTTPS server during an asynchronous MDN response.
 
-    You can define the list of all root CA and intermediate CA in PEM format.
-
-    It can be configured as an absolute path to a file containing all the
-    CA certificates in PEM format.
+    The list of certificates is configured as a vault item UUID.
 
     When this configuration is left empty, the async MDN are rejected.
 
-    Set as `Disabled` to disable validating the remote peer's certificates.
-
-    It support the same options as the
-    `ssl_certificate_authority` configuration.
+    Set as `disabled` to disable validating the remote peer's certificates.
 
 
 permissions

@@ -77,21 +77,21 @@ If you require any of the missing features, please contact our support team:
 Security considerations
 -----------------------
 
-When integrating SFTPPlus authentication with an LDAP server, we assume
-end users only have at most read-only access to their LDAP account data
-used for SFTPPlus operations.
-For example, the home folder path attribute or the attributes used to
-select the group membership.
+When integrating SFTPPlus authentication with an LDAP server,
+we assume end users only have at most read-only access to their LDAP account data used for SFTPPlus operations.
+For example, the home folder path attribute or the attributes used to select the group membership.
 
-With direct write access to LDAP, a user can modify their LDAP
-attributes used by SFTPPlus to enforce access and permissions, therefore
-bypassing the security measures defined in SFTPPlus.
+With direct write access to LDAP, a user can modify their LDAP attributes used by SFTPPlus to enforce access and permissions,
+therefore bypassing the security measures defined in SFTPPlus.
 
 ..  danger::
     The security of the LDAP authentication method in SFTPPlus is compromised
     when end users have direct write access to the LDAP server.
 
     Having at most read-only access is appropriate.
+
+When more than one LDAP authentication method is enabled and automatic group association is configured,
+make sure that LDAP group DNs are unique across all the configured LDAP servers.
 
 
 Retrieving the configuration for a username
@@ -338,38 +338,107 @@ Contact us if you need to associate LDAP administrators with one or multiple
 arbitrary roles.
 
 
-SFTPPlus group mapping based on LDAP attributes
+Group mapping
+-------------
+
+In the static configuration,
+SFTPPlus associates any LDAP user to the list of groups defined by the `base_groups` configuration option.
+
+This can be a single group, or a list of groups.
+
+The first configured group is considered the primary group for the LDAP accounts.
+
+You can leave the `base_groups` configuration empty and only use dynamic group association.
+
+
+Dynamic groups based on memberOf or tokenGroups
 -----------------------------------------------
 
-In SFTPPlus, you can associate an account of which the configuration is stored
-in LDAP,
-to groups for which the configuration is stored in SFTPPlus.
+You can dynamically associate an LDAP user to one or multiple SFTPPlus groups.
 This can be done without adding any extra LDAP attributes to the existing
 LDAP entries.
 
-In this way you, can augment the LDAP database with SFTPPlus specific configuration.
-This achieves a scalable configuration by the way of the inherited
-configuration options.
+SFTPPlus will use the value of one of these LDAP attributes:
 
-Without any explicit configuration, SFTPPlus associates any LDAP account
-with the default SFTPPlus group.
-This is a single group, used by default for any authentication method.
+* `memberOf` - compatible with most LDAP servers.
+  With Active Directory this only works for AD users that are direct members
+  of the groups.
+* `tokenGroups` - available with Active Directory.
+  This supports inherited groups and nested groups.
 
-For the most basic configuration, you can specify a single SFTPPlus group UUID,
-and all the accounts from LDAP are associated with that group.
-The group configuration is managed and stored inside SFTPPlus.
+The dynamic groups are associated in their UUID alphabetical order.
+When the `base_groups` is left empty,
+the first dynamic group will be the primary group for that user.
 
-You can also specify a list of SFTPPlus group UUIDs,
-and all the accounts from LDAP are associated with those groups.
-The first configured group is considered the primary group for the LDAP accounts.
+Here is an example configuration::
 
-For complex configurations, you can associate different SFTPPlus groups to
-LDAP accounts based on the values of existing attributes.
+    [groups/8dfd-f7d1-11f0]
+    name = Global Sales
+    home_folder_path = /files/teams/sales
+
+    [groups/11f0-b2ca-9b70]
+    name = UK Sales
+    home_folder_path = /files/teams/sales-uk
+    ldap_association = ou=sales-uk,dc=example,dc=com
+
+    [authentications/d87d-4a3c-d732]
+    type = ldap
+    name = Authenticate from LDAP
+    base_groups = 8dfd-f7d1-11f0
+    group_attribute = memberOf
+
+and assuming the following LDAP user is authenticated::
+
+    dn: cn=bob,ou=people,dc=example,dc=com
+    uid: bob
+    cn: bob
+    userPrincipalName: bob@example.com
+    objectclass: top
+    objectclass: person
+    objectClass: inetOrgPerson
+    memberOf: ou=sales-uk,dc=example,dc=com
+    memberOf: ou=sommerset,dc=example,dc=com
+
+The `bob@example.com` user is associated to the `Global Sales` groups as the primary group.
+It is also associated to the `UK Sales` group,
+since it has the memberOf value of `ou=sales-uk,dc=example,dc=com` which is the same value configured in the `UK Sales` group `ldap_association` option.
+
+Other LDAP users that have `memberOf` values not matching any group `ldap_association` will be associated only to the `Global Sales` group,
+since this is the fallback group configuration.
+
+-----
+
+Below is an example of an SFTPPlus group configured to be associated with an Active Directory group based on the AD group SID::
+
+    [groups/11f0-b2ca-9b70]
+    name = UK Sales
+    home_folder_path = /files/teams/sales-uk
+    ldap_association =
+      S-1-2-4-1234-144
+      S-1-2-4-8621-532
+
+Any Active Directory users that are associated with either of the AD group with SID `S-1-2-4-1234-144` or `S-1-2-4-8621-532` will be associated to the `UK Sales` SFTPPlus group.
+
+On Windows, from PowerShell, you can retrieve the SID for an AD group using the following command::
+
+    Get-ADGroup -Filter {Name -like "YOUR-TARGET-GROUP-NAME"} | Select SID
+
+-----
+
+You can leave the `base_groups` configuration option empty.
+In this case the authentication fails when an LDAP user is not a member of any of the SFTPPlus groups.
+
+
+Dynamic groups with any LDAP attributes
+---------------------------------------
+
+For complex configurations,
+you can associate different SFTPPlus groups to LDAP accounts based on the values of existing attributes,
+attributes other than the `memberOf` or `tokenGroups`.
 
 Below is a basic configuration syntax::
 
     group_mapping =
-        FALLBACK-GROUP-UUID
         ldapAttributeName, MATCHING_EXPRESSION, PRIMARY-GROUP-UUID, OPIONAL-SECONDAY-GROUP_UUID
 
 A set of group mapping / group association rules are defined,
@@ -408,18 +477,18 @@ Here is an example::
     [authentications/d87d-4a3c-d732]
     type = ldap
     name = Authenticate from LDAP
+    base_groups = 987d-54da-db3c
 
     group_mapping =
-        987d-54da-db3c
-        memberOf, *-apac-*, 54ae-987d-09ff, 987d-88de-4213, 8fde-54da-00aa
-        memberOf, *-it-*, 5b9f-2600-ebd6
+        teamName, *-lon-*, 54ae-987d-09ff, 987d-88de-4213, 8fde-54da-00aa
+        teamName, *-it-*, 5b9f-2600-ebd6
         operationalUnit, m/sales-force-[1-3]/, 8fde-54da-00aa
 
 When an LDAP entry with the following LDIF is successfully authenticated,
 it gets associated with the SFTPPlus group with UUID `54ae-987d-09ff`
 as the primary group and `987d-88de-4213` and `8fde-54da-00aa` as secondary
-groups.
-The group for `operationalUnit` is not matched because `memberOf` is defined
+groups, based on the `teamName` LDAP attribute.
+The group for `operationalUnit` is not matched because `teamName` is defined
 first in the rules for `group_mapping`.
 Below is the LDAP LDIFF representation for the account::
 
@@ -431,8 +500,7 @@ Below is the LDAP LDIFF representation for the account::
     objectClass: inetOrgPerson
     homeDirectory: /archive/bob
     operationalUnit: sales-force-2
-    memberOf: sales-apac-oceania
-    memberOf: syadmin
+    teamName: sales-uk-lon
 
 The matching rules are executed in a top-down fashion, stopping at the first match.
 
@@ -444,8 +512,8 @@ LDAP attributes used as part of group mapping expression,
 and multiple values match multiple group mapping expressions, then the exact result may different based on the LDAP server implementation.
 
 
-SFTPPlus role mapping based on LDAP attributes
-----------------------------------------------
+Role mapping based on LDAP attributes
+-------------------------------------
 
 Similar to the `group_mapping` configuration, you can associate LDAP-based
 administrator accounts with SFTPPlus roles based on existing LDAP attributes.

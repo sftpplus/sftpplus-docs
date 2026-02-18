@@ -129,7 +129,12 @@ You can also define pre-configured Certification Authority certificates,
 using a configuration similar to this example.
 The format for the certificates is BASE64 PEM::
 
-    as2_own_certificate = -----BEGIN CERTIFICATE-----
+    as2_partner_trusted_certificates = fda4313a-066c-11f1-af6d-1f1082a083ea
+
+    [vault-items/fda4313a-066c-11f1-af6d-1f1082a083ea]
+    name = ACME AS2 Partner Certificates
+    type = trusted-certificates
+    content = -----BEGIN CERTIFICATE-----
         MIICaDCCAdGgAwIBAgIBDjANBgkqhkiG9w0BAQUFADBGMQswCQYDVQQGEwJHQjEP
         PEM CONTENT FOR INTERMEDIARY CERTIFICATION AUTHORITY. IF ANY.
         JZQaMjV9XxNTFOlNUTWswff3uE677wSVDPSuNkxo2FLRcGfPUxAQGsgL5Ts=

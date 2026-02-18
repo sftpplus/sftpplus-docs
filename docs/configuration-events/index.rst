@@ -93,11 +93,11 @@ notifications, executing external programs, or interacting with other systems.
 
         Trigger custom scripts or external programs in response to SFTPPlus events.
 
-    .. grid-item-card:: :octicon:`lock` Encrypt/decrypt with OpenPGP /GPG
+    .. grid-item-card:: :octicon:`lock` PGP (OpenPGP) encrypt or decrypt
         :link-type: doc
         :link: ./openpgp
 
-        Configure handlers to encrypt or decrypt files using OpenPGP/GPG as part of your workflows.
+        Configure handlers to encrypt or decrypt files using OpenPGP/GPG as part of your workflows, including signing or verifying signarures.
 
     .. grid-item-card:: :octicon:`server` RabbitMQ publisher
         :link-type: doc

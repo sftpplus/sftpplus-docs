@@ -14,6 +14,130 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
+Version 5.21.1, 2026-02-18
+--------------------------
+
+In comparison with version 5.21.0, this release includes a minor web manager
+UI fix for the TLS configuration of Explicit FTPS locations.
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* The HTTPS security is no longer disabled by default for the AS2 async MDN
+  responses sent by the SFTPPlus AS2 server.
+  [server-side][as2] [#7288]
+* The vault items administration operations can now be protected using role
+  permissions.
+  This is done using the `configuration/vault-items` prefix.
+  [manager] [#7351]
+
+
+New Features
+^^^^^^^^^^^^
+
+* The configuration of the private key and certificate used by the AS2 server
+  now uses a private certificate vault item.
+  [server-side][as2] [#7288-1]
+* The configuration of the certificates used when receiving files using AS2
+  now uses vault items.
+  [server-side][as2] [#7288]
+* The configuration of the private key and certificates used by the AS2 send
+  file location now uses vault items.
+  [client-side][as2] [#7289]
+* The IBM MQ certificates and private key can now be configured using vault
+  items.
+  [client-side][mq] [#7303]
+* You can now use the OpenPGP event handler to sign and verify PGP files.
+  [event-handler][pgp] [#7305]
+* The Oracle DB location can now be configured to handle files in
+  sub-folders.
+  The subfolder name is stored in the DB table on a dedicated column.
+  [client-side][oracle-db] [#7319-1]
+* The Oracle DB location can now be configured with the path to the
+  Oracle Instant Client files to allow connection to older Oracle DB servers.
+  [client-side][oracle-db] [#7319]
+* The digital signature event handler extension now supports vault items
+  and can load multiple certificates from a `trusted-certificates` vault item.
+  It can validate the signature against any certificate from the
+  configured `trusted-certificates` vault item.
+  [event-handler] [#7320-1]
+* The Python API extensions now support retrieving `trusted-certificates`
+  vault items.
+  [api][event-handler] [#7320]
+* You can now configure an SFTPPlus group to be automatically associated with
+  any LDAP users, based on the LDAP user `memberOf` attribute values.
+  The group `ldap_association` configuration option is used to link SFTPPlus
+  groups to LDAP groups.
+  [server-side][ldap] [#7324-1]
+* The LDAP authentication method now supports defining
+  `group_mapping` and `roles_mapping` based on the Windows Domain group SID value,
+  found in the tokenGroups LDAP attribute.
+  [server-side][ldap] [#7324-2]
+* The LDAP authentication method now has the `base_groups` configuration option
+  that simplifies the configuration of the default groups associated with
+  LDAP users.
+  [server-side][ldap] [#7324]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* You can now connect to multiple IBM MQ servers in parallel using TLS.
+  In the previous versions, multiple concurrent connections were only supported
+  for non TLS connections.
+  [client-side][mq] [#7303]
+* The trial version on Windows will now install the server as `sftpplus-service`
+  thereby preventing the creation of duplicate services when upgrading to the
+  final version.
+  [windows] [#7329]
+* A transfer no longer fails when the SFTPPlus process does not have permissions
+  to create files inside the SFTPPlus service user home folder.
+  In previous versions, a transfer was failing with error:
+  `'PermissionError' object has no attribute 'name'`
+  This defect was introduced in version 5.18.0.
+  [client-side] [#7344]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The account `as2_certificates` configuration was renamed to
+  `as2_trusted_certificates` and is now configured using a
+  trusted certificates vault item.
+  The existing configuration is automatically migrated.
+  [server-side][as2] [#7288]
+* The AS2 send location `as2_own_certificate` and `as2_own_private_key`
+  configurations were renamed to a single
+  `as2_own_private_certificate`, which is now configured using a
+  private certificate vault item.
+  The existing configuration is automatically migrated.
+  [client-side][as2] [#7289-1]
+* The AS2 server `as2_receive_certificate` and `as2_receive_key` configurations
+  were renamed into a single configuration named
+  `as2_receive_private_certificate` which is now configured using
+  a private certificate vault item.
+  The existing configuration is automatically migrated.
+  [server-side][as2] [#7289-2]
+* The AS2 send location `as2_partner_certificates` configuration was renamed to
+  `as2_partner_trusted_certificates` and is now configured using a
+  trusted certificates vault item.
+  The existing configuration is automatically migrated.
+  [client-side][as2] [#7289]
+* The `ssl_trusted_certificates` and the `ssl_client_certificate`
+  configuration options for the IBM MQ locations were converted to Vault items,
+  as `tls_trusted_certificates` and `tls_private_certificate`.
+  [client-side][mq] [#7303]
+* The table name variable used to define Oracle Database SQL queries was
+  changed from `{TABLE_NAME}` to `:TABLE_NAME`.
+  [client-side][oracle-db] [#7319]
+* The LDAP `group_mapping` option now uses a dedicated `base_groups`
+  option for fallback group configuration.
+  Existing configurations are automatically migrated to use
+  `base_groups`.
+  [server-side][ldap] [#7324]
+
+
 Version 5.20.0, 2026-01-24
 --------------------------
 
@@ -86,7 +210,7 @@ Defect Fixes
   detection.
   [client-side] [#7252]
 * The `local-file` authentication method can now authenticate users.
-  This was a defect introduced in SFTPlus version 5.14.0
+  This was a defect introduced in SFTPPlus version 5.14.0
   [server-side] [#7270]
 
 
@@ -1216,7 +1340,7 @@ New Features
 ^^^^^^^^^^^^
 
 * You can now configure the list of accepted SSH host keys algorithms. In
-  previous versions, SFPPlus was accepting remote SSH connections using any SSH
+  previous versions, SFTPPlus was accepting remote SSH connections using any SSH
   host key algorithm. [client-side][sftp][scp][security] [#6553]
 * The shell scripts in the ``bin/`` sub-directory used for installing,
   uninstalling, updating, and rolling back SFTPPlus on Linux and macOS, now
@@ -1235,7 +1359,7 @@ Defect Fixes
   pops up when clicking on the footnotes link now responsively handles large
   texts. [#6636]
 * SFTPPlus works again on Windows Server 2016. This regression was introduced in
-  SFPPlus version 5.0.0. [windows] [#6651]
+  SFTPPlus version 5.0.0. [windows] [#6651]
 
 
 Version 5.1.0, 2024-03-31

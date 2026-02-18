@@ -92,6 +92,7 @@ member UUIDs, with or without an option name::
 * configuration/services[/{UUID}]
 * configuration/locations[/{UUID}]
 * configuration/transfers[/{UUID}]
+* configuration/vault-items[/{UUID}]
 * operation/authentications[/{UUID}]
 * operation/resources[/{UUID}]
 * operation/event_handlers[/{UUID}]

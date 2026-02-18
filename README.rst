@@ -22,11 +22,11 @@ To build the documentation you need a Python3.12 (or newer) environment.::
     virtualenv venv
     . venv/bin/activate
     pip install -r requirements.txt
-    sphinx-build -b html src/doc_source/ deploy
+    sphinx-build -b html docs deploy
 
 To test the docs for any errors and view in a browser::
 
-    sphinx-build -b html -W --keep-going src/doc_source/ deploy
+    sphinx-build -b html -W --keep-going docs deploy
     python -m http.server -d deploy/
     firefox http://localhost:8000
 

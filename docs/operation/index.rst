@@ -44,12 +44,20 @@ If you are looking to implement bespoken functionality, see the
         This section contains information about using the SFTP / SCP
         file transfer service.
 
-    .. grid-item-card:: :octicon:`paper-airplane` HTTP / HTTPS Service
+    .. grid-item-card:: :octicon:`paper-airplane` HTTP / HTTPS server
         :link-type: doc
         :link: ./http
 
         This section contains information on the usage and behaviour
         of the HTTP and HTTPS file transfer services.
+
+    .. grid-item-card:: :octicon:`paper-airplane` AS2 server
+        :link-type: doc
+        :link: ./as2-server
+
+        Learn how to configure and operate the AS2 server in order to
+        receive files.
+        AS2 is supported over HTTP or HTTPS servers.
 
     .. grid-item-card:: :octicon:`shield-lock` Server-side TLS configuration
         :link-type: doc
@@ -89,6 +97,7 @@ If you are looking to implement bespoken functionality, see the
     ftp
     sftp
     http
+    as2-server
     server-side-tls
     lets-encrypt
     filesystem-access

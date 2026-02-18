@@ -307,6 +307,33 @@ home_folder_path
         The folder can be automatically created, just as for regular accounts.
 
 
+ldap_association
+----------------
+
+:Default value: `empty`
+:Optional: Yes
+:From version: 5.21.0
+:Values: * Full LDAP DN for a group memberOf
+         * SID value for the tokenGroups
+         * List of LDAP DNs, or SIDs, one value per line
+:Description:
+    This option enables you to automatically associate and map LDAP groups to SFTPPlus groups.
+    When the LDAP authentication method is enabled,
+    once an LDAP account was authenticated,
+    SFTPPlus will retrieve the list of `memberOf` or `tokenGroups` attributes for that user.
+    If the value configured here for this group matches any of the `memberOf` attributes,
+    that user will be considered as member of this group.
+
+    You can configure multiple LDAP values, one value per line.
+    You can mix DN and SID values.
+
+    An LDAP DN or SID can only be mapped to a single SFTPPlus group.
+
+    ..  warning::
+        The values are matched case-insensitive.
+        Make sure your LDAP server does not have conflicting groups assigned to case-sensitive values.
+
+
 lock_in_home_folder
 -------------------
 

@@ -219,16 +219,16 @@ ssl_cipher_spec
     or use `ANY_TLS12_OR_HIGHER` to accept TLS 1.2 or 1.3.
 
 
-ssl_trusted_certificates
+tls_trusted_certificates
 ------------------------
 
 :Default value: Empty
 :Optional: Yes
-:From version: 5.19.0
-:Values: * PEM encoded certificate authority.
+:From version: 5.21.0
+:Values: * Vault item UUID
          * Empty.
 :Description:
-    PEM encoded certificate authorities used to validate the server identity.
+    UUID of a `trusted-certificates` vault item with the certificate authorities used to validate the server identity.
 
     You need to provide the full certification authority chain.
 
@@ -237,17 +237,19 @@ ssl_trusted_certificates
     Leave this empty to not use TLS when communication with the IBM MQ server.
 
 
-ssl_client_certificate
-----------------------
+tls_private_certificate
+-----------------------
 
 :Default value: Empty
 :Optional: Yes
-:From version: 5.19.0
-:Values: * PEM encoded client certificate and key.
+:From version: 5.21.0
+:Values: * Vault item UUID
          * Empty.
 :Description:
-    PEM encoded client certificate and client private key used for mutual TLS authentication.
+    UUID of a `private-certificate` vault item with the client certificate and client private key used for mutual TLS authentication.
 
-    The private key should be configured without password encryption.
+    The vault item can also contain the server certificate chain.
+    In this case, it will be used to validate the server identity,
+    without needing to configure the server certificate via the separate `tls_trusted_certificates` configuration option.
 
     Leave it empty to not use mutual TLS.

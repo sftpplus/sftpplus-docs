@@ -7,26 +7,21 @@ Python API Event Handler
 Introduction
 ------------
 
-SFTPPlus allows developers to write custom event handlers using the
-Python programming language.
+SFTPPlus allows developers to write custom event handlers using the Python programming language.
 
-The handlers are execute in separate independent processes / CPU cores,
-without shared memory.
-This is why the `handle()` method of the extension needs to be a
-`@staticmethod` and always received the configuration.
+The handlers are executed in separate independent processes / CPU cores, **without shared memory**.
+This is why the `handle()` method of the extension needs to be a `@staticmethod` and always receives the configuration.
 
 The handler is initialized multiple time.
-One instance is created in the main process and extra instances are created
-for each CPU.
+One instance is created in the main process and extra instances are created for each CPU.
 
-A single extension instance can have the `onStart(configuration)` / `onStop()`
+A single extension instance can have the `onStart(parent)` / `onStop()`
 method called multiple times during its lifetime.
-`onStart(configuration)` and `onStop()` methods are only called for the
-instance running in the main process.
+`onStart(parent)` and `onStop()` methods are only called for the instance running in the main process.
 
 Most custom extension are created to only handle a few event IDs.
 You can set the list of event IDs that can be handled by your extension via the `TARGET_EVENTS` instance member.
-The `TARGET_EVENTS` is accessed after `onStart(configuration)`.
+The `TARGET_EVENTS` is accessed after `onStart(parent)`.
 
 The code for the event handler needs to be placed in a Python file (module)
 inside the `extension/` folder from the SFTPPlus installation folder.
@@ -66,6 +61,18 @@ The extension is called to handle the event only when there are free CPUs.
 
 To prevent misconfiguration, there is a hard limit of 10 minutes for how long
 an event can stay in the queue and for processing the event.
+
+
+Vault items access
+------------------
+
+Extensions can load PEM certificates that are stored as `trusted-certificates` vault items.
+
+The `parent.getVaultItemContent(vault_item_uuid)` is used to retrieve the concatenated PEM content of the certificates.
+
+The method will validate that the vault item has content.
+
+It will also return expired certificates.
 
 
 Event data members

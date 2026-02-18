@@ -432,7 +432,7 @@ The request flow is as follows::
 
 With the following steps:
 
-1. End users request a file upload to SFPPlus.
+1. End users request a file upload to SFTPPlus.
    SFTPPlus receives the file and store it on disk.
 2. After the file was received, SFTPPlus sends an HTTP request to an external HTTP API endpoint
 3. The external HTTP API endpoint will return a response and a set of response headers.

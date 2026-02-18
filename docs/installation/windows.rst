@@ -198,7 +198,7 @@ We need to reconfigure the SFTPPlus Windows service.
 One option is to uninstall the existing Windows service for SFTPPlus,
 and reinstall it with the updated configuration path.
 
-We only need to reinstall the Windows service, not the whole SFPPlus installation.
+We only need to reinstall the Windows service, not the whole SFTPPlus installation.
 
 Start by removing the existing Windows service::
 

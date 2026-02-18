@@ -59,7 +59,7 @@ Migration from WebDAV to SharePoint OAuth2
 The SFTPPlus `webdav` location can be used to access files hosted by SharePoint Online, in a similar way to the SFTPPlus dedicated `sharepoint-online` location.
 
 The main difference between `webdav` and `sharepoint-online` is that `webdav` location is implicitly associated with any site from your organization.
-For `sharepoint-online` you need to setup separate permissions for each site you want to give SFPPlus access to.
+For `sharepoint-online` you need to setup separate permissions for each site you want to give SFTPPlus access to.
 
 As a result of this, paths for `webdav` location will contain the site name.
 In `webdav` the path is configured as ``/sites/test-site/Reports/2025``.
@@ -231,7 +231,7 @@ Check that the connection was successful and that you can list the libraries in 
 
 Add SFTPPlus access to this site.
 We setup minimal read and write permissions.
-Managed and full access is not required by SFPPlus::
+Managed and full access is not required by SFTPPlus::
 
     PS> Grant-PnPAzureADAppSitePermission -AppId $appID -DisplayName 'SFTPPlus Manual read/write' -Permissions Write
 

@@ -210,7 +210,7 @@ username_suffix
 home_folder_attribute
 ---------------------
 
-:Default value: `homeDirectory`
+:Default value: empty
 :Optional: Yes
 :Values: * Attribute name.
          * Attribute name, home path template
@@ -342,35 +342,57 @@ manager_search_filter
     Leave it empty to deny any LDAP entry as administrator.
 
 
+base_groups
+-----------
+
+:Default value: Empty
+:Optional: yes
+:Values: * Empty
+         * Group UUID.
+         * Comma-separated list of group UUIDs.
+:From version: 5.21.0
+:Description:
+    Defines the SFTPPlus groups that are associated with any authenticated LDAP user.
+
+    Leave empty to not have any default group, and only use the groups associated via dynamic group association or via the `group_mapping` configuration.
+
+    This configuration option is ignored when `group_mapping` is defined
+    and there is a match for the authenticated LDAP user.
+    The matched group mapping will be used to determine the groups associated with an authenticated LDAP user.
+
+    When a single group UUID is defined, all authenticated LDAP users will be associated to that group.
+
+    When multiple group UUIDs are defined, all authenticated LDAP users will be associated to all the groups defined in this configuration option.
+
+    The first configured base group is also the primary group.
+
+
 .. _conf-ldap_group_mapping:
 
 group_mapping
 -------------
 
-:Default value: ''
+:Default value: `empty`
 :Optional: Yes
-:Values: * Group UUID.
-         * Comma separated LDAP attribute name, matching value, and group UUID.
-         * Comma separated list of group UUIDs (Since 4.20.0)
-         * Empty value.
+:Values: * Comma separated LDAP attribute name, matching value, and group UUID.
 :From version: 3.34.0
 :Description:
     The LDAP group mapping configuration can be used to augment the LDAP data
     without updating the actual LDAP entries.
 
-    Setting to a single group UUID, or a list of UUIDs,
-    will associate all the LDAP authenticated
-    accounts to the SFTPPlus groups having that UUID.
-    For more details, see the
-    :doc:`dedicated LDAP group mapping documentation</operation/ldap>`.
-
     You can create complex group mapping by specifying multiple groups which
     are selected based on targeted LDAP values.
 
+    A single match can map to more than your group.
+    The first group is the primary group.
+
     The matching for LDAP attribute names is case insensitive.
 
-    Leave this configuration option empty to use the default
-    SFTPPlus group configuration.
+    For more details, see the
+    :doc:`dedicated LDAP group mapping documentation</operation/ldap>`.
+
+    Leave this configuration option empty to use groups defined via `base_groups`,
+    or via group's `ldap_association` configuration.
 
 
 roles_mapping
@@ -379,9 +401,8 @@ roles_mapping
 :Default value: ''
 :Optional: Yes
 :Values: * Role UUID
-         * Comma separated list of role UUIDs.
-         * Comma separated LDAP attribute name, matching value, and role UUID.
          * Comma separated list of role UUIDs
+         * Comma separated LDAP attribute name, matching value, and role UUID.
          * Empty value.
 :From version: 5.20.0
 :Description:

@@ -51,6 +51,10 @@ class DemoEventHandler(object):
         """
         self._parent = parent
         self._configuration = parent.configuration
+        # Extensions have access to the trusted certificates.
+        # This returns the PEM content of all concatenated certificates.
+        self._trusted_certificates = parent.getVaultItemContent(
+            'LETS-ENCRYPT-CA')
 
     def onStop(self):
         """

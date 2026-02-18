@@ -1,5 +1,5 @@
-Encrypt / decrypt using OpenPGP / GPG
-=====================================
+PGP (OpenPGP) encrypt or decrypt
+================================
 
 ..  contents:: :local:
 
@@ -61,8 +61,9 @@ with the public key. If that private key is lost, the encrypted data can not
 be recovered.
 
 SFTPPlus provides support for asymmetric encryption using a dedicated event
-handler which can automatically encrypt or decrypt files from one or
-multiple partners.
+handler which can automatically encrypt or decrypt files from one or multiple partners.
+
+The event handler can also sign and verify signature of PGP files.
 
 
 Configuration options
@@ -79,8 +80,8 @@ encryption_public_keys
 
 :Default value: ''
 :Optional: Yes
-:Values: * UUID of public PGP key
-         * Comma-separated list of UUIDs of public PGP keys
+:Values: * UUID of public PGP key vault items
+         * Comma-separated list of UUIDs of public PGP keys vault items
 :From version: 5.20.0
 :Description:
     Lists of public PGP keys used for the encryption operation.
@@ -94,13 +95,27 @@ encryption_public_keys
     Prior to version 5.20.0, the values were configured as ASCII armored public PGP keys.
 
 
+signing_private_key
+-------------------
+
+:Default value: ''
+:Optional: Yes
+:Values: * UUID of private PGP key vault items
+:From version: 5.20.0
+:Description:
+    A private PGP key used for the file signing operation.
+    The content of the source file is signed and then encrypted.
+
+    Leave it empty if you don't want to sign the encrypted files.
+
+
 decryption_private_keys
 -----------------------
 
 :Default value: ''
 :Optional: Yes
-:Values: * UUID of private PGP key
-         * Comma-separated list of UUIDs of private PGP keys
+:Values: * UUID of private PGP key vault items
+         * Comma-separated list of UUIDs of private PGP keys vault items
 :From version: 5.20.0
 :Description:
     Lists of private PGP keys used for the decryption operation.
@@ -112,6 +127,23 @@ decryption_private_keys
     Leave it empty if you don't want to use asymmetric encryption.
 
     Prior to version 5.20.0, the values were configured as ASCII armored private PGP keys.
+
+
+verifying_public_keys
+---------------------
+
+:Default value: ''
+:Optional: Yes
+:Values: * UUID of public PGP key vault items
+         * Comma-separated list of UUIDs of public PGP keys vault items
+:From version: 5.20.0
+:Description:
+    Lists of public PGP keys used for the file signature verification operation.
+
+    Leave it empty if you don't want to verify the files.
+
+    When this is configured, and the PGP files are not signed,
+    the event handler will emit an error event.
 
 
 passphrase

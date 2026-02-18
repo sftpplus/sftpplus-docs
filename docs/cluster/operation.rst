@@ -49,7 +49,7 @@ One SFTPPlus installation will be designated as the *primary* instance and will 
 Any configuration change should be done using the Web Manager interface of the *primary* instance.
 
 One or multiple SFTPPlus installation will be considered *secondary* instances.
-The configuration for all the *secondary* instances is pulled from the *primary* SFPPlus installation.
+The configuration for all the *secondary* instances is pulled from the *primary* SFTPPlus installation.
 
 The Web Manager interface is still available on each secondary instance, but any configuration change will be discarded and replaced with the configuration found on the primary instance.
 
@@ -150,7 +150,7 @@ Convert a node to a controller
 If the controller is no longer available you can restore the cluster by reconfiguring one of the nodes as the controller.
 This can be done using the Web Manager or via text file.
 As long as the configuration includes `role_in_cluster = controller`,
-that SFPPlus installation will be the controller::
+that SFTPPlus installation will be the controller::
 
     [resources/DEFAULT-NODE-SYNC]
     enabled = yes

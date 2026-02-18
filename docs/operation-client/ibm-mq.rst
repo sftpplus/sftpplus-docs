@@ -221,3 +221,14 @@ You can read more about IBM MQ connection handling in the
     SFTPPlus can only detect a connection loss when trying to perform an operation.
     This means that if the connection is lost while SFTPPlus is idle,
     the connection loss will only be detected when SFTPPlus tries to get or put a message.
+
+
+TLS and Mutual-TLS configuration
+--------------------------------
+
+Use the `tls_trusted_certificates` configuration option to define a vault item that is used to validate the identity of the remote server.
+
+For mutual-TLS authentication you will need to configure the `tls_private_certificate` with a `private-certificate` vault item containing the client certificate and private key used to authenticate with the remote IBM MQ Server.
+
+The `private-certificate` can contain the list of certificate authorities used by the remote server.
+In this case, these certificates are used to validate the identity of the remote IBM MQ server and the separate `tls_trusted_certificates` configuration is no longer required.

@@ -84,41 +84,18 @@ as2_own_identifier
     Identifier for your own local AS2 organization sending the files.
 
 
-as2_own_certificate
--------------------
+as2_own_private_certificate
+---------------------------
 
-:Default value: 'General server SSL certificate'
-:Optional: No
-:From version: 4.5.0
-:Values: * PEM certificate.
-         * PEM certificate and PEM private key.
+:Default value: Empty
+:Optional: Yes
+:From version: 5.21.0
+:Values: * Vault item UUID
+         * Empty
 :Description:
-    Certificate for your own local AS2 organization used when
-    signing files sent to a remote AS2 partner.
+    Vault item UUID of the private certificate for your own local AS2 organization used when signing files sent to a remote AS2 partner.
 
-    The certificate should be configured in PEM format.
-
-    This configuration can also contain the private key associated to the
-    certificate.
-
-    This can be empty when sending unsigned files.
-
-
-as2_own_private_key
--------------------
-
-:Default value: 'General server SSL private key'
-:Optional: No
-:From version: 4.5.0
-:Values: * PEM private key.
-:Description:
-    Certificate for your own local AS2 organization used when
-    signing files sent to a remote AS2 partner.
-
-    The certificate should be configured in PEM format.
-
-    This configuration can also contain the private key associated to the
-    certificate.
+    When left empty, it will use the default server private certificate.
 
 
 as2_partner_identifier
@@ -132,26 +109,24 @@ as2_partner_identifier
     Identifier for the remote AS2 partner receiving the files.
 
 
-as2_partner_certificates
-------------------------
+as2_partner_trusted_certificates
+--------------------------------
 
 :Default value: Empty
-:Optional: No
-:From version: 4.5.0
-:Values: * PEM certificate
-         * Multiple PEM certificates
+:Optional: yes
+:From version: 5.21.0
+:Values: * Vault item UUID
+         * Empty
 :Description:
-    Certificate in PEM format used to encrypt files sent to the AS2
-    partner and to validate the received signed MDN.
+    Certificate used to encrypt files sent to the AS2 partner and certificates used to validate the received signed MDN.
 
-    You can define multiple PEM certificates for the case in which the partner
+    You can define multiple certificates for the case in which the partner
     uses different certificates for signing and encryption.
 
-    Old and new PEM certificates can be defined at the same time
-    for a partner's certificate rollover.
+    Old and new certificates can be defined at the same time for a partner's certificate rollover, as part of the same *trusted-certificates* vault item.
 
-    When sending encrypted files, the first configured PEM certificate will
-    be used for the encryption operation.
+    When sending encrypted files,
+    the first configured certificate of the vault item will be used for the encryption operation.
 
 
 as2_send_security
@@ -168,8 +143,8 @@ as2_send_security
     This defines the method used to secure the file transfers on top of
     the standard security provided by the HTTPS protocol.
 
-    When encrypting file content, the first certificate defined at
-    `as2_partner_certificates` is used.
+    When encrypting file content,
+    the first certificate defined at `as2_partner_trusted_certificates` is used.
 
     When signing file content, the digest/hashing algorithm defined in
     `as2_signature_algorithm` is used.

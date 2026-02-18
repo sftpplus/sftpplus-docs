@@ -123,6 +123,20 @@ sql_table_list
         WHERE OBJECT_TYPE = 'TABLE' AND OWNER = (SELECT USER FROM dual)
 
 
+sql_parent_list
+---------------
+
+:Default value: Empty
+:Optional: Yes
+:From version: 5.21.0
+:Values: * Single SQL statement.
+:Description:
+    SQL statement to execute against the database to retrieve the list of available parent paths.
+
+    The following placeholders can be used in the statement, and will be replaced with actual values when executing the statement:
+    - `:TABLE_NAME`: The name of the table used to extract the parent paths.
+
+
 sql_file_list
 -------------
 
@@ -147,7 +161,17 @@ sql_file_list
     This is a single statement, without semicolon at the end.
     Any trailing semicolon will be removed automatically.
 
+    When the files are in the root folder, the parent path must be returned as `/` (a single forward slash).
+    Do not use an empty string, as Oracle treats it as ``NULL``.
+
     The SQL statement can be defined on multiple lines.
+
+    The following placeholders can be used in the statement, and will be replaced with actual values when executing the statement:
+
+    - `:TABLE_NAME`: The name of the table used to retrieve the available files.
+    - `:PARENT_PATH`: Value of request parent path.
+      Used to filter the available files. Optional.
+      When not used, all files from the tables are considered as available for the transfer.
 
 
 sql_file_read
@@ -165,6 +189,9 @@ sql_file_read
     The statement should contain the `:FILE_ID` SQL bind variable.
     It will be replaced with the actual file ID when executing the statement.
 
+    The following placeholders can be used in the statement, and will be replaced with actual values when executing the statement:
+    - `:TABLE_NAME`: The name of the table used to get the content of a file.
+
 
 sql_file_delete
 ---------------
@@ -176,8 +203,9 @@ sql_file_delete
 :Description:
     SQL statement to execute to delete a file.
 
-    The statement should contain the `:FILE_ID` SQL bind variable.
-    It will be replaced with the actual file ID when executing the statement.
+    The following placeholders can be used in the statement, and will be replaced with actual values when executing the statement:
+    - `:TABLE_NAME`: The name of the table used to delete a row.
+    - `:FILE_ID`: File ID associated with the row that will be deleted.
 
 
 sql_file_write
@@ -190,11 +218,29 @@ sql_file_write
 :Description:
     SQL statement to execute to write the content of a file.
 
-    If if data is stored as `BLOB` or `CLOB`, use the  `empty_blob() / empty_clob()` *SQL function* to initialize the value, then return it via the `:CONTENT` bind variable.
+    If data is stored as `BLOB` or `CLOB`, use the  `empty_blob() / empty_clob()` *SQL function* to initialize the value, then return it via the `:CONTENT` bind variable.
 
     The following placeholders can be used in the statement, and will be replaced with actual values when executing the statement:
+    - `:TABLE_NAME`: The name of the table used to create a row.
     - `:FILE_CONTENT`: The content of the file being written.
     - `:FILE_ID`: The ID of the file being written.
     - `:FILE_NAME`: The name of the file being written.
     - `:FILE_SIZE`: The size of the file being written.
+    - `:PARENT_PATH`: The name of the parent directory.
     - `:FILE_MODIFIED`: The modification time of the file being written.
+
+
+oracle_client_path
+------------------
+
+:Default value: Empty
+:Optional: No
+:From version: 5.21.0
+:Values: * Path on local filesystem
+:Description:
+    To connect to Oracle Database servers running version 9, 10, or 11,
+    you need to use SFTPPlus together with Oracle Instant Client.
+    After downloading and copying the Oracle Instant client files into a local directory, you need to configure the path to this directory using this option.
+
+    When connecting to Oracle Database servers running version 12 or newer, SFTPPlus can connect without using external Oracle Client files.
+    In this case, leave this option empty.

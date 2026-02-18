@@ -299,37 +299,18 @@ as2_default_filename
     * `timestamp.timestamp`
 
 
-as2_receive_certificate
------------------------
+as2_receive_private_certificate
+-------------------------------
 
 :Default value: Empty
 :Optional: Yes
-:Values: * Certificate key in PEM format.
+:From version: 5.21.0
+:Values: * UUID of a *private-certificate* vault item
          * Empty
-:From version: 4.5.0
 :Description:
-    This defines the certificate associated with the private key used to
-    sign the message disposition notification (MDN) response.
+    This defines the private key and certificate used to decrypt the files received via AS2 and sign the message disposition notification (MDN) response.
 
-    This configuration option can also contain the private key associated
-    with this certificate.
-
-    Leave it empty to use the general server certificate.
-
-
-as2_receive_key
----------------
-
-:Default value: Empty
-:Optional: Yes
-:Values: * RSA private key in PEM format.
-         * Empty
-:From version: 4.5.0
-:Description:
-    This defines the private key used to decrypt the files received via AS2
-    and to sign the message disposition notification (MDN) responses.
-
-    Leave it empty to use the general server private key.
+    Leave it empty to use the general private certificate.
 
 
 as2_no_mdn_success_text

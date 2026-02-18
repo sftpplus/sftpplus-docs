@@ -84,11 +84,11 @@ SFTPPlus will not update the content of the external files.
 The external files are designed to be read-only files,
 such as Kubernetes secrets or files mounted inside a container.
 
-You can update the path to the external file via the Web manager.
-To do that, use the `Import` functionality and enter the new path inside the textbox,
-using the value in the `external-file:NEW/PATH`.
-That is, the new path must also be prefixed by `external-file:`.
-Then save the changes **without** pressing the `Check content` button.
+..  note::
+    For security reasons, you can not update the path to the external file via the Web manager.
+    By allowing to update the path to the external file,
+    it would be possible to point to any file on the filesystem and if the filesystem permissions are not properly set,
+    expose its content via the vault item content.
 
 
 Trusted certificates

@@ -1,7 +1,7 @@
 Windows EventLog
 ================
 
-This is an event handler that send SFTPlus events to the Windows Eventlog
+This is an event handler that send SFTPPlus events to the Windows Eventlog
 service.
 
 ..  contents:: :local:
