@@ -230,8 +230,8 @@ FTP / FTPS events
 10021
 ^^^^^
 
-:Message: Connection was closed before finalization of SSL handshake.
-:Groups: session, failure, failure-specific, ftp
+:Message: Connection was closed before finalization of TLS handshake. %(details)s
+:Groups: session, failure
 :From version: 1.6.0
 :Description: None
 
@@ -714,7 +714,7 @@ FTP / FTPS events
 10059
 ^^^^^
 
-:Message: User successfully logged on "%(real_path)s" as "%(virtual_path)s".
+:Message: FTP(S) access started at "%(real_path)s" as "%(virtual_path)s".
 :Groups: authentication, authenticated, success, ftp
 :From version: 1.6.0
 :Description: None

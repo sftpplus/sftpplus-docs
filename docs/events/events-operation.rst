@@ -803,7 +803,7 @@ Operation events
 20069
 ^^^^^
 
-:Message: Server running under the same account under which it was started. If started as root or as an user with sudo access without passwords, it is highly recommended to configure the server to run under a dedicated account.
+:Message: Server running under the same account under which it was started. If started as root or as a user with sudo access without passwords, it is highly recommended to configure the server to run under a dedicated account.
 :Groups: operational, process, informational
 :From version: 1.6.0
 :Description: None

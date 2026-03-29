@@ -80,12 +80,19 @@ It is very probable that SFTPPlus already works on that OS, it's just that we do
         Find out the difference between an update and an upgrade,
         and how to perform them on SFTPPlus.
 
-    .. grid-item-card:: :octicon:`book` Docker Deployment
+    .. grid-item-card:: :octicon:`book` Docker container image
         :link-type: doc
         :link: ./docker
 
-        SFTPPlus can be deployed as a Docker container. Learn more about the
-        deployment process and best practices in this section.
+        SFTPPlus can be deployed as a Docker container.
+        Learn more about how to build your own container image and best practices.
+
+    .. grid-item-card:: :octicon:`code-square` Kubernetes deployment
+        :link-type: doc
+        :link: ./container
+
+        Read more about deploying SFTPPlus using containerization technologies,
+        such as Kubernetes or OpenShift.
 
     .. grid-item-card:: :octicon:`codescan-checkmark` Install Troubleshooting
         :link-type: doc
@@ -115,5 +122,6 @@ It is very probable that SFTPPlus already works on that OS, it's just that we do
     linux-and-macos-upgrade
     upgrade
     docker
+    container
     troubleshooting
     uninstall

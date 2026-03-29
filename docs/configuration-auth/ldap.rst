@@ -71,11 +71,10 @@ secure_connection
     `LDAPS`.
 
     ..  warning::
-        Without the `ssl_certificate_authority` configuration, the LDAPS
-        connect will use TLS, but the identity of the remote server will
-        not be validated.
-        Use `ssl_certificate_authority` to define the certificate
-        authorities allowed to issue a certificate for the remote server.
+        Without the `tls_trusted_certificates` configuration,
+        the LDAPS connect will use TLS,
+        but the identity of the remote server will not be validated.
+        Use `tls_trusted_certificates` to define the certificate authorities allowed to issue a certificate for the remote server.
 
 
 bind_dn_type

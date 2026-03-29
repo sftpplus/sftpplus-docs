@@ -249,6 +249,25 @@ ignore_duplicate_paths
     This configuration is ignored when `transfer_memory_duration = 0`.
 
 
+transfer_chunk_size
+-------------------
+
+:Default value: `65536`
+:Optional: Yes
+:Values: * Number of bytes greater or equal to 1024
+:From version: 5.22.0
+:Description:
+    A file is transferred as a series of fragments / chunks.
+
+    This defines the size in bytes of each fragment.
+
+    This can be used to adjust the size based on the network performance.
+
+    It should be configured with a value of at least 1024 bytes.
+
+    Greater values can improve the transfer performance, but can increase memory usage.
+
+
 destination_uuid
 ----------------
 

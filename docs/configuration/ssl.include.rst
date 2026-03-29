@@ -103,8 +103,7 @@ ssl_certificate_revocation_list
     The CRL file should be stored in PEM or DER format.
 
     ..  note::
-        This option is ignored if `ssl_certificate_authority` is not
-        enabled.
+        This option is ignored if `tls_trusted_certificates` or `tls_mutual_certification_authorities` are not enabled.
 
 
 ssl_certificate_revocation_list_refresh
@@ -137,8 +136,7 @@ ssl_certificate_revocation_list_refresh
     :doc:`the documentation for CRL reloading rules </standards/protocols-overview>`
 
     ..  note::
-        This option is ignored if ``ssl_certificate_authority`` is not
-        enabled.
+        This option is ignored if `tls_trusted_certificates` or `tls_mutual_certification_authorities` are not enabled.
 
 
 ssl_cipher_list

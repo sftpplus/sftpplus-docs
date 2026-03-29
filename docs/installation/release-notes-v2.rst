@@ -519,7 +519,7 @@ Defect fixes
   disabled. A logger to standard output is added on top of configured loggers.
 
 * When the server fails to launch a service at startup, it will log an error
-  and continue to try loading the other services. In previous version, the
+  and continue to try loading the other services. In previous versions, the
   startup was aborted as soon as a service was failing to start. The server
   will still abort the startup if no service was started.
 

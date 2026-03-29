@@ -108,11 +108,14 @@ SFTP / SCP / SSH events
 30011
 ^^^^^
 
-:Message: Subsystem %(service_name)s successfully started in "%(real_path)s" as "%(virtual_path)s". Protected using %(host_key)s %(key_exchange)s %(in_hmac)s %(in_cipher)s compression:%(in_compression)s.
+:Message: %(service_name)s access started at "%(real_path)s" as "%(virtual_path)s". Client "%(client_version)s" using %(host_key)s %(key_exchange)s %(in_hmac)s %(in_cipher)s compression:%(in_compression)s.
 :Groups: authentication, authenticated, success, ssh
 :From version: 1.6.0
 :Description: None
 :Data:
+  :client_version: SSH version advertised by the remote client.
+
+
   :in-compression: Compression used to receive data.
 
 
@@ -756,7 +759,7 @@ SFTP / SCP / SSH events
 ^^^^^
 
 :Message: Disconnecting the SSH connection. %(details)s
-:Groups: authenticated, failure, ssh
+:Groups: authenticated, informational, ssh
 :From version: 1.8.0
 :Description: None
 
@@ -1103,7 +1106,7 @@ SFTP / SCP / SSH events
 30076
 ^^^^^
 
-:Message: Client SFTP started for "%(name)s" using "%(credentials_type)s".
+:Message: SFTP session started for "%(name)s" using "%(credentials_type)s".
 :Groups: authenticated, informational, ssh, client-side
 :From version: 3.0.0
 :Description: None

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>
-        Version 5.21.1 Trial Downloads | Secure file transfer software
+        Version 5.22.0 Trial Downloads | Secure file transfer software
   </title>
 
   <meta name="author" content="Pro:Atria Team" />
@@ -80,8 +80,8 @@
   <div class="container">
     <div class="row text-center justify-content-center align-items-center">
       <div class="col">
-        <h1>Version 5.21.1 Trial Downloads</h1>
-          <h3 class="font-weight-normal">The trial version expires on 2026-05-29</h3>
+        <h1>Version 5.22.0 Trial Downloads</h1>
+          <h3 class="font-weight-normal">The trial version expires on 2026-07-07</h3>
       </div>
     </div>
   </div>
@@ -428,12 +428,26 @@ systems and CPU architectures.</p>
                 <li>
                   <i class="fas fa-download text-primary"></i>
                   <a href="https://hub.docker.com/r/proatria/sftpplus-trial" class="download-release">
-                    Docker Hub Trial Images
+                    Docker Hub trial image
                   </a>
                   <p class="text-secondary ml-3">
                     
-            Trial versions of SFTPPlus as Docker images,
-            valid for 100 days after the release date.
+            Trial version of SFTPPlus as a container image,
+            available on Docker Hub.
+            This image is valid for 100 days after the release date.
+            
+                  </p>
+                </li>
+                
+                <li>
+                  <i class="fas fa-download text-primary"></i>
+                  <a href="https://www.sftpplus.com/documentation/sftpplus/latest/installation/container" class="download-release">
+                    Production image
+                  </a>
+                  <p class="text-secondary ml-3">
+                    
+            Production version of SFTPPlus as a generic container image
+            is available for customers with an active support contract.
             
                   </p>
                 </li>
@@ -653,125 +667,68 @@ systems and CPU architectures.</p>
   <div class="container py-0">
     <div id="release-changelog" class="download-release-notes doc-body row mb-0 justify-content-center">
       <div class="col">
-        <div class="document" id="version-5-21-1-2026-02-18">
-<h1 class="title">Version 5.21.1, 2026-02-18</h1>
-<p>In comparison with version 5.21.0, this release includes a minor web manager
-UI fix for the TLS configuration of Explicit FTPS locations.</p>
-<div class="section" id="security-fixes">
-<h1>Security Fixes</h1>
-<ul class="simple">
-<li>The HTTPS security is no longer disabled by default for the AS2 async MDN
-responses sent by the SFTPPlus AS2 server.
-[server-side][as2] [#7288]</li>
-<li>The vault items administration operations can now be protected using role
-permissions.
-This is done using the <cite>configuration/vault-items</cite> prefix.
-[manager] [#7351]</li>
-</ul>
-</div>
+        <div class="document" id="version-5-22-0-2026-03-27">
+<h1 class="title">Version 5.22.0, 2026-03-27</h1>
 <div class="section" id="new-features">
 <h1>New Features</h1>
 <ul class="simple">
-<li>The configuration of the private key and certificate used by the AS2 server
-now uses a private certificate vault item.
-[server-side][as2] [#7288-1]</li>
-<li>The configuration of the certificates used when receiving files using AS2
-now uses vault items.
-[server-side][as2] [#7288]</li>
-<li>The configuration of the private key and certificates used by the AS2 send
-file location now uses vault items.
-[client-side][as2] [#7289]</li>
-<li>The IBM MQ certificates and private key can now be configured using vault
-items.
-[client-side][mq] [#7303]</li>
-<li>You can now use the OpenPGP event handler to sign and verify PGP files.
-[event-handler][pgp] [#7305]</li>
-<li>The Oracle DB location can now be configured to handle files in
-sub-folders.
-The subfolder name is stored in the DB table on a dedicated column.
-[client-side][oracle-db] [#7319-1]</li>
-<li>The Oracle DB location can now be configured with the path to the
-Oracle Instant Client files to allow connection to older Oracle DB servers.
-[client-side][oracle-db] [#7319]</li>
-<li>The digital signature event handler extension now supports vault items
-and can load multiple certificates from a <cite>trusted-certificates</cite> vault item.
-It can validate the signature against any certificate from the
-configured <cite>trusted-certificates</cite> vault item.
-[event-handler] [#7320-1]</li>
-<li>The Python API extensions now support retrieving <cite>trusted-certificates</cite>
-vault items.
-[api][event-handler] [#7320]</li>
-<li>You can now configure an SFTPPlus group to be automatically associated with
-any LDAP users, based on the LDAP user <cite>memberOf</cite> attribute values.
-The group <cite>ldap_association</cite> configuration option is used to link SFTPPlus
-groups to LDAP groups.
-[server-side][ldap] [#7324-1]</li>
-<li>The LDAP authentication method now supports defining
-<cite>group_mapping</cite> and <cite>roles_mapping</cite> based on the Windows Domain group SID value,
-found in the tokenGroups LDAP attribute.
-[server-side][ldap] [#7324-2]</li>
-<li>The LDAP authentication method now has the <cite>base_groups</cite> configuration option
-that simplifies the configuration of the default groups associated with
-LDAP users.
-[server-side][ldap] [#7324]</li>
+<li>The Linux and macOS installation scripts now support passing all configuration
+options via command line arguments.
+[linux][macos] [#6027]</li>
+<li>When creating a new component (account, group, event handler, service) from
+the web management console, you can now select a specific UUID to be used
+for the new component.
+[manager] [#6039]</li>
+<li>You can now configure the size of segments used to transfer a file.
+This can help fine-tune the performance of a transfer to a specific server.
+[client-side] [#6964]</li>
+<li>The <cite>pinned-keys</cite> vault item type was added to help with validating TLS
+servers for which the certificate might not match the connection name
+or it might be expired.
+SFTPPlus will validate the identity of the remote TLS server using a fixed
+list of preconfigured certificates for which the validation is done only
+based on the public key.
+[client-side] [#7285]</li>
+<li>When a user tries to access a path inside the HTTP Web Client and there is
+no previous authenticated session, the user is redirected to the login page.
+Once the login is successful, the user is redirected to the initial path.
+[server-side][http] [#7353]</li>
 </ul>
 </div>
 <div class="section" id="defect-fixes">
 <h1>Defect Fixes</h1>
 <ul class="simple">
-<li>You can now connect to multiple IBM MQ servers in parallel using TLS.
-In the previous versions, multiple concurrent connections were only supported
-for non TLS connections.
-[client-side][mq] [#7303]</li>
-<li>The trial version on Windows will now install the server as <cite>sftpplus-service</cite>
-thereby preventing the creation of duplicate services when upgrading to the
-final version.
-[windows] [#7329]</li>
-<li>A transfer no longer fails when the SFTPPlus process does not have permissions
-to create files inside the SFTPPlus service user home folder.
-In previous versions, a transfer was failing with error:
-<cite>'PermissionError' object has no attribute 'name'</cite>
-This defect was introduced in version 5.18.0.
-[client-side] [#7344]</li>
+<li>The manager JSON-RPC API now prevents creating components with duplicate UUIDs.
+In previous versions, creating components with duplicate UUIDs caused the
+removal of the existing component.
+[manager] [#6045]</li>
+<li>SFTPPlus can now send files to remote SFTP servers that don't accept file
+chunks larger than 32KB.
+In previous versions, the SFTP location was uploading files using chunks of
+320kB.
+[client-side][sftp] [#6964]</li>
+<li>The Web Manager now works with IE 11.
+This is a regression introduced in version 5.20.0.
+[manager] [#7285]</li>
+<li>Uploads now work for HTTP public sites.
+This is a defect introduced in SFTPPlus version 5.3.0.
+[server-side][http] [#7353]</li>
+<li>An internal server error is no longer generated if a location keep-alive
+message is sent simultaneously with a lost connection.
+[client-side] [#7370]</li>
 </ul>
 </div>
 <div class="section" id="deprecations-and-removals">
 <h1>Deprecations and Removals</h1>
 <ul class="simple">
-<li>The account <cite>as2_certificates</cite> configuration was renamed to
-<cite>as2_trusted_certificates</cite> and is now configured using a
-trusted certificates vault item.
-The existing configuration is automatically migrated.
-[server-side][as2] [#7288]</li>
-<li>The AS2 send location <cite>as2_own_certificate</cite> and <cite>as2_own_private_key</cite>
-configurations were renamed to a single
-<cite>as2_own_private_certificate</cite>, which is now configured using a
-private certificate vault item.
-The existing configuration is automatically migrated.
-[client-side][as2] [#7289-1]</li>
-<li>The AS2 server <cite>as2_receive_certificate</cite> and <cite>as2_receive_key</cite> configurations
-were renamed into a single configuration named
-<cite>as2_receive_private_certificate</cite> which is now configured using
-a private certificate vault item.
-The existing configuration is automatically migrated.
-[server-side][as2] [#7289-2]</li>
-<li>The AS2 send location <cite>as2_partner_certificates</cite> configuration was renamed to
-<cite>as2_partner_trusted_certificates</cite> and is now configured using a
-trusted certificates vault item.
-The existing configuration is automatically migrated.
-[client-side][as2] [#7289]</li>
-<li>The <cite>ssl_trusted_certificates</cite> and the <cite>ssl_client_certificate</cite>
-configuration options for the IBM MQ locations were converted to Vault items,
-as <cite>tls_trusted_certificates</cite> and <cite>tls_private_certificate</cite>.
-[client-side][mq] [#7303]</li>
-<li>The table name variable used to define Oracle Database SQL queries was
-changed from <cite>{TABLE_NAME}</cite> to <cite>:TABLE_NAME</cite>.
-[client-side][oracle-db] [#7319]</li>
-<li>The LDAP <cite>group_mapping</cite> option now uses a dedicated <cite>base_groups</cite>
-option for fallback group configuration.
-Existing configurations are automatically migrated to use
-<cite>base_groups</cite>.
-[server-side][ldap] [#7324]</li>
+<li>The event with ID 10021 is no longer a member of the
+<cite>ftp</cite> and <cite>failure-specific</cite> event groups.
+This change was made to make the groupings consistent with other generic
+TLS/SSL events.
+[server-side][client-side][ftps][https] [#6964]</li>
+<li>The client-shell <cite>--ssl-certificate-authority</cite> option was removed and
+replaced by the <cite>--tls-trusted-certificates</cite> option.
+[client-side] [#7284]</li>
 </ul>
 </div>
 </div>

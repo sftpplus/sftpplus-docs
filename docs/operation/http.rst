@@ -380,6 +380,33 @@ The `create_home_folder` and `home_folder_structure` account and group
 configurations are ignored for the public HTTP access.
 
 
+Hidden parent directories
+-------------------------
+
+You can configure the HTTP access to serve files from a folder which is not directly visible via the normal file browser interface.
+
+Assuming that the following user is configured as either the account for public access,
+or is a user authenticated with valid credentials::
+
+    [accounts/hidden-upload-uuid]
+    enabled: Yes
+    name: hidden-upload
+    home_folder_path: /srv/upload_files
+    description: Account user for HTTP public access
+
+    permissions: allow-list,allow-read
+        /uploads, deny-full-control
+        /uploads/*/*, allow-list, allow-write, allow-read
+
+The user will have read-only access to all of the files from the `/srv/upload_files` folder.
+It will also see that there is an `uploads` folder, but it will not be able to access it or any of its content.
+
+If a sub-folder like `/srv/upload_files/uploads/bb6b9102350b` exists,
+the user will be able to access it by providing the `/home/uploads/bb6b9102350b` URL.
+It can upload or download files from that directory.
+In this case the `bb6b9102350b` value acts as a private access token.
+
+
 Authentication process
 ----------------------
 

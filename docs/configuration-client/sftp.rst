@@ -144,3 +144,22 @@ proxy
 
 
 .. include:: /configuration/ssh-cipher-list.include.rst
+
+
+ssh_payload_length
+------------------
+
+:Default value: `32768`
+:Optional: Yes
+:Values: * Size in bytes
+:From version: 5.22.0
+:Description:
+    This is the maximum size in bytes that is used for SSH packets.
+
+    Any standard SSH server is required via `RFC 4253 <https://tools.ietf.org/html/rfc4253#section-6.1>`_ to support a payload of at least 32768 bytes.
+
+    This value needs to be greater than 16 bytes to accommodate for the extra SFTP specific headers.
+
+    By increasing the payload size, the total number of SSH requests is reduced and this can improve the transfer speed.
+
+    This can also be used to work around SSH servers that have a smaller limit.

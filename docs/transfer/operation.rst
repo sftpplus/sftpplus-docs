@@ -839,6 +839,21 @@ if the source file has no BOM, UTF-16LE is assumed as the default value.
 Get in touch with us if you need to handle UTF-16BE as the default encoding.
 
 
+Transfer chunk size
+-------------------
+
+When the content of a file is transferred, this is done as a sequence of data transfers requests, each request handling a portion of a file.
+
+For example, you can transfer a 10GB file, without having to load the whole file in memory.
+
+The size of the portion of the file that is transferred with each request is defined by the `transfer_chunk_size` configuration option.
+
+There is a balance to be found when setting the `transfer_chunk_size` value.
+A small chunk size will lead to a large number of requests and extra communication overhead,
+which can reduce performance.
+A large chunk size will lead to a smaller number of requests, but it can lead to higher memory usage. It can also cause transfer failures if the network connection is not stable or the source or destination servers cannot handle requests of a larger size.
+
+
 Transfer States
 ---------------
 

@@ -6,7 +6,7 @@ tls_mutual_certification_authorities
 :Values: * Vault item UUID
          * Comma-separated list of vault item UUIDs
          * Empty
-:From version: 1.6.0
+:From version: 5.20.0
 :Description:
     This is used only for certificate-based peer validation and mutual TLS authentication.
 

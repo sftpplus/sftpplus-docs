@@ -14,7 +14,73 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
-Version 5.21.1, 2026-02-18
+Version 5.22.0, 2026-03-27
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* The Linux and macOS installation scripts now support passing all configuration
+  options via command line arguments.
+  [linux][macos] [#6027]
+* When creating a new component (account, group, event handler, service) from
+  the web management console, you can now select a specific UUID to be used
+  for the new component.
+  [manager] [#6039]
+* You can now configure the size of segments used to transfer a file.
+  This can help fine-tune the performance of a transfer to a specific server.
+  [client-side] [#6964]
+* The `pinned-keys` vault item type was added to help with validating TLS
+  servers for which the certificate might not match the connection name
+  or it might be expired.
+  SFTPPlus will validate the identity of the remote TLS server using a fixed
+  list of preconfigured certificates for which the validation is done only
+  based on the public key.
+  [client-side] [#7285]
+* When a user tries to access a path inside the HTTP Web Client and there is
+  no previous authenticated session, the user is redirected to the login page.
+  Once the login is successful, the user is redirected to the initial path.
+  [server-side][http] [#7353]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The manager JSON-RPC API now prevents creating components with duplicate UUIDs.
+  In previous versions, creating components with duplicate UUIDs caused the
+  removal of the existing component.
+  [manager] [#6045]
+* SFTPPlus can now send files to remote SFTP servers that don't accept file
+  chunks larger than 32KB.
+  In previous versions, the SFTP location was uploading files using chunks of
+  320kB.
+  [client-side][sftp] [#6964]
+* The Web Manager now works with IE 11.
+  This is a regression introduced in version 5.20.0.
+  [manager] [#7285]
+* Uploads now work for HTTP public sites.
+  This is a defect introduced in SFTPPlus version 5.3.0.
+  [server-side][http] [#7353]
+* An internal server error is no longer generated if a location keep-alive
+  message is sent simultaneously with a lost connection.
+  [client-side] [#7370]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The event with ID 10021 is no longer a member of the
+  `ftp` and `failure-specific` event groups.
+  This change was made to make the groupings consistent with other generic
+  TLS/SSL events.
+  [server-side][client-side][ftps][https] [#6964]
+* The client-shell `--ssl-certificate-authority` option was removed and
+  replaced by the `--tls-trusted-certificates` option.
+  [client-side] [#7284]
+
+
+Version 5.21.1, 2026-02-19
 --------------------------
 
 In comparison with version 5.21.0, this release includes a minor web manager
@@ -344,7 +410,7 @@ New Features
   [cli][client-side] [#6250]
 * You can now configure SFTPPlus to block the source IPs when the connection is
   made.
-  In previous version, there was only the option to block during the
+  In previous versions, there was only the option to block during the
   authentication process.
   [server-side][security] [#6678]
 * You can now view the list of blocked source IP for a security policy,
@@ -379,7 +445,7 @@ Defect Fixes
   `diffie-hellman-group18-sha512`,
   `diffie-hellman-group-exchange-sha256`
   key exchange algorithms.
-  In previous version, for this combination of algorithms,
+  In previous versions, for this combination of algorithms,
   SFTPPlus was failing with errors like
   `Disconnecting the SSH connection. bad packet length` or
   `Signature from server's host key is invalid`,
@@ -573,7 +639,7 @@ Defect Fixes
   [server-side] [#7141]
 * The account created date is kept when the configuration for the account is
   synchronized to nodes.
-  In previous version, the account creation date was not included in the
+  In previous versions, the account creation date was not included in the
   synchronized data.
   [cluster][manager] [#7144]
 * The failure to start the `os` authentication method on Linux was fixed.
@@ -927,7 +993,7 @@ Defect Fixes
   not only when installing, but also when updating and rolling back. [#6952]
 * When a user with an active Purview API session logs out, SFTPPlus
   only ends the Purview API session associated with their web browser.
-  In previous version, when an user was logged out or a session expired,
+  In previous versions, when a user was logged out or a session expired,
   all Purview API sessions from all connected web browsers were logged out.
   [server-side][purview] [#6983]
 

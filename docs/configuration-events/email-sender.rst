@@ -79,10 +79,10 @@ The templates can be defined using the following structure.
 Send emails to accounts using the configured emails
 ---------------------------------------------------
 
-When configuring an user account in SFTPPlus,
+When configuring a user account in SFTPPlus,
 you can define one or more email addresses associated to this account.
 
-When configuring an email handler for an action triggered by an user account,
+When configuring an email handler for an action triggered by a user account,
 you can configure that event handler to use the email address associated to the user.
 
 A template can be used to generate the email address

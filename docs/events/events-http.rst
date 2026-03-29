@@ -93,7 +93,7 @@ HTTP / HTTPS / AS2 / REST / Cloud events
 40007
 ^^^^^
 
-:Message: HTTP/HTTPS file access successfully started in "%(real_path)s" as "%(virtual_path)s".
+:Message: HTTP(S) access started at "%(real_path)s" as "%(virtual_path)s".
 :Groups: authentication, authenticated, informational, http
 :From version: 1.8.0
 :Description: None

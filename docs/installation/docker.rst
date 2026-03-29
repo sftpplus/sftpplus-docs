@@ -1,5 +1,5 @@
-Docker deployment
-=================
+Docker container image
+======================
 
 ..  contents:: :local:
 
@@ -9,13 +9,14 @@ Introduction
 
 The SFTPPlus application can be executed in a Docker container without losing any functionality.
 
-At this time, this guide targets the Docker Linux containers.
-SFTPPlus can also be executed in Windows Server native container and we will
-update this documentation soon.
+This guide helps you understand how to build your own container image for SFTPPlus and how to start a container.
 
-As the Docker container environment is a bit different than a normal Unix
-environment, minor configuration changes are required to make full use of the
-infrastructure provided by a Docker container.
+Once you have the container created, check the :doc:`deployment documentation</installation/container>` to learn how to deploy the image and use SFTPPlus with image orchestration tools such as Kubernetes.
+
+At this time, this guide targets the Docker Linux containers.
+
+As the Docker container environment is a bit different than a normal Unix environment,
+minor configuration changes are required to make full use of the infrastructure provided by a Docker container.
 
 The SFTPPlus process can be started in the foreground,
 in order to behave like an application designed for Docker.
@@ -43,7 +44,7 @@ We provide a `Dockerfile` and a set of scripts to help you get started
 with creating a Docker image for SFTPPlus to suit your environment.
 
 The files are available as a `public Git repository hosted on GitHub
-<https://github.com/proatria/sftpplus-docker>`_.
+<https://github.com/sftpplus/sftpplus-docker>`_.
 
 Contact us if you need help with setting up an image for your
 environment.

@@ -290,7 +290,7 @@ The `disable` value is no longer a valid value for the following configuration o
   the `ssh_private_key` to an empty value.
   Using `disabled` is supported until the next major release. [#2090-9]
 * To disable the usage of a SSL certificate, CA, or CRL for a connection, you
-  should now set the `ssl_certificate`, `ssl_certificate_authority`, or
+  should now set the `ssl_certificate`, `tls_trusted_certificates`, or
   `ssl_certificate_revocation_list` to empty values.
   Using `disabled` is supported until the next major release. [ssl] [#2090]
 

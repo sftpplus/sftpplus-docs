@@ -39,6 +39,10 @@ simply launch it in a terminal with superuser privileges. For example::
 
    sudo /bin/sh ./sftpplus-os-arch-version.sh
 
+..  note::
+    You need to start the installer from a terminal.
+    If you double-click the installer file from a GUI it will fail to run.
+
 The self-extractable installer asks for the destination path.
 To set it non-interactively, add the installation directory as an argument::
 

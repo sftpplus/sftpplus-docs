@@ -78,23 +78,31 @@ SFTPPlus includes a list of public Certification Authorities that can be configu
 You don't need to provide the name or root certificate of any Certification Authority.
 As long as the remote server uses a certificate issued by one of the public CAs, you can configure SFTPPlus as::
 
-    ssl_certificate_authority = `${MOZILLA_CA_ROOTS}`
+    tls_trusted_certificates = MOZILLA-CA
 
-This uses a CA list that is updated with each SFTPPlus release.
+This uses the vault item with UUID `MOZILLA-CA` which is a CA list that is updated with each SFTPPlus release.
 This list is defined by the Mozilla Corporation for the Firefox web browser.
 
 You can read more about `Mozilla's CA Certificate Program here <https://wiki.mozilla.org/CA>`.
 
-There are also lists of predefined certificates, curated by Pro:Atria, for the following CAs:
 
-* `${LETS_ENCRYPT_X3_CA}` - Let's Encrypt,
-* `${MICROSOFT_IT_CA}` - Microsoft Online services.
+A series of bundle CAs are distributed with SFTPPlus.
+They can be configured together and mixed with other CA certificates.
+The bundle CAs are available under the following names:
+
+* `MOZILLA-CA` - All the root certification authorities accepted by the Mozilla's CA Certificate Program
+* `GOOGLE-CA` - All the root certification authorities handled by Google Trust Services
+* `LETS-ENCRYPT-CA` - For Let's Encrypt X3 certificate authority.
+* `MICROSOFT-CA` - For all Microsoft IT CA certificates.
+  Used by SharePoint Online and other services provided by Microsoft.
+* `DIGICERT-CA` - For all Digicert CA certificates.
+* `GO-DADDY-CA` - For all GoDaddy Certificate Bundles, G2 With Cross to G1.
 
 To configure a component to accept the remote peer certificates signed by
 Microsoft IT CA, which is the CA used by SharePoint Online,
 you can set the configuration as::
 
-    ssl_certificate_authority = ${MICROSOFT_IT_CRL}
+    tls_trusted_certificates = MICROSOFT-CA
 
 
 Certification Authority Pinning
@@ -109,10 +117,10 @@ SFTPPlus can be configured to automatically set the Certification Authority used
 during the first connection to the server.
 To do so, define the configuration as::
 
-    ssl_certificate_authority = set-on-first-connection
+    tls_trusted_certificates = set-on-first-connection
 
-During the initial connection, the `set-on-first-connection` value gets replaced inside the configuration with the discovered Certification Authority certificate chain.
-You no longer see the `set-on-first-connection` value, as it was automatically replaced.
+During the initial connection, the `set-on-first-connection` value gets replaced inside the configuration with a vault item containing the discovered Certification Authority certificate chain.
+You no longer see the `set-on-first-connection` value, as it was automatically replaced and will now reference a vault item.
 
 The `set-on-first-connection` has some limitations.
 It can't be used with remote servers that:
@@ -150,9 +158,6 @@ the connections to it will start to fail, as the remote server's identity can no
 in such a configuration.
 
 The connection would also fail if the URL or address configured to connect to the remote server do not match the URLs or addresses found in the certificate advertised by the remote server during the TLS handshake.
-
-The `ssl_certificate_authority` configuration option can also define the path on the local filesystem to a file containing one or more certificates in PEM format.
-These can be from a single Certificate Authority or from multiple Certificate Authorities for the remote servers this component communicates with.
 
 
 Certificate and Public Key Pinning
@@ -197,30 +202,48 @@ SFTPPlus can be configured to automatically set the pinned public key
 during the first connection to the remote server.
 To do so, define the configuration as::
 
-    ssl_certificate_authority = pin-public-key
+    tls_trusted_certificates = pin-public-key
 
-After the initial connection, the `pin-public-key` value gets replaced inside the configuration with the public key advertised by the remote server during the TLS handshake.
+After the initial connection, the `pin-public-key` value gets replaced inside the configuration with a vault item containing the public key advertised by the remote server during the TLS handshake.
 
 You can configure SFTPPlus to pin a specific public key using the following configuration.
+The public key PEM format can be the format described in RFC 7468 or X.509 SubjectPublicKeyInfo PEM ("BEGIN PUBLIC KEY") from RFC 5280.
+
 You specify the public key in PEM format::
 
-    ssl_certificate_authority = -----BEGIN PUBLIC KEY-----
+    tls_trusted_certificates = 12345678-1234-5678-1234-567812345678
+
+    [vault-items/12345678-1234-5678-1234-567812345678]
+    name = Trusted Keys for Server XYZ
+    type = pinned-keys
+    content = -----BEGIN PUBLIC KEY-----
         MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqVNXiyZJUoMZMuAy1VP6
         MORE CONTENT OF THE PUBLIC KEY
         p+ElxaJNjzW7GLZ3Etog6APB5jgXH2lHzP8bYv55bnepiHzmgZVA9u0B2SBLil1m
         TwIDAQAB
         -----END PUBLIC KEY-----
 
-For services operated by multiple servers, for example distributed across multiple regions, you can configure multiple public keys.
+For services operated by multiple servers,
+for example distributed across multiple regions,
+you can configure multiple public keys.
 Multiple public keys can also be used in preparation for a remote server rotating its public key.
+You can also configure the vault items using the PEM certificate format.
+**Only the public key part** of the certificate is used for validation.
+The certificate validity dates or subject alternative names are ignored.
 The configuration will look like::
 
-    ssl_certificate_authority = -----BEGIN PUBLIC KEY-----
-        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqVNXiyZJUoMZMuAy1VP6
-        MORE CONTENT OF THE PUBLIC KEY
-        p+ElxaJNjzW7GLZ3Etog6APB5jgXH2lHzP8bYv55bnepiHzmgZVA9u0B2SBLil1m
-        TwIDAQAB
-        -----END PUBLIC KEY-----
+    tls_trusted_certificates = 12345678-1234-5678-1234-567812345678
+
+    [vault-items/12345678-1234-5678-1234-567812345678]
+    name = Trusted Keys for Server XYZ
+    type = pinned-keys
+
+    content =
+        -----BEGIN CERTIFICATE-----
+        MIICTDCCAbWgAwIBAgIBATANBgkqhkiG9w0BAQUFADBGMQswCQYDVQQGEwJHQjEP
+        PEM CERTIFICATE IS ALSO VALID FOR KEY PINNING
+        JtNIblnr7VTXcOiB15uakQ==
+        -----END CERTIFICATE-----
 
         -----BEGIN PUBLIC KEY-----
         MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqVNXiyZJUoMZMuAy1VP6
@@ -228,5 +251,6 @@ The configuration will look like::
         -----END PUBLIC KEY-----
 
 If the remote server later advertises a different public key, the connection to the remote server
-will start to fail, as the remote server's identity can no longer be validated by SFTPPlus
+will fail to start,
+as the remote server's identity can no longer be validated by SFTPPlus
 in such a configuration.

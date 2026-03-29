@@ -121,7 +121,7 @@ Remote Windows Network shares are also available via symbolic links,
 which will create an alias that can be accessed using a local path format.
 
 For example, you can set up a home folder as ``c:\ftp-files\johnd`` which will
-provide access for an user to local files as for any account,
+provide access for a user to local files as for any account,
 but will also have a folder named ``sales-team`` for which the files are
 stored as a remote shared resource named ``sales-ftp`` hosted on a
 machine named ``srv01.example.com``.
