@@ -36,14 +36,14 @@ New Features
   directory listing using the MS-DOS format.
   [client-side][ftp] [#6427]
 * You can now configure the way SFTPPlus generates the file names for the
-  attachments associated to an email.
+  attachments associated with an email.
   [client-side][exchange-online] [#6954]
 * For event handlers, when using the Web Manager, you can now define a
   filter that excludes a specific event group.
   [manager] [#7364]
-* You can now connect to Azure Storage containers and file shares using an
+* You can now connect to Azure Storage containers and file shares using a
   Microsoft Entra ID application account.
-  This allows using role-based access control (RBAC) to grant access to blob or
+  This allows using role-based access control (RBAC) to grant access to blobs or
   file shares.
   [client-side][azure-blob][azure-files] [#7389]
 
@@ -51,7 +51,7 @@ New Features
 Defect Fixes
 ^^^^^^^^^^^^
 
-* The data line for server FTP MLST response now starts with a space,
+* The data line for the server FTP MLST response now starts with a space,
   as specified in RFC 3659.
   [server-side][ftp] [#3905]
 * The FTP MLST response now always returns fully qualified pathnames.
