@@ -94,7 +94,7 @@ HTTP / HTTPS / AS2 / REST / Cloud events
 ^^^^^
 
 :Message: HTTP(S) access started at "%(real_path)s" as "%(virtual_path)s".
-:Groups: authentication, authenticated, informational, http
+:Groups: authentication, authenticated, success, http
 :From version: 1.8.0
 :Description: None
 :Data:
@@ -526,7 +526,7 @@ HTTP / HTTPS / AS2 / REST / Cloud events
 ^^^^^
 
 :Message: Successfully downloaded file from "%(path)s". Read %(total_read)s bytes at %(read_speed)s bytes/second in %(duration)s seconds.
-:Groups: authenticated, informational, http, file-operation
+:Groups: authenticated, success, http, file-operation
 :From version: 3.46.0
 :Description: None
 :Data:
@@ -678,7 +678,7 @@ HTTP / HTTPS / AS2 / REST / Cloud events
 ^^^^^
 
 :Message: Successful AS2 send ID "%(message_id)s" at "%(real_path)s" from "%(as2_from)s" to "%(as2_to)s". MDN: %(mdn_info)s. Content signature: %(signature)s. Encrypted: %(is_encrypted)s. Compressed: %(is_compressed)s.
-:Groups: authenticated, informational, file-operation, http
+:Groups: authenticated, success, file-operation, http
 :From version: 4.5.0
 :Description: None
 

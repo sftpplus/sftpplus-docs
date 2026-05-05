@@ -3,7 +3,8 @@ Install guides
 
 SFTPPlus is specially designed to operate on all major server operating systems and major CPUs.
 
-It is based on Python3 and OpenSSL, which are distributed with the application and are constantly updated to include both security and performance fixes.
+It is based on Python and OpenSSL,
+which are distributed with the application and are constantly updated to include both security and performance fixes.
 
 If you are looking for an operating system not listed
 in the :doc:`Supported Operating Systems</installation/requirements>` section,

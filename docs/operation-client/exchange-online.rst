@@ -21,6 +21,8 @@ SFTPPlus will connect to the Exchange Online server using the MS Graph HTTPS API
 
 The authentication to MS Graph is done via the Entra ID OAuth2 HTTPS method.
 
+SFTPPlus can handle the attachments from personal user mailboxes or shared mailboxes.
+
 
 Attached files integration
 --------------------------
@@ -32,14 +34,15 @@ with support for sub-directories.
 
 All files attached to messages that belong to the same mail folder are considered as members of that mail folder.
 
-The name of the files is generated from the email folder and the attachment name.
+The name of the files is generated from the folder where the message is stored,
+the message details, such as subject, and the attachment name.
 
 For example, assume that you have these 2 messages in the `/Inbox` folder:
 
 * subject `Report for May 2024` with `report-may.pdf` and `income-2024-05-01.csv` attachments
 * subject `Order ACME Ltd` with `order.xml` attachment
 
-SFTPPlus will handle these files as::
+With the default configuration, SFTPPlus will handle these files as::
 
     /Inbox/Report for May 2024-report-may.pdf
     /Inbox/Report for May 2024-income-2024-05-01.csv
@@ -56,10 +59,68 @@ When attachments are downloaded, SFTPPlus will handle each attachment as a separ
 When removing files after a transfer, the attachments from a message are removed.
 Once all attachments from a message are removed, the message is also removed.
 
-Filename with more than 240 characters are truncated.
-As long as the extension is less than 10 character, the extension is preserved.
+.. _file-name-template-exchange:
 
-Characters that are not valid filename character in Windows, Linux, or macOS are replaced with the hyphen (-) character.
+
+Attachment file name
+--------------------
+
+SFTPPlus will try to map the content stored in email attachments to files in a directory structure.
+
+The mapping is done using the following rules:
+
+* Each folder or sub-folder is considered a separate directory.
+* The hierarchy of folders and sub-folders is preserved.
+* The file name is generated from a message property,
+  using the `file_name_template` configuration option.
+* File names with more than 240 characters are truncated.
+  This only includes the name itself, not the full parent path.
+* As long as the extension is less than 10 characters, the extension is preserved.
+* Characters that are not valid filename characters in Windows, Linux, or macOS are replaced with the hyphen (-) character.
+* Newline characters are removed from the name.
+* When multiple attachments have the same name, the ` (N)` text is added to the file name, before the extension, where N is a number starting at 1.
+
+The following placeholders are available for the `file_name_template` configuration option:
+
+* `{now.cwa_14051}` - Human readable date and time when the file was transferred by SFTPPlus
+* `{now.iso_8601}` - ISO 8601 date and time
+* `{now.iso_8601_fractional}`
+* `{now.iso_8601_local}`
+* `{now.iso_8601_basic}`
+* `{now.iso_8601_compact}` - ISO 8601 compatible with Windows file names
+* `{now.timestamp}` - Unix timestamp with decimals
+
+* `{sent.cwa_14051}` - Human readable date and time when the file was originally sent. When sent date is missing (for example for some draft messages), a placeholder value is set to the start of year 2000.
+* `{sent.iso_8601}`
+* `{sent.iso_8601_fractional}`
+* `{sent.iso_8601_local}`
+* `{sent.iso_8601_basic}`
+* `{sent.iso_8601_compact}`
+* `{sent.timestamp}`
+
+* `{from.email}` - Who the message is attributed to.
+* `{from.name}` - Display name from the message's *From* field.
+* `{sender.email}` - Whose mailbox actually sent the message.
+  Often hidden in email GUI or shown as *Sent by X on behalf of Y.*
+* `{sender.name}` - Display name of the mailbox that actually sent
+  the message.
+
+* `{attachment.name}` - The name of the attachment.
+* `{attachment.size}` - The size of the attachment. This is not the size of the attachment content, as it also includes the size of attachment meta-data headers.
+
+* `{message.subject}` - The subject of the message associated with the attachment.
+* `{message.id}` - The id of the message, as reported by Exchange Online
+* `{message.internet_id}` - The ID of the message, as presented when exchanging the message between email servers.
+* `{message.parent_id}` - ID of the parent folder for this message.
+* `{message.conversation_id}` - ID of the conversation for this message.
+* `{message.body_preview}` - A short text, up to 255 characters that previews the message text content itself. Can be empty.
+* `{message.importance}` - This property reflects the *priority* level that the *sender* assigned to the email. Usually has one of the values: `low`, `normal`, `high`.
+* `{message.inference}` - Inference classification of the message. This is the technical property that powers the *Focused Inbox* feature in Outlook. The possible values are `focused` or `other`, but Exchange might add other values later.
+* `{message.categories}` - The categories of this email, concatenated using the `-` (minus) character. A message can have multiple categories. The categories are sorted alphabetically before concatenation. Can be empty if message has no categories.
+
+For example, for a normal importance email with subject `Order 23/12` with attachment `order:dec.xml`,
+with the `file_name_template = [{message.importance}]_{message.subject}_{attachment.name}`,
+the resulting file name will be `[normal]_Order 23-12_order-dec.xml`
 
 
 Limitation
@@ -69,7 +130,7 @@ SFTPPlus tries to accommodate all Exchange Online use cases encountered by our e
 
 The current SFTPPlus integration with Exchange Online has the following limitations:
 
-* Shared mail folders are not yet supported.
+* Shared mail *folders* are not yet supported. Not to be confused with shared *mailboxes* which are supported.
   Contact our support team if you need to transfer attachments from shared folders.
 * Mail folders should have less than 1000 sub-folders.
 * A single message should have less than 1000 attachments.
@@ -78,8 +139,9 @@ The current SFTPPlus integration with Exchange Online has the following limitati
 * It can handle mail folders with more than 1000 emails,
   as long as it is configured to remove the messages once the attachment are transferred.
 * The list of available mail folders is generated when the SFTPPlus location is connected.
-  If mail folders are modified (added, removed, or renamed) after the STPPlus location was started, SFTPPlus will observe the changes with a delay of 60 seconds.
+  If mail folders are modified (added, removed, or renamed) after the SFTPPlus location was started, SFTPPlus will observe the changes with a delay of 60 seconds.
   You can force a reload of the folders by manually restarting the location.
+* An email can have a maximum of 100 attachments with the same name.
 
 If any of these limitations are a blocker for implementing SFTPPlus according to your specifications, get in touch with our support team.
 We can extend SFTPPlus to meet your requirements.
@@ -130,7 +192,8 @@ The permissions need to be added to `MS Graph`:
 Exchange Online permissions
 ---------------------------
 
-SFTPPlus access to Exchange Online mailboxes is fully automated, without user interaction.
+SFTPPlus access to Exchange Online mailboxes is fully automated,
+without user interaction.
 The access is done using the identity of the SFTPPlus application registered via Entra ID, as opposed to an Entra ID domain user.
 
 While no user interaction is needed, Exchange Online admins will need to provide specific mailbox access (using Exchange Online PowerShell) for applications' service principals to access the mailboxes.
@@ -173,3 +236,12 @@ You can have any text as `-Description`::
 You can test whether SFTPPlus Entra ID application has access to a specific mailbox using this command::
 
     Test-ApplicationAccessPolicy -Identity JohnD@example.com -AppId YOUR-SFTPPLUS-APP-ID
+
+..  note::
+    It can take up to 60 minutes for the Entra ID and Exchange Online permissions to be synchronized.
+    If `Test-ApplicationAccessPolicy` reports that SFTPPlus application has access to that particular email, but when you try to start the location inside SFTPPlus you get an error like
+    `ErrorAccessDenied Access to OData is disabled: [RAOP] : Blocked by tenant configured AppOnly AccessPolicy settings.`, wait a few minutes and try again.
+
+To check all the available policies use::
+
+    Get-ApplicationAccessPolicy

@@ -57,7 +57,7 @@ Limitations
 * All IBM MQ locations should use the same value for `idle_connection_timeout`.
   This is a limitation of the IBM MQ C Client library, that SFTPPlus uses.
 
-.. _file-name-template:
+.. _file-name-template-mq:
 
 
 Message queue to file path mapping

@@ -67,3 +67,16 @@ application_id
 :Description:
     Application (client) ID of the SFTPPlus inside the Entra ID.
     This value is obtained after registering SFTPPlus in Entra ID via the `App registrations` page.
+
+
+file_name_template
+------------------
+
+:Default value: `{message.subject} - {attachment.name}`
+:Optional: No
+:From version: 5.23.0
+:Values: * Text
+:Description:
+    Template used to generate the file name for attachments.
+
+    Check :doc:`Exchange Online transfers</operation-client/exchange-online>` documentation page for more information about the available options and usage.

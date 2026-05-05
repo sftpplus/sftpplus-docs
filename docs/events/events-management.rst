@@ -148,7 +148,7 @@ Administration action events
 ^^^^^
 
 :Message: Administrator logged out from local manager.
-:Groups: administration, informational, local-manager
+:Groups: administration, success, local-manager
 :From version: 2.1.0
 :Description: None
 
@@ -406,7 +406,7 @@ Administration action events
 ^^^^^
 
 :Message: Embedded database "%(db_uuid)s" operation took %(duration)s seconds to retrieve %(size)s results.
-:Groups: informational, authenticated, local-manager
+:Groups: success, authenticated, local-manager
 :From version: 4.31.0
 :Description: None
 :Data:

@@ -71,7 +71,7 @@ Other differences:
   This is considered legacy usage as it requires a dedicated Office365 user license.
 * `webdav` user is associated with your organization and has implicit access to any site
 * `webdav` used the standard HTTP WebDAV protocol, the same one used for on-premise SharePoint sites.
-* `sharepoint-online` uses the *OAUth2* application-id + secret authentication.
+* `sharepoint-online` uses the *OAuth2* application-id + secret authentication.
 * `sharepoint-online` uses HTTP MS Graph API.
 * `sharepoint-online` application-id is associated to a single site.
   You need to create separate explicit association for each site you want to give SFTPPlus access to.

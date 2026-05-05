@@ -193,11 +193,25 @@ FTP / FTPS events
 ^^^^^
 
 :Message: Internal error. Failed to process the FTP command "%(line)s". %(details)s
-:Groups: operational, authenticated, failure, failure-critical, ftp, failure-specific
+:Groups: operational, authenticated, failure, failure-critical, ftp
 :From version: 1.6.0
 :Description: None
 :Data:
   :line: Full line of FTP command that generated the error.
+
+
+
+
+
+10017
+^^^^^
+
+:Message: Failed to parse %(count)s FTP LIST lines. %(details)s
+:Groups: operational, authenticated, failure, ftp, client-side
+:From version: 5.23.0
+:Description: None
+:Data:
+  :count: The number of lines that were not parsed.
 
 
 

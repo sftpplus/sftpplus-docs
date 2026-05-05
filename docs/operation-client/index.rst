@@ -41,6 +41,19 @@ client-side protocol, including examples and best practices.
         Learn how to send files over AS2 using SFTPPlus, including
         configuration options and best practices.
 
+    .. grid-item-card:: :octicon:`stack` Azure BLOB and Azure Files
+        :link-type: doc
+        :link: ./azure-blob-files
+
+        Learn how to configure SFTPPlus to access files hosted by the Azure Storage account, as BLOB or file shares.
+
+    .. grid-item-card:: :octicon:`stack` Exchange Online attachments
+        :link-type: doc
+        :link: ./exchange-online
+
+        Learn how to configure Entra ID and Exchange Online to allow
+        SFTPPlus to read or write emails.
+
     .. grid-item-card:: :octicon:`stack` SharePoint Online Sites
         :link-type: doc
         :link: ./sharepoint-online
@@ -53,13 +66,6 @@ client-side protocol, including examples and best practices.
         :link: ./oracle-database
 
         Read more about how to setup file transfer to and from Oracle Database.
-
-    .. grid-item-card:: :octicon:`stack` Exchange Online attachments
-        :link-type: doc
-        :link: ./exchange-online
-
-        Learn how to configure Entra ID and Exchange Online to allow
-        SFTPPlus to read or write emails.
 
     .. grid-item-card:: :octicon:`stack` IBM MQ Transfers
         :link-type: doc
@@ -77,6 +83,7 @@ client-side protocol, including examples and best practices.
     ftp
     http
     as2-send
+    azure-blob-files
     exchange-online
     sharepoint-online
     oracle-database

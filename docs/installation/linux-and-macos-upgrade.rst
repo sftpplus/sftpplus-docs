@@ -33,10 +33,25 @@ and to allow creating custom update procedures.
     need to be adapted accordingly when using custom paths.
 
 
-Fully automated
----------------
+Self-extractable package
+------------------------
 
-Since version 5.5.0, the `bin/auto-update.sh` script is provided as the recommended update method.
+You can use the self-extractable SFTPPlus package relevant to your operating system to do an assisted update of an existing installation.
+
+This is the recommended method when the update is triggered by a person.
+See the *auto-update* section below to find out more about fully automated updates.
+
+Simply point the downloaded `.sh` package to the install path of SFTPPlus (either through a parameter or interactively)::
+
+    $ sudo /bin/sh ./sftpplus-os-arch-version.sh /opt/sftpplus
+
+After a few starting checks, the `bin/update.sh` script is used to update your installation using the content of the self-extractable SFTPPlus package, exactly as described above in the assisted update section.
+
+
+Auto-update script
+------------------
+
+Since version 5.5.0, the `bin/auto-update.sh` script is the recommended method for fully automated or scheduled updates.
 
 ..  attention::
     The fully automated method needs egress / outgoing access to the Internet.
@@ -92,17 +107,6 @@ Backups of the current installation are automatically created.
 The configuration and logs of SFTPPlus are persisted in place.
 Configuration is also backed up alongside SFTPPlus-specific files during updating,
 but log files are not copied to the backup location as they can be very large.
-
-
-Update using the self-extractable package
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-You can also use the self-extractable SFTPPlus package relevant to your operating system to do an assisted update of an existing installation.
-Simply point the downloaded `.sh` package to the install path of SFTPPlus (either through a parameter or interactively)::
-
-    $ sudo /bin/sh ./sftpplus-os-arch-version.sh /opt/sftpplus
-
-After a few starting checks, the `bin/update.sh` script from your existing SFTPPlus installation is used to update your installation using the content of the self-extractable SFTPPlus package, exactly as describe above in the assisted update section.
 
 
 Update from trial version

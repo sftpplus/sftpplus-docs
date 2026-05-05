@@ -301,7 +301,7 @@ To change the modification time to the 24th of September 2014 for file
 
 Modification time can be read and set for files and directories.
 
-Time can also be set using milliseconds by using the input formated as
+Time can also be set using milliseconds by using the input formatted as
 exemplified below::
 
    > MFMT 20160929043300.14312 some/file name.txt

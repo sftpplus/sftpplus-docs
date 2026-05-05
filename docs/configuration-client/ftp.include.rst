@@ -69,6 +69,31 @@ acct
     The location will fail to authenticate if this is empty and extra ACCT information is required.
 
 
+prefer_machine_listing
+----------------------
+
+:Default value: `no`
+:Optional: Yes
+:Values: * `yes`
+         * `no`
+:From version: 5.23.0
+:Description:
+    The preferred FTP command to use when doing the directory listing command.
+
+
+    When set to `yes` it will prefer the `MLST` and `MLSD` commands, with fallback to `LIST`
+    Otherwise it will only use `LIST`.
+
+    The `LIST` command is supported by any FTP server.
+    The format used by the `LIST` command is designed to be read by humans and it mirrors the Unix `ls` or MSDOS `dir` output.
+    This makes it hard, for example, to detect the date and time, as there is no timezone information.
+
+    The `MLSD` command is designed to return the information in a standardized format, with date and time in UTC timezone.
+
+    The FTP `MLSD` command is not supported by all servers.
+    If `prefer_machine_listing = yes` is configured and the server does not support the `MLSD` command the location will fallback to the `LIST` command.
+
+
 debug
 -----
 

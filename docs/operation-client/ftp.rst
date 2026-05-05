@@ -54,10 +54,15 @@ To transfer a file to a FTP destination with temporary name, these FTP commands 
 * RNFR
 * RNTO
 
-To verity that a file on destination is not overwritten, the following commands are required:
+To verify that a file on destination is not overwritten, the following commands are used:
 
 * LIST
-* MSLT (if the server supports it, otherwise LIST is used)
+* MLST (used when `prefer_machine_listing = yes` and the server supports the command)
+
+To get the content of a directory, the following commands are used:
+
+* LIST
+* MLSD (used when `prefer_machine_listing = yes` and the server supports the command)
 
 The following command are also used by SFTPPlus,
 but they are not required.
@@ -111,11 +116,15 @@ same timezone.
 Due to this, for correct operation the client and server need to have the same
 timezone and have the time synchronized.
 
-It will try to extract the date and time from the LIST command, assuming that
-it it similar to the result presented by the Unix `ls` command.
+It will try to extract the date and time from the LIST command,
+assuming that it is similar to the result presented by the Unix `ls` command or the MS-DOS `dir` command.
 
-When running on Windows, SFTPPlus will not be able to handle
-dates before the year 1970 and after the year 2038.
+For MS-DOS format, the date is expected to be formatted as *month-day-year*, *day/month/year*, or *day.month.year*.
+The time is always in 12-hour format as `hours:minutesAM` or
+`hours:minutesPM`; 24-hour time is not supported for MS-DOS listings.
+
+When running on Windows,
+SFTPPlus will not be able to handle dates before the year 1970 and after the year 2038.
 
 
 Validating the identity of the remote FTPS server

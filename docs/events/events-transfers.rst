@@ -242,8 +242,8 @@ Automated file transfers events
 60016
 ^^^^^
 
-:Message: Transfer job failed at %(step_name)s after all retries. The following files failed: %(failed_paths)s. The following files succeeded: %(success_paths)s. %(skip_paths)s
-:Groups: transfer-job, failure, failure-high, failure-specific, client-side
+:Message: Transfer job failed at %(step_name)s after all retries. The following files failed: %(failed_paths)s. %(success_paths)s %(skip_paths)s %(details)s
+:Groups: transfer-job, failure, failure-high, client-side
 :From version: 2.9.0
 :Description: None
 :Data:
@@ -259,7 +259,7 @@ Automated file transfers events
   :success_list: List of path which were successfully transferred to the destination.
 
 
-  :success_paths: Comma separated paths which were successfully transferred to the destination.
+  :success_paths: Human readable description for paths which were successfully transferred to the destination.
 
 
 
@@ -321,7 +321,7 @@ Automated file transfers events
 60020
 ^^^^^
 
-:Message: Action "%(action)s" scheduled  in "%(seconds)s" seconds by "%(date)s" for transfer "%(name)s".
+:Message: Action "%(action)s" scheduled in "%(seconds)s" seconds by "%(date)s" for transfer "%(name)s".
 :Groups: transfer, informational, client-side
 :From version: 3.0.0
 :Description: None
@@ -451,8 +451,8 @@ Automated file transfers events
 60028
 ^^^^^
 
-:Message: Fail to transfer file "%(path)s" for "%(name)s". File already exists on the destination and transfer is not configured to overwrite it.
-:Groups: transfer-job, failure, failure-specific, client-side
+:Message: Fail to transfer file "%(path)s" for "%(name)s". %(details)s
+:Groups: transfer-job, failure, client-side
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1364,7 +1364,7 @@ Automated file transfers events
 ^^^^^
 
 :Message: Source directory at "%(path)s" has a large number of files. Found %(files_count)s files. This can affect the performance of the transfer.
-:Groups: session, informational, client-side
+:Groups: session, operational, client-side
 :From version: 5.17.0
 :Description: None
 :Data:

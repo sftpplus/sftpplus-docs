@@ -95,7 +95,7 @@ SFTP / SCP / SSH events
 ^^^^^
 
 :Message: End processing '%(command)s' command.
-:Groups: operational, authenticated, informational, ssh
+:Groups: operational, authenticated, success, ssh
 :From version: 3.45.0
 :Description: None
 :Data:
@@ -1107,7 +1107,7 @@ SFTP / SCP / SSH events
 ^^^^^
 
 :Message: SFTP session started for "%(name)s" using "%(credentials_type)s".
-:Groups: authenticated, informational, ssh, client-side
+:Groups: authenticated, success, ssh, client-side
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1169,7 +1169,7 @@ SFTP / SCP / SSH events
 ^^^^^
 
 :Message: SSH rekey successfully completed.
-:Groups: session, informational, ssh, client-side
+:Groups: session, success, ssh, client-side
 :From version: 3.31.0
 :Description: None
 
@@ -1179,7 +1179,7 @@ SFTP / SCP / SSH events
 ^^^^^
 
 :Message: Successfully got attributes for opened file "%(path)s".
-:Groups: authenticated, informational, file-operation, ssh
+:Groups: authenticated, success, file-operation, ssh
 :From version: 3.51.0
 :Description: None
 

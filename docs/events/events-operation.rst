@@ -177,8 +177,8 @@ Operation events
 20015
 ^^^^^
 
-:Message: Let's Encrypt certificate for "%(domains)s" generated at"%(path)s".
-:Groups: operational, process, informational
+:Message: Let's Encrypt certificate for "%(domains)s" generated at "%(path)s".
+:Groups: operational, process, success
 :From version: 5.11.0
 :Description: None
 :Data:
@@ -195,7 +195,7 @@ Operation events
 ^^^^^
 
 :Message: New Let's Encrypt certificate for "%(domains)s" used for service "%(service)s".
-:Groups: operational, process, informational
+:Groups: operational, process, success
 :From version: 3.40.0
 :Description: None
 :Data:
@@ -398,7 +398,7 @@ Operation events
 ^^^^^
 
 :Message: Certificate revocation list located at "%(uri)s" and issued by "%(issuer)s" was successfully updated and has now %(count)s entries. Next update advertised as %(next_update)s. Next update scheduled in %(update_seconds)s seconds for UTC %(update_datetime)s.
-:Groups: operational, authenticated, informational
+:Groups: operational, authenticated, success
 :From version: 3.13.0
 :Description: None
 :Data:
@@ -945,7 +945,7 @@ Operation events
 ^^^^^
 
 :Message: Current resource usage: cpu=%(cpu_percent)s%% mem-res=%(memory_resident)s mem-virt=%(memory_virtual)s conn=%(connection_count)s file=%(file_count)s thread=%(thread_count)s cpus=%(global_cpus)s mem-available=%(global_memory_available)s.
-:Groups: analytics, process, informational
+:Groups: analytics, process, success
 :From version: 3.44.0
 :Description: None
 :Data:
@@ -1066,9 +1066,9 @@ Operation events
 ^^^^^
 
 :Message: File "%(source_path)s" was successfully amended to %(path)s.
-:Groups: process, informational, file-operation
+:Groups: process, success, file-operation
 :From version: 3.22.0
-:Description: None
+:Description: Emitted by RemoveLastLine extension.
 :Data:
   :source_path: Path of the source file which was modified.
 
@@ -1207,7 +1207,7 @@ Operation events
 ^^^^^
 
 :Message: Skip auth "%(method_name)s" of type "%(method_type)s" because it is currently stopped. Consider starting the method or remove it from the list of authentication methods configured for this service.
-:Groups: session, informational
+:Groups: session, failure, failure-specific
 :From version: 5.12.0
 :Description: Emitted when an authentication method is configured as active for a service, but it is stopped.
 :Data:
@@ -1274,7 +1274,7 @@ Operation events
 ^^^^^
 
 :Message: File %(path)s was not modified in the last %(age)s seconds.
-:Groups: monitor, informational, file-operation
+:Groups: monitor, success, file-operation
 :From version: 3.5.0
 :Description: None
 :Data:
@@ -1468,7 +1468,7 @@ Operation events
 ^^^^^
 
 :Message: More credentials needed for account "%(username)s" accepted by %(method_type)s authentication "%(method_name)s" using "%(credentials_type)s" credentials. Still required: %(required_credentials)s
-:Groups: operational, session, informational
+:Groups: operational, session, success
 :From version: 4.10.0
 :Description: None
 :Data:
@@ -1494,7 +1494,7 @@ Operation events
 ^^^^^
 
 :Message: File "%(path)s" was successfully "%(mode)s" to "%(destinations)s".
-:Groups: authenticated, informational, file-operation
+:Groups: authenticated, success, file-operation
 :From version: 3.5.0
 :Description: None
 :Data:
@@ -1537,7 +1537,7 @@ Operation events
 ^^^^^
 
 :Message: Account "%(account_name)s" of type "%(account_type)s" from groups/roles "%(group_name)s", authenticated by "%(method_name)s" of type "%(method_type)s" using %(credentials_type)s credentials as "%(username)s". %(ignored_groups)s
-:Groups: authentication, authenticated, informational
+:Groups: authentication, authenticated, success
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -2015,7 +2015,7 @@ Operation events
 ^^^^^
 
 :Message: File "%(path)s" was modified in monitor %(name)s.
-:Groups: file-operation, informational, monitor
+:Groups: file-operation, success, monitor
 :From version: 2.10.0
 :Description: None.
 :Data:
@@ -2029,7 +2029,7 @@ Operation events
 ^^^^^
 
 :Message: File "%(from_path)s" was renamed in monitor %(name)s to "%(to_path)s".
-:Groups: file-operation, informational, monitor
+:Groups: file-operation, success, monitor
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -2046,7 +2046,7 @@ Operation events
 ^^^^^
 
 :Message: Folder "%(from_path)s" was renamed in monitor %(name)s to "%(to_path)s".
-:Groups: file-operation, informational, monitor
+:Groups: file-operation, success, monitor
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -2066,7 +2066,7 @@ Operation events
 ^^^^^
 
 :Message: File "%(path)s" was created in monitor %(name)s.
-:Groups: file-operation, informational, monitor
+:Groups: file-operation, success, monitor
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -2080,7 +2080,7 @@ Operation events
 ^^^^^
 
 :Message: Folder "%(path)s" was created in monitor %(name)s.
-:Groups: file-operation, informational, monitor
+:Groups: file-operation, success, monitor
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -2094,7 +2094,7 @@ Operation events
 ^^^^^
 
 :Message: File "%(path)s" was deleted in monitor %(name)s.
-:Groups: file-operation, informational, monitor
+:Groups: file-operation, success, monitor
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -2108,7 +2108,7 @@ Operation events
 ^^^^^
 
 :Message: Folder "%(path)s" was deleted in monitor %(name)s.
-:Groups: file-operation, informational, monitor
+:Groups: file-operation, success, monitor
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -2122,7 +2122,7 @@ Operation events
 ^^^^^
 
 :Message: File "%(path)s" has a valid digital signature.
-:Groups: file-operation, process, informational
+:Groups: file-operation, process, success
 :From version: 3.5.0
 :Description: None
 
@@ -2251,7 +2251,7 @@ Operation events
 ^^^^^
 
 :Message: Started %(instance_name)s - %(product_version)s.
-:Groups: operational, process, informational
+:Groups: operational, process, success
 :From version: 3.9.0
 :Description: None
 :Data:
@@ -2396,7 +2396,7 @@ Operation events
 ^^^^^
 
 :Message: HTTP POST notification for event %(event_id)s successful for "%(target_path)s".
-:Groups: operational, authenticated, informational
+:Groups: operational, authenticated, success
 :From version: 4.16.0
 :Description: None
 :Data:

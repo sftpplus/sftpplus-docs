@@ -14,6 +14,67 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
+Version 5.23.0, 2026-05-05
+--------------------------
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* The OpenSSL version was updated to 3.5.6 and pyOpenSSL version was updated
+  to 26.0.0.
+  SFTPPlus is not affected by CVE-2026-27459 since *DTLS* is not used. [#7343]
+* The Python version used by SFTPPlus was updated to version 3.12.13. [#7393]
+
+
+New Features
+^^^^^^^^^^^^
+
+* The FTP/FTPS locations can now get the list of files using the MLSD command.
+  [client-side][ftp] [#3905]
+* The FTP/FTPS location can now detect files on FTP servers that return the
+  directory listing using the MS-DOS format.
+  [client-side][ftp] [#6427]
+* You can now configure the way SFTPPlus generates the file names for the
+  attachments associated to an email.
+  [client-side][exchange-online] [#6954]
+* For event handlers, when using the Web Manager, you can now define a
+  filter that excludes a specific event group.
+  [manager] [#7364]
+* You can now connect to Azure Storage containers and file shares using an
+  Microsoft Entra ID application account.
+  This allows using role-based access control (RBAC) to grant access to blob or
+  file shares.
+  [client-side][azure-blob][azure-files] [#7389]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The data line for server FTP MLST response now starts with a space,
+  as specified in RFC 3659.
+  [server-side][ftp] [#3905]
+* The FTP MLST response now always returns fully qualified pathnames.
+  [server-side][ftp] [#3905]
+* The SFTPPlus FTP/FTPS location will no longer fail with a timeout error when
+  there are many files pending to be transferred.
+  [client-side][ftp][ftps] [#6411]
+* When the TLS session is not reused by the remote server,
+  the SFTPPlus FTPS client-side will disconnect the command channel in an
+  attempt to trigger a TLS renegotiation.
+  [client-side][ftps] [#7409]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The Web Manager UI was updated to remove the "restart required" hint
+  for configuration options.
+  The majority of the configuration options will require a restart of the
+  associated component.
+  [manager] [#7350]
+
+
 Version 5.22.0, 2026-03-27
 --------------------------
 

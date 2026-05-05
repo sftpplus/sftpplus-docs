@@ -1,37 +1,10 @@
 Introduction
 ------------
 
-The HTTPS connections will use the default list of `secure` ciphers and will
-accept TLS v1.1 and TLS v1.2 protocols.
+This page is dedicated to the configuration options available for connecting to an Azure storage account.
 
-..  note::
-    Unsecured HTTP access is not available.
-
-..  note::
-    The current implementation is tested using
-    General-purpose v2 (GPv2) accounts.
-
-Only storage account names with access keys are currently supported.
-Please get in touch if you plan to use Azure Active Directory or
-shared access signatures.
-
-The path / url to the Azure File / BLOB storage is case-sensitive.
-
-When using Azure File / BLOB locations, the source or destination path will be
-defined as the name of the share or container (to or from where files are transferred),
-followed by the targeted directory inside that share.
-The path will look like ``/SHARE-NAME/DIR-IN-ROOT/PARENT-DIR`` or ``/CONTAINER-NAME/DIR-IN-ROOT/PARENT-DIR``.
-
-The requests made by SFTPPlus to the Azure Storage server are done using
-the ``sftpplus-azure-blob-UUID`` or ``sftpplus-azure-file-UUID`` format.
-Where UUID is a unique identifier for this location.
-This can be used inside Azure Storage Analytics to identify the operations
-done by this location.
-The request ID will look like::
-
-    x-ms-client-request-id: sftpplus-azure-blob-60ec1329-cc5d-416e-81b9-7c22
-    of
-    x-ms-client-request-id: sftpplus-azure-file-60ec1329-cc5d-416e-81b9-7c22
+For more information about how to implement Azure Storage (BLOB or Files) based transfers,
+see the separate documentation page for :doc:`implementing Azure BLOB and Files transfers</operation-client/azure-blob-files>`.
 
 
 username
@@ -45,6 +18,22 @@ username
     Name of the Azure Storage Account.
 
 
+authentication_method
+---------------------
+
+:Default value: `access-key`
+:Optional: Yes
+:Values: * `access-key`
+         * `entra-id`
+:From version: 5.23.0
+:Description:
+    The authentication method to use for connecting to the Azure cloud.
+
+    The default value of `access-key` is used when authentication is done using one of the *security keys* defined for the storage account.
+
+    Use `entra-id` to authenticate using OAuth 2.0 access tokens from the Microsoft Entra.
+
+
 password
 --------
 
@@ -53,7 +42,40 @@ password
 :From version: 3.36.0
 :Values: * Plain text.
 :Description:
-    Any of the two access keys for the Azure storage account.
+    Any of the two access keys for the Azure storage account or the OAuth2 client secret.
 
+    For `authentication_method = access-key`, this is one of the two
+    access keys for the Azure storage account.
     It should be specified in Base64 format.
     This is the default format presented by the Azure Portal.
+
+    For `authentication_method = entra-id`, this is the OAuth2 client
+    secret and should be provided as-is, not in Base64 format.
+
+
+directory_id
+------------
+
+:Default value: Empty
+:Optional: No
+:Values: * Text
+:From version: 5.23.0
+:Description:
+    Directory (tenant) ID of the SFTPPlus inside the Entra ID.
+    This value can be viewed after registering SFTPPlus in Entra ID via the `App registrations` page.
+
+    Only used when `authentication_method = entra-id`.
+
+
+application_id
+--------------
+
+:Default value: Empty
+:Optional: No
+:Values: * Text
+:From version: 5.23.0
+:Description:
+    Application (client) ID of the SFTPPlus inside the Entra ID.
+    This value is obtained after registering SFTPPlus in Entra ID via the `App registrations` page.
+
+    Only used when `authentication_method = entra-id`.

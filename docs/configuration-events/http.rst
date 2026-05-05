@@ -145,9 +145,9 @@ http_content_type
 :Description:
     Format used to send the event over HTTP.
 
-    Use `custom` to send the event as a custom Jinja2 template formated value.
+    Use `custom` to send the event as a custom Jinja2 template formatted value.
 
-    Use `json` to send the event as JSON formated.
+    Use `json` to send the event as JSON formatted.
 
     Use `soap` to send the event as human readable XML SOAP envelope.
 
