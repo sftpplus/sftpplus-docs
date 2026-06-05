@@ -15,21 +15,6 @@ If you are looking to implement bespoken functionality, see the
     :padding: 0
     :class-container: surface
 
-    .. grid-item-card:: :octicon:`book` Accounts authentication
-        :link-type: doc
-        :link: ./authentication
-
-        Learn how password policies are implemented, about authenticating
-        with Windows Domain accounts, anonymous authentication and other
-        authentication settings.
-
-    .. grid-item-card:: :octicon:`shield-check` Accounts authorization
-        :link-type: doc
-        :link: ./authorization
-
-        Learn about the available permissions that can be applied to
-        different files and folders.
-
     .. grid-item-card:: :octicon:`sliders` FTP/FTPS usage
         :link-type: doc
         :link: ./ftp
@@ -81,19 +66,11 @@ If you are looking to implement bespoken functionality, see the
 
         Learn how SFTPPlus handles native file system access on both Unix-like and Windows platforms for the server-side operations.
 
-    .. grid-item-card:: :octicon:`book` LDAP integration
-        :link-type: doc
-        :link: ./ldap
-
-        This section provides information about configuring SFTPPlus to use
-        LDAP for users and administrator authentication in various use cases.
 
 ..  toctree::
     :maxdepth: 1
     :hidden:
 
-    authentication
-    authorization
     ftp
     sftp
     http
@@ -101,4 +78,3 @@ If you are looking to implement bespoken functionality, see the
     server-side-tls
     lets-encrypt
     filesystem-access
-    ldap

@@ -68,8 +68,6 @@ The account configuration is retrieved using the same generic OS API.
     Please get in touch with us if you need to integrate PAM accounts and
     session management with SFTPPlus.
 
-.. include:: /configuration-auth/authentication-commons.include.rst
-
 
 Windows Security Policy settings
 --------------------------------
@@ -87,6 +85,37 @@ These permissions are required to allow SFTPPlus to:
 * Discover the path to the default user home folder
 * Create the default user home folder
 * Set the user home folder as owned by the user itself.
+
+
+Windows Domain Accounts
+-----------------------
+
+When SFTPPlus is installed on a machine belonging to a Domain
+Controller, it can be configured to allow accounts from a Domain Controller to
+access the files located on the server.
+These accounts are authenticated using the `os` authentication method.
+
+For Domain Controller accounts, there is the option for the username to be
+provided in the user principal name (UPN) format::
+
+    USERNAME@EXAMPLE.COM
+
+To specify the domain, you should use UPN format, not the legacy NetBIOS names.
+
+..  note::
+    Active Directory accounts are only available when SFTPPlus is
+    running on a Windows operating system.
+    If you want to allow Active Directory accounts to access an SFTPPlus
+    instance running on Unix-like systems, please contact our support team.
+
+
+Available configuration
+-----------------------
+
+Below you can find the reference documentation for all the configuration options available for the `os` authentication method.
+
+
+.. include:: /configuration-auth/authentication-commons.include.rst
 
 
 access_filesystem_as_service_user
@@ -293,23 +322,14 @@ role_association
     When set to `base-and-os-groups` it will associate an administrator to the list of roles defined by the `base_roles` option and any other role that has the same name as one of the groups defined by the `manager_allowed_groups` option.
 
 
-Windows Domain Accounts
------------------------
+second_factor_authentication
+----------------------------
 
-When SFTPPlus is installed on a machine belonging to a Domain
-Controller, it can be configured to allow accounts from a Domain Controller to
-access the files located on the server.
-These accounts are authenticated using the `os` authentication method.
+:Default value: `Empty`
+:Optional: Yes
+:From version: 5.24.0
+:Values: * UUID of another authentication method.
+:Description:
+    The UUID of another authentication method to use as the second factor authentication.
 
-For Domain Controller accounts, there is the option for the username to be
-provided in the user principal name (UPN) format::
-
-    USERNAME@EXAMPLE.COM
-
-To specify the domain, you should use UPN format, not the legacy NebBIOS names.
-
-..  note::
-    Active Directory accounts are only available when SFTPPlus is
-    running on a Windows operating system.
-    If you want to allow Active Directory accounts to access an SFTPPlus
-    instance running on Unix-like systems, please contact our support team.
+    Leave it empty if you don't want to use a second factor or the current authentication method already supports multi-factor authentication.

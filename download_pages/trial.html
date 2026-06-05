@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>
-        Version 5.23.0 Trial Downloads | Secure file transfer software
+        Version 5.24.0 Trial Downloads | Secure file transfer software
   </title>
 
   <meta name="author" content="Pro:Atria Team" />
@@ -80,8 +80,8 @@
   <div class="container">
     <div class="row text-center justify-content-center align-items-center">
       <div class="col">
-        <h1>Version 5.23.0 Trial Downloads</h1>
-          <h3 class="font-weight-normal">The trial version expires on 2026-08-13</h3>
+        <h1>Version 5.24.0 Trial Downloads</h1>
+          <h3 class="font-weight-normal">The trial version expires on 2026-09-13</h3>
       </div>
     </div>
   </div>
@@ -667,63 +667,63 @@ systems and CPU architectures.</p>
   <div class="container py-0">
     <div id="release-changelog" class="download-release-notes doc-body row mb-0 justify-content-center">
       <div class="col">
-        <div class="document" id="version-5-23-0-2026-05-05">
-<h1 class="title">Version 5.23.0, 2026-05-05</h1>
-<div class="section" id="security-fixes">
-<h1>Security Fixes</h1>
-<ul class="simple">
-<li>The OpenSSL version was updated to 3.5.6 and pyOpenSSL version was updated
-to 26.0.0.
-SFTPPlus is not affected by CVE-2026-27459 since <em>DTLS</em> is not used. [#7343]</li>
-<li>The Python version used by SFTPPlus was updated to version 3.12.13. [#7393]</li>
-</ul>
-</div>
+        <div class="document" id="version-5-24-0-2026-06-05">
+<h1 class="title">Version 5.24.0, 2026-06-05</h1>
 <div class="section" id="new-features">
 <h1>New Features</h1>
 <ul class="simple">
-<li>The FTP/FTPS locations can now get the list of files using the MLSD command.
-[client-side][ftp] [#3905]</li>
-<li>The FTP/FTPS location can now detect files on FTP servers that return the
-directory listing using the MS-DOS format.
-[client-side][ftp] [#6427]</li>
-<li>You can now configure the way SFTPPlus generates the file names for the
-attachments associated with an email.
-[client-side][exchange-online] [#6954]</li>
-<li>For event handlers, when using the Web Manager, you can now define a
-filter that excludes a specific event group.
-[manager] [#7364]</li>
-<li>You can now connect to Azure Storage containers and file shares using a
-Microsoft Entra ID application account.
-This allows using role-based access control (RBAC) to grant access to blobs or
-file shares.
-[client-side][azure-blob][azure-files] [#7389]</li>
+<li>The SSH authentication methods used by the SFTP/SCP file transfer services now
+include support for the <cite>keyboard-interactive</cite> method.
+[server-side][sftp][scp] [#7388]</li>
+<li>You can now use a configured authentication as a second factor for another
+authentication.
+For example to authenticate operating system accounts using
+username and password and then use RADIUS
+as second factor authentication to validate a passcode or one time token.
+[server-side] [#7402]</li>
+<li>The HTTP service now includes translations for Simplified Chinese,
+Traditional Chinese, Vietnamese, and French.
+[server-side][https] [#7450]</li>
+<li>SFTPPlus now supports additional password security policies through the
+<cite>password_character_requirements</cite> server option.
+It allows enforcing lowercase, uppercase, digit, and symbol character sets.
+[server-side] [#7451]</li>
+<li>You can now configure the number of days to generate warning events for
+accounts or passwords that are about to expire.
+These events can be converted into email notifications or handled by your
+custom audit logic.
+[server-side] [#7452]</li>
 </ul>
 </div>
 <div class="section" id="defect-fixes">
 <h1>Defect Fixes</h1>
 <ul class="simple">
-<li>The data line for the server FTP MLST response now starts with a space,
-as specified in RFC 3659.
-[server-side][ftp] [#3905]</li>
-<li>The FTP MLST response now always returns fully qualified pathnames.
-[server-side][ftp] [#3905]</li>
-<li>The SFTPPlus FTP/FTPS location will no longer fail with a timeout error when
-there are many files pending to be transferred.
-[client-side][ftp][ftps] [#6411]</li>
-<li>When the TLS session is not reused by the remote server,
-the SFTPPlus FTPS client-side will disconnect the command channel in an
-attempt to trigger a TLS renegotiation.
-[client-side][ftps] [#7409]</li>
-</ul>
-</div>
-<div class="section" id="deprecations-and-removals">
-<h1>Deprecations and Removals</h1>
-<ul class="simple">
-<li>The Web Manager UI was updated to remove the &quot;restart required&quot; hint
-for configuration options.
-The majority of the configuration options will require a restart of the
-associated component.
-[manager] [#7350]</li>
+<li>A transfer with an FTP/FTPS location no longer stalls when the connection to the
+FTP/FTPS server is lost.
+[client-side][ftp][ftps] [#7416]</li>
+<li>When transferring files over SFTP,
+a remote file is no longer considered non-existent when the
+connection is lost while checking the file existence.
+[client-side][sftp] [#7424]</li>
+<li>The HTTP event handler will now consider the HTTP 202 Accepted response
+as a valid successful response.
+[event-handler][http] [#7428]</li>
+<li>After a successful login via the HTTP Web Client,
+users are no longer redirected back to the login page when
+the previous authentication request failed.
+This is a regression introduced in 5.22.0.
+[server-side][http] [#7448]</li>
+<li>During configuration migration, services with <cite>ssl_certificate</cite> and a plain PEM
+<cite>ssl_key</cite> are now migrated correctly even when <cite>ssl_key_password</cite> is set but the
+private key is not actually encrypted.
+[server-side][https][ftps] [#7449]</li>
+<li>When a user tries to update the password and the update fails,
+the reason for the failure is now presented to the user.
+In previous versions, a generic failure message was used.
+[server-side][http][sftp][ftps] [#7451]</li>
+<li>An error is no longer generated when checking the configuration for
+event handlers that are using event data placeholders.
+[event-handler] [#7453]</li>
 </ul>
 </div>
 </div>

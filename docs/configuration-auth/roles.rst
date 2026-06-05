@@ -122,8 +122,8 @@ source_ip_filter
     For more details, see the
     :doc:`group configuration </configuration-auth/groups>` documentation page.
 
-    For examples on how to use the access controler rules see the
-    :doc:`authentication </operation/authentication>` documentation page.
+    For examples on how to use the access control rules see the
+    :doc:`authentication </configuration-auth/authentication>` documentation page.
 
 
 permissions

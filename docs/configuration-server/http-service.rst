@@ -36,7 +36,15 @@ languages
 
     The available languages are:
     * `en` - English
+    * `de` - German
     * `es` - Castellano / Spanish
+    * `fr` - French
+    * `ro` - Romanian
+    * `vi` - Vietnamese
+    * `zh_cn` - Chinese (Simplified)
+    * `zh_tw` - Chinese (Traditional)
+    * `zh_hk` - Chinese (Hong Kong)
+
 
     When left empty, it defaults to English.
 

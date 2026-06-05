@@ -1,4 +1,4 @@
-Accounts Authentication
+Accounts authentication
 #######################
 
 ..  contents:: :local:
@@ -15,9 +15,9 @@ Authentication, Authorization and Accounting (AAA) components.
 
 This page will focus on the Authentication component.
 For the Authorization part, check
-:doc:`the authentication documentation</operation/authorization>`
+:doc:`the authorization documentation</configuration-auth/authorization>`
 while for the Accounting, check
-:doc:`the account documentation</administration/event-handlers>`.
+:doc:`the accounting documentation</administration/event-handlers>`.
 
 Here are a few methods / sources used to authenticate accounts.
 For a full list please check the
@@ -65,88 +65,95 @@ If the check confirms the provided credentials,
 it will return the configuration for the requested account.
 
 
-Password Policy
-===============
+Multi-factor authentication
+===========================
 
-In SFTPPlus you can define the password policy used when setting new passwords.
+A single authentication method defined in SFTPPlus, depending on its type, can support multi-factor authentication, without the need for any other secondary authentication method.
 
-NIST's current password guidelines from 2018, as defined in
-Special Publication 800-63-3 Digital Authentication Guidelines, include:
+For example, the embedded SFTPPlus authentication method supports authenticating users with both username, password, one time token or ssh keys.
+All this, without relying on any other external authentication method.
+This is done using the `required_credentials` configuration option.
 
-* Minimum password length should be 8 characters,
-  with a maximum of no less than 64
-* All ASCII and UNICODE characters should be allowed
-* Check against a list of “known-bad” passwords
-* Remove knowledge-based authentication
-* Stop practice of regular password expiration
-* Don’t allow password hints
-* Remove composition rules
-  (i.e., “your password needs to contain at least one upper and
-  lowercase character and one special character”),
-  and instead focus on longer passwords
-* Passwords need to be hashed, salted and stretched
+A RADIUS authentication method can validate a username and password and then trigger a *mobile phone push* notification or ask for a one time token delivered via SMS or a software or hardware token.
 
-Below you can find how SFTPPlus matches the NIST recommendations:
+Web-based authentication methods like Entra ID, Google Identity or Okta are designed from the ground-up with multi-factor authentication and single sign-on user experience.
 
-* You can configure the minimum size for passwords, and SFTPPlus allows
-  setting passwords as long as 200 characters.
-* The default security policy requires a password of minimum 11 characters.
-* When the password strength check is enabled,
-  passwords are checked against a list of common, weak, or bad passwords.
-  The check includes dates and usernames.
-* All ASCII and Unicode characters are allowed.
-* Knowledge-based authentication and password hints are not
-  available in SFTPPlus.
-* Passwords are hashed and salted before being stored,
-  and these operations are repeated 80.000 times for each password.
-
-The password policy used to check newly defined password is configured via
-the following configuration options from the `[server]` section:
-
-* `password_minimum_strength` - enforce a minimum strength
-* `password_minimum_length` - enforce a minimum length
-* `password_history` - enforce the number of unique new passwords before an
-  old password can be reused.
-* `password_hashing_scheme` - defines the function used to hash passwords.
-
-The password strength policy is designed to replace the composite policy rules
-that often fail both ways, allowing weak passwords (such as P@ssword1) and
-disallowing strong passwords (such as Wow...doestcst).
-
-To require a password policy with a minimum of 12 characters and
-`strength` of `best` you can define it as::
-
-    [server]
-    password_minimum_strength = 4
-    password_minimum_length = 12
-    password_history = 10
-
-The password strength is determined using the
-`zxcvbn password strength estimator <https://blogs.dropbox.com/tech/2012/04/zxcvbn-realistic-password-strength-estimation/>`_
-created by Daniel Lowe Wheeler from Dropbox Inc.
+If your preferred authentication method is not yet available in SFTPPlus.
+get in touch with our support team and we will be happy to extend the functionalities of SFTPPlus to also support your authentication method.
 
 
-Emailing account credentials
+Second factor authentication
 ============================
 
-An administrator can send over email the password and the TOTP code
-for a new account.
-For an existing account, the above can also be sent over email
-when updating its credentials.
+Some authentication methods, like Operating System accounts or LDAP accounts, only support single factor authentication based on username and password.
 
-The following are required in order to send such emails:
+To implement multi-factor authentication you will need to combine it with another authentication method.
 
-* The `Email-Client` resource is configured with a valid email server.
-* The account created or modified is defined with an email address as name
-  or a dedicated email address is entered for it.
+For example the LDAP Active Directory authentication will validate the username and password and when combined with RADIUS or an HTTP based authentication to validate a one time token or code.
 
-Passwords can only be emailed at account creation or
-when updating an account's password.
-No other scenario is supported.
-This is because the server does not store passwords in a plain text format.
-For security reasons,
-passwords are stored in a format which makes it practically impossible
-to retrieve plain text passwords, even if you have access to the stored values.
+Note that depending on your RADIUS server authentication, the RADIUS server itself can act as a standalone multi-factor authentication or only act as a second factor authentication.
+
+When an authentication method is used in SFTPPlus as the second factor,
+it will automatically use the same username as the initial authentication factor.
+The second factor is designed to only ask the user for a second code.
+
+..  note::
+    The second factor authentication method will only be used for authentication purposes.
+    It only supports username and password credentials.
+    Authentication implies validating the credentials.
+    The authorization of the account will be based on the result from the first factor method.
+    Authorization implies the permissions and virtual folders associated with the account, which are based on the groups of the account and their configuration.
+
+For example when the Active Directory user `john-d` is authenticated using the SFTPPlus Active Directory LDAP authentication method with RADIUS as second factor you will have the following configuration::
+
+    [server]
+    ; AD is the only entry-point for authentication
+    authentication = 0aef69b4-3af1
+
+    [authentications/0aef69b4-3af1]
+    type = ldap
+    name = Internal AD
+    username_attribute = userPrincipalName
+    username_suffix = @ad.example.com
+    second_factor_authentication = 4af88c0c-11f1
+
+    [authentications/4af88c0c-11f1]
+    type = radius
+    name = RSA SecurID
+    use_as_second_factor = yes
+
+In this example when user `john-d` requests to access the files the following authentication process is executed:
+
+* SFTPPlus *Internal AD* authentication method will expand the username to ``john-d@ad.example.com``
+* SFTPPlus will ask the user for a password and request an authentication for this username and password credentials, against the Active Directory, using ``john-d@ad.example.com`` as the username.
+* Once the Active Directory has accepted the Credentials, it will use the RSA Authentication Manager RADIUS server as a second factor.
+* SFTPPlus will ask the user for the second factor as an additional password, and the user will enter the value of the RSA one time token.
+* SFTPPlus will then make a request to the RADIUS server with ``john-d@ad.example.com`` as username and the newly provided value as password.
+* Once the RADIUS server accepts the request, the user is authenticated with `Operating System` as the authentication type.
+
+The actual SFTPPlus configuration varies depending on the authentication types.
+Get in touch with our support team to find out more about how you can configure SFTPPlus to implement multi-factor authentication.
+
+..  note::
+    An authentication method that is configured to be used as a second factor authentication cannot be used as a standalone authentication method and can not be configured with another second factor authentication method of its own.
+
+
+Second factor and required credentials
+======================================
+
+SFTPPlus can be configured to combine the second factor authentication with the `required_credentials` configuration option.
+
+For example, this allows using SSH key-based authentication as the first factor and RADIUS, RSA SecurID, Cisco Duo, or other authentication as the second factor.
+
+When `required_credentials = password, ssh-key` is configured, an SFTP client can send the initial SSH key-based authentication request.
+Once the SSH key is accepted, SFTPPlus will ask for the credentials from the second factor.
+
+..  note::
+    If the account also has a password, when the SSH key is accepted,
+    SFTPPlus will not ask for the password since the password is considered a first factor authentication, and the first factor authentication is already satisfied by the SSH key.
+
+If the SFTP client will first send the password, SFTPPlus will validate the password as the first factor and then ask for the second factor credentials.
+Since the account is configured to also require SSH key-based authentication, once the second factor is validated, SFTPPlus will ask for the SSH key credentials in order to satisfy the configured required credentials.
 
 
 Windows Domain Accounts on servers running Active Directory

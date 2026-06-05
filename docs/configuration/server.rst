@@ -246,6 +246,44 @@ password_minimum_length
     Set it to `0` to disable password length checking.
 
 
+password_character_requirements
+-------------------------------
+
+:Default value: No requirements
+:Optional: Yes
+:Values: * comma-separated list of the following values
+         * `lowercase`
+         * `uppercase`
+         * `digit`
+         * `symbol`
+         * `disabled`
+:From version: 5.24.0
+:To version:
+:Description:
+    This defines the character composition requirements for passwords when setting passwords.
+
+    Leave empty to have no character type requirements.
+
+    You can configure it with a comma-separated list of the following values:
+
+    * `lowercase` - at least one lowercase character is required.
+    * `uppercase` - at least one uppercase character is required.
+    * `digit` - at least one digit is required.
+    * `symbol` - at least one symbol character is required.
+    * `disabled` - disables character composition requirements.
+      Has the same effect as leaving the configuration empty.
+
+    Multiple character requirements can be combined together, for example `lowercase, uppercase, digit` means that at least one lowercase character, one uppercase character and one digit are required.
+
+    This does not enforce the policy for already defined passwords or
+    for passwords defined outside of SFTPPlus, such as OS passwords.
+
+    By default, no character composition requirements are enforced.
+
+    ..  note::
+        We recommend using the `password_minimum_strength` and `password_minimum_length` options to enforce a strong password policy, rather than this option.
+
+
 password_history
 ----------------
 

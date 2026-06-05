@@ -72,3 +72,31 @@ strict_group_access
     If user ``JohnD`` is member of both ``Group-A``, ``Group-B``, and ``Group-C``,
     the user is authenticated and the user will get access based only on the configuration of ``Group-A`` and ``Group-B``.
     The virtual folders and permissions granted by ``Group-C`` are not enabled for the user.
+
+
+second_factor_authentication
+----------------------------
+
+:Default value: `Empty`
+:Optional: Yes
+:From version: 5.24.0
+:Values: * UUID of another authentication method.
+:Description:
+    The UUID of another authentication method to use as the second factor authentication.
+
+    Leave it empty if you don't want to use a second factor or the current authentication method already supports multi-factor authentication.
+
+
+use_as_second_factor
+--------------------
+
+:Default value: `No`
+:Optional: Yes
+:From version: 5.24.0
+:Values: * `No`
+         * `Yes`
+:Description:
+    Whether to allow this authentication method to be used as a second factor authentication in combination with another method.
+
+    When this is set to `Yes`, it will fail to authenticate when used as a standalone method or when configured with a *second_factor_authentication* itself.
+    It will only accept authentication when used in combination with another authentication method.

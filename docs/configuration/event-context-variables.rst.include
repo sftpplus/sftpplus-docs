@@ -25,3 +25,8 @@ containing information about the event being triggered:
 * `server.uuid`
 * `data.DATA_MEMBER_NAME`
 * `data_json`
+
+`DATA_MEMBER_NAME` can be any of the supported data attributes specific to each
+event ID.
+You can discover the available data attributes as part of the
+`Events reference documentation </events>`_ or the Web Manager Activity log.

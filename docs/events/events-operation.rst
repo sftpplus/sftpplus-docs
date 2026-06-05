@@ -690,6 +690,23 @@ Operation events
 
 
 
+20057
+^^^^^
+
+:Message: Failed to emit expiration notification for "%(account_name)s". %(details)s
+:Groups: operational, process, failure, failure-high
+:From version: 5.24.0
+:Description: None
+:Data:
+  :account_name: Name of the account
+
+
+  :account_uuid: UUID of the account
+
+
+
+
+
 20058
 ^^^^^
 
@@ -741,7 +758,7 @@ Operation events
 ^^^^^
 
 :Message: Failed to set new password. %(details)s
-:Groups: operational, authenticated, failure
+:Groups: operational, authenticated, failure, failure-critical
 :From version: 3.42.0
 :Description: None
 
@@ -797,6 +814,32 @@ Operation events
 :Groups: operational, authenticated, failure, failure-high
 :From version: 1.6.0
 :Description: None
+
+
+
+20068
+^^^^^
+
+:Message: Account "%(account_name)s" will lose access in %(days)s days. %(details)s
+:Groups: operational, process, informational
+:From version: 5.24.0
+:Description: None
+:Data:
+  :account_email: Email of the account
+
+
+  :account_name: Name of the account
+
+
+  :account_uuid: UUID of the account
+
+
+  :days: Number of days until the account expires.
+
+
+  :details: Details about the account expiration.
+
+
 
 
 
@@ -1481,10 +1524,88 @@ Operation events
   :method_type: Type of the method used for authentication.
 
 
-  :required_credentials: List of credentials that are still required to authenticate the account.
+  :required_credentials: Comma-separated credentials that are still required to authenticate the account.
 
 
   :username: Name of the account which requested to authenticate.
+
+
+
+
+
+20127
+^^^^^
+
+:Message: Successful second factor for "%(account_name)s" of type "%(account_type)s". Authenticated by "%(method_name)s" of type "%(method_type)s" using %(credentials_type)s credentials as "%(username)s".
+:Groups: authentication, authenticated, success
+:From version: 5.24.0
+:Description: None
+:Data:
+  :account_name: Name of the authenticated account.
+
+
+  :account_type: Type of the authenticated account.
+
+
+  :account_uuid: UUID of the authenticated account.
+
+
+  :credentials_type: Type of the accepted credentials.
+
+
+  :method_name: Name of the method used for authentication.
+
+
+  :method_type: Type of the method used for authentication.
+
+
+  :username: User name under which the authentication was requested.
+
+
+
+
+
+20128
+^^^^^
+
+:Message: Account "%(account_name)s" will expire in %(days)s days.
+:Groups: operational, process, success
+:From version: 5.24.0
+:Description: None
+:Data:
+  :account_email: Email of the account
+
+
+  :account_name: Name of the account
+
+
+  :account_uuid: UUID of the account
+
+
+  :days: Number of days until the account expires.
+
+
+
+
+
+20129
+^^^^^
+
+:Message: Password for account "%(account_name)s" will expire in %(days)s days.
+:Groups: operational, process, success
+:From version: 5.24.0
+:Description: None
+:Data:
+  :account_email: Email of the account
+
+
+  :account_name: Name of the account
+
+
+  :account_uuid: UUID of the account
+
+
+  :days: Number of days until the password expires.
 
 
 
@@ -1536,7 +1657,7 @@ Operation events
 20137
 ^^^^^
 
-:Message: Account "%(account_name)s" of type "%(account_type)s" from groups/roles "%(group_name)s", authenticated by "%(method_name)s" of type "%(method_type)s" using %(credentials_type)s credentials as "%(username)s". %(ignored_groups)s
+:Message: Successful authentication for "%(account_name)s" of type "%(account_type)s" from groups/roles "%(group_name)s", by "%(method_type)s:%(method_name)s" using %(credentials_type)s credentials as "%(username)s". %(ignored_groups)s
 :Groups: authentication, authenticated, success
 :From version: 2.10.0
 :Description: None

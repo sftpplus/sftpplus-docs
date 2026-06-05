@@ -14,6 +14,67 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
+Version 5.24.0, 2026-06-05
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* The SSH authentication methods used by the SFTP/SCP file transfer services now
+  include support for the `keyboard-interactive` method.
+  [server-side][sftp][scp] [#7388]
+* You can now use a configured authentication as a second factor for another
+  authentication.
+  For example to authenticate operating system accounts using
+  username and password and then use RADIUS
+  as second factor authentication to validate a passcode or one time token.
+  [server-side] [#7402]
+* The HTTP service now includes translations for Simplified Chinese,
+  Traditional Chinese, Vietnamese, and French.
+  [server-side][https] [#7450]
+* SFTPPlus now supports additional password security policies through the
+  `password_character_requirements` server option.
+  It allows enforcing lowercase, uppercase, digit, and symbol character sets.
+  [server-side] [#7451]
+* You can now configure the number of days to generate warning events for
+  accounts or passwords that are about to expire.
+  These events can be converted into email notifications or handled by your
+  custom audit logic.
+  [server-side] [#7452]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* A transfer with an FTP/FTPS location no longer stalls when the connection to the
+  FTP/FTPS server is lost.
+  [client-side][ftp][ftps] [#7416]
+* When transferring files over SFTP,
+  a remote file is no longer considered non-existent when the
+  connection is lost while checking the file existence.
+  [client-side][sftp] [#7424]
+* The HTTP event handler will now consider the HTTP 202 Accepted response
+  as a valid successful response.
+  [event-handler][http] [#7428]
+* After a successful login via the HTTP Web Client,
+  users are no longer redirected back to the login page when
+  the previous authentication request failed.
+  This is a regression introduced in 5.22.0.
+  [server-side][http] [#7448]
+* During configuration migration, services with `ssl_certificate` and a plain PEM
+  `ssl_key` are now migrated correctly even when `ssl_key_password` is set but the
+  private key is not actually encrypted.
+  [server-side][https][ftps] [#7449]
+* When a user tries to update the password and the update fails,
+  the reason for the failure is now presented to the user.
+  In previous versions, a generic failure message was used.
+  [server-side][http][sftp][ftps] [#7451]
+* An error is no longer generated when checking the configuration for
+  event handlers that are using event data placeholders.
+  [event-handler] [#7453]
+
+
 Version 5.23.0, 2026-05-05
 --------------------------
 

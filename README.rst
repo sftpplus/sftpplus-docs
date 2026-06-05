@@ -19,9 +19,9 @@ and push the changes for that version.
 
 To build the documentation you need a Python3.12 (or newer) environment.::
 
-    virtualenv venv
+    uv venv venv
     . venv/bin/activate
-    pip install -r requirements.txt
+    uv pip install -r requirements.txt
     sphinx-build -b html docs deploy
 
 To test the docs for any errors and view in a browser::

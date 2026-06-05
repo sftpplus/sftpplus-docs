@@ -233,7 +233,8 @@ before_login_message
 :Values: * Any text message.
 :From version: 5.11.0
 :Description:
-    Message used by the service to welcome users, before asking for credentials.
+    Message sent to all users before they are authenticated,
+    for example to display a welcome message or a legal notice.
 
     The message is sent using UTF-8 encoding with the language tag at `en`.
 
@@ -243,8 +244,34 @@ before_login_message
         Most SFTP GUI clients will ignore this message.
         Only a few SFTP clients like WinSCP will show this message.
 
+    ..  note::
         For command line or script SFTP clients the message might interfere with the scripted functionality.
-        For example, a SFTP script might expect a specif message and might break when the message is changed.
+        For example, a SFTP script might expect a specifc message and might break when the message is changed.
+
+
+keyboard_interactive_message
+----------------------------
+
+:Default value: `Password:`
+:Optional: Yes
+:Values: * Any text message.
+         * Multiline text
+:From version: 5.24.0
+:Description:
+    Information sent to users at the start of keyboard interactive authentication.
+
+    The first line is used as the *name* or title field.
+    The following lines are used as the *instruction* field.
+    The last configuration line is used as the prompt for the password field.
+
+    The *name* and *instruction* fields are optional.
+    You can set this to a single line, which will be the prompt value.
+
+    For the prompt value, consider using a short message, as some SFTP clients might not show the full message if it is too long.
+
+    ..  note::
+        Not all SFTP clients support keyboard interactive authentication,
+        so this is not guaranteed to be shown to all users.
 
 
 ignore_create_permissions

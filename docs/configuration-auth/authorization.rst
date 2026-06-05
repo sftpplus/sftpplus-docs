@@ -1,4 +1,4 @@
-Accounts Authorization
+Accounts authorization
 ######################
 
 ..  contents:: :local:
@@ -12,7 +12,7 @@ Authentication, Authorization and Accounting (AAA) components.
 
 This pages focuses on the Authorization component.
 For the Authentication part, check
-:doc:`the authentication documentation</operation/authentication>`
+:doc:`the authentication documentation</configuration-auth/authentication>`
 while for the Accounting, check
 :doc:`the account documentation</administration/event-handlers>`.
 

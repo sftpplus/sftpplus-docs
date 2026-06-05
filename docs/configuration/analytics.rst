@@ -190,8 +190,48 @@ certificate_expiration_warning
 
     This is configured as number of days.
 
-    The certificates expiration is checked once per day, at midnight.
-    The check is also performed when SFTPPlus starts.
+    This is checked once per day, at midnight, and when SFTPPlus starts.
+
+    Set it to `0` to disable triggering these alerts.
+
+
+account_expiration_warning
+--------------------------
+
+:Default value: 21
+:Optional: Yes
+:Values: * Number of days
+         * 0
+:From version: 5.24.0
+:Description:
+    An event is emitted if an account is enabled and is configured to expire in less than the configured number of days.
+
+    No event is emitted for accounts that don't have an expiration date configured
+    or which are already expired.
+
+    This is configured as number of days.
+
+    This is checked once per day, at midnight, and when SFTPPlus starts.
+
+    Set it to `0` to disable triggering these alerts.
+
+
+password_expiration_warning
+---------------------------
+
+:Default value: 14
+:Optional: Yes
+:Values: * Number of days
+         * 0
+:From version: 5.24.0
+:Description:
+    An event is emitted if an account is enabled and is configured with a password that is about to expire in less than the configured number of days.
+
+    No event is emitted when the password is already expired.
+
+    This is configured as number of days.
+
+    This is checked once per day, at midnight, and when SFTPPlus starts.
 
     Set it to `0` to disable triggering these alerts.
 

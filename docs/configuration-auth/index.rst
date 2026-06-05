@@ -29,7 +29,22 @@ and how to configure them.
 
         This section shows you how to create a new authentication method using the Web Manager console or the configuration file.
 
-    .. grid-item-card:: :octicon:`book` Accounts
+    .. grid-item-card:: :octicon:`book` Accounts authentication
+        :link-type: doc
+        :link: ./authentication
+
+        Learn how password policies are implemented, about authenticating
+        with Windows Domain accounts, anonymous authentication and other
+        authentication settings.
+
+    .. grid-item-card:: :octicon:`shield-check` Accounts authorization
+        :link-type: doc
+        :link: ./authorization
+
+        Learn about the available permissions that can be applied to
+        different files and folders.
+
+    .. grid-item-card:: :octicon:`book` Accounts configuration
         :link-type: doc
         :link: ./accounts
 
@@ -82,13 +97,19 @@ and how to configure them.
         The local file authentication method allows SFTPPlus to authenticate users defined in a separate configuration file.
         This section covers the available options for it.
 
-    .. grid-item-card:: :octicon:`sliders` LDAP / Active Directory
+    .. grid-item-card:: :octicon:`sliders` LDAP configuration
         :link-type: doc
         :link: ./ldap
 
         The LDAP authentication method allows SFTPPlus to authenticate users against an LDAP or Active Directory server.
-        This section covers its limitations and available configuration options.
+        This section covers the available configuration options.
 
+    .. grid-item-card:: :octicon:`book` LDAP / Active Directory integration
+        :link-type: doc
+        :link: ./ldap-integration
+
+        This section provides information about configuring SFTPPlus to use
+        LDAP for users and administrator authentication in various use cases.
 
     .. grid-item-card:: :octicon:`sliders` Microsoft Entra ID
         :link-type: doc
@@ -146,6 +167,8 @@ and how to configure them.
     :maxdepth: 1
 
     introduction
+    authentication
+    authorization
     accounts
     groups
     administrators
@@ -155,6 +178,7 @@ and how to configure them.
     http
     local-file
     ldap
+    ldap-integration
     entra-id
     google-identity
     okta-oidc

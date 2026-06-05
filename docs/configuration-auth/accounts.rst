@@ -1,5 +1,5 @@
-Accounts
-========
+Accounts configuration
+======================
 
 SFTPPlus can be configured to allow both `application` and
 `operating system` accounts supplied by third party identity providers.
@@ -548,8 +548,8 @@ source_ip_filter
             deny 0.0.0.0/0
             deny ::/0
 
-    For examples on how to use the access controler rules see the
-    :doc:`authentication </operation/authentication>` documentation page.
+    For examples on how to use the access control rules see the
+    :doc:`authentication </configuration-auth/authentication>` documentation page.
 
 
 allow_certificate_authentication

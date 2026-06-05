@@ -191,7 +191,7 @@ source_ip_filter
     For more details, see the
     :doc:`account configuration </configuration-auth/accounts>` documentation page.
 
-    For examples of how to use the access control rules see the :doc:`authentication </operation/authentication>` documentation page.
+    For examples of how to use the access control rules see the :doc:`authentication </configuration-auth/authentication>` documentation page.
 
 
 multi_factor_authentication

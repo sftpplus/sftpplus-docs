@@ -17,9 +17,9 @@ This covers the Accounting requirement of the AAA (Authentication,
 Authorization, and Accounting) security design framework.
 
 For information on covering the Authentication process,
-check :doc:`the authentication section</operation/authentication>`
+check :doc:`the authentication section</configuration-auth/authentication>`
 and for the Authorization process,
-see :doc:`the authorization section</operation/authorization>`.
+see :doc:`the authorization section</configuration-auth/authorization>`.
 
 In addition, arbitrary actions can be attached to an event by configuring
 event handlers.

@@ -113,7 +113,8 @@ When loading from the configuration file, the following settings are reset:
 
 * `connection_retry_count = 0`
 
-Once the `client-shell` is started and the configuration is loaded, you can change the configuration options via the normal `set OPTION` command::
+Once the `client-shell` is started and the configuration is loaded,
+you can change the configuration options via the normal `set OPTION` command::
 
     client-shell --config configuration/server.ini a5eacec-92f1-11f0-815a-bfa45
     > show connection_retry_count

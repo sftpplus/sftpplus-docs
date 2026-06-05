@@ -550,8 +550,8 @@ source_ip_filter
 
     Leave it empty to not impose source IP/CIDR restrictions for the associated accounts.
 
-    For examples on how to use the access controler rules see the
-    :doc:`authentication </operation/authentication>` documentation page.
+    For examples on how to use the access control rules see the
+    :doc:`authentication </configuration-auth/authentication>` documentation page.
 
 
 allow_certificate_authentication
@@ -726,7 +726,7 @@ permissions
 
 
     For more detailed information and examples on how to configure the permissions,
-    see the :doc:`dedicated authorization documentation</operation/authorization>`.
+    see the :doc:`dedicated authorization documentation</configuration-auth/authorization>`.
 
 
 amend_write_name

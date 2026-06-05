@@ -23,7 +23,7 @@ or to a specific group based on the `group_mapping` configuration.
 
 This page covers the SFTPPlus configuration options for connecting to an LDAP server to authenticate accounts (file transfer users) and administrators.
 
-Check the :doc:`LDAP integration </operation/ldap>` documentation,
+Check the :doc:`LDAP integration </configuration-auth/ldap-integration>` documentation,
 to find out more about how to configure LDAP authentication for various scenarios.
 
 
@@ -388,7 +388,7 @@ group_mapping
     The matching for LDAP attribute names is case insensitive.
 
     For more details, see the
-    :doc:`dedicated LDAP group mapping documentation</operation/ldap>`.
+    :doc:`dedicated LDAP group mapping documentation</configuration-auth/ldap-integration>`.
 
     Leave this configuration option empty to use groups defined via `base_groups`,
     or via group's `ldap_association` configuration.
@@ -410,7 +410,7 @@ roles_mapping
     Setting to a single role UUID, or a list of UUIDs,
     will associate all the LDAP authenticated administrators to the SFTPPlus roles having that UUID.
     For more details, see the
-    :doc:`dedicated LDAP role mapping documentation</operation/ldap>`.
+    :doc:`dedicated LDAP role mapping documentation</configuration-auth/ldap-integration>`.
 
     You can create complex role mapping by specifying multiple roles which
     are selected based on targeted LDAP values.
@@ -420,6 +420,18 @@ roles_mapping
     Leave this configuration option *empty* to use the default
     SFTPPlus role configuration.
 
+
+second_factor_authentication
+----------------------------
+
+:Default value: `Empty`
+:Optional: Yes
+:From version: 5.24.0
+:Values: * UUID of another authentication method.
+:Description:
+    The UUID of another authentication method to use as the second factor authentication.
+
+    Leave it empty if you don't want to use a second factor or the current authentication method already supports multi-factor authentication.
 
 .. include:: /configuration/ssl-client.include.rst
 .. include:: /configuration/ssl.include.rst

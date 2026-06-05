@@ -8,7 +8,7 @@ Three different types of accounts are available in SFTPPlus:
 * Application accounts  - only for file transfer operations
 
 Accounts dedicated to file transfer operations have multiple
-:doc:`Authentication Methods </operation/authentication>` by which
+:doc:`Authentication Methods </configuration-auth/authentication>` by which
 remote file transfer clients can be verified and given permission to perform
 file transfer operations.
 

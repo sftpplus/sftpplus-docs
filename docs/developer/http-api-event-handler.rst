@@ -199,7 +199,7 @@ respond with HTTP code `200`::
 
     Status: 200 OK
 
-HTTP code `204` is also a valid response code::
+HTTP code `202`, `204` and any other `2XX` code are also valid response codes::
 
     Status: 204 No Content
 
@@ -211,7 +211,7 @@ The current events are discarded.::
     Status: 503 Service Unavailable
     Retry-After: 3600
 
-For any response code, other than `200` and `204`, SFTPPlus will consider that
+For any response code, other than `2XX`, SFTPPlus will consider that
 the requests failed to be successfully processed by the remote HTTP endpoint.
 
 Failed requests are not retried and the event handler will stop sending events
@@ -351,8 +351,7 @@ Each payload sent by the HTTP POST event handler contains the following
 members, as documented in previous sections::
 
     {
-      "events": [ EVENT_DATA ],
-      "server": { SERVER_DATA }
+      "events": [ EVENT_DATA ]
     }
 
 You can configure the event handler to add custom values to the payload.
@@ -361,10 +360,16 @@ The extra values are configured in JSON format and can be nested structures.
 The keys and values can contain variables which are replaced with values based
 on the event's data.
 
+
+Send message to Slack
+---------------------
+
 For example to send the event as a Slack Incoming WebHook message, you can
 use this configuration::
 
     [event-handlers/b904ed23-v254-4ccf-8abd-edcae4d3324f]
+    enabled = yes
+    type = http
     url = https://hooks.slack.com/services/n2unjSpQQ4L6JIOrHoO9CKXl
     extra_data = {
         "text": "{message}",
@@ -391,7 +396,6 @@ following members::
 
     {
       "events": [ EVENT_DATA_AS_BEFORE ],
-      "server": { SERVER_DATA_AS_BEFORE },
       "text": "Stopped authentication "AD DAP" of type ldap. Failed at start",
       "attachments": [
         {
@@ -416,6 +420,70 @@ On Slack, the message will look something like this.
 
 ..  image:: /static/guides/http-event-slack.png
     :alt: HTTP Event as received on Slack.
+
+
+Send message to MS Teams
+------------------------
+
+Start by creating an Incoming Webhook connector in MS Teams, as described in the `Microsoft documentation <https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook>`_. You will need a copy of the webhook link.
+
+Create a new HTTP event handler in SFTPPlus and configure the `url` with the MS Teams webhook URL.
+Then, use the `extra_data` configuration to specify the JSON payload to be sent to MS Teams::
+
+    [event-handlers/ff5d4c6c-4e0e-11f1-aafb-04cf4b0c43dd]
+    enabled = yes
+    type = http
+    url = https://YOUR-ID.api.powerplatform.com:443/powerautomate/FULL-URL
+    http_content_type = json
+    request_method = post
+    extra_data = {
+      "type": "message",
+      "attachments": [{
+          "contentType": "application/vnd.microsoft.card.adaptive",
+          "content": {
+              "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+              "type": "AdaptiveCard",
+              "version": "1.2",
+              "body": [
+                  {
+                  "type": "TextBlock",
+                  "text": "New event {id}",
+                  "size": "Large",
+                  "weight": "Bolder",
+                  "wrap": true
+                  },
+                  {
+                  "type": "TextBlock",
+                  "text": "SFTPPlus app",
+                  "isSubtle": true,
+                  "color": "Accent",
+                  "weight": "Bolder",
+                  "size": "Small",
+                  "spacing": "None"
+                  },
+                  {
+                  "type": "TextBlock",
+                  "text": "{message}",
+                  "isSubtle": true,
+                  "wrap": true
+                  }
+              ],
+              "actions": [
+                  {
+                  "type": "Action.OpenUrl",
+                  "title": "Go to SFTPPlus",
+                  "url": "https://sftpplus.example.com:10020"
+                  }
+              ]
+          }
+      }]}
+
+On MS Teams, the message will look something like this.
+
+..  image:: /static/guides/http-event-ms-teams.png
+    :alt: HTTP Event as received on MS Teams.
+
+Check the `Adaptive Cards documentation <https://adaptivecards.microsoft.com/>`_ for more details on how to format the message content.
 
 
 Forward HTTP response headers to HTTP file uploads
