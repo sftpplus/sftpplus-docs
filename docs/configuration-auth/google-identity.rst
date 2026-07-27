@@ -60,6 +60,23 @@ Below is the list of sub-domains used by SFTPPlus to communicate with Google Clo
     Get in touch if you need to authenticate SFTP or FTPS users.
 
 
+Mapping SFTPPlus groups to Google Groups
+----------------------------------------
+
+When using a group's `external_groups_association` option to map SFTPPlus
+groups to Google Groups, configure each Google Group value as
+`groups/GOOGLE-GROUP-ID`.
+
+For example, if the Google Group ID is `01abcde2fg345hij`,
+configure `external_groups_association` with
+`groups/01abcde2fg345hij`.
+
+Using `external_groups_association` is optional.
+If the Google Identity authentication method is configured with
+`group_association = base-and-cloud-groups`, SFTPPlus can map groups
+automatically when the Google Group name and SFTPPlus group name are the same.
+
+
 Google Identity app configuration
 ---------------------------------
 

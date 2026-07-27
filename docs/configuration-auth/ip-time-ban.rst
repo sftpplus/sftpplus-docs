@@ -36,7 +36,7 @@ service.
 
 ..  warning::
     SFTPPlus is behind a load balancer, make sure that Proxy Protocol version 2
-    is enabled on both the load balancer and SFTPPlus file transfer services.
+    is enabled on the load balancer.
     Otherwise all the authentication requests will be made using the
     load balancer own IP address and not the client IP address.
 

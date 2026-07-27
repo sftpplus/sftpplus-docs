@@ -119,7 +119,6 @@ The sub-sections below will guide you through the initial server setup, includin
     configuration-file
     local-manager
     server
-    security-policy
     matching-expression
     resources
     monitor-resource

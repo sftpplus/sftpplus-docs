@@ -391,7 +391,7 @@ group_mapping
     :doc:`dedicated LDAP group mapping documentation</configuration-auth/ldap-integration>`.
 
     Leave this configuration option empty to use groups defined via `base_groups`,
-    or via group's `ldap_association` configuration.
+    or via group's `external_groups_association` configuration.
 
 
 roles_mapping

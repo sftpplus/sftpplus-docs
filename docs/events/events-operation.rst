@@ -52,10 +52,20 @@ Operation events
 20003
 ^^^^^
 
-:Message: Proxy connection received. Updating remote peer from %(host)s:%(port)s.
+:Message: Proxy connection received. Updating remote peer from %(host)s:%(port)s. Extensions: %(extensions)s.
 :Groups: operational, session, informational
 :From version: 4.5.0
 :Description: None
+:Data:
+  :extensions: Human readable proxy protocol extension details.
+
+
+  :host: Previous source host before proxy protocol update.
+
+
+  :port: Previous source port before proxy protocol update.
+
+
 
 
 
@@ -564,6 +574,20 @@ Operation events
 :Description: None
 :Data:
   :details: More details about the error.
+
+
+
+
+
+20048
+^^^^^
+
+:Message: Failed to delete expired account home folder. %(details)s
+:Groups: analytics, authenticated, failure, failure-high
+:From version: 5.25.0
+:Description: Home folder deletion for an expired account has failed.
+:Data:
+  :details: Details about the failure reason.
 
 
 
@@ -1176,6 +1200,23 @@ Operation events
 
 
   :uuid: The uuid of the section with unknown type.
+
+
+
+
+
+20092
+^^^^^
+
+:Message: Username "%(username)s" identified with cloud groups: %(group_names)s.
+:Groups: authentication, process, operational, informational
+:From version: 5.25.0
+:Description: None
+:Data:
+  :group_names: Comma separated cloud values in `name:id` format. Missing name is `NO-NAME`; missing ID is `NO-ID`.
+
+
+  :username: Authenticated account name.
 
 
 
@@ -2674,6 +2715,20 @@ Operation events
 :Description: The legacy password for an account was automatically migrated.
 :Data:
   :account_name: Name of the account
+
+
+
+
+
+20198
+^^^^^
+
+:Message: Deleted home folder "%(real_path)s" for an expired account.
+:Groups: analytics, authenticated, success
+:From version: 5.25.0
+:Description: Expired account home folder deleted and account disabled.
+:Data:
+  :real_path: Deleted account home folder path.
 
 
 

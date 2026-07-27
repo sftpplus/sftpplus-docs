@@ -41,6 +41,9 @@ Limitations
   Get in touch if you plan to deploy SFTPPlus in an Azure government cloud.
 * The paths configured for SharePoint Online in SFTPPlus are case sensitive.
 * SFTPPlus can only handle folders with up to 1000 files.
+* SFTPPlus supports large file uploads by using the MS Graph
+  upload session API, up to 250 GB per file.
+  This is the maximum file size supported by SharePoint Online.
 * The rename/move operation is supported only inside the same Document Library.
   This is a limitation of the MS Graph API.
   Each Document Library is a handles as separate Azure Drive.

@@ -50,17 +50,21 @@ order.
         help you understand the terminology used in the documentation, and provide information about
         the main resources available in SFTPPlus.
 
-    .. grid-item-card:: :octicon:`sliders` Administration
+    .. grid-item-card:: :octicon:`sliders` Administration, admins and roles
         :link-type: doc
         :link: administration/index
 
         This section includes information about administrative tasks and operating an SFTPPlus deployment for both server-side and client-side operations.
+        It also includes information about how to configure and manage administrative users, roles, and admin permissions.
 
-    .. grid-item-card:: :octicon:`server` :octicon:`verified` Authentication, Users and Admins
+    .. grid-item-card:: :octicon:`server` :octicon:`verified` Authentication, users and groups
         :link-type: doc
         :link: configuration-auth/index
 
-        This section covers user and admin management in SFTPPlus, including built-in and external authentication (OS, Active Directory, LDAP, cloud SSO).
+        This section covers user and group management in SFTPPlus,
+        including built-in and external authentication (OS, Active Directory, LDAP, cloud SSO),
+        as well as security policies for enforcing password security,
+        preventing brute-force attacks, and restricting or allowing access based on source IP address.
 
     .. grid-item-card:: :octicon:`stack` Client-side transfers
         :link-type: doc

@@ -181,6 +181,50 @@ and ``charlie`` even though the ``Education_Group_A`` group has ``full-control``
 permission.
 
 
+Mapping SFTPPlus groups to external groups
+------------------------------------------
+
+SFTPPlus groups can be mapped to external identity groups from LDAP,
+Active Directory, Entra ID, Google Identity, or Okta.
+
+This mapping is configured using each group's
+`external_groups_association` option.
+
+For LDAP and Active Directory authentication,
+SFTPPlus compares configured values against LDAP `memberOf` and
+`tokenGroups` values returned for the authenticated user.
+If any configured value matches a returned LDAP value,
+the account is associated with the SFTPPlus group.
+You can configure multiple LDAP values, one value per line,
+and you can mix LDAP DN values and Active Directory SID values.
+
+For cloud authentication methods,
+SFTPPlus compares configured values against cloud group names and,
+when available, cloud group unique IDs.
+
+For cloud authentication methods,
+SFTPPlus can also map groups implicitly when the SFTPPlus group name is the
+same as the cloud group name.
+When `external_groups_association` defines a match,
+that explicit association takes priority and implicit name mapping is ignored
+for that cloud group.
+This implicit mapping is not available for LDAP or Active Directory.
+
+Each configured value can map to only one SFTPPlus group.
+Values are matched case-insensitive.
+
+..  warning::
+    When users are authenticated from multiple identity sources,
+    such as Active Directory and Entra ID,
+    use cloud group unique IDs instead of cloud group names.
+    IDs reduce ambiguity when names overlap across providers.
+
+..  warning::
+    Mapping values are matched case-insensitive.
+    Make sure your LDAP or Active Directory setup does not rely on
+    case-sensitive values that differ only by letter case.
+
+
 Configuration options
 ---------------------
 
@@ -307,31 +351,24 @@ home_folder_path
         The folder can be automatically created, just as for regular accounts.
 
 
-ldap_association
-----------------
+external_groups_association
+---------------------------
 
 :Default value: `empty`
 :Optional: Yes
-:From version: 5.21.0
-:Values: * Full LDAP DN for a group memberOf
-         * SID value for the tokenGroups
-         * List of LDAP DNs, or SIDs, one value per line
+:From version: 5.25.0
+:Values: * Text value, one value per line.
+         * LDAP DN value.
+         * Active Directory SID value.
+         * Cloud group name value.
+         * Cloud group unique ID value.
 :Description:
-    This option enables you to automatically associate and map LDAP groups to SFTPPlus groups.
-    When the LDAP authentication method is enabled,
-    once an LDAP account was authenticated,
-    SFTPPlus will retrieve the list of `memberOf` or `tokenGroups` attributes for that user.
-    If the value configured here for this group matches any of the `memberOf` attributes,
-    that user will be considered as member of this group.
+    This defined the names or IDs of external groups that are associated with this SFTPPlus group.
 
-    You can configure multiple LDAP values, one value per line.
-    You can mix DN and SID values.
+    The values are case-insensitive.
+    Check the dedicated section above for more details.
 
-    An LDAP DN or SID can only be mapped to a single SFTPPlus group.
-
-    ..  warning::
-        The values are matched case-insensitive.
-        Make sure your LDAP server does not have conflicting groups assigned to case-sensitive values.
+    Before version 5.25.0 this was named `ldap_association`.
 
 
 lock_in_home_folder

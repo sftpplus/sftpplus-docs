@@ -45,13 +45,17 @@ The command will ask to type the password.::
     This is strongly discouraged because the password may be exposed in process listings, shell history, or logs.
 
 To download the image for a specific version, you can use the following command.
-This will download the version based on Ubuntu 22.04, where you replace `5.X.Y` with your targeted version.::
+This will download the version based on Ubuntu 26.04, where you replace `5.X.Y` with your targeted version.::
 
-    docker pull sftpplus.azurecr.io/sftpplus:5.X.Y-linux
+    docker pull sftpplus.azurecr.io/sftpplus:5.X.Y-linux-x64
 
-For the Alpine Linux 3.16 based image use::
+For the Ubuntu 26.04 ARM64 image use::
 
-    docker pull sftpplus.azurecr.io/sftpplus:5.X.Y-linux_musl
+    docker pull sftpplus.azurecr.io/sftpplus:5.X.Y-linux-arm64
+
+For the Alpine Linux 3.24 based image use::
+
+    docker pull sftpplus.azurecr.io/sftpplus:5.X.Y-linux_musl-x64
 
 We highly recommend copying this image into your own private registry.
 

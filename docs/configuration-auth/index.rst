@@ -1,4 +1,4 @@
-Authentication, users and admins
+Authentication, users and groups
 ================================
 
 An authentication method configuration provides the required information to
@@ -29,6 +29,12 @@ and how to configure them.
 
         This section shows you how to create a new authentication method using the Web Manager console or the configuration file.
 
+    .. grid-item-card:: :octicon:`book` Security policies
+        :link-type: doc
+        :link: ./security-policy
+
+        Enforce password security, prevent brute-force attacks and restrict or allow access based on source IP address using security policies.
+
     .. grid-item-card:: :octicon:`book` Accounts authentication
         :link-type: doc
         :link: ./authentication
@@ -55,20 +61,6 @@ and how to configure them.
         :link: ./groups
 
         Learn about the Default Group and how to add and manage new groups in SFTPPlus.
-
-    .. grid-item-card:: :octicon:`book` Administrators
-        :link-type: doc
-        :link: ./administrators
-
-        Administrators are users that can manage the SFTPPlus server and its configuration using the Web Manager console.
-        This section covers how to create and manage administrators.
-
-    .. grid-item-card:: :octicon:`book` Roles
-        :link-type: doc
-        :link: ./roles
-
-        Roles are used to define permissions for administrators.
-        Learn how to create a new role and the available configuration options.
 
     .. grid-item-card:: :octicon:`sliders` SFTPPlus embedded users
         :link-type: doc
@@ -167,12 +159,11 @@ and how to configure them.
     :maxdepth: 1
 
     introduction
+    security-policy
     authentication
     authorization
     accounts
     groups
-    administrators
-    roles
     application
     os
     http

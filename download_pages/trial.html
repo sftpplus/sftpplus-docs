@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>
-        Version 5.24.0 Trial Downloads | Secure file transfer software
+        Version 5.25.0 Trial Downloads | Secure file transfer software
   </title>
 
   <meta name="author" content="Pro:Atria Team" />
@@ -80,8 +80,8 @@
   <div class="container">
     <div class="row text-center justify-content-center align-items-center">
       <div class="col">
-        <h1>Version 5.24.0 Trial Downloads</h1>
-          <h3 class="font-weight-normal">The trial version expires on 2026-09-13</h3>
+        <h1>Version 5.25.0 Trial Downloads</h1>
+          <h3 class="font-weight-normal">The trial version expires on 2026-11-04</h3>
       </div>
     </div>
   </div>
@@ -667,63 +667,108 @@ systems and CPU architectures.</p>
   <div class="container py-0">
     <div id="release-changelog" class="download-release-notes doc-body row mb-0 justify-content-center">
       <div class="col">
-        <div class="document" id="version-5-24-0-2026-06-05">
-<h1 class="title">Version 5.24.0, 2026-06-05</h1>
+        <div class="document" id="version-5-25-0-2026-07-24">
+<h1 class="title">Version 5.25.0, 2026-07-24</h1>
+<div class="section" id="security-fixes">
+<h1>Security Fixes</h1>
+<ul class="simple">
+<li>Web Manager reports access is now controlled via role permission named
+<tt class="docutils literal">reports</tt>.
+Existing custom roles must be updated to include <cite>reports, read</cite>,
+otherwise those roles will no longer be able to access the reports.
+[manager] [#5464-1]</li>
+<li>Web Manager activity logs now enforce role permissions,
+so administrators only access log data when their role grants <cite>logs</cite>
+read rights for all handlers or specific handler UUIDs.
+Existing custom roles must be updated to include <cite>logs, read</cite>,
+otherwise those roles will no longer be able to access activity logs.
+[manager] [#5464]</li>
+<li>The FTPS and HTTPS servers now support configuration
+for the TLS session reuse duration.
+After this period the TLS connections are closed to force a new
+TLS handshake.
+[server-side][ftps][https] [#7410]</li>
+<li>HTTP event handler checks now avoid exposing raw protocol banners and parser
+details when the target is not an HTTP service.
+The initial security vulnerability was reported by Angga Pratama.
+[event-handler][manager] [#7493]</li>
+</ul>
+</div>
 <div class="section" id="new-features">
 <h1>New Features</h1>
 <ul class="simple">
-<li>The SSH authentication methods used by the SFTP/SCP file transfer services now
-include support for the <cite>keyboard-interactive</cite> method.
-[server-side][sftp][scp] [#7388]</li>
-<li>You can now use a configured authentication as a second factor for another
-authentication.
-For example to authenticate operating system accounts using
-username and password and then use RADIUS
-as second factor authentication to validate a passcode or one time token.
-[server-side] [#7402]</li>
-<li>The HTTP service now includes translations for Simplified Chinese,
-Traditional Chinese, Vietnamese, and French.
-[server-side][https] [#7450]</li>
-<li>SFTPPlus now supports additional password security policies through the
-<cite>password_character_requirements</cite> server option.
-It allows enforcing lowercase, uppercase, digit, and symbol character sets.
-[server-side] [#7451]</li>
+<li>Security policies now support <cite>source_ip_filter</cite> allow/deny rules for both
+single IPs and CIDR ranges, with configuration available in Web Manager. [#3965]</li>
+<li>SharePoint Online uploads now support uploading files larger than 250 MB.
+The limit is 250 GB, which is a restriction imposed by SharePoint Online.
+[client-side][sharepoint] [#4315]</li>
 <li>You can now configure the number of days to generate warning events for
 accounts or passwords that are about to expire.
 These events can be converted into email notifications or handled by your
 custom audit logic.
 [server-side] [#7452]</li>
+<li>You can now configure an account to automatically have its home folder
+removed, with a grace period, after the account expiration date.
+This is configured via the <cite>home_folder_delete_on_expire</cite> option.
+After deletion, the account is automatically disabled.
+[server-side][manager] [#7487]</li>
+<li>You can now associate Entra ID, Google Cloud, and Okta groups to SFTPPlus
+groups using cloud group name or ID values configured via
+<cite>external_groups_association</cite>.
+This allows cloud group mappings without requiring identical group names
+between the identity provider and SFTPPlus. [#7491]</li>
+<li>Production container images now include a pre-built Ubuntu 26.04 Linux ARM64
+variant, published with the <cite>-linux-arm64</cite> tag suffix.
+[server-side][container] [#7502]</li>
 </ul>
 </div>
 <div class="section" id="defect-fixes">
 <h1>Defect Fixes</h1>
 <ul class="simple">
-<li>A transfer with an FTP/FTPS location no longer stalls when the connection to the
-FTP/FTPS server is lost.
-[client-side][ftp][ftps] [#7416]</li>
-<li>When transferring files over SFTP,
-a remote file is no longer considered non-existent when the
-connection is lost while checking the file existence.
-[client-side][sftp] [#7424]</li>
-<li>The HTTP event handler will now consider the HTTP 202 Accepted response
-as a valid successful response.
-[event-handler][http] [#7428]</li>
-<li>After a successful login via the HTTP Web Client,
-users are no longer redirected back to the login page when
-the previous authentication request failed.
-This is a regression introduced in 5.22.0.
-[server-side][http] [#7448]</li>
-<li>During configuration migration, services with <cite>ssl_certificate</cite> and a plain PEM
-<cite>ssl_key</cite> are now migrated correctly even when <cite>ssl_key_password</cite> is set but the
-private key is not actually encrypted.
-[server-side][https][ftps] [#7449]</li>
-<li>When a user tries to update the password and the update fails,
-the reason for the failure is now presented to the user.
-In previous versions, a generic failure message was used.
-[server-side][http][sftp][ftps] [#7451]</li>
-<li>An error is no longer generated when checking the configuration for
-event handlers that are using event data placeholders.
-[event-handler] [#7453]</li>
+<li>A new event handler filter option, <cite>user_groups</cite>, was added to match
+account group UUIDs and administrator role UUIDs.
+[event-handler][server-side] [#7467]</li>
+<li>The Web Manager review page was fixed to show the actual account or group
+name for users and groups managed via the <cite>local-file</cite> authentication.
+[manager][server-side] [#7472-1]</li>
+<li>Administrator role documentation now includes a dedicated section for
+<cite>local-file</cite> authentication account and group management permissions.
+The examples clarify the required
+<cite>configuration/authentications/&lt;UUID&gt;/...</cite> access for those changes.
+[manager][documentation] [#7472]</li>
+<li>OIDC authentication now exposes the resolved proxy value in the OAuth token
+configuration data, so extensions receive the global proxy when the method
+does not define a dedicated proxy. [#7475]</li>
+<li>An internal server error is no longer generated when SharePoint Online rejects
+a file upload.
+[client-side][sharepoint] [#7476]</li>
+<li>FTP/FTPS locations now retry when authentication fails.
+In previous versions, an authentication failure stopped the location
+without retrying authentication.
+[client-side][ftp][ftps] [#7486]</li>
+<li>The FTP/FTPS locations now support multi-line <cite>227</cite> replies for the PASV
+command.
+[client-side][ftp] [#7490]</li>
+<li>Proxy Protocol v2 support in SFTPPlus now accepts TLV extensions.
+The extension details are extracted and available in event ID 20003.
+[server-side][sftp][ftp][http] [#7497]</li>
+<li>The SFTP, FTP/FTPS, and HTTP/HTTPS file transfer servers no longer allow users
+to delete their own home folder or modify the attributes of the home folder.
+The issue was reported by Angga Pratama.
+[server-side][sftp][ftp][ftps][http][https] [#7509]</li>
+</ul>
+</div>
+<div class="section" id="deprecations-and-removals">
+<h1>Deprecations and Removals</h1>
+<ul class="simple">
+<li>Removed event <cite>10104</cite>, which was emitted when an FTP/FTPS location
+failed to authenticate.
+Authentication failures are now reported through the event associated
+with the operation that triggered the failure.
+[client-side][ftp][ftps] [#7486]</li>
+<li>The group configuration option <cite>ldap_association</cite> was renamed to
+<cite>external_groups_association</cite>.
+Existing configurations are migrated automatically. [#7491]</li>
 </ul>
 </div>
 </div>

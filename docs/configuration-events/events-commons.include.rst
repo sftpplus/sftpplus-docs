@@ -100,6 +100,32 @@ groups
     Leave it empty to handle events from all groups.
 
 
+user_groups
+-----------
+
+:Default value: ''
+:Optional: Yes
+:Values: * Comma separated list of group or role UUIDs.
+         * Empty.
+:From version: 5.25.0
+:Description:
+    Defines the list of avatar group or role UUIDs for which this handler
+    is active.
+
+    For end-user events this matches the account's associated groups.
+    For manager events this matches the administrator's associated roles.
+
+    When you want to handle all the events except for a set of groups or
+    roles, prefix each UUID with the exclamation mark (`!`).
+
+    The event is handled if any of the avatar UUIDs is found in the list of
+    configured allowed UUIDs.
+    The event is not handled if any of the avatar UUIDs is found in the list
+    of configured ignored UUIDs.
+
+    Leave it empty to handle events from any avatar groups or roles.
+
+
 usernames
 ---------
 

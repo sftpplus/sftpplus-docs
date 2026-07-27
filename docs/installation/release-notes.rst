@@ -14,6 +14,112 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
+Version 5.25.0, 2026-07-24
+--------------------------
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* Web Manager reports access is now controlled via role permission named
+  ``reports``.
+  Existing custom roles must be updated to include `reports, read`,
+  otherwise those roles will no longer be able to access the reports.
+  [manager] [#5464-1]
+* Web Manager activity logs now enforce role permissions,
+  so administrators only access log data when their role grants `logs`
+  read rights for all handlers or specific handler UUIDs.
+  Existing custom roles must be updated to include `logs, read`,
+  otherwise those roles will no longer be able to access activity logs.
+  [manager] [#5464]
+* The FTPS and HTTPS servers now support configuration
+  for the TLS session reuse duration.
+  After this period the TLS connections are closed to force a new
+  TLS handshake.
+  [server-side][ftps][https] [#7410]
+* HTTP event handler checks now avoid exposing raw protocol banners and parser
+  details when the target is not an HTTP service.
+  The initial security vulnerability was reported by Angga Pratama.
+  [event-handler][manager] [#7493]
+
+
+New Features
+^^^^^^^^^^^^
+
+* Security policies now support `source_ip_filter` allow/deny rules for both
+  single IPs and CIDR ranges, with configuration available in Web Manager. [#3965]
+* SharePoint Online uploads now support uploading files larger than 250 MB.
+  The limit is 250 GB, which is a restriction imposed by SharePoint Online.
+  [client-side][sharepoint] [#4315]
+* You can now configure the number of days to generate warning events for
+  accounts or passwords that are about to expire.
+  These events can be converted into email notifications or handled by your
+  custom audit logic.
+  [server-side] [#7452]
+* You can now configure an account to automatically have its home folder
+  removed, with a grace period, after the account expiration date.
+  This is configured via the `home_folder_delete_on_expire` option.
+  After deletion, the account is automatically disabled.
+  [server-side][manager] [#7487]
+* You can now associate Entra ID, Google Cloud, and Okta groups to SFTPPlus
+  groups using cloud group name or ID values configured via
+  `external_groups_association`.
+  This allows cloud group mappings without requiring identical group names
+  between the identity provider and SFTPPlus. [#7491]
+* Production container images now include a pre-built Ubuntu 26.04 Linux ARM64
+  variant, published with the `-linux-arm64` tag suffix.
+  [server-side][container] [#7502]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* A new event handler filter option, `user_groups`, was added to match
+  account group UUIDs and administrator role UUIDs.
+  [event-handler][server-side] [#7467]
+* The Web Manager review page was fixed to show the actual account or group
+  name for users and groups managed via the `local-file` authentication.
+  [manager][server-side] [#7472-1]
+* Administrator role documentation now includes a dedicated section for
+  `local-file` authentication account and group management permissions.
+  The examples clarify the required
+  `configuration/authentications/<UUID>/...` access for those changes.
+  [manager][documentation] [#7472]
+* OIDC authentication now exposes the resolved proxy value in the OAuth token
+  configuration data, so extensions receive the global proxy when the method
+  does not define a dedicated proxy. [#7475]
+* An internal server error is no longer generated when SharePoint Online rejects
+  a file upload.
+  [client-side][sharepoint] [#7476]
+* FTP/FTPS locations now retry when authentication fails.
+  In previous versions, an authentication failure stopped the location
+  without retrying authentication.
+  [client-side][ftp][ftps] [#7486]
+* The FTP/FTPS locations now support multi-line `227` replies for the PASV
+  command.
+  [client-side][ftp] [#7490]
+* Proxy Protocol v2 support in SFTPPlus now accepts TLV extensions.
+  The extension details are extracted and available in event ID 20003.
+  [server-side][sftp][ftp][http] [#7497]
+* The SFTP, FTP/FTPS, and HTTP/HTTPS file transfer servers no longer allow users
+  to delete their own home folder or modify the attributes of the home folder.
+  The issue was reported by Angga Pratama.
+  [server-side][sftp][ftp][ftps][http][https] [#7509]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Removed event `10104`, which was emitted when an FTP/FTPS location
+  failed to authenticate.
+  Authentication failures are now reported through the event associated
+  with the operation that triggered the failure.
+  [client-side][ftp][ftps] [#7486]
+* The group configuration option `ldap_association` was renamed to
+  `external_groups_association`.
+  Existing configurations are migrated automatically. [#7491]
+
+
 Version 5.24.0, 2026-06-05
 --------------------------
 

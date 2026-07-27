@@ -81,3 +81,17 @@ Event data members
 The event object received in the handler has the following structure.
 
 .. include:: /developer/event-object.include.rst
+
+
+OAuth proxy value for extensions
+--------------------------------
+
+For OAuth2 based authentication methods, use ``event.account.token['proxy']``
+to check whether API calls from extensions should use a proxy.
+
+This value is the resolved ``proxy_value`` (authentication method proxy with
+fallback to the global server proxy).
+
+The ``event.account.token['configuration']['proxy']`` member only stores the
+raw authentication method ``proxy`` option and can be empty when the proxy is
+inherited from the global server configuration.

@@ -242,7 +242,7 @@ Automated file transfers events
 60016
 ^^^^^
 
-:Message: Transfer job failed at %(step_name)s after all retries. The following files failed: %(failed_paths)s. %(success_paths)s %(skip_paths)s %(details)s
+:Message: Transfer job failed at %(step_name)s after %(retries)s retries. The following files failed: %(failed_paths)s. %(success_paths)s %(skip_paths)s %(details)s
 :Groups: transfer-job, failure, failure-high, client-side
 :From version: 2.9.0
 :Description: None
@@ -251,6 +251,9 @@ Automated file transfers events
 
 
   :failed_paths: Comma separated paths which failed.
+
+
+  :retries: Number of retries configured for the transfer.
 
 
   :step_name: Name of the step at which transfer failed.
@@ -268,7 +271,7 @@ Automated file transfers events
 60017
 ^^^^^
 
-:Message: Transfer succeeded for source %(paths)s to %(destination_paths)s. %(skip_paths)s
+:Message: Transfer succeeded for source %(paths)s to %(destination_paths)s with %(retries)s retries. %(skip_paths)s
 :Groups: transfer-job, success, client-side
 :From version: 2.9.0
 :Description: None
@@ -277,6 +280,9 @@ Automated file transfers events
 
 
   :paths: Comma-separated source paths which were transferred to the destination.
+
+
+  :retries: Number of retries performed for the transfer.
 
 
   :skip_paths: Comma-separated list of files that were skipped.

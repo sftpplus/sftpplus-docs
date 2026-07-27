@@ -65,6 +65,40 @@ Below is the list of services used by SFTPPlus to communicate with Azure Cloud:
     Get in touch if you need to authenticate SFTP or FTPS users using Entra ID.
 
 
+Mapping SFTPPlus groups to Entra ID groups
+------------------------------------------
+
+When using a group's `external_groups_association` option to map SFTPPlus
+groups to Entra ID groups, each mapping value can be either:
+
+* Entra ID group name.
+* Entra ID object ID.
+
+We recommend using the Entra ID object ID.
+With object IDs, Entra ID groups can be renamed without affecting the
+SFTPPlus configuration.
+
+Using `external_groups_association` is optional.
+If the Entra ID authentication method is configured with
+`group_association = base-and-cloud-groups`, SFTPPlus can map groups
+automatically when the Entra ID group name and SFTPPlus group name are the
+same.
+
+
+Limited API permissions and group names
+---------------------------------------
+
+When Entra ID does not return group names for a user,
+you can still map groups by configuring each SFTPPlus group
+`external_groups_association` with the Entra ID group UUID.
+This keeps group association working even when only UUID values are returned.
+
+Missing group names are usually caused by limited API permissions.
+If required by your security policy,
+you can grant the Entra ID app `Directory.Read.All` delegated permission so
+that group names are available in API responses.
+
+
 Entra ID app configuration
 --------------------------
 
@@ -112,7 +146,9 @@ All permissions are `Delegated`:
 
 * openid - for generic authentication
 * User.Read - for generic authentication
+* Group.Read.All - Delegated (to read group names)
 * GroupMember.Read.All - Delegated (for Entra ID group association)
+* Member.Read.Hidden - optional - If the user belongs to a group with hidden membership.
 
 Other configuration options are available in Entra ID via the `Enterprise applications` page.
 On the `Enterprise applications -> Properties` you can configure a general 'Enable/Disable' option for the SFTPPlus application.

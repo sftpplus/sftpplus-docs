@@ -1055,10 +1055,14 @@ FTP / FTPS events
 10084
 ^^^^^
 
-:Message: Client FTP/FTPS connection time out.
-:Groups: session, failure, failure-high, ftp, failure-specific
+:Message: Client FTP/FTPS connection time out. %(details)s
+:Groups: session, failure, failure-high, ftp
 :From version: 1.6.0
 :Description: None
+:Data:
+  :details: More details about the timeout.
+
+
 
 
 

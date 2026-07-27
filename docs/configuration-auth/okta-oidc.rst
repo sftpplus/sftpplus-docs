@@ -47,6 +47,20 @@ An HTTP proxy can be used by SFTPPlus to connect to the Okta authorization serve
     Get in touch if you need to authenticate SFTP or FTPS users using Okta.
 
 
+Mapping SFTPPlus groups to Okta groups
+--------------------------------------
+
+When using a group's `external_groups_association` option to map SFTPPlus
+groups to Okta groups, use the Okta group name value.
+
+Okta group IDs are not supported for group mapping.
+
+Using `external_groups_association` is optional.
+If the Okta authentication method is configured with
+`group_association = base-and-cloud-groups`, SFTPPlus can map groups
+automatically when the Okta group name and SFTPPlus group name are the same.
+
+
 Okta OIDC app integration configuration
 ---------------------------------------
 

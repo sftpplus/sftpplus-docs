@@ -1,3 +1,20 @@
+tls_active_session_limit
+------------------------
+
+:Default value: `7200` (2 hours)
+:Optional: Yes
+:Values: * Number of seconds greater than or equal to `10`
+:From version: 5.24.0
+:Description:
+    Number of seconds after which an active TLS session is considered expired and a new TLS handshake is required.
+
+    This controls the duration for which new connections can reuse an existing TLS session, which can improve performance by avoiding the overhead of a full TLS handshake for each new connection.
+
+    The minimum value is 10 seconds to prevent performance degradation due to frequent handshakes.
+
+    The maximum value is 604,800 seconds (7 days).
+
+
 tls_mutual_certification_authorities
 ------------------------------------
 

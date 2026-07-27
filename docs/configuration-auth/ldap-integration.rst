@@ -379,7 +379,7 @@ Here is an example configuration::
     [groups/11f0-b2ca-9b70]
     name = UK Sales
     home_folder_path = /files/teams/sales-uk
-    ldap_association = ou=sales-uk,dc=example,dc=com
+    external_groups_association = ou=sales-uk,dc=example,dc=com
 
     [authentications/d87d-4a3c-d732]
     type = ldap
@@ -401,9 +401,9 @@ and assuming the following LDAP user is authenticated::
 
 The `bob@example.com` user is associated to the `Global Sales` groups as the primary group.
 It is also associated to the `UK Sales` group,
-since it has the memberOf value of `ou=sales-uk,dc=example,dc=com` which is the same value configured in the `UK Sales` group `ldap_association` option.
+since it has the memberOf value of `ou=sales-uk,dc=example,dc=com` which is the same value configured in the `UK Sales` group `external_groups_association` option.
 
-Other LDAP users that have `memberOf` values not matching any group `ldap_association` will be associated only to the `Global Sales` group,
+Other LDAP users that have `memberOf` values not matching any group `external_groups_association` will be associated only to the `Global Sales` group,
 since this is the fallback group configuration.
 
 -----
@@ -413,7 +413,7 @@ Below is an example of an SFTPPlus group configured to be associated with an Act
     [groups/11f0-b2ca-9b70]
     name = UK Sales
     home_folder_path = /files/teams/sales-uk
-    ldap_association =
+    external_groups_association =
       S-1-2-4-1234-144
       S-1-2-4-8621-532
 

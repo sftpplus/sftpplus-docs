@@ -21,8 +21,14 @@ in SFTPPlus using the following configuration elements:
 Administrators configuration
 ============================
 
-As a best practice, it is recommended to create an administrator configuration
+As a best practice, it is recommended to have an administrator configuration
 for each person interacting with SFTPPlus as an administrator.
+
+Administrators can be defined inside SFTPPlus main configuration file or from external authentication methods such as
+LDAP, Active Directory, local operating system or cloud based SSO.
+
+Check the :doc:`Authentication configuration page </configuration-auth/index>`
+for more details about the authentication methods that can be used to authenticate administrators.
 
 When configuring an administrator, you define a name/username and a password.
 
@@ -35,6 +41,8 @@ The configuration of an administrator also includes the associated role.
 
 All the access permissions for the administrators are configured via the
 associated role.
+
+Check the :doc:`Administrators configuration page <./administrators>` for more details about configuring administrators.
 
 
 Role configuration
@@ -74,6 +82,8 @@ configuration can be used::
       configuration/accounts/*, all
       configuration/groups/*, all
 
+Check the :doc:`Roles configuration page <./roles>` for more details about configuring roles.
+
 
 Available permission targets
 ============================
@@ -100,7 +110,9 @@ member UUIDs, with or without an option name::
 * operation/locations[/{UUID}]
 * operation/locations/{UUID}/browse/[{PATH}]
 * operation/transfers[/{UUID}]
+* logs[/{UUID}]
 * node_variables
+* reports
 * status
 
 Values in square brackets are optional.
@@ -118,6 +130,10 @@ The following examples are valid:
 * operation/services/* - target the status of any service
 * operation/services/FTPS-service-UUID/* - target the status of the service with UUID ``FTPS-service-UUID``.
 
+Access to `logs` (any activity logs) or `logs/{UUID}` (a specific activity log) only supports the `read` permission action.
+The `{UUID}` represents the database event handler identifier.
+
+
 The following configurations do not have a member UUID, so they can only be
 targeted using the option name:
 
@@ -125,6 +141,7 @@ targeted using the option name:
 * configuration/server/*
 * configuration/server/**OPTION-NAME**/
 * status
+* reports
 
 There is a special permission target named `sync` used to configure
 synchronization between the cluster controller and the cluster nodes.
@@ -236,3 +253,44 @@ The `own` prefix can be used to allow the administrator to change own configurat
       configuration, read
       configuration/accounts/*, all
       configuration/groups/*, all
+
+
+Local-file authentication permissions
+=====================================
+
+To allow an administrator to manage accounts and groups from a specific `local-file` authentication method,
+use permission targets scoped to that authentication UUID.::
+
+    [roles/70c0-4e1d-8480]
+    name = local-file-user-group-administrators
+    permissions =
+      configuration/authentications/*, read
+      operation/authentications/*, read
+      configuration/authentications/UUID-OF-THE-SHARED-AUTH/accounts/*, all
+      configuration/authentications/UUID-OF-THE-SHARED-AUTH/groups/*, all
+
+We will need to give read access to all authentication methods so that the administrator can discover the `local-file` authentication method.
+The `read` permissions are used to list available authentication methods and
+their status.
+
+
+The account and group management permissions are granted via
+`configuration/authentications/UUID-OF-THE-SHARED-AUTH/*`.
+
+
+Security policy permissions
+===========================
+
+To allow an administrator to manage security policies, you will need to define the following role permissions.::
+
+    [roles/70c0-4e1d-8480]
+    name = security-policy-administrators
+    permissions =
+      configuration/security-policies/*, all
+      operation/security-policies/*, all
+
+You can restrict the permissions to a specific security policy by using the UUID of that security policy instead of `*` in the permission target.
+
+The operation permissions are used to allow administrators to start and stop security policies, as well as viewing the current list of blocked IP addresses and removing them from the list.
+
+The configuration permissions are used to allow administrators to create, delete, and update security policies rules.

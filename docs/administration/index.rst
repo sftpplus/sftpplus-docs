@@ -1,10 +1,10 @@
-Administration
-==============
+Administration, admins and roles
+================================
 
 The instructions found in this section are targeted at system administrators or
 application developers looking to integrate SFTPPlus deployments with DevOps practices.
 
-.. grid:: 1 1 2 1
+.. grid:: 1 1 2 2
     :gutter: 2
     :padding: 0
     :class-container: surface
@@ -23,6 +23,20 @@ application developers looking to integrate SFTPPlus deployments with DevOps pra
 
         Discover the available permission targets defined through roles
         and how to associate them with administration accounts.
+
+    .. grid-item-card:: :octicon:`book` Administrators
+        :link-type: doc
+        :link: ./administrators
+
+        Administrators are users that can manage the SFTPPlus server and its configuration using the Web Manager console.
+        This section covers how to create and manage administrators.
+
+    .. grid-item-card:: :octicon:`book` Roles
+        :link-type: doc
+        :link: ./roles
+
+        Roles are used to define permissions for administrators.
+        Learn how to create a new role and the available configuration options.
 
     .. grid-item-card:: :octicon:`terminal` Log management
         :link-type: doc
@@ -84,6 +98,8 @@ application developers looking to integrate SFTPPlus deployments with DevOps pra
 
     admin-web-console
     admin-authorization
+    administrators
+    roles
     log-management
     pki
     vault

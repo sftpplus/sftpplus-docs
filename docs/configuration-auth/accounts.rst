@@ -44,7 +44,7 @@ Configuring administrators
 
 Administrators are only dedicated to accessing the Web Manager.
 For documentation around configuring administrators, please go to
-:doc:`the Administrators section</configuration-auth/administrators>`.
+:doc:`the Administrators section</administration/administrators>`.
 
 
 Adding a new account via Web Manager
@@ -898,6 +898,30 @@ disable_on_inactivity
         from the `analytics` resource.
         If the account was recently changed, it is not automatically disabled,
         even if there are no recent logins.
+
+
+home_folder_delete_on_expire
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Default value: `0`
+:Optional: Yes
+:From version: 5.25.0
+:Values: * Number of seconds.
+:Description:
+    Number of seconds after the account expiration time when the account home
+    folder is deleted.
+
+    When set to `0`, the account home folder is not deleted.
+
+    The delete check runs at each `analytics` monitor iteration,
+    based on that resource's `monitor_interval` value.
+
+    It applies only to accounts configured in SFTPPlus.
+
+    If `home_folder_path` is inherited, only the primary group is checked.
+    Inherited paths starting with `${SHARED}` are skipped.
+
+    After the home folder is deleted, the account is disabled.
 
 
 last_password_update
