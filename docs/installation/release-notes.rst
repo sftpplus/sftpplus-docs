@@ -51,11 +51,6 @@ New Features
 * SharePoint Online uploads now support uploading files larger than 250 MB.
   The limit is 250 GB, which is a restriction imposed by SharePoint Online.
   [client-side][sharepoint] [#4315]
-* You can now configure the number of days to generate warning events for
-  accounts or passwords that are about to expire.
-  These events can be converted into email notifications or handled by your
-  custom audit logic.
-  [server-side] [#7452]
 * You can now configure an account to automatically have its home folder
   removed, with a grace period, after the account expiration date.
   This is configured via the `home_folder_delete_on_expire` option.
