@@ -39,7 +39,6 @@ Security Fixes
   [server-side][ftps][https] [#7410]
 * HTTP event handler checks now avoid exposing raw protocol banners and parser
   details when the target is not an HTTP service.
-  The initial security vulnerability was reported by Angga Pratama.
   [event-handler][manager] [#7493]
 
 
@@ -98,7 +97,6 @@ Defect Fixes
   [server-side][sftp][ftp][http] [#7497]
 * The SFTP, FTP/FTPS, and HTTP/HTTPS file transfer servers no longer allow users
   to delete their own home folder or modify the attributes of the home folder.
-  The issue was reported by Angga Pratama.
   [server-side][sftp][ftp][ftps][http][https] [#7509]
 
 
