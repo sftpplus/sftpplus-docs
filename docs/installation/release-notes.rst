@@ -14,6 +14,52 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
+Version 5.26.1, 2026-08-13
+--------------------------
+
+This is a re-release of 5.26.0 with minor fixes to the node synchronization
+audit events and SSH key change detection.
+
+
+New Features
+^^^^^^^^^^^^
+
+* Administrators can configure additional trusted certificate authorities for
+  Entra ID, Google Identity, Okta OIDC, Azure Storage, Exchange Online, and
+  SharePoint Online connections.
+  [server-side][client-side][https] [#7520]
+* Date and time placeholders now expose separate values,
+  such as the year, month, day, hour, minute, and second.
+  [event-handler][client-side] [#7530]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* Vault items now show where they are used in Web Manager, and the delete
+  action stays disabled with an explanatory tooltip while an item is still in
+  use. [#7521]
+* The Windows installer now removes files from the previous runtime when
+  upgrading SFTPPlus, preventing obsolete version 4 files from breaking a
+  version 5 installation. [#7534]
+* When migrating the private key for AS2 locations, the vault items are now
+  generated using unique names.
+  [manager][as2][client-side] [#7539-1]
+* The cluster synchronization now includes vault items.
+  [manager] [#7539]
+* The node synchronization resource will now always start and will
+  continuously retry to connect to the controller.
+  [manager] [#7540]
+* The Web Manager will not notify that a restart is required when the
+  `client_forwarded_header` option is changed.
+  [manager] [#7543]
+* The node synchronization resource now correctly handle SSH key changes.
+  This is a regression introduced in version 5.20.0,
+  where even when the SSH key was not changed,
+  the synchronization was reporting a change and triggering a service restart.
+  [manager] [#7543]
+
+
 Version 5.26.0, 2026-08-13
 --------------------------
 

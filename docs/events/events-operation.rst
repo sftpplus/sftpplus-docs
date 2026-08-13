@@ -157,6 +157,29 @@ Operation events
 
 
 
+20012
+^^^^^
+
+:Message: Component %(component_family)s "%(component_name)s" restarted. Changes: %(changes)s
+:Groups: authenticated, informational
+:From version: 5.26.0
+:Description: This is used to help test the configuration of an event handler.
+:Data:
+  :changes: Description of the changes that triggered the restart.
+
+
+  :component_family: Family name of the component.
+
+
+  :component_name: Name of the component.
+
+
+  :component_uuid: UUID of the component.
+
+
+
+
+
 20013
 ^^^^^
 

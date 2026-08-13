@@ -7,7 +7,7 @@ fi
 
 cd $1
 SERVER_ROOT=`pwd`
-PY_VER='3.14'
+PY_VER='3.12'
 
 rm dist/*.html
 ./pythia.sh download_pages production
