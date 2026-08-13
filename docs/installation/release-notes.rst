@@ -17,7 +17,7 @@ This is the list of all changes for current SFTPPlus version.
 Version 5.26.1, 2026-08-13
 --------------------------
 
-This is a re-release of 5.26.0 with minor fixes to the node synchronization
+This is a re-release of 5.26.0 with fixes to the node synchronization
 audit events and SSH key change detection.
 
 
