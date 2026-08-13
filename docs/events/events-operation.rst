@@ -1743,6 +1743,16 @@ Operation events
 :Groups: operational, session, failure, failure-high
 :From version: 5.11.0
 :Description: None
+:Data:
+  :component_family: Family name of the component associated with this event.
+
+
+  :component_uuid: UUID of the component associated with this event.
+
+
+  :interval: Number of seconds to wait before retrying.
+
+
 
 
 

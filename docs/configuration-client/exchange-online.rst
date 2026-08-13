@@ -69,6 +69,21 @@ application_id
     This value is obtained after registering SFTPPlus in Entra ID via the `App registrations` page.
 
 
+tls_trusted_certificates
+------------------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Empty
+         * UUID of a trusted-certificates vault item.
+:From version: 5.26.0
+:Description:
+    Defines additional certificate authorities trusted for outgoing Microsoft Graph and Exchange Online HTTPS connections.
+
+    The Microsoft certificate authorities distributed with SFTPPlus are always trusted.
+    Leave this empty when no additional certificate authority is required.
+
+
 file_name_template
 ------------------
 

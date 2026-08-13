@@ -82,13 +82,7 @@ The mapping is done using the following rules:
 
 The following placeholders are available for the `file_name_template` configuration option:
 
-* `{now.cwa_14051}` - Human readable date and time when the file was transferred by SFTPPlus
-* `{now.iso_8601}` - ISO 8601 date and time
-* `{now.iso_8601_fractional}`
-* `{now.iso_8601_local}`
-* `{now.iso_8601_basic}`
-* `{now.iso_8601_compact}` - ISO 8601 compatible with Windows file names
-* `{now.timestamp}` - Unix timestamp with decimals
+.. include:: /configuration-events/now.include.rst
 
 * `{sent.cwa_14051}` - Human readable date and time when the file was originally sent. When sent date is missing (for example for some draft messages), a placeholder value is set to the start of year 2000.
 * `{sent.iso_8601}`
@@ -97,6 +91,9 @@ The following placeholders are available for the `file_name_template` configurat
 * `{sent.iso_8601_basic}`
 * `{sent.iso_8601_compact}`
 * `{sent.timestamp}`
+
+The local date and time component placeholders listed for `now` are also
+available for `sent`.
 
 * `{from.email}` - Who the message is attributed to.
 * `{from.name}` - Display name from the message's *From* field.

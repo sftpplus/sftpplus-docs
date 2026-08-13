@@ -147,6 +147,22 @@ Below is an example for a `POST` request containing one XML SOAP event::
             <timestamp>
               <cwa_14051>2020-06-06 01:21:29</cwa_14051>
               <timestamp>1591402889.06</timestamp>
+              <year_decimal>2020</year_decimal>
+              <year_no_century>20</year_no_century>
+              <month_decimal>6</month_decimal>
+              <month_padded>06</month_padded>
+              <day_padded>06</day_padded>
+              <day_decimal>6</day_decimal>
+              <day_of_year_padded>158</day_of_year_padded>
+              <hour_padded_24>01</hour_padded_24>
+              <hour_decimal_24>1</hour_decimal_24>
+              <hour_padded_12>01</hour_padded_12>
+              <hour_decimal_12>1</hour_decimal_12>
+              <hour_am_pm>AM</hour_am_pm>
+              <minute_padded>21</minute_padded>
+              <minute_decimal>21</minute_decimal>
+              <second_padded>29</second_padded>
+              <second_decimal>29</second_decimal>
               <iso_8601>2020-06-06T00:21:29Z</iso_8601>
               <iso_8601_fractional>
                 2020-06-06T00:21:29.056312084198Z</iso_8601_fractional>

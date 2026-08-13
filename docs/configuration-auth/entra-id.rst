@@ -60,6 +60,12 @@ Below is the list of services used by SFTPPlus to communicate with Azure Cloud:
 * login.microsoftonline.com
 * graph.microsoft.com
 
+When `tenant restrictions v2 <https://learn.microsoft.com/en-us/entra/external-id/tenant-restrictions-v2#option-2-set-up-tenant-restrictions-v2-on-your-corporate-proxy>`_
+are implemented by an HTTPS inspection proxy,
+create a trusted-certificates vault item containing the proxy root and intermediate or issuing CA certificates.
+Configure that vault item using `tls_trusted_certificates`.
+The Microsoft certificate authorities distributed with SFTPPlus remain trusted.
+
 ..  note::
     Only HTTPS file transfer user authentication and web management console are supported.
     Get in touch if you need to authenticate SFTP or FTPS users using Entra ID.
@@ -195,6 +201,21 @@ password
 :Values: * plain text
 :From version: 4.24.0
     This is the Azure client secret generated for the SFTPPlus application.
+
+
+tls_trusted_certificates
+------------------------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Empty
+         * UUID of a trusted-certificates vault item.
+:From version: 5.26.0
+:Description:
+    Defines additional certificate authorities trusted for outgoing Entra ID and Microsoft Graph HTTPS connections.
+
+    The Microsoft certificate authorities distributed with SFTPPlus are always trusted.
+    Leave this empty when no additional certificate authority is required.
 
 
 base_groups

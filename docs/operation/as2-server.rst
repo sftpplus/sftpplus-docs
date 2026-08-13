@@ -228,6 +228,17 @@ the date and time at which the file transfer was initiated.
 To use a different filename for this case,
 define the `as2_default_filename` configuration option.
 
+The following variables (case-insensitive) are provided to generate the destination file name for the received AS2 messages:
+
+* `uuid`
+* `account.name`
+* `account.peer.host`
+* `account.peer.port`
+* `account.peer.protocol`
+* `account.uuid`
+
+.. include:: /configuration-events/timestamp.include.rst
+
 
 Async MDN delivery
 ------------------

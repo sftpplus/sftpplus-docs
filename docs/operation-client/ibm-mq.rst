@@ -78,13 +78,8 @@ The mapping is done using the following rules:
 
 The following placeholders are available for the `file_name_template` configuration option:
 
-* `{now.cwa_14051}` - Human readable date and time
-* `{now.iso_8601}` - ISO 8601 date and time
-* `{now.iso_8601_fractional}`
-* `{now.iso_8601_local}`
-* `{now.iso_8601_basic}`
-* `{now.iso_8601_compact}` - ISO 8601 compatible with Windows file names
-* `{now.timestamp}` - Unix timestamp
+.. include:: /configuration-events/now.include.rst
+
 * `{metadata.message_id}`
 * `{metadata.queue_name}` - Name of the queue over which the message was received.
 * `{metadata.correlation_id}`

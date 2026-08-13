@@ -14,6 +14,44 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
+Version 5.26.0, 2026-08-13
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* Administrators can configure additional trusted certificate authorities for
+  Entra ID, Google Identity, Okta OIDC, Azure Storage, Exchange Online, and
+  SharePoint Online connections.
+  [server-side][client-side][https] [#7520]
+* Date and time placeholders now expose separate values,
+  such as the year, month, day, hour, minute, and second.
+  [event-handler][client-side] [#7530]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* Vault items now show where they are used in Web Manager, and the delete
+  action stays disabled with an explanatory tooltip while an item is still in
+  use. [#7521]
+* The Windows installer now removes files from the previous runtime when
+  upgrading SFTPPlus, preventing obsolete version 4 files from breaking a
+  version 5 installation. [#7534]
+* When migrating the private key for AS2 locations, the vault items are now
+  generated using unique names.
+  [manager][as2][client-side] [#7539-1]
+* The cluster synchronization now includes vault items.
+  [manager] [#7539]
+* The node synchronization resource will now always start and will
+  continuously retry to connect to the controller.
+  [manager] [#7540]
+* The Web Manager will not notify that a restart is required when the
+  `client_forwarded_header` option is changed.
+  [manager] [#7543]
+
+
 Version 5.25.0, 2026-07-24
 --------------------------
 
@@ -39,6 +77,7 @@ Security Fixes
   [server-side][ftps][https] [#7410]
 * HTTP event handler checks now avoid exposing raw protocol banners and parser
   details when the target is not an HTTP service.
+  The initial security vulnerability was reported by Angga Pratama.
   [event-handler][manager] [#7493]
 
 
@@ -97,6 +136,7 @@ Defect Fixes
   [server-side][sftp][ftp][http] [#7497]
 * The SFTP, FTP/FTPS, and HTTP/HTTPS file transfer servers no longer allow users
   to delete their own home folder or modify the attributes of the home folder.
+  The issue was reported by Angga Pratama.
   [server-side][sftp][ftp][ftps][http][https] [#7509]
 
 

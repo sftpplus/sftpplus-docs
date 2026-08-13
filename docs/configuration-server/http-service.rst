@@ -289,22 +289,7 @@ as2_default_filename
 
         as2_default_filename = {account.name}-{timestamp.iso_8601_compact}.xml
 
-    The following variables (case-insensitive) are provided as context data
-    containing information about the event being triggered:
-
-    * `uuid`
-    * `account.name`
-    * `account.peer.address`
-    * `account.peer.port`
-    * `account.peer.protocol`
-    * `account.uuid`
-    * `timestamp.cwa_14051`
-    * `timestamp.iso_8601`
-    * `timestamp.iso_8601_fractional`
-    * `timestamp.iso_8601_local`
-    * `timestamp.iso_8601_basic`
-    * `timestamp.iso_8601_compact`
-    * `timestamp.timestamp`
+    Check the :doc:`AS2 server operation</operation/as2-server>` page for more information on the available placeholders.
 
 
 as2_receive_private_certificate

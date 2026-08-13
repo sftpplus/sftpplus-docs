@@ -58,6 +58,20 @@ For example, to add a new vault item named **PGP Public Key**::
         -----END PGP PUBLIC KEY BLOCK-----
 
 
+Migrating from 5.19.0 or older
+------------------------------
+
+In SFTPPlus 5.20.0, the vault items configuration was introduced to replace the previous PEM content configuration.
+
+The previous PEM content configuration is automatically migrated to the new vault items configuration when upgrading to SFTPPlus 5.20.0 or later.
+
+Each individual PEM content configuration option is migrated to separate new vault item.
+The original PEM content configuration is removed from the main configuration file.
+
+If you have multiple copies of the same PEM content in the old configuration, they will be migrated to separate vault items.
+Each new vault item will have a unique UUID, and the name will hint at its original purpose.
+
+
 Configuration options
 ---------------------
 

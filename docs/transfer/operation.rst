@@ -445,13 +445,7 @@ It can be used for inserting a timestamp in an arbitrary position,
 based on the current date and time.
 The following placeholders are available:
 
-  * `{now.cwa_14051}` - Human readable date and time
-  * `{now.iso_8601}` - ISO 8601 date and time
-  * `{now.iso_8601_fractional}`
-  * `{now.iso_8601_local}`
-  * `{now.iso_8601_basic}`
-  * `{now.iso_8601_compact}` - ISO 8601 compatible with Windows file names
-  * `{now.timestamp}` - Unix timestamp
+.. include:: /configuration-events/now.include.rst
 
 Having the following configuration::
 
@@ -492,9 +486,9 @@ the files will be transferred as follows::
 
 -----------
 
-The `transform` action can be used for transferring files to path relative to the working directory, as defined by the remote server.
-The `{ignore_destination_path}` placeholder at the start of a transformation expression, is used to trigger this functionality.
-Having the `{ignore_destination_path}` inside the transformation expression will not trigger the relative path transfers.
+If the transformed destination path looks like a relative path, it will be relative to the configured `destination_path`.
+
+Use the `{ignore_destination_path}` placeholder at **the start** of a transformation expression to generate destination paths that are relative to the server's working directory.
 
 Having the following configuration::
 
