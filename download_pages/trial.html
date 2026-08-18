@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>
-        Version 5.26.1 Trial Downloads | Secure file transfer software
+        Version 5.26.2 Trial Downloads | Secure file transfer software
   </title>
 
   <meta name="author" content="Pro:Atria Team" />
@@ -80,8 +80,8 @@
   <div class="container">
     <div class="row text-center justify-content-center align-items-center">
       <div class="col">
-        <h1>Version 5.26.1 Trial Downloads</h1>
-          <h3 class="font-weight-normal">The trial version expires on 2026-11-21</h3>
+        <h1>Version 5.26.2 Trial Downloads</h1>
+          <h3 class="font-weight-normal">The trial version expires on 2026-11-26</h3>
       </div>
     </div>
   </div>
@@ -667,47 +667,25 @@ systems and CPU architectures.</p>
   <div class="container py-0">
     <div id="release-changelog" class="download-release-notes doc-body row mb-0 justify-content-center">
       <div class="col">
-        <div class="document" id="version-5-26-1-2026-08-13">
-<h1 class="title">Version 5.26.1, 2026-08-13</h1>
-<p>This is a re-release of 5.26.0 with fixes to the node synchronization
-audit events and SSH key change detection.</p>
+        <div class="document" id="version-5-26-2-2026-08-18">
+<h1 class="title">Version 5.26.2, 2026-08-18</h1>
 <div class="section" id="new-features">
 <h1>New Features</h1>
 <ul class="simple">
-<li>Administrators can configure additional trusted certificate authorities for
-Entra ID, Google Identity, Okta OIDC, Azure Storage, Exchange Online, and
-SharePoint Online connections.
-[server-side][client-side][https] [#7520]</li>
-<li>Date and time placeholders now expose separate values,
-such as the year, month, day, hour, minute, and second.
-[event-handler][client-side] [#7530]</li>
+<li>The Purview extension now uses the same set of trusted certificates as the
+Entra ID authentication method.
+In previous versions, it was using a fix set of pre-approved trusted
+certificates for Microsoft services. [#7470]</li>
 </ul>
 </div>
 <div class="section" id="defect-fixes">
 <h1>Defect Fixes</h1>
 <ul class="simple">
-<li>Vault items now show where they are used in Web Manager, and the delete
-action stays disabled with an explanatory tooltip while an item is still in
-use. [#7521]</li>
-<li>The Windows installer now removes files from the previous runtime when
-upgrading SFTPPlus, preventing obsolete version 4 files from breaking a
-version 5 installation. [#7534]</li>
-<li>When migrating the private key for AS2 locations, the vault items are now
-generated using unique names.
-[manager][as2][client-side] [#7539-1]</li>
-<li>The cluster synchronization now includes vault items.
-[manager] [#7539]</li>
-<li>The node synchronization resource will now always start and will
-continuously retry to connect to the controller.
-[manager] [#7540]</li>
-<li>The Web Manager will not notify that a restart is required when the
-<cite>client_forwarded_header</cite> option is changed.
-[manager] [#7543]</li>
-<li>The node synchronization resource now correctly handle SSH key changes.
-This is a regression introduced in version 5.20.0,
-where even when the SSH key was not changed,
-the synchronization was reporting a change and triggering a service restart.
-[manager] [#7543]</li>
+<li>The vault can now load X.509 certificates that contain
+SubjectKeyIdentifier or Authority Key Identifier (AKI) extensions,
+and the extensions have no values.
+This is regression introduced in version 5.20.0.
+[#7545]</li>
 </ul>
 </div>
 </div>

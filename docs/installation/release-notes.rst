@@ -14,6 +14,29 @@ This is the list of all changes for current SFTPPlus version.
 .. release-notes-start
 
 
+Version 5.26.2, 2026-08-18
+--------------------------
+
+
+New Features
+^^^^^^^^^^^^
+
+* The Purview extension now uses the same set of trusted certificates as the
+  Entra ID authentication method.
+  In previous versions, it was using a fix set of pre-approved trusted
+  certificates for Microsoft services. [#7470]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* The vault can now load X.509 certificates that contain
+  SubjectKeyIdentifier or Authority Key Identifier (AKI) extensions,
+  and the extensions have no values.
+  This is regression introduced in version 5.20.0.
+  [#7545]
+
+
 Version 5.26.1, 2026-08-13
 --------------------------
 
