@@ -1,4 +1,8 @@
 
+import os
+
+# Resolves the directory containing this conf.py file
+_setup_dir = os.path.dirname(os.path.abspath(__file__))
 
 suppress_warnings = ['toc.secnum']
 source_suffix = '.rst'
@@ -9,13 +13,14 @@ master_doc = 'index'
 pygments_style = 'sphinx'
 smartquotes = False
 html4_writer = False
-html_experimental_html5_writer = True
-templates_path = ["../sphinx"]
 
 html_static_path = ['_static']
 html_extra_path = ['versions.js']
-html_theme_path = ["../sphinx"]
 html_theme = 'integrated_v2'
+
+
+html_theme_path = [os.path.abspath(os.path.join(_setup_dir, "..", "sphinx"))]
+templates_path = [os.path.abspath(os.path.join(_setup_dir, "..", "sphinx"))]
 
 html_theme_options = {
   "accent_color": "sky",
@@ -28,7 +33,6 @@ copyright = "ProAtria Team"
 version = "5.26.4"
 release = "5.26.4"
 
-autodoc_default_flags = ['members']
 primary_domain = 'py'
 
 pdf_documents = [(
