@@ -1,6 +1,10 @@
 SFTPPlus documentation
 ======================
 
+
+Introduction
+------------
+
 SFTPPlus is a Managed File Transfer (:ref:`MFT<term-mft>`) software, with support for protocols like: FTPS, SFTP, HTTPS, AS2, and cloud providers like Azure, Google Cloud, and Amazon S3.
 It operates as standalone software, running as a background service,
 without requiring any additional dependencies,
@@ -21,6 +25,10 @@ or via an embedded web-based configuration tool, which is accessible via any mod
 
 Security, correctness, easy-of-use, and file transfer capabilities are all important factors and we focus on them in this
 order.
+
+
+Documentation structure
+-----------------------
 
 .. grid:: 1 1 2 2
     :gutter: 2
@@ -57,28 +65,28 @@ order.
         This section includes information about administrative tasks and operating an SFTPPlus deployment for both server-side and client-side operations.
         It also includes information about how to configure and manage administrative users, roles, and admin permissions.
 
-    .. grid-item-card:: :octicon:`server` :octicon:`verified` Authentication, users and groups
+    .. grid-item-card:: :octicon:`server` :octicon:`verified` Users, accounts, groups, auth & policies
         :link-type: doc
         :link: configuration-auth/index
 
-        This section covers user and group management in SFTPPlus,
+        This section covers users and group management in SFTPPlus,
         including built-in and external authentication (OS, Active Directory, LDAP, cloud SSO),
         as well as security policies for enforcing password security,
         preventing brute-force attacks, and restricting or allowing access based on source IP address.
 
-    .. grid-item-card:: :octicon:`stack` Client-side transfers
+    .. grid-item-card:: :octicon:`stack` Client transfers
         :link-type: doc
         :link: transfer/index
 
-        This sections describes how to configure and use SFTPPlus to implement client-side file transfer operations.
+        This section describes how to configure and use SFTPPlus to implement client-side file transfer operations.
         Configure transfer between remote servers or exchange files with cloud providers.
 
 
-    .. grid-item-card:: :octicon:`server` :octicon:`sliders` Server-side protocols
+    .. grid-item-card:: :octicon:`server` :octicon:`sliders` Server protocols
         :link-type: doc
         :link: configuration-server/index
 
-        Reference documentation for the server-side components of SFTPPlus.
+        Reference documentation for the file transfer servers available in SFTPPlus.
 
     .. grid-item-card:: :octicon:`server` Server guides
         :link-type: doc
@@ -87,17 +95,17 @@ order.
         Guides on configuring and managing the server-side components of SFTPPlus.
 
 
-    .. grid-item-card:: :octicon:`stack` :octicon:`sliders` Client-side protocols
+    .. grid-item-card:: :octicon:`stack` :octicon:`sliders` Client locations
         :link-type: doc
         :link: configuration-client/index
 
-        Reference documentation for the client-side components of SFTPPlus.
+        Reference documentation for the client-side locations, which represent the various storage locations that can be used by SFTPPlus for file transfers.
 
-    .. grid-item-card:: :octicon:`stack` Client transfer guides
+    .. grid-item-card:: :octicon:`stack` Client location guides
         :link-type: doc
         :link: operation-client/index
 
-        See how to use SFTPPlus to connect it to remote servers and cloud service in order to transfer files.
+        See how to use SFTPPlus to connect it to remote servers and cloud services in order to transfer files.
 
 
 

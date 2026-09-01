@@ -91,6 +91,11 @@ html_extra_path = ['versions.js']
 html_theme_path = ['%(themes_path)s']
 html_theme = '%(theme_name)s'
 
+html_theme_options = {
+  "accent_color": "sky",
+  "show_ai_links": False,
+}
+
 project = "%(project)s"
 copyright = "%(copyright)s"
 
@@ -168,6 +173,4 @@ def build_documentation(
         theme, pave.fs.join(destination)))
     print("Exit with %d." % (exit_code))
 
-    # Remove the sphinx configuration file.
-    pave.fs.deleteFile([source_dir, 'conf.py'])
     return exit_code

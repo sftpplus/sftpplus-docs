@@ -1,17 +1,17 @@
-Client-side protocols
-=====================
+Client locations
+================
 
 
 Introduction
 ------------
 
-SFTPPlus supports a variety of client-side protocols to facilitate file
-transfers and interactions with remote systems.
+SFTPPlus supports a variety of client-side protocols to facilitate file transfers and interactions with remote systems.
+
+The client-side protocols are represented as `locations`, which define the connection details and configuration options for each protocol.
 
 Locations are used to connect to various types of local or remote systems,
 including local file systems, SFTP servers, FTP servers, HTTP servers,
 and cloud storage services like Amazon S3 or Microsoft Azure Blob Storage.
-
 
 Locations are auto-started when a transfer or another component needs them and
 the location is not started and connected.

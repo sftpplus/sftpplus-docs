@@ -1,19 +1,18 @@
-Authentication, users and groups
-================================
+Users, accounts, groups, auth & policies
+========================================
 
-An authentication method configuration provides the required information to
-allow SFTPPlus to use a specific method in order to authenticate
-file transfer accounts and administration account.
+Accounts represent the users that are managed by SFTPPlus and are available to authenticate for file transfers.
+This differentiate them from Active Directory users, LDAP users, or operating system users, which are managed by external systems and are not created or managed by SFTPPlus.
+Both SFTPPlus accounts and externally authenticated users can be used to authenticate for file transfers.
 
+Multiple accounts can be associated with a group, which allows for easier management of permissions and access control.
+
+An authentication method configuration provides the required information to allow SFTPPlus to use a specific method in order to authenticate file transfer users and administrators.
 
 ..  note::
     Not all authentication method types support authenticating the
     administrators for the Web Manager service.
 
-The identity configuration defines the users, groups, administrators and
-roles created as part of the SFTPPlus application.
-
-For these users and administrators the full life-cycle is managed by SFTPPlus.
 
 The sections below will guide you through the available authentication methods
 and how to configure them.
@@ -35,15 +34,15 @@ and how to configure them.
 
         Enforce password security, prevent brute-force attacks and restrict or allow access based on source IP address using security policies.
 
-    .. grid-item-card:: :octicon:`book` Accounts authentication
+    .. grid-item-card:: :octicon:`book` User authentication
         :link-type: doc
         :link: ./authentication
 
         Learn how password policies are implemented, about authenticating
-        with Windows Domain accounts, anonymous authentication and other
+        with Windows Domain users, anonymous authentication and other
         authentication settings.
 
-    .. grid-item-card:: :octicon:`shield-check` Accounts authorization
+    .. grid-item-card:: :octicon:`shield-check` User authorization
         :link-type: doc
         :link: ./authorization
 
@@ -62,11 +61,11 @@ and how to configure them.
 
         Learn about the Default Group and how to add and manage new groups in SFTPPlus.
 
-    .. grid-item-card:: :octicon:`sliders` SFTPPlus embedded users
+    .. grid-item-card:: :octicon:`sliders` SFTPPlus embedded authentication
         :link-type: doc
         :link: ./application
 
-        An application authentication method can be used to authenticate users based on accounts defined in the configuration file of SFTPPlus.
+        An application authentication method can be used to authenticate users based on the accounts defined in the SFTPPlus main configuration.
 
     .. grid-item-card:: :octicon:`sliders` Operating system / Domain users
         :link-type: doc
@@ -115,20 +114,20 @@ and how to configure them.
         :link: ./google-identity
 
         The `google-identity` method is used to implement single sign-on authentication using the Google Identity service,
-        allowing Google Workspace accounts to authenticate in SFTPPlus as administrator or file transfer accounts.
+        allowing Google Workspace users to authenticate in SFTPPlus as administrator or file transfer users.
 
     .. grid-item-card:: :octicon:`sliders` Okta OpenID Connect
         :link-type: doc
         :link: ./okta-oidc
 
         The `okta-oidc` method is used to implement single sign-on authentication using the Okta OpenID Connect service,
-        allowing Okta accounts to authenticate in SFTPPlus as administrators or file transfer accounts.
+        allowing Okta users to authenticate in SFTPPlus as administrators or file transfer users.
 
     .. grid-item-card:: :octicon:`sliders` RADIUS
         :link-type: doc
         :link: ./radius
 
-        The radius authentication method can be used to authenticate application type accounts by delegating the authentication to a remote RADIUS UDP server.
+        The radius authentication method can be used to authenticate application type users by delegating the authentication to a remote RADIUS UDP server.
 
     .. grid-item-card:: :octicon:`sliders` Banning users (DEPRECATED)
         :link-type: doc
@@ -151,7 +150,7 @@ and how to configure them.
         :link: ./anonymous
 
         This is provided for legacy FTP compatibility.
-        This method can be used to authenticate a specific *application* account by ignoring the provided password or any other credential.
+        This method can be used to authenticate a specific *application* users by ignoring the provided password or any other credential.
 
 
 ..  toctree::

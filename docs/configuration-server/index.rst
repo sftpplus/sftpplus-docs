@@ -1,8 +1,7 @@
-Server-side protocols
-=====================
+Server protocols
+================
 
-This section provides reference documentation for all supported
-server-side protocols in SFTPPlus.
+This section provides reference documentation for all supported server-side file transfer protocols in SFTPPlus.
 
 Each protocol can be configured individually to meet your security and
 operational requirements. Configuration options include:

@@ -1,33 +1,101 @@
-html[data-accent-color='blue'] {
-  --accent-9: #3e7fcb;
-}
+/* light vs dark styles */
+:root {
+    --accent-9: #1f5ea7;
 
-html.light {
-  --yue-c-ul-marker: var(--sage-a12);
+    --container-6xl: 78rem;
+    --container-7xl: 84rem;
+
+    --sy-s-offset-top: 5px;
+    --sy-c-link: var(--color-sky-700);
+
+    --yue-c-ul-marker: var(--sage-a12);
+
+    /* Version selector */
+    --ss-primary-color: var(--color-sky-700);
+    --ss-font-color: var(--color-gray-950);
+    --ss-placeholder-color: var(--color-gray-500);
+    --ss-border-color: var(--color-slate-200);
 }
 
 html.dark {
-  --slate-1: #0d1117;
-  --yue-c-ul-marker: var(--sy-c-light);
+    --accent-9: #4b8fdd;
+    --slate-1: #0d1117;
+
+    --sy-c-background: var(--color-slate-800);
+    --yue-c-ul-marker: var(--color-slate-300);
+    --sy-c-link: var(--color-sky-200);
+
+    --yue-c-ul-marker: var(--sy-c-light);
+
+    /* Version selector */
+    --ss-primary-color: var(--color-sky-200);
+    --ss-bg-color: var(--color-slate-800);
+    --ss-font-color: var(--color-slate-200);
+    --ss-placeholder-color: var(--color-slate-500);
+    --ss-border-color: var(--color-slate-500);
+    --ss-focus-color: #4f5bd5;
+    /* Heights */
+    --ss-content-height: 180px;
+    --ss-search-height: var(--ss-main-height);
+    --ss-option-height: var(--ss-main-height);
+    /* Misc */
+    --ss-border-radius: 8px;
 }
 
+/* Increase the base text size */
+.sy-page .yue {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    font-weight: 400;
+}
+
+/* Increase the side menu text size */
+div.sy-scrollbar .globaltoc li,
+div.sy-scrollbar .localtoc li {
+    font-size: 1.1rem;
+    line-height: 1.3rem;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+div.sy-scrollbar .globaltoc a,
+div.sy-scrollbar .localtoc a {
+    overflow-wrap: break-word;
+}
+
+.sy-scrollbar.sy-rside-inner {
+    max-width: 16rem;
+    padding-right: 0;
+}
+
+aside.sy-lside {
+    width: 16rem;
+}
+
+#lside .sy-scrollbar {
+    padding-right: 0;
+    padding-left: 1rem;
+}
+
+/* Put menu to the right */
+aside.sy-rside {
+    flex-shrink: 1;
+}
+
+.order-last {
+    order: 9999;
+}
 
 /* Add hover transition to all links. */
 a {
-  transition: color .25s;
+    transition: color 0.25s;
 }
 
-/* Have main title stick */
-article.yue h1 {
-  position: sticky;
-  top: 6px;
-  z-index: 100;
-}
 /* Have less spacing around sub-titles*/
 article.yue h2 {
-  margin-top: 0px;
+    margin-top: 0px;
 }
-
 
 /* Make prev/next nav links a big as possible */
 .navigation a {
@@ -35,8 +103,9 @@ article.yue h2 {
     border-radius: 8px;
     width: 100%;
     padding: 11px 16px 13px;
-    transition: border-color .25s;
+    transition: border-color 0.25s;
 }
+
 .navigation a:hover {
     border: 1px solid var(--sd-color-card-border-hover);
 }
@@ -47,22 +116,21 @@ cite {
     color: var(--sy-c-light);
     background-color: var(--sy-c-surface);
     font-weight: 600;
-    font-size: .875em;
+    font-size: 0.875em;
     padding: 2px 4px;
     border-radius: 3px;
-    font-weight: 600;
 }
 
 /*
 Allow `.. contents:: :local:` while we migrate to the new theme.
 */
 nav.contents.local {
-  display: none;
-}
-div.toctree-wrapper {
-  display: none;
+    display: none;
 }
 
+div.toctree-wrapper {
+    display: none;
+}
 
 /*
 Definition lists
@@ -73,58 +141,64 @@ Definition lists
     margin-bottom: 0;
 }
 
-.sy-main dd ul li p{
-  margin-bottom: 0;
+.sy-main dd ul li p {
+    margin-bottom: 0;
 }
 
 .sy-main dt:not(.sig) {
-  flex: 0 0 17%;
-  word-break: break-word;
-  padding:10px;
-  margin: 0;
-  background-color: var(--yue-c-row-background);
-  border-bottom: 1px solid var(--yue-c-th-border);
+    flex: 0 0 17%;
+    word-break: keep-all;
+    padding: 10px;
+    margin: 0;
+    background-color: var(--yue-c-row-background);
+    border-bottom: 1px solid var(--yue-c-th-border);
 }
 
 .sy-main dl.class em.property,
 .sy-main dl.exception em.property,
 .sy-main dl.interface em.property {
-  color: var(--yue-c-row-background);
+    color: var(--yue-c-row-background);
 }
+
 .sy-main tt.descname {
-  font-weight: bold;
+    font-weight: bold;
 }
-.sy-main dl.excetion dt tt.descclassname,
+
+.sy-main dl.exception dt tt.descclassname,
 .sy-main dl.class dt tt.descclassname,
 .sy-main dl.interface dt tt.descclassname {
-  font-weight: normal;
-  font-style: italic;
+    font-weight: normal;
+    font-style: italic;
 }
+
 .sy-main dl:not(.py) {
-  display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
-  width: 100%;
-  overflow: visible;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    width: 100%;
+    overflow: visible;
 }
 
 .sy-main dl:not(.py) dd {
-  flex:0 0 82%;
-  text-align: left;
-  padding: 10px;
-  margin: 0;
+    flex: 0 0 82%;
+    text-align: left;
+    padding: 10px;
+    margin: 0;
 }
+
 .sy-main dl:not(.py) dd:hover {
-  background-color: var(--yue-c-row-background);
+    background-color: var(--yue-c-row-background);
 }
+
 .sy-main dl.py > dd {
-  margin-left: 2.5rem;
+    margin-left: 2.5rem;
 }
 
 .sy-main dl.py dt .pre {
-  background: none;
-  color: #000;
-  padding: 0;
-  font-size: 100%;
-  font-weight: normal;
+    background: none;
+    color: var(--sy-c-text);
+    /* Or another appropriate theme variable */
+    padding: 0;
+    font-size: 100%;
+    font-weight: normal;
 }

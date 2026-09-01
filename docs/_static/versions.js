@@ -8,7 +8,7 @@
 // pavement.py:release_notes
 //
 let SFTPPLUS_RELEASED_VERSIONS = [
-    '5.26.2',
+    '5.26.4',
     '5.25.0',
     '5.24.0',
     '5.23.0',
@@ -96,5 +96,4 @@ let SFTPPLUS_RELEASED_VERSIONS = [
     '2.1.0',
     '2.0.0',
 ]
-// Make it global.
 window.SFTPPLUS_RELEASED_VERSIONS = SFTPPLUS_RELEASED_VERSIONS

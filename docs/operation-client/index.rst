@@ -1,12 +1,9 @@
-Client transfers guides
+Client locations guides
 =======================
 
-The instructions found in this section are targeted to system administrators
-or application developers looking to use the client-side capabilities
-of the SFTPPlus solely based on the available configuration.
+The instructions found in this section are targeted to system administrators or application developers looking to use the client-side capabilities of the SFTPPlus solely based on the available configuration.
 
-The sub-sections below will guide you through the operation of each
-client-side protocol, including examples and best practices.
+The sub-sections below will guide you through the operation of each client-side location type, including examples and best practices.
 
 .. grid:: 1 1 2 1
     :gutter: 2

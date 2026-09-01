@@ -1,0 +1,21 @@
+<meta name="robots" content="{{ robots }}" />
+<script id="check-dark-mode">
+    ;(() => {
+        const preference =
+            localStorage.getItem('vitepress-theme-appearance') || 'auto'
+        const prefersDark = window.matchMedia(
+            '(prefers-color-scheme: dark)'
+        ).matches
+        if (
+            !preference || preference === 'auto'
+                ? prefersDark
+                : preference === 'dark'
+        ) {
+            document.documentElement.classList.add('dark')
+            // For docsearch.
+            document.documentElement.setAttribute('data-theme', 'dark')
+        } else {
+            document.documentElement.setAttribute('data-theme', '')
+        }
+    })()
+</script>

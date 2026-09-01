@@ -15,20 +15,25 @@ templates_path = ["../sphinx"]
 html_static_path = ['_static']
 html_extra_path = ['versions.js']
 html_theme_path = ["../sphinx"]
-html_theme = 'integrated'
+html_theme = 'integrated_v2'
+
+html_theme_options = {
+  "accent_color": "sky",
+  "show_ai_links": False,
+}
 
 project = "SFTPPlus"
 copyright = "ProAtria Team"
 
-version = "5.26.2"
-release = "5.26.2"
+version = "5.26.4"
+release = "5.26.4"
 
 autodoc_default_flags = ['members']
 primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    'SFTPPlus-5.26.2',
+    'SFTPPlus-5.26.4',
     'SFTPPlus Documentation',
     'ProAtria Team',
     )]

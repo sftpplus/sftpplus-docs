@@ -97,13 +97,17 @@ Trusted certificates
 When creating or updating a vault item of type `trusted-certificates`,
 the imported certificates are added to any existing trusted certificates.
 
+You can use a single `trusted-certificates` vault item to store multiple trusted certificates.
+The multiple certificates can represent a certificate chain with root certificate and intermediate certificates,
+multiple certificate chains, or multiple independent trusted certificates.
+
 The GUI provides the option to delete one or more certificates from the trusted certificates vault item.
 
 SFTPPlus is distributed with a default set of trusted certificates vault items.
 These items can't be deleted or modified.
 The content of these vault items are automatically updated when updating SFTPPlus to a newer version.
 
-From the **Web manager**, you can import certificates as text PEM files either by pasting the content or by uploading a file.
+From the **Web manager**, you can import one or multiple certificates as text PEM files either by pasting the content or by uploading a file.
 
 You can also import trusted certificates from bundled PFX/P12/PKCS#12 files.
 When importing from a PFX/PKCS#12 file, you need to provide the password used to protect the file.

@@ -1,5 +1,5 @@
-Client-side transfers
-=====================
+Client transfers
+================
 
 SFTPPlus supports a variety of client-side transfers to facilitate file
 transfers and interactions with remote systems.
