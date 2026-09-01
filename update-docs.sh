@@ -7,6 +7,7 @@ fi
 
 cd $1
 SERVER_ROOT=`pwd`
+# Also update the Python version from netlify.toml.
 PY_VER='3.12'
 
 rm dist/*.html

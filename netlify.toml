@@ -29,7 +29,8 @@
 [build.environment]
   GIT_LFS_ENABLED = "true"
   SFTPPLUS_TARGET = "production"
-  PYTHON_VERSION = "3.14"
+  # Also update the python version from "update_docs.sh"
+  PYTHON_VERSION = "3.12"
   DOCS_ROBOT = "noindex,nofollow"
 
 [context.production.environment]
