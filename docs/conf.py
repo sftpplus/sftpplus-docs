@@ -1,5 +1,4 @@
 
-import os
 
 suppress_warnings = ['toc.secnum']
 source_suffix = '.rst'
@@ -10,18 +9,12 @@ master_doc = 'index'
 pygments_style = 'sphinx'
 smartquotes = False
 html4_writer = False
+templates_path = ["../sphinx"]
 
 html_static_path = ['_static']
 html_extra_path = ['versions.js']
+html_theme_path = ["../sphinx"]
 html_theme = 'integrated_v2'
-
-
-_docs_dir = os.path.dirname(os.path.abspath(__file__))
-_repo_root = os.path.abspath(os.path.join(_docs_dir, ".."))
-_theme_dir = os.path.join(_repo_root, "sphinx")
-
-html_theme_path = [_theme_dir]
-templates_path = [_theme_dir]
 
 html_theme_options = {
   "accent_color": "sky",

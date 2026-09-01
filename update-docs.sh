@@ -8,7 +8,8 @@ fi
 cd $1
 SERVER_ROOT=`pwd`
 # Also update the Python version from netlify.toml.
-PY_VER='3.12'
+# This is the version for chevah/server source env.
+PY_VER='3.14'
 
 rm dist/*.html
 ./pythia.sh download_pages production

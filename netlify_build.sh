@@ -26,16 +26,16 @@ declare -p
 
 cp -r chevah $SITE_PACKAGES
 
-
 mkdir -p deploy/documentation/sftpplus/$TARGET/
 
-python3 -m pip install -r requirements.txt
 
 # Build the standalone version in root.
 sphinx-build -b html --keep-going -W -D html_theme=$STANDALONE -A robots="$DOCS_ROBOT" docs/ deploy/
+
 # Build the integrated version to a path that will match the website.
 sphinx-build -b html --keep-going -W -D html_theme=$INTEGRATED -A robots="$DOCS_ROBOT" docs/ deploy/documentation/sftpplus/$TARGET/
 cp docs/_static/versions.js deploy/documentation/sftpplus/versions.js
+
 
 # Update the download pages
 mkdir -p deploy/documentation/sftpplus/trial/
