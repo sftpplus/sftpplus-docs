@@ -1,9 +1,6 @@
 
 import os
 
-# Resolves the directory containing this conf.py file
-_setup_dir = os.path.dirname(os.path.abspath(__file__))
-
 suppress_warnings = ['toc.secnum']
 source_suffix = '.rst'
 # Ignore included files in root and in child folders from being reported
@@ -19,8 +16,12 @@ html_extra_path = ['versions.js']
 html_theme = 'integrated_v2'
 
 
-html_theme_path = [os.path.abspath(os.path.join(_setup_dir, "..", "sphinx"))]
-templates_path = [os.path.abspath(os.path.join(_setup_dir, "..", "sphinx"))]
+_docs_dir = os.path.dirname(os.path.abspath(__file__))
+_repo_root = os.path.abspath(os.path.join(_docs_dir, ".."))
+_theme_dir = os.path.join(_repo_root, "sphinx")
+
+html_theme_path = [_theme_dir]
+templates_path = [_theme_dir]
 
 html_theme_options = {
   "accent_color": "sky",
