@@ -7,7 +7,7 @@ Cluster operation
 Introduction
 ------------
 
-The SFTPPlus cluster can be deployed to operate in one the following modes:
+The SFTPPlus cluster can be deployed to operate in one of the following modes:
 
 * primary - secondary
 * controller - nodes
@@ -15,7 +15,7 @@ The SFTPPlus cluster can be deployed to operate in one the following modes:
 There are 2 main components used to configure a cluster:
 
 * `node-sync` resource defined on both `controller` and each `node` - Handles the synchronization of the configuration
-* `cluster-nodes` - defined only on the `controller`. Handles the secure access of nodes to the `controller`
+* `cluster-pools` - defined on the `controller`. Each pool defines shared credentials and configuration for its nodes.
 
 The `node-sync` resource needs to be running on any SFTPPlus instance,
 in order for the cluster operations to be active.
@@ -43,12 +43,12 @@ Once the `controller` is back online, configuration changes are available.
 Primary - Secondary
 -------------------
 
-In the *primary - secondaries* mode, all SFTPPlus installation will perform file transfers.
+In the *primary - secondaries* mode, all SFTPPlus installations will perform file transfers.
 One SFTPPlus installation will be designated as the *primary* instance and will act as the cluster **controller**.
 
 Any configuration change should be done using the Web Manager interface of the *primary* instance.
 
-One or multiple SFTPPlus installation will be considered *secondary* instances.
+One or multiple SFTPPlus installations will be considered *secondary* instances.
 The configuration for all the *secondary* instances is pulled from the *primary* SFTPPlus installation.
 
 The Web Manager interface is still available on each secondary instance, but any configuration change will be discarded and replaced with the configuration found on the primary instance.
@@ -98,7 +98,7 @@ To implement a high-availability file transfer service you will need at least 3 
 Cluster activation
 ------------------
 
-With multiple SFTPPlus instances running in the cluster you might want to be control which file transfers or event handlers are available on particular SFTPPlus instances.
+With multiple SFTPPlus instances running in the cluster you might want to control which file transfers or event handlers are available on particular SFTPPlus instances.
 
 The *cluster activation* functionality allows you to control the following components:
 
@@ -112,7 +112,7 @@ You can configure the following cluster operation modes:
 * available on all SFTPPlus instances in the cluster
 * only on controller instance
 * on any node, any non-controller instance
-* only on a specific node
+* only on nodes in a specific pool
 
 To configure an HTTPS service to only be available on the controller SFTPPlus instance,
 the configuration will look like this::
@@ -156,7 +156,7 @@ that SFTPPlus installation will be the controller::
     enabled = yes
     role_in_cluster = controller
 
-You will have to update the DNS or IP addressed to point to the new controller,
+You will have to update the DNS or IP addresses to point to the new controller,
 or update the URL configuration on all the other nodes to point to the URL of the new controller.
 
 If the controller is also the primary instance, you will also need to reset the `failover_interval = 0` as part of the general server configuration.
@@ -166,8 +166,8 @@ The configuration file will be updated to::
     failover_interval = 0
 
 
-Temporary enable controller components on nodes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Temporarily enable controller components on nodes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Some SFTPPlus components (server-side or client-side transfer and event handlers) can be configured to only be active on the *controller* instance.
 
@@ -175,7 +175,7 @@ If the controller instance is no longer available, those components are not runn
 
 You can temporarily enable a component on one of the nodes by logging in as an administrator to the SFTPPlus Web Manager of that node and manually starting that component.
 
-All administrators that are available on the controller are also available to login on any cluster node.
+All administrators that are available on the controller are also available to log in on any cluster node.
 
 Note that if the *controller* instance is back online, the component that is configured to only run on the *controller* and which was manually started on the *node* will be automatically stopped on that node.
 
@@ -183,7 +183,7 @@ Note that if the *controller* instance is back online, the component that is con
 Web Manager on Nodes
 --------------------
 
-The Web Manager administration console is available each node (not only on the controller).
+The Web Manager administration console is available on each node (not only on the controller).
 All administrators that are available on the controller are also available on the nodes.
 
 You can connect to the Web Manager and make changes.

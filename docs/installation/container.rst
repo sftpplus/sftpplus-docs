@@ -44,6 +44,8 @@ The command will ask to type the password.::
     you can pass the password on the command line with `docker login -u pull-access -p PASSWORD sftpplus.azurecr.io`.
     This is strongly discouraged because the password may be exposed in process listings, shell history, or logs.
 
+The `pull-access` user has read-only access. It can download images and read the metadata, such as the list of available tags.
+
 To download the image for a specific version, you can use the following command.
 This will download the version based on Ubuntu 26.04, where you replace `5.X.Y` with your targeted version.::
 

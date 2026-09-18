@@ -64,6 +64,12 @@ The software is tested at the source code level as well as at the end to end fun
         This section provides information about the protocols and standards supported by SFTPPlus,
         including SFTP, FTPS, SCP, and HTTPS.
 
+    .. grid-item-card:: :octicon:`verified` AS2 Drummond certification
+        :link-type: doc
+        :link: ./as2-drummond-certification
+
+        This section provides information about the AS2 Drummond certification and how SFTPPlus AS2 support was validated through it.
+
 ..  toctree::
     :maxdepth: 1
     :hidden:
@@ -76,3 +82,4 @@ The software is tested at the source code level as well as at the end to end fun
     hipaa-hitech
     gpg13
     protocols
+    as2-drummond-certification

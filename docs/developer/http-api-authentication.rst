@@ -357,28 +357,6 @@ SFTPPlus will not try to authenticate the account using other methods.
 The behavior is similar to an `403 Forbidden` response.
 
 
-Redundant HTTP URL / Endpoints
-------------------------------
-
-An HTTP authentication method can be configured with more than one URL to
-provide redundant event handling.
-
-
-Below is an example of an authentication method configured with multiple URLs::
-
-    [event-handlers/6d32ee50-b2d2-93e5-caf4-c70a7]
-    type = http
-    url = http://www.acme.io/auth, https://fallback.acme.io/auth
-
-SFTPPlus will always send the HTTP requests to the first URL
-(`http://www.acme.io/auth)`.
-URL `https://fallback.acme.io/auth` is used only when the request
-failed to be handled by the HTTP endpoint at URL `http://www.acme.io/auth`,
-
-When the request fails for an URL, the usage of that URL will be suspended
-and resumed after 5 minutes.
-
-
 Authenticating the request itself
 ---------------------------------
 

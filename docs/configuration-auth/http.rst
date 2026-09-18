@@ -22,16 +22,10 @@ url
 :Default value: ''
 :Optional: No
 :Values: * URL
-         * Comma separated list of URLs (Since 3.51.0)
 :From version: 2.10.0
 :Description:
     Full URL of a resource used to authenticate an account.
-
-    You can define a fall-back/redundant URL using a comma separates list of
-    URLs.
-    The first URL from the list will be used. When failing to get a response
-    for the first URL, the remaining URLs are tried.
-    Since 3.51.0.
+    Configure a single URL.
 
 
 timeout

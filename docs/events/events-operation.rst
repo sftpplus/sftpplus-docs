@@ -140,7 +140,7 @@ Operation events
 20010
 ^^^^^
 
-:Message: Failed to configure the process. %(details)s %(tb)s
+:Message: Failed to configure the process. %(details)s
 :Groups: operational, process, failure, failure-critical
 :From version: 3.1.0
 :Description: None
@@ -154,29 +154,6 @@ Operation events
 :Groups: authenticated, informational
 :From version: 3.1.0
 :Description: This is used to help test the configuration of an event handler.
-
-
-
-20012
-^^^^^
-
-:Message: Component %(component_family)s "%(component_name)s" restarted. Changes: %(changes)s
-:Groups: authenticated, informational
-:From version: 5.26.0
-:Description: This is used to help test the configuration of an event handler.
-:Data:
-  :changes: Description of the changes that triggered the restart.
-
-
-  :component_family: Family name of the component.
-
-
-  :component_name: Name of the component.
-
-
-  :component_uuid: UUID of the component.
-
-
 
 
 
@@ -778,6 +755,10 @@ Operation events
 :Groups: operational, session, failure, failure-critical
 :From version: 1.6.0
 :Description: None
+:Data:
+  :tb: Debug information for this error.
+
+
 
 
 
@@ -1779,20 +1760,6 @@ Operation events
 
 
 
-20139
-^^^^^
-
-:Message: SSLv3 detected for configuration "%(configuration)s". SSLv3 method is no longer secure due to POODLE vulnerability. If SSLv3 is still required please make sure you use it together with the non-CBC cipher RC4-SHA.
-:Groups: operational, authenticated, failure, failure-specific
-:From version: 2.8.0
-:Description: None
-:Data:
-  :configuration: Full configuration value in which SSLv3 is used.
-
-
-
-
-
 20140
 ^^^^^
 
@@ -2496,7 +2463,7 @@ Operation events
 20184
 ^^^^^
 
-:Message: Internal Error. Failed to start %(family)s "%(name)s"%(kind)s. %(details)s %(tb)s.
+:Message: Internal Error. Failed to start %(family)s "%(name)s"%(kind)s. %(details)s
 :Groups: operational, authenticated, failure, failure-critical
 :From version: 3.24.0
 :Description: None

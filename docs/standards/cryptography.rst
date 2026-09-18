@@ -133,22 +133,13 @@ Contact us if you require a different DH parameter for your configuration.
 Hash functions
 --------------
 
-* MD5
-* SHA-1 (FIPS 140-2 compatible)
-* SHA-2 (for OpenSSL 0.9.8 or newer) (FIPS 140-2 compatible)
-
-..  note::
-    All modern operating systems, still supported by their vendors,
-    provide newer versions of OpenSSL with support for SHA-2.
+* SHA-2 (FIPS 140-2 compatible)
 
 
 Encryption algorithms
 ---------------------
 
-* 3DES (FIPS 140-2 compatible, vulnerable to SWEET32 attacks)
 * AES 128 and AES 256 (FIPS 140-2 compatible)
-* RC4
-* Blowfish
 
 
 Key usage certificate extension
@@ -343,6 +334,8 @@ If AES-GCM is selected as the cipher the negotiated MAC algorithms are ignored a
 AS2 protocol family
 ===================
 
+AS2 version 1.1 is supported by SFTPPlus with Drummond certification obtained in 2024.
+
 SFTPPlus can transfer files using the AS2 protocol as defined in the
 `RFC 4130 <https://tools.ietf.org/html/rfc4130>`_
 MIME-Based Secure Peer-to-Peer Business Data Interchange Using HTTP,
@@ -353,10 +346,9 @@ Signing and encrypting AS2 messages is implemented as defined in the
 Cryptographic Message Syntax (CMS) standard.
 
 Signing and verifying Message Disposition Notification (MDN) is implemented
-as defined in the `RFC 3798 <https://tools.ietf.org/html/rfc3798>`_ standard.
+as defined in the `RFC 8098 <https://www.rfc-editor.org/rfc/rfc8098>`_ standard.
 
-Asynchronous MDN is not yet supported. It will be available in a future
-version.
+Compression is implemented as defined in the `RFC 5402 <https://datatracker.ietf.org/doc/html/rfc5402>`_ standard.
 
 Only the RSA asymmetric algorithm is supported.
 If you need support for DSA or ECDSA get in touch with our support team.
@@ -370,9 +362,9 @@ The following digest algorithms are supported:
 * SHA384
 * SHA512
 
-Messages are signed using the PCKS#1 v1.5 (rsassa_pkcs1v15) padding.
-PCKS#1 v2.1 (rsassa_pss) Probabilistic Signature Scheme (PSS) padding is not
-yet supported.
+Messages are signed using:
+* PCKS#1 v1.5 (rsassa_pkcs1v15) padding.
+* PCKS#1 v2.1 (rsassa_pss) Probabilistic Signature Scheme (PSS)
 
 The following symmetric encryption algorithm are supported, all using
 PKCS7 padding and cipher block chaining (CBC) mode:

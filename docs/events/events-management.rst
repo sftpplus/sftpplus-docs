@@ -56,7 +56,7 @@ Administration action events
 50004
 ^^^^^
 
-:Message: Internal JSON-RPC error: %(details)s %(tb)s
+:Message: Internal JSON-RPC error: %(details)s
 :Groups: operational, administration, failure, failure-critical, local-manager
 :From version: 2.1.0
 :Description: None

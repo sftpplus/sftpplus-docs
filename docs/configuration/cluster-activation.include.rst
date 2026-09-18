@@ -7,7 +7,7 @@ cluster_activation
 :Values: * `all`
          * `controller`
          * `node`
-         * Node UUID
+         * Pool UUID
 :Description:
     When clustering is enabled, it determines on which SFTPPlus instance this component is enabled.
 
@@ -17,7 +17,7 @@ cluster_activation
 
     When configured with `node`, it will be active on all SFTPPlus node instances.
 
-    You can configure it with the UUID of a node, to make it active only on that particular node instance.
+    Configure it with the UUID of a pool to make it active on all nodes in that pool.
 
     ..  note::
         The `enabled` configuration is not ignored. When configured with `enabled = No` this will not be active,

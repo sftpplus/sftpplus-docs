@@ -26,6 +26,10 @@ stopping and restarting the system SFTPPlus service as needed.
 The manual method to update is documented to help you understand how the SFTPPlus process works,
 and to allow creating custom update procedures.
 
+When upgrading to SFTPPlus 6 on Linux, IBM MQ and Microsoft Purview users must install the :doc:`extra connectors</installation/extra-connectors>`.
+For IBM MQ, also update the installed systemd unit or other startup script to use `/opt/sftpplus/ibm-mq` in `LD_LIBRARY_PATH` instead of `/opt/sftpplus/lib/ibm-mq`.
+The update scripts preserve the `bins` and `ibm-mq` directories and their service-user ownership.
+
 ..  note::
     Regardless of the chosen updating procedure,
     check if any custom paths are used for the SFTPPlus installation.

@@ -24,14 +24,14 @@ html_theme_options = {
 project = "SFTPPlus"
 copyright = "ProAtria Team"
 
-version = "5.26.4"
-release = "5.26.4"
+version = "6.0.0"
+release = "6.0.0"
 
 primary_domain = 'py'
 
 pdf_documents = [(
     'index',
-    'SFTPPlus-5.26.4',
+    'SFTPPlus-6.0.0',
     'SFTPPlus Documentation',
     'ProAtria Team',
     )]

@@ -7,9 +7,9 @@ Cluster synchronization
 Introduction
 ------------
 
-The `node-sync` resource handles the synchronization of multiple SFTPPlus instance that operate as part of a single SFTPPlus file transfer cluster.
+The `node-sync` resource handles the synchronization of multiple SFTPPlus instances that operate as part of a single SFTPPlus file transfer cluster.
 
-The same `node-sync` resource is use to setup a cluster `controller` or one or more cluster `nodes`.
+The same `node-sync` resource is used to set up a cluster `controller` or one or more cluster `nodes`.
 
 The communication between nodes and the remote controller is done via HTTPS and thus protected using TLS.
 The node synchronization has the standard configuration options of a TLS-based SFTPPlus component.
@@ -39,12 +39,12 @@ role_in_cluster
          * `node`
 :From version: 5.13.0
 :Description:
-    Defines how this SFTPPlus instance will interact with other SFTPPlus instance as part of the cluster.
+    Defines how this SFTPPlus instance will interact with other SFTPPlus instances as part of the cluster.
 
     When configured as `controller`, this SFTPPlus instance will allow remote SFTPPlus cluster nodes to pull their configuration and receive events and status from the remote cluster nodes.
 
     When configured as `node`, this SFTPPlus instance will pull its configuration from the cluster controller.
-    You will need to configure the URL to the controller and the credentials for this node.
+    You will need to configure the URL to the controller and the shared credentials for the pool to which this node belongs.
     Direct configuration is disabled.
 
 
@@ -80,11 +80,11 @@ sync_events
 :Description:
     The nodes will always send to the controller authentication and security related events.
 
-    This defined which additional events are sent from the cluster nodes to the cluster controller.
+    This defines which additional events are sent from the cluster nodes to the cluster controller.
 
     When configured with an *empty* value, no extra events are sent.
 
-    When you want to send all the events excepting some few events,
+    When you want to send all the events except a few events,
     you should prefix each event id or group name with the exclamation mark (!).
 
     When using cloud based or distributed Security information and event management (SIEM) systems you can leave this as *empty* value.
@@ -105,15 +105,33 @@ url
     This is ignored when configured together with `role_in_cluster = controller`.
 
 
-username
---------
+pool_name
+---------
 
-:Default value: `None`
-:Optional: No
+:Default value: Empty
+:Optional: No, when `role_in_cluster = node`
 :Values: * Text.
-:From version: 5.11.0
+:From version: 6.0.0
 :Description:
-    The node of the node as configured on the controller.
+    The name of the pool as configured on the controller.
+    All nodes in the pool use this name and the same password to authenticate.
+
+    This is ignored when configured together with `role_in_cluster = controller`.
+
+
+node_name
+---------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Text.
+:From version: 6.0.0
+:Description:
+    An optional name for this node within the pool.
+
+    This value is stored locally and is reserved for node identification.
+    It is not yet sent to the controller during authentication.
+    Leave it empty to retain the existing behavior.
 
     This is ignored when configured together with `role_in_cluster = controller`.
 
@@ -126,7 +144,7 @@ password
 :Values: * Plain text.
 :From version: 5.11.0
 :Description:
-    This is the password used by this node to authenticate to the controller.
+    The shared pool password used by this node to authenticate to the controller.
 
     This is ignored when configured together with `role_in_cluster = controller`.
 

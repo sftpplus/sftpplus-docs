@@ -7,16 +7,16 @@ a high-availability file transfer service, both server-side and client-side.
 The SFTPPlus cluster only handles SFTPPlus configuration synchronization.
 The actual files are not synchronized.
 For local files, make sure all the nodes have access to the files using
-a Windows Share, an Unix NFS share, or similar network attacked storage.
+a Windows Share, a Unix NFS share, or similar network attached storage.
 
-This section describes how to setup SFTPPlus in **active-active** cluster mode.
-Get in touch if you want to setup SFTPPlus in *active-passive* or
+This section describes how to set up SFTPPlus in **active-active** cluster mode.
+Get in touch if you want to set up SFTPPlus in *active-passive* or
 *disaster recovery* mode.
 
 The deployment and provisioning of the actual VM and SFTPPlus software is
 outside of the scope of the cluster configuration.
 SFTPPlus can work with any automated provisioning tool like Amazon Cloud
-Formation, Azure Resource Manage, Google Deployment Manager, or Ansible,
+Formation, Azure Resource Manager, Google Deployment Manager, or Ansible,
 to name just a few.
 
 ..  note::
@@ -24,7 +24,7 @@ to name just a few.
     Get in touch if you plan to deploy SFTPPlus using Kubernetes.
 
 ..  note::
-    The current cluster support in SFTPPlus is designed for cluster with a static number of nodes.
+    The current cluster support in SFTPPlus is designed for clusters with a static number of nodes.
     Get in touch if you plan to use SFTPPlus with auto-scale VMs.
 
 
@@ -37,7 +37,7 @@ to name just a few.
         :link-type: doc
         :link: ./introduction
 
-        This section provide information about cluster nodes, network and storage setup.
+        This section provides information about cluster nodes, network and storage setup.
 
     .. grid-item-card:: :octicon:`book` Cluster synchronization
         :link-type: doc
@@ -45,11 +45,11 @@ to name just a few.
 
         Learn how cluster synchronization works and how to configure the `node-sync` resource.
 
-    .. grid-item-card:: :octicon:`terminal` Nodes definition
+    .. grid-item-card:: :octicon:`terminal` Pools definition
         :link-type: doc
-        :link: ./nodes
+        :link: ./pools
 
-        Discover the security settings and access controls you can configure for cluster nodes.
+        Discover the security settings and access controls shared by the nodes in each cluster pool.
 
     .. grid-item-card:: :octicon:`stack` Cluster operation
         :link-type: doc
@@ -70,6 +70,6 @@ to name just a few.
 
     introduction
     node-sync
-    nodes
+    pools
     operation
     transfers

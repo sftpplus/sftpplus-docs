@@ -17,7 +17,6 @@ url
 :Default value: ''
 :Optional: No
 :Values: * `URL`
-         * Comma separated list of URLs
 :From version: 4.10.0
 :Description:
     URL, without username and password for the RabbitMQ server.

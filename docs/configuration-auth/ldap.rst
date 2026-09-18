@@ -257,47 +257,6 @@ email_attribute
     Leave it empty to not retrieve the email from the LDAP entry.
 
 
-extension_entry_point
----------------------
-
-:Default value: Empty
-:Optional: Yes
-:Values: * API extension expression.
-         * Empty.
-:From version: 4.16.0
-:Description:
-    The API entry point is defined in the format `LANGUAGE:DOTTED.ENTRY.POINT`,
-
-    `LANGUAGE` is the name of the language in which the extension is
-    written.
-
-    `DOTTED.ENTRY.POINT` as an expression defining the package, module, and
-    class name which will receive the event.
-
-    ..  note::
-        At this moment, the event handler API supports the development of
-        custom handlers based on the Python programming language.
-
-    As an example, for the file ``extension/auth_ldap_noop.py`` defining
-    the ``AuthLDAPNoop`` class, the configuration will be::
-
-        extension_entry_point = python:auth_ldap_noop.AuthLDAPNoop
-
-
-extension_configuration
------------------------
-
-:Default value: Empty
-:Optional: Yes
-:Values: * JSON
-         * Empty
-:From version: 4.16.0
-:Description:
-    A JSON value which is passed to the extension.
-
-    This is ignored when `extension_entry_point` is not defined.
-
-
 search_filter
 -------------
 

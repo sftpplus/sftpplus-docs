@@ -1,9 +1,12 @@
 This is the SFTPPlus Purview SDK extension.
 
-Sub-directories and files in this directory should be copied in the
-SFTPPlus base installation directory.
+On Linux, install the SDK from the SFTPPlus extra-connectors archive.
+Extract the archive into the SFTPPlus installation directory so that the
+SDK files are under bins. Follow the installation and ownership steps at:
+https://www.sftpplus.com/documentation/sftpplus/latest/installation/extra-connectors.html
 
-On Windows, the C++ redistributables must be installed.
+On Windows, the SDK is included with SFTPPlus.
+The C++ redistributables must also be installed.
 Get them from https://aka.ms/vs/17/release/vc_redist.x64.exe.
 
 Configure the SFTPPlus Purview extension using the example below.

@@ -391,15 +391,15 @@ HTTP / HTTPS / AS2 / REST / Cloud events
 40028
 ^^^^^
 
-:Message: Failed to decode name for file "%(name)s" in "%(operation)s" operation. The request for this file was ignored.
-:Groups: authenticated, failure, failure-specific, http
+:Message: Failed to decode value for key "%(key)s:%(value)s". The request for this value was ignored.
+:Groups: authenticated, informational, http
 :From version: 2.12.0
 :Description: None
 :Data:
-  :name: Name of the file which failed
+  :key: Name of the key which failed
 
 
-  :operation: Name of the file transfer operation
+  :value: Value associated with the key
 
 
 

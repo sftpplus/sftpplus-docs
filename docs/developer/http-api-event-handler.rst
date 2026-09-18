@@ -300,62 +300,21 @@ body contains either of the values::
     </Status>
 
 
-Redundant HTTP URL / Endpoints
-------------------------------
-
-An HTTP POST event handler can be configured with more than one URL to
-provide redundant event handling.
-
-If handling of an event failed for an URL, SFTPPlus will re-try to handle
-the event using the next URL from the list.
-
-If handling of an event succeeded, SFTPPlus will not send the request to the
-following URLs from the list.
-
-Below is an example of an event handler configured with multiple URLs::
-
-    [event-handlers/6d32ee50-b277-49e5-b2f4-c70eeea289a7]
-    url = http://www.acme.io/events, https://fallback.acme.io/events
-
-SFTPPlus will send the HTTP requests to URL `http://www.acme.io/events`.
-URL `https://fallback.acme.io/events` is used only when the request
-failed to be handled by the HTTP endpoint at URL `http://www.acme.io/events`
-
-When the request fails for an URL, the usage of that URL will be suspended
-and resumed after 5 minutes.
-
-If all URLs are not available, SFTPPlus will emit an error informing that
-processing the event via HTTP POST failed, not retrying the delivery.
-
-
 Fault-tolerant / Resilient HTTP requests
 ----------------------------------------
 
-It is possible for a request to the HTTP endpoint to return a failure
-response.
-SFTPPlus can be configure to retry the same URL on failure.
+Requests to the HTTP endpoint can fail.
+SFTPPlus can be configured to retry the same URL on failure.
 
-For example, the following configuration will make a first request to
-``http://www.acme.io/events`` and if it fails, it will wait 0.5 second and
-then try again.
-If the request still fails, it will retry for 1 seconds before retrying for
-a second try.
-If the second request will fail, the request is considered as a permanent
-failure and the request will not be sent again to the URL.
+In the following example, SFTPPlus sends a request to `http://www.acme.io/events`.
+If it fails, SFTPPlus waits 0.5 seconds before the first retry.
+If that attempt also fails, SFTPPlus waits 1 second before the second retry.
+If the second retry fails, delivery is considered a permanent failure.
 
 Below is the configuration for the retry scenario described above::
 
     [event-handlers/6d32ee50-b277-49e5-b2f4-c70eeea289a7]
     url = http://www.acme.io/events
-    retry_count = 2
-    retry_increase = 0.5
-
-It is possible to comply the URL retry configuration with a fallback URL.
-In this case, it will retry the first url twice and then will attempt the
-same request on the next URL::
-
-    [event-handlers/6d32ee50-b277-49e5-b2f4-c70eeea289a7]
-    url = http://www.acme.io/events, https://fallback.acme.io/events
     retry_count = 2
     retry_increase = 0.5
 

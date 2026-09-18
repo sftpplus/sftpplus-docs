@@ -83,7 +83,6 @@ master_doc = 'index'
 pygments_style = 'sphinx'
 smartquotes = False
 html4_writer = False
-html_experimental_html5_writer = True
 templates_path = ['%(themes_path)s']
 
 html_static_path = ['_static']
@@ -102,7 +101,6 @@ copyright = "%(copyright)s"
 version = "%(version)s"
 release = "%(version)s"
 
-autodoc_default_flags = ['members']
 primary_domain = 'py'
 
 pdf_documents = [(

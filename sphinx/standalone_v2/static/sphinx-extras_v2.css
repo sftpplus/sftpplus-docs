@@ -49,6 +49,10 @@ html.dark {
     font-weight: 400;
 }
 
+div.sy-scrollbar .globaltoc ul.current li button {
+    margin-right: -0.5rem;
+}
+
 /* Increase the side menu text size */
 div.sy-scrollbar .globaltoc li,
 div.sy-scrollbar .localtoc li {

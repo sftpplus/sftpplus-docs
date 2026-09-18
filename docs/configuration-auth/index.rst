@@ -38,9 +38,8 @@ and how to configure them.
         :link-type: doc
         :link: ./authentication
 
-        Learn how password policies are implemented, about authenticating
-        with Windows Domain users, anonymous authentication and other
-        authentication settings.
+        Learn about password policies, authentication with Windows Domain users,
+        and other authentication settings.
 
     .. grid-item-card:: :octicon:`shield-check` User authorization
         :link-type: doc
@@ -129,29 +128,6 @@ and how to configure them.
 
         The radius authentication method can be used to authenticate application type users by delegating the authentication to a remote RADIUS UDP server.
 
-    .. grid-item-card:: :octicon:`sliders` Banning users (DEPRECATED)
-        :link-type: doc
-        :link: ./deny-username
-
-        This is provided for backward compatibility.
-        Use the **security policies** to restrict access based on username.
-        This authentication method can be used to block/deny authentication for a configured list of users or administrators.
-
-    .. grid-item-card:: :octicon:`sliders` Banning IP addresses (DEPRECATED)
-        :link-type: doc
-        :link: ./ip-time-ban
-
-        This is provided for backward compatibility.
-        Use the **security policies** to restrict access based on source IP.
-        This authentication method can be used to block/deny authentication requests coming from a specific IP address helping to mitigate DDOS attempts to SFTPPlus services.
-
-    .. grid-item-card:: :octicon:`sliders` Anonymous authentication (LEGACY)
-        :link-type: doc
-        :link: ./anonymous
-
-        This is provided for legacy FTP compatibility.
-        This method can be used to authenticate a specific *application* users by ignoring the provided password or any other credential.
-
 
 ..  toctree::
     :hidden:
@@ -173,6 +149,3 @@ and how to configure them.
     google-identity
     okta-oidc
     radius
-    deny-username
-    ip-time-ban
-    anonymous

@@ -110,7 +110,8 @@ class DemoEventHandler(object):
         if event.account.name == 'delay-user':
             # For username `delay-user` we delay processing of the event
             # for 0.5 seconds.
-            return self._parent.delay(0.5, lambda: 'delayed-configuration')
+            return self._parent.delay(
+                0.5, lambda: ['delayed-configuration', []])
 
         # Events can be triggered as part of the event handling configuration.
         # You can have one for more events.

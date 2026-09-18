@@ -73,8 +73,8 @@ target
         will be ignored.
 
 
-groups
-------
+event_groups
+------------
 
 :Default value: ''
 :Optional: Yes
@@ -82,7 +82,7 @@ groups
          * Comma separated list of event groups
            starting with an exclamation mark.
          * Empty.
-:From version: 3.39.0
+:From version: 6.0.0
 :Description:
     Defines the list of event groups for which this handler
     is active.
@@ -98,6 +98,10 @@ groups
     of configured ignored groups (starting with !).
 
     Leave it empty to handle events from all groups.
+
+    Before version 6.0.0, this option was named `groups`.
+    Existing configurations are automatically migrated to `event_groups`.
+    If both options are configured, the `event_groups` value is used.
 
 
 user_groups

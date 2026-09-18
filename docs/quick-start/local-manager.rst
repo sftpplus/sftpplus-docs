@@ -20,6 +20,10 @@ that it is only available over **HTTPS**:
 
 ..  image:: /static/operation/local-manager-login.png
 
+The login page has controls for switching between light and dark themes.
+The selected theme is stored by the web browser and remains active after the browser is restarted.
+When no theme has been selected, the login page follows the operating system's preferred color scheme.
+
 ----
 
 Web Manager comes with a default administration account with username
@@ -92,11 +96,13 @@ The Web Manager is implemented as a modern web application and in order
 to use it, you will need a modern web browser.
 The following browsers are tested and supported by Web Manager:
 
-* Internet Explorer 9 or newer
 * Firefox 20 or newer
 * Chrome (Chromium) 20 or newer
 * Safari 6 or newer
 * Opera 12 or newer
+
+Internet Explorer 11 is not supported in SFTPPlus version 6.
+Use SFTPPlus version 5 when Internet Explorer 11 support is required.
 
 Minimum screen resolution requirement: 1024 x 768.
 

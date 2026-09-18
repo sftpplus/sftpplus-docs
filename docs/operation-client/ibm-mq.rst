@@ -26,8 +26,8 @@ The current version of SFTPPlus only supports point-to-point scenarios.
 Files can be sent to and received from a specific queue,
 with the option of using separate queues for sending and receiving files.
 
-The IBM MQ C Client version 9.4.3.1 is included with SFTPPlus.
-You don't need to download or install it separately.
+On Linux, install the IBM MQ C client from the separate :doc:`extra-connectors archive</installation/extra-connectors>` before starting an IBM MQ location.
+On Windows, the IBM MQ C client is included with SFTPPlus.
 
 
 Limitations

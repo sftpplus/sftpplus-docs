@@ -1,7 +1,9 @@
 Developer documentation
 =======================
 
-This section documents using the SFTPPlus API and integrate SFTPPlus with HTTP microservices or Python applications.
+This section documents how to use the SFTPPlus APIs and integrate SFTPPlus with HTTP microservices or Python applications.
+
+The Web Manager API can be used to automate configuration and administration.
 
 As part of the standard features, we provide public APIs to extend the identity
 management, file access, audit functionality and more of the SFTPPlus
@@ -55,11 +57,11 @@ examples.
         Custom event handlers can be written using the Python programming language.
         Explore the available information and examples.
 
-    .. grid-item-card:: :octicon:`stack` Python API LDAP Authentication
+    .. grid-item-card:: :octicon:`book` Web Manager API
         :link-type: doc
-        :link: ./python-api-ldap-authentication
+        :link: ./admin-api
 
-        SFTPPlus allows developers to write custom authentication handling code to augment the standard LDAP authentication functionality.
+        Automate administration using the Web Manager JSON-RPC API.
 
 ..  toctree::
     :maxdepth: 1
@@ -69,4 +71,4 @@ examples.
     http-api-authentication
     http-api-event-handler
     python-api-event-handler
-    python-api-ldap-authentication
+    admin-api

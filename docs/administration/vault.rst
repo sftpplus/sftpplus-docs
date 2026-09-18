@@ -109,6 +109,13 @@ The content of these vault items are automatically updated when updating SFTPPlu
 
 From the **Web manager**, you can import one or multiple certificates as text PEM files either by pasting the content or by uploading a file.
 
+The certificate details shown in the Web Manager and exposed through the management API include the signature algorithm,
+the SHA-256 certificate fingerprint,
+and the SHA-256 fingerprint of the DER-encoded public key.
+The corresponding management API attribute names are `signature_algorithm`,
+`signature_sha256_fingerprint`,
+and `public_key_sha256_fingerprint`.
+
 You can also import trusted certificates from bundled PFX/P12/PKCS#12 files.
 When importing from a PFX/PKCS#12 file, you need to provide the password used to protect the file.
 

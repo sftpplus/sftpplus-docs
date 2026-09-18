@@ -323,8 +323,6 @@ Public site
 
 SFTPPlus can serve as a public file transfer server.
 Visitors can access files on the server without prior authentication.
-This is similar to the Anonymous mode available in the FTP server, with the
-exception that no username is required.
 
 To enable public access, you need to explicitly define an application account
 to be used for handling the files via the public interface.

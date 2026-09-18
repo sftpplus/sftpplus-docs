@@ -27,7 +27,7 @@ There are 2 types of SFTPPlus operation modes for the cluster:
 Both the `controller` and the `node` are designed to operate independently.
 The `node` will continue to perform file transfer operations even if the `controller` is not available, and vice versa.
 
-You can configure various SFTPPlus components, like file transfers or event handlers, to be active only on the controller, only on nodes or only on a specific node.
+You can configure various SFTPPlus components, like file transfers or event handlers, to be active only on the controller, only on nodes or only on nodes in a specific pool.
 
 You designate one SFTPPlus MFT instance as the **controller node**.
 This is the single source of truth where you make all your configuration changes.

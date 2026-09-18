@@ -8,17 +8,17 @@ Introduction
 ------------
 
 SFTPPlus can receive files using the EDIINT AS2 protocol defined in the
-`RFC 4130 <https://tools.ietf.org/html/rfc4130>` standard.
+`RFC 4130 <https://tools.ietf.org/html/rfc4130>`_ standard.
 
 This page covers receiving files over AS2.
 If you want to send files over AS2, check the :doc:`dedicated HTTP AS2 transfer </operation-client/as2-send>` documentation page.
 
 Received content can be confirmed using the
 message disposition acknowledgment (MDN) method defined in
-`RFC 3798 <https://tools.ietf.org/html/rfc3798>`.
+`RFC 8098 <https://www.rfc-editor.org/rfc/rfc8098>`_.
 
 File content can be compressed as defined in
-`RFC 5402 <https://tools.ietf.org/html/rfc5402>`, encapsulated in a
+`RFC 5402 <https://tools.ietf.org/html/rfc5402>`_, encapsulated in a
 CMS (Cryptographic Message Syntax) MIME entity.
 
 

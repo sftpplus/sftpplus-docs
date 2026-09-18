@@ -290,12 +290,12 @@ Components
 ^^^^^^^^^^
 
 SFTPPlus is built around a modular design in which multiple components are
-interacting in order to perform the manged file transfer flow.
+interacting in order to perform the managed file transfer flow.
 
 Components are file transfer services, authentication methods, transfers,
 resources and event handlers.
 
-Each component has an unique ID (UUID) and the handler can filter events
+Each component has a unique ID (UUID) and the handler can filter events
 based on these IDs.
 
 By using the UUID, you can rename a component without having to update the
@@ -306,18 +306,15 @@ to Syslog, you can use the following configuration::
 
     [authentications/ac547e16-a3ff-4fc3-a6ab-142af2744f50]
     enabled: yes
-    type: deny-username
-    name: deny-admin-accounts
-    description: Filter all admin accoutns
-    usernames: root, adm, administrator
+    type: application
+    name: Application accounts
+    description: Authenticate accounts configured in SFTPPlus.
 
     [authentications/22a9d8fb-068d-4a63-8d5d-0ce94ef22a25]
     enabled: Yes
-    type: ip-time-ban
-    name: ip-time-ban-auth
-    description: Ban for 30 seconds after 3 failures
-    ban_interval = 30
-    ban_after_count = 3
+    type: os
+    name: Operating system accounts
+    description: Authenticate accounts configured in the operating system.
 
     [event-handlers/27b8e2b1-7971-416d-af14-6a8aae2ac46e]
     enabled: Yes
@@ -326,8 +323,8 @@ to Syslog, you can use the following configuration::
     type: syslog
     url: file:///dev/log
 
-    components: 27b8e2b1-7971-416d-af14-6a8aae2ac46e,
-                ac547e16-a3ff-4fc3-a6ab-142af2744f50
+    components: ac547e16-a3ff-4fc3-a6ab-142af2744f50,
+                22a9d8fb-068d-4a63-8d5d-0ce94ef22a25
 
 To send all the events to Syslog, with the exception of a few
 components, you can configure the handler as the following configuration::

@@ -20,17 +20,11 @@ url
 :Default value: ''
 :Optional: No
 :Values: * `URL`
-         * Comma separated list of URLs (Since 3.51.0)
 :From version: 2.10.0
 :Description:
     Full URL for a resource used to receive the event details.
-    For example: ``http://www.acme.io/http-post-hook-url``
-
-    You can define a fall-back/redundant URL using a comma separates list of
-    URLs.
-    The first URL from the list will be used. When failing to get a response
-    for the first URL, the remaining URLs are tried.
-    Since 3.51.0.
+    Configure a single URL.
+    For example: `http://www.acme.io/http-post-hook-url`.
 
 
 timeout
@@ -138,7 +132,6 @@ http_content_type
 :Optional: Yes
 :Values: * `custom`
          * `json`
-         * `legacy-webadmin`
          * `soap`
          * `xml`
 :From version: 3.0.0
@@ -152,8 +145,6 @@ http_content_type
     Use `soap` to send the event as human readable XML SOAP envelope.
 
     Use `xml` to send the event as machine readable application/xml.
-
-    Use `legacy-webadmin` to send the events to the SFTPPlus WebAdmin server.
 
 .. include:: /configuration/ssl-client.include.rst
 .. include:: /configuration/ssl.include.rst
@@ -247,10 +238,3 @@ extra_data
     Below you can find all the available variables.
 
     .. include:: /configuration/event-context-variables.rst.include
-
-    Not available for `http_content_type = legacy-webadmin`.
-
-    You can define a fall-back/redundant URL using a comma separates list of
-    URLs.
-    The first URL from the list will be used. When failing to get a response
-    for the first URL, the remaining URLs are tried.

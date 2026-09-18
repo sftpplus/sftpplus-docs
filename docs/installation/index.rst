@@ -66,6 +66,12 @@ It is very probable that SFTPPlus already works on that OS, it's just that we do
 
         Check the steps for getting SFTPPlus installed on macOS.
 
+    .. grid-item-card:: :octicon:`package-dependents` Extra connectors
+        :link-type: doc
+        :link: ./extra-connectors
+
+        Install the optional IBM MQ and Microsoft Purview libraries on Linux.
+
     .. grid-item-card:: :octicon:`move-to-top` Linux and MacOS Upgrade
         :link-type: doc
         :link: ./linux-and-macos-upgrade
@@ -119,6 +125,7 @@ It is very probable that SFTPPlus already works on that OS, it's just that we do
     windows-upgrade
     linux
     linux-advanced
+    extra-connectors
     macos
     linux-and-macos-upgrade
     upgrade

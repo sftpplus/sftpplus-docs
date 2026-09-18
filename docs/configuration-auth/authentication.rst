@@ -23,7 +23,6 @@ Here are a few methods / sources used to authenticate accounts.
 For a full list please check the
 :doc:`authentication methods configuration</configuration-auth/index>`:
 
-* Anonymous Account
 * Application Account (SFTPPlus accounts persisted in a configuration file)
 * Operating System Local Account
 * Windows Domain Accounts
@@ -715,53 +714,3 @@ will be mapped as ``c:\\Users\\ben.DC-DOMAIN.TLD``::
     type = os
     group = 2fd149b3-9fdb-49d0-8666-3c28f151f64d
     home_folder_path = Inherited
-
-
-Account setup for anonymous authentication
-==========================================
-
-In Accounts, create an account of type `Application Account`.  Since it is
-used for anonymous authentication, choose a relevant name.
-Configure its home folder.
-
-In Authentications, ensure that anonymous authentication is defined/enabled.
-Edit the account's method configuration and select a user to be mapped to the
-anonymous account.
-This user will be the account that was recently created in the first paragraph
-of this section.
-
-Go to the Status page and double check that the anonymous authentication method
-referred to above is running (started).
-
-If not, manually start it.
-
-
-To restrict anonymous authentication to a particular service:
--------------------------------------------------------------
-
-In the Server page, make a note of all existing UUIDs in the Authentications
-field.
-
-In the Status page, select to edit select to edit the configuration of the
-service you want to allow the anonymous account to.
-
-Add all the UUIDs that are already used globally including the UUID
-from the anonymous authentication.
-
-
-To allow/enable anonymous authentication in any service:
---------------------------------------------------------
-
-In the Server page, add the UUID of the authentication method to the
-Authentications list.
-
-To locate this UUID, go to the Authentications page,
-select the anonymous authentication method and copy the Identifier string.
-
-Run a test on the service to ensure the new settings are applied.
-
-The following events represent a successful anonymous authentication:
-
-    | 20137 2016-12-13 14:23:29 test-server-uuid Unknown 127.0.0.1:4831 Account
-      "user" of type "application" authenticated as "anonymous" by anonymous
-      authentication "auth-anonymous" using password.

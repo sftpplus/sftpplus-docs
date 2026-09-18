@@ -22,7 +22,10 @@ Below is are some extensions included in SFTPPlus:
 
 * Delete the last line of a file
 * Implement TOTP MFA authentication for an LDAP server that has no native TOTP support.
-* Read / Write Microsoft Purview label for uploaded files. Required MPI SDK.
+* Read or write Microsoft Purview labels for uploaded files. Requires the MIP SDK.
+
+On Linux, install the MIP SDK from the :doc:`extra-connectors archive</installation/extra-connectors>` before using the Purview extension.
+The SDK is included with SFTPPlus on Windows.
 
 .. include:: /configuration-events/events-commons.include.rst
 

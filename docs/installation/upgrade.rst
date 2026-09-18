@@ -5,6 +5,7 @@ Updates and upgrades
     :maxdepth: 1
     :hidden:
 
+    upgrade-to-v5
     upgrade-to-v4
     upgrade-to-v3
     upgrade-to-v2
@@ -44,11 +45,10 @@ as they contain detailed information on the steps required for updating between 
 Updating to latest version
 --------------------------
 
-SFTPPlus version 5 was released in 2024.
-Version 5 is under active development and support.
+SFTPPlus version 6 was released in 2026.
+Version 6 is under active development and support.
 
-
-To update from on older version 5 to the latest version 5 release,
+To update from an older version 6 to the latest version 6 release,
 follow the general update procedure for your operating system.
 
 It is important that you check the latest version and changes,
@@ -65,275 +65,122 @@ follow the regular updating instructions using the full version software.
 The configuration defined during the trial period is kept and automatically migrated to the fully-featured version.
 
 
-Upgrade from version 4
-----------------------
+Upgrading from version 5
+------------------------
 
-You first need to update to the last version 4, SFTPPlus version 4.35.0.
-
-Once your SFTPPlus 4 installation is up-to-date,
-you can upgrade to latest SFTPPlus version 5
-over the existing installation following the update steps for Windows, Linux, or macOS.
-
-The configuration file is automatically updated.
-
-In comparison with version 4, SFTPPlus version 5 is introducing a higher default security level.
-
-SFTPPlus 4 installations using weaker security algorithms or cryptographic keys need to be either updated to use more secure keys and cryptographic algorithms,
-or configured to allow exceptions for weaker security options.
-
-Security changes are described in the next section.
-
-.. grid:: 1 1 2 1
-    :gutter: 2
-    :padding: 0
-    :class-container: surface
-
-    .. grid-item-card:: :octicon:`move-to-top` Upgrade to version 4
-        :link-type: doc
-        :link: ./upgrade-to-v4
-
-        Reference documentation for upgrading to version 4, released in 2020.
-        Version 4 is no longer in active development.
-        Version 4 is still supported until 2027.
+Review the compatibility and connector changes below before upgrading an existing SFTPPlus 5 installation to version 6.
+Complete any required connector installation and startup configuration before restarting SFTPPlus.
 
 
-Functional changes from version 4
----------------------------------
+Deny usernames and ban IP authentication methods
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Below is a summary of all the major changes since version 4.0.0.
-Note that some of these changes were introduced during the development of SFTPPlus version 4.
-
-The server-side user account passwords stored in plain text are no longer supported.
-The plain text passwords are automatically converted to hashed passwords at start time.
-
-The following operating systems are no longer supported:
-
-* 32-bit Windows installations
-* Red Hat Enterprise Linux version 5, 6, and 7
-* macOS on Intel Macs
-* AIX.
-
-Note that support for 64-bit Windows installations is unchanged.
-We can also reinstate support for one or more of these platforms if there is significant request.
-
-The following operating systems are newly-supported in SFTPPlus 5:
-
-* macOS on Apple Silicon
-* glibc-based Linux distributions on ARM64 / Apple Silicon.
-
-TLS certificates with RSA keys of size 1024 or signed using SHA-1 are
-no longer accepted as part of the default security level.
-If you still need to use weak RSA keys or TLS certificates,
-you can configure SFTPPlus ciphers list as::
-
-    ssl_cipher_list = secure@seclevel=0
-
-The following ciphers were removed from our `secure` list of SSH ciphers:
-
-* diffie-hellman-group-exchange-sha1
-* diffie-hellman-group14-sha1
-* hmac-sha1
-* aes256-cbc
-* aes192-cbc
-* aes128-cbc
-
-The following SSH ciphers are no longer supported:
-* cast128-ctr
-* blowfish-ctr
-* 3des-ctr
-
-OS accounts are no longer supported on Apple macOS. [server-side] [#3135]
-
-The OS authentication method now requires explicit configuration for the
-allowed list of operating system groups. In previous versions, when the
-"allowed_groups" was not defined, the OS authentication was allowing users
-from any OS group. [security] [#4972]
-
-The `monitor` service was migrated to a resource.
-
-The `manager_authentications` configuration of the `server` section was removed.
-The Web Manager console now uses the authentication defined directly
-in the manager service configuration.
-The old configuration is automatically migrated, no manual configuration changes are required. [manager] [#5879]
-
-The default authentication method for RADIUS is now MS-CHAP-V2, improving the default security.
-In previous versions the default method was PAP. [server-side] [#5701]
-
-The `rsa_private_key` and `dsa_private_key` configuration options were
-replaced with the `ssh_host_private_keys` configuration
-option.
-
-The Python API event handler extension no longer allows emitting events directly via the `parent.emitEvent` method. The extension should now return a list of event data to be emitted by the event handler. [api] [#5961]
-
-When the name of the user is used to dynamically define the `home_folder_path` or `ssh_authorized_keys_path` from the group configuration, the following characters are now replaced with the dot (.) character: `\ / : * ? " < > |`.
-This change prevents creating invalid path names. [#5959]
-
-The `session_username` cookie is no longer used by the Web Manager interface. [manager] [#5900]
-
-The `group_association` configuration option for the OS authentication method
-no longer accepts a group UUID. The group UUID configuration was moved to the
-new `base_groups` option. In this way, you can configure the OS accounts to
-be associated with multiple SFTPPlus groups.
-The existing configurations are automatically migrated, manual changes are not required. [server-side] [#3494]
-
-The `shared_secret` configuration option for the RADIUS authentication method
-was renamed as `password`. The change is automatically migrated, manual
-changes are not required. [server-side][radius] [#5865]
-
-The account or administrator `source_ip_filter` configuration option no longer supports the `inherit` value. Inheriting is now always enabled.
-
-The `source_ip_filter` configuration option now requires
-comma-separated values instead of a space-separated one spanning multiple lines. This
-makes it possible to explicitly list both allowed and denied IP addresses.
-The previous configuration format only supported allowed IP addresses. The
-`source_ip_filter` configuration is automatically converted to allow the
-selected IPs while denying all other IPs. [server-side] [#5751]
-
-The legacy WebAdmin authentication method is no longer supported. If you are
-still using the SFTPPlus PHP Webadmin authentication, you can use the generic
-HTTP authentication method together with PHP WebAdmin version 1.11.0 or
-newer. [server-side] [#425]
-
-New SFTPPlus installations no longer automatically generate SSH DSA/DSS host keys.
-SSH DSA is considered a less secure legacy cryptographic algorithm.
-Customers may still manually enable SSH DSA/DSS host keys, they are still
-supported. [server-side] [#5800-1]
-
-The `disabled` value is no longer supported for the transfer's `source_uuid`
-and `destination_uuid` configuration options. Previously, the `disabled`
-values were accidentally supported instead of the default local filesystem.
-[client] [#5629]
-
-The `configuration.identity` section from the server configuration JSON-RPC
-API was removed. The accounts, groups, roles, and administrator configuration
-are now accessible via `configuration.acccounts`, `configuration.groups`,
-`configuration.roles`, and `configuration.administrators` options
-respectively. [manager][api] [#5651]
-
-The role permission targets for accounts, roles, groups, and administrators
-were updated to deprecate the `identity` part. Access to accounts, roles,
-groups, and administrators can now be granted and restricted based on the
-`configuration/accounts`, `configuration/groups`, `configuration/roles`, and
-`configuration/administrators` targets respectively. The old target
-`configuration/identity/accounts` still works via the programmatic API.
-For access to accounts, roles, groups, and administrators via the Local
-Manager UI, you need to update the configuration to use the new paths.
-The old path is planned to be removed in future version 5 of SFTPPlus.
-[manager][security] [#5651-1]
-
-The `--ssl-allowed-methods` configuration option of the client shell now
-requires a comma-separated list of TLS methods. In previous versions, it was
-a space-separated list, requiring extra escaping when invoked from a shell.
-[cli] [#4453-1]
-
-The `ssl_allowed_methods` configuration option was updated from being a
-space-separated value to a comma-separated value. The conversion is done
-automatically, no manual changes required. [#4453]
-
-The authentication for an administrator fails if any of the roles associated
-with the admin is disabled. This is a change from the previous version 4.16.0,
-where the authentication was denied only for the first (primary)
-associated role of an administrator. [manager] [#5573]
-
-The `role` configuration option for an administrator was renamed as `roles`.
-The change is automatically migrated by SFTPPlus. [manager] [#3398]
-
-The `address` and `port` configuration options for the WebDAV client were
-removed, being replaced with the `url` option. Old configuration options
-are automatically migrated to use `url`. [client-side][webdav] [#5602]
-
-The CRL digital signature extension no longer supports validating the configured certificate against a certificate revocation list. [#5961-1]
-
-The `disable` value is no longer a valid value for the following configuration options:
-
-* To disable executing external commands for a transfer, you should now set the
-  `execute_before`, `execute_after_success`, `execute_after_failure`,
-  `execute_on_destination_before`, `execute_on_destination_after_success`, or
-  `execute_on_destination_after_failure` configuration options to empty
-  values.
-  Using `disable` is supported until the next major release. [#2090-10]
-* To disable filtering the source files for a transfer, you should now set the
-  `source_filter` configuration option to an empty value.
-  Using `disabled` is supported until the next major release. [#2090-11]
-* To disable the process service account on Linux or macOS, you should now set
-  the `account` configuration option to an empty value.
-  Using `disabled` is supported until the next major release. [#2090-12]
-* To disable log file rotation based on time, you should now set the `rotate_on`
-  configuration option to an empty value.
-  Using `disabled` is supported until the next major release. [#2090-13]
-* To disable the usage of PAM for Linux OS authentication, you should now set
-  the `pam_usage` option to an empty value.
-  Using `disabled` is supported until the next major release. [#2090-1]
-* To disable the SSH public key loading for a file, you should now set the
-  `ssh_authorized_keys_path` option to an empty value.
-  Using `disabled` is supported until the next major release. [#2090-2]
-* To disable archiving the files for a transfer, you should now set the
-  `archive_success_path` or `archive_failure_path` configuration options to
-  empty values.
-  Using `disabled` is supported until the next major release. [#2090-3]
-* To disable CCC FTPS for a transfer, you should now set the `ftps_ccc`
-  configuration option to an empty value.
-  Using `disabled` is supported until the next major release. [#2090-4]
-* To disable the usage of an explicit FTPS passive address for an FTP or FTPS
-  server, set `passive_address` configuration option to an empty value.
-  Using `disabled` is supported until the next major release. [#2090-5]
-* To disable uploading files with modified names for users, set
-  `amend_write_name` configuration option to an empty value.
-  Using `disabled` is supported until the next major release. [#2090-6]
-* To disable attaching associated files to an email, you should now set the
-  `email_associated_files` to an empty value.
-  Using `disabled` is supported until the next major release. [#2090-7]
-* To disable the creation of a destination folder for a file dispatcher, you
-  should now set the `create_destination_folder` to an empty value.
-  Using `disabled` is supported until the next major release. [#2090-8]
-* To disable authenticating an SFTP location with SSH keys, you should now set
-  the `ssh_private_key` to an empty value.
-  Using `disabled` is supported until the next major release. [#2090-9]
-* To disable the usage of a SSL certificate, CA, or CRL for a connection, you
-  should now set the `ssl_certificate`, `tls_trusted_certificates`, or
-  `ssl_certificate_revocation_list` to empty values.
-  Using `disabled` is supported until the next major release. [ssl] [#2090]
+The `deny-username` and `ip-time-ban` authentication methods have been deprecated. They were replaced with the security policies.
+The configuration is automatically migrated.
 
 
-Upgrade from version 3
-----------------------
+LDAP Python API extension
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For upgrading from version 3,
-you need to first upgrade to the :doc:`last version 4 release </installation/upgrade-to-v4>`.
+The LDAP Python API extension authentication support has been removed.
+There is no direct replacement for this extension in version 6.
+Contact us if you require assistance with migrating from the LDAP Python API extension.
+The configuration is automatically migrated.
 
-Once your SFTPPlus 4 installation is up-to-date, you can follow the upgrade process described at the start of this page.
+
+Service configuration API
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Web Manager JSON-RPC API now returns common and protocol options in the same service configuration object.
+For example, `port` and `idle_connection_timeout` are both direct properties of a service.
+The nested `configuration` object has been removed.
+
+Update integrations that create services to send protocol options directly in the service object.
+For updates, use paths such as `services/UUID/idle_connection_timeout` instead of `services/UUID/configuration/idle_connection_timeout`.
+Read protocol options from the same flat structure in configuration responses and service startup snapshots.
+Update administrator role permission paths that target protocol options to use these flat paths.
+Python extensions that access a service manager must use `service.configuration.OPTION` instead of `service.configuration.configuration.OPTION`.
+
+
+HTTP authentication and event handlers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+HTTP authentication methods and HTTP event handlers no longer support fallback URLs.
+Existing comma-separated URL lists are automatically migrated to their first value; all remaining values are discarded.
+HTTP event handlers continue to support retrying the configured URL using `retry_count` and `retry_increase`.
+
+The obsolete `legacy-webadmin` HTTP event format has been removed.
+Event handlers configured with this format fail to start with an unknown format error.
+Update these handlers to use a supported format and ensure that the receiving endpoint accepts it.
+See the :doc:`HTTP event handler configuration </configuration-events/http>` for supported formats.
+
+
+Event handler group filters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The event handler `groups` configuration option has been renamed to `event_groups` to distinguish it from account group filters.
+Existing configuration files are automatically migrated, preserving the event group filters.
+If both options are configured, the `event_groups` value takes precedence, including an empty value.
+Update any custom configuration templates or scripts that use the old option name to use `event_groups`.
+
+
+Runtime and browser compatibility
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+SFTPPlus 6 uses Python 3.14 and OpenSSL 4.
+Internet Explorer 11 is no longer supported.
+Use a supported modern browser to access Web Manager and Web Client.
+
+
+IBM MQ and Microsoft Purview on Linux
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On Linux, the IBM MQ C client and Microsoft Purview SDK libraries are now available as :doc:`extra connectors<./extra-connectors>`.
+Install the separate archive when upgrading if you use either connector.
+The extra-connectors guide describes how to extract the archive and set ownership of the connector directories.
+
+For IBM MQ, update your installed systemd unit or other startup script to include the new library paths in `LD_LIBRARY_PATH`::
+
+    /opt/sftpplus/ibm-mq/lib64:/opt/sftpplus/ibm-mq/gskit9/lib64
+
+Replace the old `/opt/sftpplus/lib/ibm-mq` paths and adapt `/opt/sftpplus` to your installation directory.
+Retain any other required directories already present in `LD_LIBRARY_PATH`.
+Follow the :doc:`extra-connectors startup configuration<./extra-connectors>` instructions to apply the changes before restarting SFTPPlus.
+
+Windows packages continue to include these libraries.
+
+
+Migrating from node-based to pool-based cluster configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In SFTPPlus version 6, the cluster configuration has changed from a nodes-based approach to a pool-based approach.
+
+When migrating a cluster to v6 you will need to follow the following steps:
+
+* Upgrade the controller instance first
+* Upgrade each node instance
+
+The pool configuration replaces the individual node configuration from earlier versions.
+Existing `cluster-nodes/UUID` sections are automatically migrated to `cluster-pools/UUID`, preserving their UUIDs and configuration options.
+An existing deployment can continue to use one pool per node.
+
+
+Upgrading from version 4 or earlier
+-----------------------------------
+
+If you are using SFTPPlus version 4 or earlier, you will first need to upgrade to SFTPPlus version 5.
+Once your SFTPPlus installation is on version 5,
+you can upgrade to latest SFTPPlus.
 
 .. grid:: 1 1 2 1
     :gutter: 2
     :padding: 0
     :class-container: surface
 
-    .. grid-item-card:: :octicon:`move-to-top` Upgrade to version 3
+    .. grid-item-card:: :octicon:`move-to-top` Upgrade to version 5
         :link-type: doc
-        :link: ./upgrade-to-v3
+        :link: ./upgrade-to-v5
 
-        SFTPPlus version 3 was released in 2015.
-        It is no longer in active development or support.
-        The information on this page is provided for legacy deployments.
-
-
-Upgrade from version 2
-----------------------
-
-If you are still using SFTPPlus version 2 or older,
-and you plan to upgrade, get in touch with our support team.
-They can help you upgrade to the latest supported version.
-
-
-.. grid:: 1 1 2 1
-    :gutter: 2
-    :padding: 0
-    :class-container: surface
-
-    .. grid-item-card:: :octicon:`move-to-top` Upgrade to version 2
-        :link-type: doc
-        :link: ./upgrade-to-v2
-
-        SFTPPlus version 2 was released in 2013.
-        It is no longer in active development or support.
-        The information on this page is provided for legacy deployments.
+        Reference documentation for upgrading to version 5.
+        Version 5 is no longer in active development.
+        Version 5 is still supported until 2029.

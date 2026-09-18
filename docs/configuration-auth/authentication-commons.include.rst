@@ -30,9 +30,6 @@ type
 :Values: * `application` - Application accounts.
          * `os` - Accounts authenticated by the OS.
          * `http` - HTTP (unsecured).
-         * `ip-time-ban` - Ban an IP address for a time interval.
-         * `deny-username` - Deny authentication based on usernames.
-         * `anonymous` - Anonymous account authentication.
          * `ldap` - Authenticate against an LDAP server.
          * `local-file` - Authenticate the accounts from a separate local file.
          * `radius` - Authenticate via a RADIUS server.
