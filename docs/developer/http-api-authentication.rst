@@ -153,17 +153,17 @@ configuration option::
         "home_folder_path": "/local/path/for/account",
         "uuid": "ebfbee04-17be-4d9f-b7fc-20ffed6a61a8",
         "group": "536839f5-3b5c-42ac-ad67-b74478ff71a5",
-        "email": "kevin@example.com, another.email@example.com"
+        "email": "kevin@example.com, another.email@example.com",
         "create_home_folder": true,
         "create_home_folder_owner": "ude_team",
         "create_home_folder_group": "partners",
         "home_folder_structure": ["/some-child", "/another-child"],
         "virtual_folders":[
           ["/shared-sales", "/home/shared/sales"],
-          ["/shared-teams/emea-uploads", "/home/shared/teams/emea"],
-          ]
-        "permissions": [
-          ["allow-full-control"],
+          ["/shared-teams/emea-uploads", "/home/shared/teams/emea"]
+          ],
+        "default_permissions": ["allow-full-control"],
+        "path_permissions": [
           ["*.PDF", "allow-read"]
           ]
         }
@@ -250,17 +250,27 @@ Below you can find the description of each member from the response.
 
 ----
 
-:name: permissions
+:name: default_permissions
+:type: List of strings.
+:optional: Yes
+:default: `["inherit"]`
+:description: Permissions used when no path rule matches.
+    The `inherit` value uses defaults from the primary group only.
+    If `inherit` appears alongside other values, those values are discarded.
+
+----
+
+:name: path_permissions
 :type: List of lists.
 :optional: Yes
 :default: Empty list.
-:description: List of lists, each containing the permissions for account.
-    First line is the list of general permissions.
-    The following lines are the permissions bases on path expression.
+:description: Each list starts with a path matching expression, followed by permissions for that path.
+    These rules are checked before any inherited group rules.
+    An empty list adds no account rules.
+    The `inherit` value is not supported for this member.
+    Rules from all groups are inherited when `default_permissions` or `virtual_folders` is inherited.
 
-    For more details, see
-    :ref:`the permission <configuration-groups-permissions>` documentation
-    described for the group.
+    For more details, see :doc:`path permissions</configuration-auth/path-permissions>`.
 
 
 Unknown user (401)
@@ -384,7 +394,7 @@ from the configured SFTPPlus server are authenticated with a username and passwo
     type = http
     url = http://www.acme.io/auth
     username = API-username
-    password = API-passord-or-token
+    password = API-password-or-token
 
 
 Another example is when the remote HTTP API endpoint requires an API key or some other type of authentication.

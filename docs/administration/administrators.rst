@@ -93,14 +93,8 @@ SFTPPlus service.
 You can then login to the Web Manager web page using the new credentials.
 
 
-Options for administrators
---------------------------
-
-The following configuration options are available for administrators.
-
-
 enabled
-^^^^^^^
+-------
 
 :Default value: `Yes`
 :Optional: Yes
@@ -113,7 +107,7 @@ enabled
 
 
 name
-^^^^
+----
 
 :Default value: ''
 :Optional: No
@@ -127,7 +121,7 @@ name
 
 
 description
-^^^^^^^^^^^
+-----------
 
 :Default value: ''
 :Optional: Yes
@@ -145,8 +139,36 @@ description
         name = sa-operator
 
 
+theme
+-----
+
+:Default value: `light`
+:Optional: Yes
+:From version: 6.0.0
+:Values: * `light`
+         * `dark`
+:Description:
+    The administrator's preferred Web Manager color theme.
+    Values are case insensitive.
+    Any value other than `dark` is displayed using the light theme.
+
+    After login, the Web Manager automatically switches to this theme and updates the browser's local preference.
+    Changing the theme with the theme switcher saves the new value after 15 seconds without further changes.
+
+    The browser continues to remember the theme locally, including on the login page.
+    This configuration option takes precedence over the browser's selection after login.
+
+    Saving requires permission to read and update this administrator's `theme` option.
+
+    ..  note::
+
+        External administrators use the theme supplied by their authentication source, defaulting to `light` when no theme is supplied.
+        Values follow the same case-insensitive policy, with unsupported values displayed using the light theme.
+        Theme changes made in the Web Manager for these administrators are stored only in the browser.
+
+
 password
-^^^^^^^^
+--------
 
 :Default value: Empty
 :Optional: Yes
@@ -168,7 +190,7 @@ password
 
 
 source_ip_filter
-^^^^^^^^^^^^^^^^
+----------------
 
 :Default value: Empty
 :Optional: Yes
@@ -195,7 +217,7 @@ source_ip_filter
 
 
 multi_factor_authentication
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------
 
 :Default value: Empty
 :Optional: Yes
@@ -211,7 +233,7 @@ multi_factor_authentication
 
 
 roles
-^^^^^
+-----
 
 :Default value: `DEFAULT-ROLE`
 :Optional: No
@@ -230,7 +252,7 @@ roles
 
 
 node_variables
-^^^^^^^^^^^^^^
+--------------
 
 :Default value: Empty
 :Optional: Yes

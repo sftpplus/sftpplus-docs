@@ -10,6 +10,7 @@ SFTP / SCP / SSH events
 
 :Message: Global request "%(request_type)s" declined.
 :Groups: authenticated, informational, ssh
+:Log level: `trace`
 :From version: 3.18.0
 :Description: None
 :Data:
@@ -24,6 +25,7 @@ SFTP / SCP / SSH events
 
 :Message: SSH command %(message_id)s is not supported. %(payload)s
 :Groups: operational, authenticated, failure, failure-specific, ssh
+:Log level: `warn`
 :From version: 3.1.0
 :Description: None
 :Data:
@@ -41,6 +43,7 @@ SFTP / SCP / SSH events
 
 :Message: Internal error. Failed to process the SSH command %(message_id)s - %(payload)s. %(details)s
 :Groups: operational, session, failure, failure-critical, ssh
+:Log level: `critical`
 :From version: 3.1.0
 :Description: None
 :Data:
@@ -58,6 +61,7 @@ SFTP / SCP / SSH events
 
 :Message: SSH protocol failure at userauth service for "%(username)s". %(details)s
 :Groups: authentication, session, failure, failure-high, ssh
+:Log level: `error`
 :From version: 3.1.0
 :Description: None
 :Data:
@@ -72,6 +76,7 @@ SFTP / SCP / SSH events
 
 :Message: SSH request rejected. %(details)s
 :Groups: authenticated, failure, ssh
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 
@@ -82,6 +87,7 @@ SFTP / SCP / SSH events
 
 :Message: Start processing '%(command)s' command.
 :Groups: operational, authenticated, informational, ssh
+:Log level: `trace`
 :From version: 3.45.0
 :Description: None
 :Data:
@@ -96,6 +102,7 @@ SFTP / SCP / SSH events
 
 :Message: End processing '%(command)s' command.
 :Groups: operational, authenticated, success, ssh
+:Log level: `info`
 :From version: 3.45.0
 :Description: None
 :Data:
@@ -110,6 +117,7 @@ SFTP / SCP / SSH events
 
 :Message: %(service_name)s access started at "%(real_path)s" as "%(virtual_path)s". Client "%(client_version)s" using %(host_key)s %(key_exchange)s %(in_hmac)s %(in_cipher)s compression:%(in_compression)s.
 :Groups: authentication, authenticated, success, ssh
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -163,6 +171,7 @@ SFTP / SCP / SSH events
 
 :Message: SFTP subsystem closed. Using SFTP version %(client_version)s.
 :Groups: authenticated, success, ssh
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -177,6 +186,7 @@ SFTP / SCP / SSH events
 
 :Message: SSH algorithms negotiation failed at %(type)s. Client: "%(client_algorithms)s". Server: "%(server_algorithms)s".
 :Groups: session, failure, failure-high, failure-specific, ssh
+:Log level: `error`
 :From version: 5.1.0
 :Description: Emitted when we don't have a match for the client and server algorithms.
 :Data:
@@ -197,6 +207,7 @@ SFTP / SCP / SSH events
 
 :Message: New SSH connection made.
 :Groups: session, informational, ssh
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -207,6 +218,7 @@ SFTP / SCP / SSH events
 
 :Message: SSH connection closed from "%(client_version)s". Protected using host-key:%(host_key)s key-exchange:%(key_exchange)s in-hmac:%(in_hmac)s in-cipher:%(in_cipher)s out-hmac:%(out_hmac)s out-cipher:%(out_cipher)s in-compression:%(in_compression)s out-compression:%(out_compression)s
 :Groups: authenticated, informational, ssh
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -245,6 +257,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to process the SFTP command. %(details)s
 :Groups: operational, authenticated, failure, failure-high, ssh
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -255,6 +268,7 @@ SFTP / SCP / SSH events
 
 :Message: Close file "%(path)s" after successful %(mode)s. Read %(total_read)s bytes at %(read_speed)s bytes/second and wrote %(total_write)s bytes at %(write_speed)s bytes/second in %(duration)s seconds.
 :Groups: authenticated, success, file-operation, ssh
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -287,6 +301,7 @@ SFTP / SCP / SSH events
 
 :Message: Internal error. Failure in the SSH userauth service for "%(username)s". %(details)s
 :Groups: authentication, session, failure, failure-critical, ssh
+:Log level: `critical`
 :From version: 1.8.1
 :Description: None
 :Data:
@@ -301,6 +316,7 @@ SFTP / SCP / SSH events
 
 :Message: Listing folder "%(path)s".
 :Groups: authenticated, informational, file-operation, ssh
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -311,6 +327,7 @@ SFTP / SCP / SSH events
 
 :Message: Successfully listed folder "%(path)s".
 :Groups: authenticated, success, file-operation, ssh
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -321,6 +338,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to list folder "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, ssh
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -335,6 +353,7 @@ SFTP / SCP / SSH events
 
 :Message: Deleting "%(path)s".
 :Groups: authenticated, informational, file-operation, ssh
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -345,6 +364,7 @@ SFTP / SCP / SSH events
 
 :Message: Successfully deleted "%(path)s".
 :Groups: authenticated, success, file-operation, operation-delete, ssh
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -355,6 +375,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to delete "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, operation-delete, ssh
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -369,6 +390,7 @@ SFTP / SCP / SSH events
 
 :Message: Renaming "%(from)s" to "%(to)s".
 :Groups: authenticated, informational, file-operation, ssh
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -389,6 +411,7 @@ SFTP / SCP / SSH events
 
 :Message: Successfully rename "%(from)s" to "%(to)s".
 :Groups: authenticated, success, file-operation, operation-rename, ssh
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -409,6 +432,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to rename "%(from)s" to "%(to)s". %(details)s
 :Groups: authenticated, failure, file-operation, operation-rename, ssh
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -432,6 +456,7 @@ SFTP / SCP / SSH events
 
 :Message: Creating folder "%(path)s".
 :Groups: authenticated, informational, file-operation, ssh
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -442,6 +467,7 @@ SFTP / SCP / SSH events
 
 :Message: Successfully created folder "%(path)s".
 :Groups: authenticated, success, file-operation, operation-create-folder, ssh
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -452,6 +478,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to create folder "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, operation-create-folder, ssh
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -466,6 +493,7 @@ SFTP / SCP / SSH events
 
 :Message: Deleting folder "%(path)s".
 :Groups: authenticated, informational, file-operation, ssh
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -476,6 +504,7 @@ SFTP / SCP / SSH events
 
 :Message: Successfully delete folder "%(path)s".
 :Groups: authenticated, success, file-operation, operation-delete, ssh
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -486,6 +515,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to delete folder "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, operation-delete, ssh
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -500,6 +530,7 @@ SFTP / SCP / SSH events
 
 :Message: Getting attributes for "%(path)s".
 :Groups: authenticated, informational, file-operation, ssh
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -510,6 +541,7 @@ SFTP / SCP / SSH events
 
 :Message: Successfully got attributes for "%(path)s".
 :Groups: authenticated, success, file-operation, ssh
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -520,6 +552,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to get attributes for "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, ssh
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -534,6 +567,7 @@ SFTP / SCP / SSH events
 
 :Message: Setting attributes for "%(path)s".
 :Groups: authenticated, informational, file-operation, ssh
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -544,6 +578,7 @@ SFTP / SCP / SSH events
 
 :Message: Successfully set attributes for "%(path)s".
 :Groups: authenticated, success, file-operation, ssh
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -554,6 +589,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to set attributes for "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, ssh
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -568,6 +604,7 @@ SFTP / SCP / SSH events
 
 :Message: Close file "%(path)s" for failed %(mode)s transfer. Read %(total_read)s bytes at %(read_speed)s bytes/second and wrote %(total_write)s bytes at %(write_speed)s bytes/second in %(duration)s seconds.
 :Groups: authenticated, failure, failure-specific, file-operation, ssh
+:Log level: `warn`
 :From version: 3.40.0
 :Description: None
 :Data:
@@ -597,6 +634,7 @@ SFTP / SCP / SSH events
 
 :Message: Close file "%(path)s" for failed read transfer. Read %(total_read)s bytes at %(read_speed)s bytes/second in %(duration)s seconds.
 :Groups: authenticated, failure, failure-specific, file-operation, operation-read, ssh
+:Log level: `warn`
 :From version: 3.40.0
 :Description: None
 :Data:
@@ -620,6 +658,7 @@ SFTP / SCP / SSH events
 
 :Message: Close file "%(path)s" for failed write transfer. Wrote %(total_write)s bytes at %(write_speed)s bytes/second in %(duration)s seconds.
 :Groups: authenticated, failure, failure-specific, file-operation, operation-write, ssh
+:Log level: `warn`
 :From version: 3.40.0
 :Description: None
 :Data:
@@ -643,6 +682,7 @@ SFTP / SCP / SSH events
 
 :Message: Successfully opened "%(path)s" in "%(mode)s" mode, requested as "%(requested_path)s".
 :Groups: authenticated, success, file-operation, ssh
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -660,6 +700,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to open "%(path)s" in "%(mode)s" mode, requested as "%(requested_path)s". %(details)s
 :Groups: authenticated, failure, file-operation, ssh
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -677,6 +718,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to read from file "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, ssh
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -700,6 +742,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to write to file "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, ssh
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -723,6 +766,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to close file "%(path)s" after opening for %(mode)s. Read %(total_read)s at %(read_speed)s and wrote %(total_write)s at %(write_speed)s in %(duration)s seconds. %(details)s
 :Groups: authenticated, failure, failure-high, file-operation, ssh
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -740,6 +784,7 @@ SFTP / SCP / SSH events
 
 :Message: SFTP request not supported. %(details)s
 :Groups: authenticated, failure, ssh
+:Log level: `warn`
 :From version: 5.3.0
 :Description: None
 
@@ -750,6 +795,7 @@ SFTP / SCP / SSH events
 
 :Message: Could not read SSH key received from client. %(details)s
 :Groups: authentication, session, failure, ssh
+:Log level: `warn`
 :From version: 2.10.0
 :Description: None
 
@@ -760,6 +806,7 @@ SFTP / SCP / SSH events
 
 :Message: Disconnecting the SSH connection. %(details)s
 :Groups: authenticated, informational, ssh
+:Log level: `trace`
 :From version: 1.8.0
 :Description: None
 
@@ -770,6 +817,7 @@ SFTP / SCP / SSH events
 
 :Message: New client connection denied. Too many concurrent SSH connections.
 :Groups: session, failure, failure-specific, ssh
+:Log level: `warn`
 :From version: 1.8.0
 :Description: None
 
@@ -780,6 +828,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to handle SFTP command %(command)s. %(details)s
 :Groups: session, failure, failure-critical, ssh
+:Log level: `critical`
 :From version: 5.3.0
 :Description: None
 
@@ -790,6 +839,7 @@ SFTP / SCP / SSH events
 
 :Message: Reading link for "%(path)s".
 :Groups: authenticated, informational, file-operation, ssh
+:Log level: `trace`
 :From version: 2.4.0
 :Description: None
 
@@ -800,6 +850,7 @@ SFTP / SCP / SSH events
 
 :Message: Successfully read link for "%(path)s".
 :Groups: authenticated, success, file-operation, ssh
+:Log level: `info`
 :From version: 2.4.0
 :Description: None
 
@@ -810,6 +861,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to read link for "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, ssh
+:Log level: `warn`
 :From version: 2.4.0
 :Description: None
 :Data:
@@ -824,6 +876,7 @@ SFTP / SCP / SSH events
 
 :Message: Making link for "%(path)s".
 :Groups: authenticated, informational, file-operation, ssh
+:Log level: `trace`
 :From version: 2.4.0
 :Description: None
 
@@ -834,6 +887,7 @@ SFTP / SCP / SSH events
 
 :Message: Successfully made link for "%(path)s".
 :Groups: authenticated, success, file-operation, ssh
+:Log level: `info`
 :From version: 2.4.0
 :Description: None
 
@@ -844,6 +898,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to make link for "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, ssh
+:Log level: `warn`
 :From version: 2.4.0
 :Description: None
 :Data:
@@ -858,6 +913,7 @@ SFTP / SCP / SSH events
 
 :Message: Extended requests are not supported by the SFTP protocol.
 :Groups: authenticated, failure, failure-specific, ssh
+:Log level: `warn`
 :From version: 2.4.0
 :Description: None
 
@@ -868,6 +924,7 @@ SFTP / SCP / SSH events
 
 :Message: Canonical file name requested for "%(path)s".
 :Groups: authenticated, informational, file-operation, ssh
+:Log level: `trace`
 :From version: 2.4.0
 :Description: None
 
@@ -878,6 +935,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to get attributes for opened file "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, ssh
+:Log level: `warn`
 :From version: 2.4.0
 :Description: None
 :Data:
@@ -895,6 +953,7 @@ SFTP / SCP / SSH events
 
 :Message: Setting attributes on opened files not implemented for "%(path)s".
 :Groups: authenticated, failure, file-operation, ssh, failure-specific
+:Log level: `warn`
 :From version: 2.4.0
 :Description: None
 
@@ -905,6 +964,7 @@ SFTP / SCP / SSH events
 
 :Message: Fail to send data to peer. Closing SSH session. %(details)s
 :Groups: authenticated, failure, failure-critical, ssh
+:Log level: `critical`
 :From version: 5.3.0
 :Description: None
 
@@ -915,6 +975,7 @@ SFTP / SCP / SSH events
 
 :Message: SCP session closed.
 :Groups: authenticated, informational, ssh
+:Log level: `trace`
 :From version: 2.5.0
 :Description: None
 
@@ -925,6 +986,7 @@ SFTP / SCP / SSH events
 
 :Message: Internal error. Failed to process the SCP request. %(details)s
 :Groups: operational, authenticated, failure, failure-critical, ssh
+:Log level: `critical`
 :From version: 2.5.0
 :Description: None
 
@@ -935,6 +997,7 @@ SFTP / SCP / SSH events
 
 :Message: Failed to process '%(command)s' command request. %(details)s
 :Groups: operational, authenticated, failure, failure-critical, ssh
+:Log level: `critical`
 :From version: 3.45.0
 :Description: None
 :Data:
@@ -949,6 +1012,7 @@ SFTP / SCP / SSH events
 
 :Message: Close file "%(path)s" after successful read. Read %(total_read)s bytes at %(read_speed)s bytes/second in %(duration)s seconds.
 :Groups: authenticated, success, file-operation, operation-read, ssh
+:Log level: `info`
 :From version: 3.7.0
 :Description: None
 :Data:
@@ -975,6 +1039,7 @@ SFTP / SCP / SSH events
 
 :Message: Close file "%(path)s" after successful write. Wrote %(total_write)s bytes at %(write_speed)s bytes/second in %(duration)s seconds.
 :Groups: authenticated, success, file-operation, operation-write, ssh
+:Log level: `info`
 :From version: 3.7.0
 :Description: None
 :Data:
@@ -1001,6 +1066,7 @@ SFTP / SCP / SSH events
 
 :Message: Authentication requested for username with invalid encoding "%(username)s".
 :Groups: session, failure, ssh, failure-specific
+:Log level: `warn`
 :From version: 3.20.0
 :Description: None
 :Data:
@@ -1015,6 +1081,7 @@ SFTP / SCP / SSH events
 
 :Message: Authentication requested with a password with invalid encoding.
 :Groups: session, failure, failure-specific, ssh
+:Log level: `warn`
 :From version: 3.20.0
 :Description: None
 
@@ -1025,6 +1092,7 @@ SFTP / SCP / SSH events
 
 :Message: Invalid remote SSH server identity for location %(name)s. Configured "%(expected_fingerprint)s", remote sent "%(actual_fingerprint)s". 
 :Groups: session, failure, failure-critical, failure-specific, ssh, client-side
+:Log level: `critical`
 :From version: 2.9.0
 :Description: None
 :Data:
@@ -1045,6 +1113,7 @@ SFTP / SCP / SSH events
 
 :Message: Location %(name)s connected to the SSH server.
 :Groups: session, informational, ssh, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1059,6 +1128,7 @@ SFTP / SCP / SSH events
 
 :Message: Connection to SSH server "%(server_version)s" was lost for location %(name)s. Protected using host-key:%(host_key)s key-exchange:%(key_exchange)s in-hmac:%(in_hmac)s in-cipher:%(in_cipher)s out-hmac:%(out_hmac)s out-cipher:%(out_cipher)s
 :Groups: session, informational, ssh, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1094,6 +1164,7 @@ SFTP / SCP / SSH events
 
 :Message: Ignoring setting attributes for opened file "%(path)s".
 :Groups: authenticated, failure, file-operation, ssh, failure-specific
+:Log level: `warn`
 :From version: 3.51.0
 :Description: None
 :Data:
@@ -1108,6 +1179,7 @@ SFTP / SCP / SSH events
 
 :Message: SFTP session started for "%(name)s" using "%(credentials_type)s".
 :Groups: authenticated, success, ssh, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1125,6 +1197,7 @@ SFTP / SCP / SSH events
 
 :Message: Client SFTP subsystem closed for location %(name)s.
 :Groups: authenticated, informational, ssh, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1139,6 +1212,7 @@ SFTP / SCP / SSH events
 
 :Message: Failure while authenticating the SFTP client for "%(name)s" using methods: %(methods)s. %(details)s
 :Groups: operational, session, ssh, failure, failure-high, client-side
+:Log level: `error`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1156,6 +1230,7 @@ SFTP / SCP / SSH events
 
 :Message: SSH Banner received: %(message)s
 :Groups: session, informational, ssh, client-side
+:Log level: `trace`
 :From version: 3.29.0
 :Description: None
 :Data:
@@ -1170,6 +1245,7 @@ SFTP / SCP / SSH events
 
 :Message: SSH rekey successfully completed.
 :Groups: session, success, ssh, client-side
+:Log level: `info`
 :From version: 3.31.0
 :Description: None
 
@@ -1180,6 +1256,7 @@ SFTP / SCP / SSH events
 
 :Message: Successfully got attributes for opened file "%(path)s".
 :Groups: authenticated, success, file-operation, ssh
+:Log level: `info`
 :From version: 3.51.0
 :Description: None
 
@@ -1190,6 +1267,7 @@ SFTP / SCP / SSH events
 
 :Message: Remote client disconnected %(code)s:%(details)s.
 :Groups: authenticated, informational, ssh
+:Log level: `trace`
 :From version: 5.0.0
 :Description: None
 
@@ -1200,5 +1278,6 @@ SFTP / SCP / SSH events
 
 :Message: Remote server disconnected %(code)s:%(details)s.
 :Groups: authenticated, informational, ssh, client-side
+:Log level: `trace`
 :From version: 5.0.0
 :Description: None

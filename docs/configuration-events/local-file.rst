@@ -206,6 +206,24 @@ rotate_count
     ``log/app.log.2012-04-25-15-34-00``.
 
 
+output_format
+-------------
+
+:Default value: `text`
+:Optional: Yes
+:Values: * `text`
+         * `logfmt`
+         * `csv`
+:From version: 6.1.0
+:Description:
+    Selects the serialization format for log entries.
+    The `text` and `logfmt` formats use `entry_content` and ignore `structured_fields`.
+    The `csv` format uses only `structured_fields` and ignores `entry_content`.
+    For compatibility, when `output_format` is omitted and `structured_fields` is not empty, CSV logging is used.
+
+    See :ref:`administration-event-handlers-logfmt` for examples and formatting rules.
+
+
 .. _conf-eventhandlers-local-file-entry-content:
 
 entry_content
@@ -219,7 +237,7 @@ entry_content
 :From version: 3.13.0
 :Description:
     The log format can be configured using a format string.
-    By default, every line starts with the event id but this can be changed.
+    By default, every line starts with the timestamp, but this can be changed.
     For example, to show the date first, only the peer address and a Unix
     newline::
 
@@ -234,7 +252,10 @@ entry_content
     .. include:: /configuration/event-context-variables.rst.include
 
 ..  note::
-    This configuration is ignored if the ``structured_fields`` option is set.
+    This configuration is ignored when `output_format` is `csv`.
+
+    Since version 6.1.0, missing `{data.KEY}` values produce empty text.
+    Message line breaks are replaced with spaces.
 
 
 structured_fields
@@ -245,18 +266,18 @@ structured_fields
 :Values: * Comma separated event fields.
 :From version: 3.21.0
 :Description:
-    When this configuration option is defined, the log handler will store
-    log entries in a CSV file with the header being the field names.
+    When `output_format` is `csv`, the log handler stores entries in a CSV file with the field names as the header.
 
     The value should be a comma separated list of fields such as::
 
         [event-handlers/b904ed23-v254-4ccf-8abd-edcae4d3324f]
+        output_format = csv
         structured_fields = timestamp.cwa_14051, id, account.peer.address,
         message
 
-    Leaving this option empty disables CSV logging.
-
-    The `entry_content` configuration is ignored when the option is not empty.
+    The `entry_content` configuration is ignored when `output_format` is `csv`.
+    Since version 6.1.0, missing `{data.KEY}` values produce empty CSV fields.
+    For older configurations without `output_format`, a nonempty `structured_fields` value continues to enable CSV logging.
 
     ..  note::
         When changing this configuration, the header will only be written when

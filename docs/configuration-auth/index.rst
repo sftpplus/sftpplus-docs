@@ -45,8 +45,13 @@ and how to configure them.
         :link-type: doc
         :link: ./authorization
 
-        Learn about the available permissions that can be applied to
-        different files and folders.
+        Learn how account authorization controls access after authentication.
+
+    .. grid-item-card:: :octicon:`shield-check` Path permissions
+        :link-type: doc
+        :link: ./path-permissions
+
+        Configure server-side file permissions, path rules, and group inheritance for all file transfer protocols.
 
     .. grid-item-card:: :octicon:`book` Accounts configuration
         :link-type: doc
@@ -59,6 +64,12 @@ and how to configure them.
         :link: ./groups
 
         Learn about the Default Group and how to add and manage new groups in SFTPPlus.
+
+    .. grid-item-card:: :octicon:`book` Password updates and recovery
+        :link-type: doc
+        :link: ./password-update
+
+        Learn how password changes differ from email password recovery and how to configure both options.
 
     .. grid-item-card:: :octicon:`sliders` SFTPPlus embedded authentication
         :link-type: doc
@@ -137,8 +148,10 @@ and how to configure them.
     security-policy
     authentication
     authorization
+    path-permissions
     accounts
     groups
+    password-update
     application
     os
     http

@@ -57,6 +57,13 @@ Manager GUI.
 You can still remove it by manually editing the configuration file.
 
 
+Prometheus metrics
+------------------
+
+The Web Manager provides the `/metrics` endpoint for Prometheus monitoring.
+See :doc:`Prometheus metrics <../developer/prometheus-metrics>` for authentication, permissions, available metrics, and scrape configuration.
+
+
 Web Manager GUI vs text .ini configurations
 -------------------------------------------
 

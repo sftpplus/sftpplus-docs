@@ -81,7 +81,8 @@ and another named ``anna``, which is an account authenticated by the operating s
     enabled = Yes
     password = $5$H9V1qKBj/2Xx7tTT$xEvdSQWQ94G3okDS2XCnJ580I2W7X
     home_folder_path = /path/to/john
-    permissions = read
+    default_permissions = allow-read
+    path_permissions =
 
     [accounts/745fff10-4370-4d75-a172-21819046c76f]
     name = anna
@@ -90,7 +91,8 @@ and another named ``anna``, which is an account authenticated by the operating s
     group = 01d2e30b-05f7, 9e3c5562-9b86
     enabled = Yes
     home_folder_path = /path/to/anna/files
-    permissions = inherit
+    default_permissions = inherit
+    path_permissions =
 
 Each configuration option available for an account or a group is explained
 in the following sections.
@@ -112,7 +114,8 @@ For example, to add a new account named ``mark``::
     description = DESCRIPTION_OR_MORE_DETAILS
     home_folder_path = /PATH/TO/USER/HOME
     password = $5$H9V1qKBj/2Xx7tTT$xEvdSQWQ94G3okDS2XCnJ580I2W7X
-    permissions = read, write
+    default_permissions = allow-read, allow-write
+    path_permissions =
 
 
 Application accounts configuration
@@ -636,31 +639,32 @@ as2_async_mdn_https_trusted_certificates
     Set as `disabled` to disable validating the remote peer's certificates.
 
 
-permissions
-^^^^^^^^^^^
+default_permissions
+^^^^^^^^^^^^^^^^^^^
 
 :Default value: `inherit`
 :Optional: Yes
-:From version: 3.28.0
+:From version: 6.1.0
 :Values: * Comma separated list of permissions
-         * `Inherit`
+         * `inherit`
 :Description:
-    This allows access rights to be defined in the file management
-    operations permitted for this account.
+    Default permissions for this account.
+    For supported permissions, enforcement, and inheritance details, see :doc:`path-permissions`.
 
-    When this option is set to `Inherit`, the value defined for the account's
-    groups will apply.
-    Any other value directly configured is ignored.
 
-    Accounts that inherit this configuration and are associated with
-    multiple groups will be configured by appending all the
-    permissions defined for each of the associated group.
-    The default permission is extracted from the primary group, while the
-    default permissions for the secondary groups is ignored.
+path_permissions
+^^^^^^^^^^^^^^^^^
 
-    For more details see
-    :ref:`the permission <configuration-groups-permissions>` documentation
-    described for the group.
+:Default value: Empty
+:Optional: Yes
+:From version: 6.1.0
+:Values: * Path matching expression followed by comma separated permissions, one rule per line
+         * Empty
+:Description:
+    Additional path rules for this account.
+    These rules take precedence over inherited group path rules.
+
+    For the rule format, inheritance, and precedence, see :doc:`path-permissions`.
 
 
 virtual_folders
@@ -765,7 +769,7 @@ amend_write_name
 create_home_folder
 ^^^^^^^^^^^^^^^^^^
 
-:Default value: `No`
+:Default value: `Inherit`
 :Optional: Yes
 :From version: 1.6.0
 :Values: * `Yes`
@@ -782,6 +786,10 @@ create_home_folder
 
     When this option is set to `Inherit`, the value defined for the account's
     primary group will apply.
+    This is the default for accounts that omit `create_home_folder` starting
+    with version 6.1.0.
+    Set it to `No` on an account to keep home folder creation disabled when
+    its primary group enables it.
 
     For application accounts, new home folders are created using the
     same account under which the server is executed.

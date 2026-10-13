@@ -73,7 +73,7 @@ Once defined, the UUID should not be changed.
 For example, to add a new security policy named **Internal Access**,
 where ``78.153.3.0/24`` might be the range of VPN users that are not allowed::
 
-    [security-policies/a805d3a6-4bbf-8abd-a59b]
+    [security-policies/a805d3a6-4bbf-abcd-a59b]
     name = Internal Access
     description = Security policy designed for internal users.
     deny_usernames = ftp, admin, administrators
@@ -88,7 +88,7 @@ Once the security policy is created you can assign it as the security policy for
     [services/1cdff34f-76bc-11f1-a8f3-04cf4b0c43dd]
     name = SFTP server
     type = sftp
-    security_policy = a805d3a6-4bbf-8abd-a59b
+    security_policy = a805d3a6-4bbf-abcd-a59b
 
 
 Source IP filter behavior

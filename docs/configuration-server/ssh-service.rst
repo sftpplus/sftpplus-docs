@@ -167,6 +167,42 @@ scp
     Enable/Disable support for the SCP protocol.
 
 
+ssh_window_size
+---------------
+
+:Default value: `2097152`
+:Optional: Yes
+:Values: * Integer between `32768` and `4194304`.
+:From version: 6.1.0
+:Description:
+    Receive window size, in bytes, advertised to clients for each SSH channel.
+    It applies to both SFTP and SCP uploads for all accounts using this service.
+    The value must be at least `ssh_maximum_packet_size`.
+
+    Before version 6.1.0, the receive window was fixed at `131072` bytes (128 KiB).
+
+    For tuning guidance, see :ref:`operation-sftp-transfer-performance`.
+
+
+ssh_maximum_packet_size
+-----------------------
+
+:Default value: `32768`
+:Optional: Yes
+:Values: * Integer between `32768` and `262144`.
+:From version: 6.1.0
+:Description:
+    Maximum incoming SSH channel data packet size, in bytes, advertised to clients.
+    It applies to both SFTP and SCP for all accounts using this service.
+    The value must not exceed `ssh_window_size`.
+
+    ..  note::
+        For backward compatibility with existing clients,
+        keep this value at `32768` bytes (32 KiB).
+
+    For tuning guidance, see :ref:`operation-sftp-transfer-performance`.
+
+
 ssh_server_keys
 ---------------
 
@@ -246,7 +282,7 @@ before_login_message
 
     ..  note::
         For command line or script SFTP clients the message might interfere with the scripted functionality.
-        For example, a SFTP script might expect a specifc message and might break when the message is changed.
+        For example, a SFTP script might expect a specific message and might break when the message is changed.
 
 
 keyboard_interactive_message

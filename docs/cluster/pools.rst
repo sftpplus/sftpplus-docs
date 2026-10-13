@@ -9,17 +9,23 @@ Introduction
 
 A cluster pool defines the credentials and configuration shared by one or more SFTPPlus nodes.
 Pools are configured on the cluster controller.
-Every node in a pool connects to the controller using the same pool name and password.
+Every node in a pool connects to the controller using the same pool name and pool sync password.
 
 SFTPPlus cluster nodes are managed using the :doc:`node-sync resource </cluster/node-sync>`.
-Configure each node with `role_in_cluster = node`, the controller URL, the `pool_name`, and the shared pool password.
+Configure each node with `role_in_cluster = node`, the controller URL, the `pool_name`, and the pool sync password.
+Each node also advertises its `node_name`, which defaults to the local operating system's hostname.
+The advertised name is limited to the first 40 characters and stored as `instance_name` in the activity log.
+Forwarded activity log entries include the pool name, pool UUID, and node name in their extra data and JSON view.
 
 
 Adding a new pool via Web Manager
 ---------------------------------
 
 Open the `node-sync` resource and configure it with `role_in_cluster = controller`.
-Use **Add cluster pool** to define the pool name, password, and source IP access rules.
+Use **Add cluster pool** to define the pool name, pool sync password, and source IP access rules.
+Use **Generate and copy password** to create a random password and copy it to the clipboard.
+Before saving, you can use **Show password** to reveal the new value or **Copy password** to copy it again.
+The saved password cannot be retrieved, shown, or copied when you reopen the pool.
 Configure each node that belongs to the pool with these shared credentials.
 
 

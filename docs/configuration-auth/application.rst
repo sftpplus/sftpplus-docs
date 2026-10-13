@@ -27,6 +27,9 @@ allowed_groups
     When this is empty, any account is accepted as long as it has valid
     credentials.
 
+    When an account belongs to none of the listed groups, authentication fails
+    unless `continue_on_reject` is enabled.
+
     For an account that is a member of multiple groups,
     the authentication succeeds when at least one of those groups is found
     in the `allowed_groups` list.
@@ -72,6 +75,23 @@ strict_group_access
     If user ``JohnD`` is member of both ``Group-A``, ``Group-B``, and ``Group-C``,
     the user is authenticated and the user will get access based only on the configuration of ``Group-A`` and ``Group-B``.
     The virtual folders and permissions granted by ``Group-C`` are not enabled for the user.
+
+
+continue_on_reject
+------------------
+
+:Default value: `No`
+:Optional: Yes
+:Values: * `Yes`
+         * `No`
+:From version: 6.1.0
+:Description:
+    When an account belongs to none of the groups in `allowed_groups`,
+    try the next authentication method instead of rejecting the account.
+
+    This option has no effect when the account belongs to an allowed group.
+    A wrong password for an account in an allowed group still rejects authentication.
+    If no authentication method accepts the account, authentication fails.
 
 
 second_factor_authentication

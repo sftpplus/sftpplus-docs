@@ -83,7 +83,7 @@ Functionality changes
   The other email client resources are ignored and can be manually removed.
 
 * The database event handler now only support SQLite3 embedded databases and
-  is configured with the direct path ot the database file.
+  is configured with the direct path to the database file.
   SFTPPlus will automatically try to migrate the configuration and use
   `log/server.db3` as the path to the log file.
   You need to review the configuration for the event handler to make sure it

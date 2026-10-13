@@ -63,6 +63,12 @@ examples.
 
         Automate administration using the Web Manager JSON-RPC API.
 
+    .. grid-item-card:: :octicon:`book` Prometheus metrics
+        :link-type: doc
+        :link: ./prometheus-metrics
+
+        Configure monitoring, authentication, and Prometheus queries.
+
 ..  toctree::
     :maxdepth: 1
     :hidden:
@@ -72,3 +78,4 @@ examples.
     http-api-event-handler
     python-api-event-handler
     admin-api
+    prometheus-metrics

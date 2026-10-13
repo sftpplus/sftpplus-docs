@@ -1,17 +1,17 @@
 <footer>
     <div
-        class="relative bg-linear-115 from-(--color-footer-from) from-28% via-[var(--color-hero-via)] via-70% to-[var(--color-hero-to)] sm:bg-linear-145"
+        class="relative bg-linear-115 from-(--color-footer-from) from-28% via-[var(--color-hero-via)] via-70% to-[var(--color-hero-to)] sm:bg-linear-145 print:bg-none"
     >
-        <div class="bg-linear-to-b from-(--color-bg) pb-18"></div>
+        <div class="bg-linear-to-b from-(--color-bg) pb-18 print:hidden"></div>
         <div
-            class="absolute inset-2 mt-18 rounded-4xl bg-white/70 dark:bg-slate-900/70"
+            class="absolute inset-2 mt-18 rounded-4xl bg-white/70 dark:bg-slate-900/70 print:hidden"
         ></div>
         <div class="px-8">
             <div class="mx-auto max-w-2xl lg:max-w-7xl">
                 <!---->
                 <div class="pb-8">
                     <div
-                        class="group/row relative isolate pt-[calc(--spacing(2)+1px)] last:pb-[calc(--spacing(2)+1px)]"
+                        class="group/row relative isolate pt-[calc(--spacing(2)+1px)] last:pb-[calc(--spacing(2)+1px)] print:hidden"
                     >
                         <div
                             aria-hidden="true"
@@ -71,10 +71,10 @@
                                         ><img
                                             src="/svg/sftpplus-logo-first-light.svg"
                                             alt="SFTPPlus Light Logo"
-                                            class="max-h-12 max-w-50 dark:hidden" /><img
+                                            class="max-h-12 max-w-50 dark:hidden print:block!" /><img
                                             src="/svg/sftpplus-logo-first-dark.svg"
                                             alt="SFTPPlus Dark Logo"
-                                            class="hidden max-h-12 max-w-50 dark:block"
+                                            class="hidden max-h-12 max-w-50 dark:block print:hidden!"
                                     /></a>
                                     <div
                                         class="text-sm text-[var(--color-text-main)]/50"
@@ -117,36 +117,91 @@
                                         <li>
                                             <a
                                                 class="data-hover:text-gray-950/75"
+                                                href="/pricing/"
+                                                >Pricing</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a
+                                                class="data-hover:text-gray-950/75"
                                                 href="/product/server"
-                                                >Server-side transfers</a
+                                                >File server</a
                                             >
                                         </li>
                                         <li>
                                             <a
                                                 class="data-hover:text-gray-950/75"
                                                 href="/product/client"
-                                                >Client-side transfers</a
+                                                >Automated transfers</a
                                             >
                                         </li>
                                         <li>
                                             <a
                                                 class="data-hover:text-gray-950/75"
-                                                href="/support/roadmap"
-                                                >Roadmap</a
+                                                href="/protocols/"
+                                                >Integrations</a
                                             >
                                         </li>
                                         <li>
                                             <a
                                                 class="data-hover:text-gray-950/75"
-                                                href="/support/life-cycle"
-                                                >Life-Cycle</a
+                                                href="/platforms/"
+                                                >Platforms</a
                                             >
                                         </li>
                                         <li>
                                             <a
                                                 class="data-hover:text-gray-950/75"
-                                                href="https://www.sftpplus.com/documentation/sftpplus/latest/installation/release-notes"
-                                                >Release Notes</a
+                                                href="/authentications/"
+                                                >Authentication</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a
+                                                class="data-hover:text-gray-950/75"
+                                                href="/comparisons/"
+                                                >Comparisons</a
+                                            >
+                                        </li>
+                                        <!--]-->
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3
+                                        class="text-base text-(--color-footer-solutions)/80"
+                                    >
+                                        Solutions
+                                    </h3>
+                                    <ul
+                                        class="mt-6 space-y-4 text-base text-[var(--color-text-main)]"
+                                    >
+                                        <!--[-->
+                                        <li>
+                                            <a
+                                                class="data-hover:text-gray-950/75"
+                                                href="/articles/solutions/sap-erp-sftp"
+                                                >SAP SFTP</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a
+                                                class="data-hover:text-gray-950/75"
+                                                href="/articles/solutions/sharepoint-sftp"
+                                                >SFTP to SharePoint</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a
+                                                class="data-hover:text-gray-950/75"
+                                                href="/articles/2024/as2-software"
+                                                >AS2 transfers</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a
+                                                class="data-hover:text-gray-950/75"
+                                                href="/articles/tag-solutions-1"
+                                                >All solutions</a
                                             >
                                         </li>
                                         <!--]-->
@@ -172,22 +227,38 @@
                                         <li>
                                             <a
                                                 class="data-hover:text-gray-950/75"
-                                                href="/pricing/"
-                                                >Pricing</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a
-                                                class="data-hover:text-gray-950/75"
-                                                href="/about/contact"
-                                                >Contact us</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a
-                                                class="data-hover:text-gray-950/75"
                                                 href="https://www.sftpplus.com/documentation/sftpplus/latest/"
+                                                target="_self"
                                                 >Documentation</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a
+                                                class="data-hover:text-gray-950/75"
+                                                href="/articles/tag-security-advisory-1"
+                                                >Security advisories</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a
+                                                class="data-hover:text-gray-950/75"
+                                                href="https://www.sftpplus.com/documentation/sftpplus/latest/installation/release-notes"
+                                                target="_self"
+                                                >Release notes</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a
+                                                class="data-hover:text-gray-950/75"
+                                                href="/support/life-cycle"
+                                                >Version support</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a
+                                                class="data-hover:text-gray-950/75"
+                                                href="/support/roadmap"
+                                                >Roadmap</a
                                             >
                                         </li>
                                         <li>
@@ -195,75 +266,6 @@
                                                 class="data-hover:text-gray-950/75"
                                                 href="/support/quality-assurance-testing"
                                                 >Quality assurance</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a
-                                                class="data-hover:text-gray-950/75"
-                                                href="https://status.sftpplus.com/"
-                                                >Status</a
-                                            >
-                                        </li>
-                                        <!--]-->
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h3
-                                        class="text-base text-(--color-footer-resources)/80"
-                                    >
-                                        Resources
-                                    </h3>
-                                    <ul
-                                        class="mt-6 space-y-4 text-base text-[var(--color-text-main)]"
-                                    >
-                                        <!--[-->
-                                        <li>
-                                            <a
-                                                class="data-hover:text-gray-950/75"
-                                                href="/articles/tag-solutions-1"
-                                                >Solutions</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a
-                                                class="data-hover:text-gray-950/75"
-                                                href="/protocols/"
-                                                >Protocols</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a
-                                                class="data-hover:text-gray-950/75"
-                                                href="/platforms/"
-                                                >Platforms</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a
-                                                class="data-hover:text-gray-950/75"
-                                                href="/authentications/"
-                                                >Authentication</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a
-                                                class="data-hover:text-gray-950/75"
-                                                href="/articles/"
-                                                >Articles</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a
-                                                class="data-hover:text-gray-950/75"
-                                                href="/articles/tag-security-advisory-1"
-                                                >Security Advisories</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a
-                                                class="data-hover:text-gray-950/75"
-                                                href="https://www.sftpplus.com/documentation/sftpplus/latest/standards/"
-                                                >Compliance</a
                                             >
                                         </li>
                                         <!--]-->
@@ -289,8 +291,8 @@
                                         <li>
                                             <a
                                                 class="data-hover:text-gray-950/75"
-                                                href="/about/careers"
-                                                >Careers</a
+                                                href="/about/contact"
+                                                >Contact us</a
                                             >
                                         </li>
                                         <li>
@@ -304,28 +306,29 @@
                                             <a
                                                 class="data-hover:text-gray-950/75"
                                                 href="/about/partners"
-                                                >Integrators</a
+                                                >Partners</a
                                             >
                                         </li>
                                         <li>
                                             <a
                                                 class="data-hover:text-gray-950/75"
-                                                href="/about/ethics-and-exports"
-                                                >Ethics &amp; Exports</a
+                                                href="/articles/"
+                                                >Articles</a
                                             >
                                         </li>
                                         <li>
                                             <a
                                                 class="data-hover:text-gray-950/75"
-                                                href="/about/modern-slavery-statement"
-                                                >Modern Slavery</a
+                                                href="/about/careers"
+                                                >Careers</a
                                             >
                                         </li>
                                         <li>
                                             <a
                                                 class="data-hover:text-gray-950/75"
-                                                href="/legal"
-                                                >Terms of use</a
+                                                href="https://www.sftpplus.com/documentation/sftpplus/latest/standards/"
+                                                target="_self"
+                                                >Standards &amp; compliance</a
                                             >
                                         </li>
                                         <!--]-->
@@ -394,7 +397,7 @@
                                     class="text-xs text-[var(--color-text-main)]/80"
                                 >
                                     <div
-                                        class="js-theme-switcher relative z-0 my-auto inline-grid cursor-pointer grid-cols-2 gap-1 rounded-full bg-gray-950/10 p-1 text-gray-950 lg:hidden dark:bg-gray-100/10 dark:text-white"
+                                        class="js-theme-switcher relative z-0 my-auto inline-grid cursor-pointer grid-cols-2 gap-1 rounded-full bg-gray-950/10 p-1 text-gray-950 lg:hidden dark:bg-gray-100/10 dark:text-white print:hidden"
                                         role="radiogroup"
                                     >
                                         <span
@@ -438,10 +441,32 @@
                                                 ></path></svg
                                         ></span>
                                     </div>
-                                    © 2001 - 2025 Pro:Atria Ltd. Company No:
+                                    © 2001 - 2026 Pro:Atria Ltd. Company No:
                                     4213930 •
                                     <a href="/legal/privacy" class="font-bold"
                                         >Privacy policy</a
+                                    >
+                                    •
+                                    <a href="/legal" class="font-bold"
+                                        >Terms of use</a
+                                    >
+                                    •
+                                    <a
+                                        href="/about/ethics-and-exports"
+                                        class="font-bold"
+                                        >Ethics &amp; exports</a
+                                    >
+                                    •
+                                    <a
+                                        href="/about/modern-slavery-statement"
+                                        class="font-bold"
+                                        >Modern slavery statement</a
+                                    >
+                                    •
+                                    <a
+                                        href="https://status.sftpplus.com/"
+                                        class="font-bold"
+                                        >Status</a
                                     >
                                     • Website built using
                                     <a href="/legal/credits" class="font-bold"
@@ -454,7 +479,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex">
+                        <div class="flex print:hidden">
                             <div
                                 class="group/item relative flex items-center gap-4 py-3"
                             >

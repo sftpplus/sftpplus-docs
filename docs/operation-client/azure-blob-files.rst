@@ -14,7 +14,7 @@ which describes all the available configuration options.
 
 SFTPPlus will connect to the Azure Storage service using the HTTPS REST API.
 
-The authentication is done via either *Access Keys* or *Entra ID OAuth2*.
+Authentication uses *Access Keys*, *Entra ID OAuth2 with a client secret*, or *Azure Workload Identity*.
 
 
 Paths configuration
@@ -113,6 +113,52 @@ The following roles are recommended and can be set either at storage account lev
 * `Storage Blob Data Contributor`- For read and write access to Azure BLOB
 * `Storage File Data Privileged Reader` - For read-only access to Azure Files
 * `Storage File Data Privileged Contributor` - For read and write access to Azure Files
+
+
+.. _azure-workload-identity:
+
+Azure Workload Identity
+-----------------------
+
+Azure BLOB and Azure Files locations support Azure Workload Identity.
+SFTPPlus exchanges a projected Kubernetes service account token for an Entra ID access token without storing a client secret or storage access key.
+
+Configure your Kubernetes cluster with an OIDC issuer and the `Azure Workload Identity webhook <https://azure.github.io/azure-workload-identity/docs/installation.html>`_.
+For self-managed clusters, Entra ID must be able to retrieve the issuer's discovery document and public signing keys over public HTTPS.
+
+In the Azure Portal, open your application's `Certificates & secrets` page and add a federated credential.
+Use the cluster's exact issuer URL, the subject `system:serviceaccount:NAMESPACE:SERVICE-ACCOUNT`, and the audience `api://AzureADTokenExchange`.
+Assign the storage RBAC roles described above to this application.
+No client secret is required for this authentication method.
+
+Annotate the Kubernetes service account with `azure.workload.identity/client-id` and `azure.workload.identity/tenant-id`.
+Use this service account for the SFTPPlus pods and add the pod label `azure.workload.identity/use: "true"`.
+Restart existing pods after configuring the webhook and service account.
+
+The webhook supplies the following environment variables to the SFTPPlus process:
+
+* `AZURE_CLIENT_ID`: the application's client ID.
+* `AZURE_TENANT_ID`: the Entra tenant ID.
+* `AZURE_FEDERATED_TOKEN_FILE`: the path to the projected service account token file.
+  The SFTPPlus process must have permission to read this file.
+* `AZURE_AUTHORITY_HOST`: the HTTPS authority used for token exchange.
+  When omitted, it defaults to `https://login.microsoftonline.com`.
+
+Configure each location with the storage account name and the `workload-identity` authentication method::
+
+    [locations/azure-workload-blob]
+    name = Azure BLOB using workload identity
+    type = azure-blob
+    username = mystorageaccount
+    authentication_method = workload-identity
+
+For Azure Files, use `type = azure-file`.
+The location options `password`, `application_id`, and `directory_id` are ignored for workload identity.
+All workload identity locations in the same SFTPPlus process use the identity supplied through its environment.
+
+SFTPPlus caches the access token and refreshes it before expiry.
+At each refresh, SFTPPlus reads the projected token file again to pick up Kubernetes token rotation.
+Missing environment variables, unreadable or empty token files, and failed token exchanges cause authentication to fail.
 
 
 Access Keys authentication

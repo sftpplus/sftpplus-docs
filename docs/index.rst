@@ -127,7 +127,7 @@ Documentation structure
         :link-type: doc
         :link: developer/index
 
-        Documentation for developers, including API reference and examples of how to itegrate SFTPPlus with your custom services and infrastructure.
+        Documentation for developers, including API reference and examples of how to integrate SFTPPlus with your custom services and infrastructure.
 
     .. grid-item-card:: :octicon:`git-pull-request` Cluster documentation
         :link-type: doc

@@ -46,7 +46,11 @@ languages
     * `zh_hk` - Chinese (Hong Kong)
 
 
-    When left empty, it defaults to English.
+    When left empty, the Gen 3 Web Client offers all supported languages.
+    It uses the browser's saved language preference when available, or English otherwise.
+    The Gen 1 and Gen 2 Web Clients default to English when this option is empty.
+
+    When a single language is configured, the Gen 3 Web Client uses that language and hides the language selector, regardless of the browser's saved preference.
 
 
 ui_version
@@ -56,14 +60,43 @@ ui_version
 :Optional: Yes
 :Values: * ui-gen-1
          * ui-gen-2
+         * ui-gen-3
 :From version: 4.16.0
 :Description:
-    This defined the UI variant to be used for the web client.
+    This defines the UI variant used for the Web Client.
 
-    The latest version is `ui-gen-2`.
+    The latest version is `ui-gen-3`.
 
     To use the legacy UI found in SFTPPlus version 4.15.0 or older, set this
     to `ui-gen-1`.
+
+
+allow_password_recovery
+-----------------------
+
+:Default value: `No`
+:Optional: Yes
+:Values: * `Yes`
+         * `No`
+:From version: 6.1.0
+:Description:
+    Allow users to recover a forgotten password by email.
+
+    See :doc:`/configuration-auth/password-update` for the requirements and configuration steps.
+
+
+base_url
+--------
+
+:Default value: Empty
+:Optional: Yes
+:Values: * Absolute HTTP or HTTPS URL
+:From version: 6.1.0
+:Description:
+    Public base address used to generate links for this HTTP or HTTPS service,
+    including password recovery links.
+
+    See :ref:`http-public-url` for setup requirements and instructions for testing the address.
 
 
 login_footnotes

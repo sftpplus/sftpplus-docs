@@ -27,10 +27,12 @@ class DemoEventHandler(object):
     """
 
     TARGET_EVENTS = [
-        '99', '100', '102',  # Custom event ID.
+        '99',
+        '100',
+        '102',  # Custom event ID.
         '20156',  # Component started.
         '20157',  # Component stopped.
-        ]
+    ]
 
     def __init__(self):
         """
@@ -54,7 +56,8 @@ class DemoEventHandler(object):
         # Extensions have access to the trusted certificates.
         # This returns the PEM content of all concatenated certificates.
         self._trusted_certificates = parent.getVaultItemContent(
-            'LETS-ENCRYPT-CA')
+            'LETS-ENCRYPT-CA'
+        )
 
     def onStop(self):
         """
@@ -103,15 +106,16 @@ class DemoEventHandler(object):
                 'details': (
                     'Can contain details specific to this error. '
                     'Example a path to a file.'
-                    ),
+                ),
                 'tb': 'Can include option traceback info as text.',
-                }
+            }
 
         if event.account.name == 'delay-user':
             # For username `delay-user` we delay processing of the event
             # for 0.5 seconds.
             return self._parent.delay(
-                0.5, lambda: ['delayed-configuration', []])
+                0.5, lambda: ['delayed-configuration', []]
+            )
 
         # Events can be triggered as part of the event handling configuration.
         # You can have one for more events.
@@ -119,7 +123,7 @@ class DemoEventHandler(object):
         events = [
             {'event_id': '20201', 'message': 'Handling started.'},
             {'message': 'Default ID is 20200 as informational.'},
-            ]
+        ]
         # There is also the option of returning just the configuration,
         # without any extra events.
         return self._configuration, events
@@ -168,13 +172,13 @@ class DemoEventHandler(object):
             'from: {event.component.name}\n'
             'data: {event_data_json}\n'
             '---\n'
-            )
+        )
         output = message.format(
             event=event,
             event_json=json.dumps(event, indent=2),
             event_data_json=json.dumps(event.data, indent=2),
             configuration=configuration,
-            )
+        )
 
         # Inform the handler to emit several events at the end.
         # For a single event, it is recommended to pass only a dictionary.
@@ -189,4 +193,4 @@ class DemoEventHandler(object):
             # Event '20201' requires the `message` attribute.
             # Any extra attributes are allowed.
             {'event_id': '20201', 'message': output, 'extra': configuration},
-            ]
+        ]

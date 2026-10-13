@@ -3,12 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Version 6.0.0 Trial Downloads - SFTPPlus MFT</title>
+    <title>Version 6.1.2 Trial Downloads - SFTPPlus MFT</title>
     <meta name="description" content="Advanced MFT software" />
     <meta name="generator" content="VitePress v2.0.0-alpha.18" />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="preload stylesheet" href="/css/website_v6.css" as="style" />
     <link rel="icon" href="/favicon.ico" />
+    <script async data-domain="www.sftpplus.com" data-api="/api/event" src="/event_handler.js"></script>
     <script id="check-dark-mode">(() => { let e = localStorage.getItem(`vitepress-theme-appearance`) || `auto`, t = window.matchMedia(`(prefers-color-scheme: dark)`).matches; (!e || e === `auto` ? t : e === `dark`) && document.documentElement.classList.add(`dark`) })();</script>
     <script id="check-mac-os">document.documentElement.classList.toggle(`mac`, /Mac|iPhone|iPod|iPad/i.test(navigator.platform));</script>
 </head>
@@ -133,7 +134,7 @@
                                             <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
                                         </svg><a
                                             class="flex items-center px-4 py-3 text-lg font-medium text-gray-950 bg-blend-multiply hover:text-(--color-text-highlight) dark:text-slate-200"
-                                            href="/protocols/">Protocols</a>
+                                            href="/protocols/">Integrations</a>
                                     </div>
                                     <div class="group/item relative flex">
                                         <svg viewBox="0 0 15 15" aria-hidden="true"
@@ -184,7 +185,7 @@
                                             <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
                                         </svg><a
                                             class="flex items-center px-4 py-3 text-lg font-medium text-gray-950 bg-blend-multiply hover:text-(--color-text-highlight) dark:text-slate-200"
-                                            href="/documentation/sftpplus/latest/">Docs</a>
+                                            href="https://www.sftpplus.com/documentation/sftpplus/latest/">Docs</a>
                                     </div>
                                     <div class="group/item relative flex">
                                         <svg viewBox="0 0 15 15" aria-hidden="true"
@@ -229,7 +230,7 @@
                                     <a class="text-lg text-(--color-text-title)" href="/pricing/">Pricing</a>
                                 </div>
                                 <div>
-                                    <a class="text-lg text-(--color-text-title)" href="/protocols/">Protocols</a>
+                                    <a class="text-lg text-(--color-text-title)" href="/protocols/">Integrations</a>
                                 </div>
                                 <div>
                                     <a class="text-lg text-(--color-text-title)" href="/platforms/">Platforms</a>
@@ -239,7 +240,7 @@
                                 </div>
                                 <div>
                                     <a class="text-lg text-(--color-text-title)"
-                                        href="/documentation/sftpplus/latest/">Docs</a>
+                                        href="https://www.sftpplus.com/documentation/sftpplus/latest/">Docs</a>
                                 </div>
                                 <div>
                                     <a class="text-lg text-(--color-text-title)" href="/articles/">News</a>
@@ -274,10 +275,10 @@
                     <div class="mx-auto flex max-w-5xl flex-col text-center">
                         <h1
                             class="font-display my-6 text-5xl font-medium tracking-tight text-balance text-(--color-text-title) sm:text-6xl">
-                            Version 6.0.0 Trial Downloads
+                            Version 6.1.2 Trial Downloads
                         </h1>
                         <h3 class="text-xl text-(--color-text-main)">
-                            The trial version expires on 2026-12-27
+                            The trial version expires on 2027-01-21
                         </h3>
                     </div>
                     <div class="mx-auto w-full">
@@ -745,90 +746,151 @@ systems and CPU architectures.</p>
 
 
 <div id="changelog-anchor" class="markdown">
-<div class="document" id="version-6-0-0-2026-09-18">
-<h1 class="title">Version 6.0.0, 2026-09-18</h1>
+<div class="document" id="version-6-1-2-2026-10-13">
+<h1 class="title">Version 6.1.2, 2026-10-13</h1>
+<p>Version 6.1.0 released on 2026-10-09, and 6.1.1 were released on 2026-10-12,
+as a release candidate.</p>
 <div class="section" id="security-fixes">
 <h1>Security Fixes</h1>
 <ul class="simple">
-<li>The embedded Python version used by SFTPPlus was updated to version 3.14.7. [#7471]</li>
-<li>The OpenSSL library was updated to version 4.0.1. [#7504]</li>
+<li>HTTP/HTTPS services configured to receive forwarded requests via a reverse
+proxy now reject direct OpenID Connect login requests that lack the required
+proxy origin headers, even when a <cite>Referer</cite> header is present.
+To support both direct and proxied access, configure two separate services:
+one with <cite>client_forwarded_header</cite> empty for direct access, and another with
+forwarded headers configured for access through the reverse proxy.
+[server-side][entra-id][okta][https] [#5782]</li>
+<li>Tracebacks are now excluded from event data and default email, log, and
+webhook output to prevent disclosure of sensitive information.
+All event handler templates can explicitly include tracebacks using <cite>{tb}</cite>.
+Event handling also uses less memory by generating JSON data only on demand.
+[server-side][client-side] [#7684]</li>
+<li>Vault items now report an error whenever parsing produces no usable content.
+Previously, trusted certificate and pinned key items created from nonempty
+input without usable PEM content could silently disable TLS server identity
+verification, allowing an untrusted server to be accepted.
+[client-side][ftps][https] [#7698]</li>
 </ul>
 </div>
 <div class="section" id="new-features">
 <h1>New Features</h1>
 <ul class="simple">
-<li>The Web Manager now provides light and dark theme controls.
-The browser remembers the selected theme across sessions.
-[manager] [#5602]</li>
-<li>The Web Manager and management API now show the signature algorithm,
-certificate SHA-256 fingerprint, and public-key SHA-256 fingerprint for
-certificates.
-[manager] [#7526]</li>
-<li>The Web Manager now warns Internet Explorer 11 users that their browser is no
-longer supported and directs them to SFTPPlus version 5 when IE11 is required. [#7565]</li>
-<li>Cluster nodes are now configured in pools that share a name, password, and
-configuration. Web Manager uses pool names when configuring cluster access.
-Existing <cite>cluster-nodes</cite> sections are automatically migrated to
-<cite>cluster-pools</cite>, and the node synchronization <cite>username</cite> option is migrated
-to <cite>pool_name</cite>.
-An optional <cite>node_name</cite> setting is available and defaults to empty. [#7577]</li>
+<li>The Web Manager now stores a preferred color theme for each administrator
+and applies it automatically after login.
+The preference is available on the administrator's settings page.
+Theme changes are saved automatically after 15 seconds without further
+changes, while preserving other pending configuration edits.
+[manager] [#2174]</li>
+<li>A Helm chart is available as an option for installing SFTPPlus on Kubernetes.
+[server-side][kubernetes] [#3036]</li>
+<li>Administrators can configure the SSH receive window and maximum packet size
+for each SFTP and SCP service to improve uploads over high-latency connections.
+The receive window now defaults to 2 MiB instead of 128 KiB.
+[server-side][sftp][scp] [#4654]</li>
+<li>Cluster nodes now advertise their configured node name, or the local hostname
+when no name is configured, during synchronization with the controller.
+[server-side][cluster] [#5461]</li>
+<li>Standard output and local file event handlers now support Logfmt output.
+[server-side][client-side][logs] [#5786]</li>
+<li>Missing event data fields no longer interrupt text or CSV logging.
+[logs] [#5786]</li>
+<li>The Web Manager now provides permission selectors and an ordered path rule
+table for configuring account and group file access.
+[manager] [#5790]</li>
+<li>The Web Manager now exports Prometheus metrics for process start time,
+application metadata, resource usage, and reactor delay at <cite>/metrics</cite>.
+[manager][kubernetes] [#6292]</li>
+<li>The Web Manager activity log now shows the estimated country and network
+organization for public IP addresses in newly recorded events.
+[manager] [#6423]</li>
+<li>Application authentication can now continue to another authentication method
+when an account belongs to none of its allowed groups.
+[server-side] [#6487]</li>
+<li>Transfers can be scheduled on the 28th through 31st or on the last or
+second-last day of each month. Days absent from a month are skipped.
+[client-side] [#7019]</li>
+<li>Certificate expiration warnings now cover AS2 private and partner certificates
+configured for accounts, services, and locations, as well as TLS certificates
+used by locations, resources, authentications, and event handlers.
+[manager] [#7585]</li>
+<li>The Web Manager group configuration now provides a list for adding and removing
+home folder structure directories.
+[manager] [#7615]</li>
+<li>The Web Manager provides a virtual folder editor for accounts and groups,
+with separate virtual and local paths and a local filesystem browser.
+[manager] [#7617]</li>
+<li>Account and group permissions are now configured separately using
+<cite>default_permissions</cite> and <cite>path_permissions</cite>.
+[server-side] [#7618]</li>
+<li>Azure BLOB and Azure Files locations, and Exchange Online locations, can now
+authenticate using Azure Workload Identity. Kubernetes deployments can access
+these services without storing a client secret or storage access key.
+[client-side][kubernetes] [#7629]</li>
+<li>Transfer schedules can now be configured in the Web Manager using start and
+stop actions, day selections, and a time picker.
+[manager] [#7679]</li>
+<li>Events now include a severity level and a peer address shortcut.
+New standard output loggers use these fields in their default Logfmt output
+for easier integration with Grafana and Loki.
+[logs][kubernetes] [#7686]</li>
+<li>Cluster nodes can now test their controller connection and configure trusted
+certificates directly during initial setup or from the synchronization
+resource in Web Manager.
+[cluster][server-side] [#7698]</li>
+<li>The Web Manager can export the full public certificate chain without the
+private key, and export or copy all trusted certificates. Pasted PEM content
+with whitespace around each line is accepted.
+[manager] [#7700]</li>
 </ul>
 </div>
 <div class="section" id="defect-fixes">
 <h1>Defect Fixes</h1>
 <ul class="simple">
-<li>The Web Manager API now checks vault-item read permissions when including
-an existing vault item's content in a pinned-key import. [#7597]</li>
+<li>AS2 uploads no longer fail with <cite>Context was already finalized</cite> when a
+transfer pauses and resumes.
+[client-side][as2] [#5591]</li>
+<li>Web Client browser requests that fail during processing now return to the
+login page instead of displaying a plain error page. JSON requests receive
+an internal server error response in JSON format.
+[server-side][https] [#5782]</li>
+<li>Reduced CPU usage when viewing component status and configuration.
+[manager] [#7547]</li>
+<li>Monitoring large folders is faster when the location does not provide file
+identifiers.
+[client-side] [#7681-1]</li>
+<li>Event handlers use less CPU when formatting timestamps and CSV log entries.
+[logs][event-handlers] [#7681]</li>
+<li>Services now release their listening ports when startup fails, allowing them
+to restart after the configuration is corrected.
+[server-side][ftp][sftp][https] [#7702]</li>
 </ul>
 </div>
 <div class="section" id="deprecations-and-removals">
 <h1>Deprecations and Removals</h1>
 <ul class="simple">
-<li>Service configuration returned by the Web Manager JSON-RPC API is now flat.
-Integrations must read and update protocol options directly on the service,
-without the nested <cite>configuration</cite> object or <cite>configuration/</cite> path segment.
-Existing INI configuration files are unchanged. [#2599]</li>
-<li>The event handler <cite>groups</cite> configuration option was renamed to <cite>event_groups</cite>
-to distinguish it from account groups.
-Existing configurations are automatically migrated without changing event
-filtering behavior. If both options are configured, <cite>event_groups</cite> is used. [#6521]</li>
-<li>On Linux, the IBM MQ C client and Microsoft Purview SDK libraries are now
-available in a separate extra-connectors archive.
-IBM MQ locations and Microsoft Purview event handlers report a clear
-installation error when their extra-connectors files are missing.
-Windows packages continue to include both connectors.
-See the version 6 upgrade guide for connector installation and startup
-configuration instructions. [#7165]</li>
-<li>SSL v3 is no longer supported. [#7471-1]</li>
-<li>You can no longer generate Certificate Signing Requests
-or self-signed certificates using the SHA-1 algorithm. [#7471]</li>
-<li>The Web Manager service no longer supports Internet Explorer 11.
-Use Firefox, Chrome, Edge or other modern web browsers.
-Microsoft ended support for Internet Explorer 11 in 2022.
-[manager] [#7565]</li>
-<li>The Python API for extending LDAP authentication has been removed,
-including the <cite>extension_entry_point</cite> and <cite>extension_configuration</cite> options.
-Custom LDAP extensions and the bundled extension for validating TOTP codes
-using secrets stored in LDAP are no longer supported.
-Before upgrading, replace any authentication checks provided by these
-extensions and remove the obsolete configuration options.
-LDAP servers that validate TOTP codes themselves remain supported. [#7575]</li>
-<li>The obsolete <cite>legacy-webadmin</cite> HTTP event format has been removed.
-Event handlers configured with this format fail to start with an unknown
-format error. [#7590-1]</li>
-<li>HTTP authentication methods and HTTP event handlers now accept a single URL.
-Support for fallback URLs has been removed. Existing comma-separated URL
-lists are automatically migrated to their first value; all remaining values
-are discarded. HTTP event handlers continue to support retrying that endpoint
-using <cite>retry_count</cite> and <cite>retry_increase</cite>. [#7590]</li>
-<li>The <cite>deny-username</cite> and <cite>ip-time-ban</cite> authentication methods are no longer
-supported. Their settings are migrated to the default security policy,
-preserving values already configured in that policy. The default legacy
-sections and their authentication references are removed. Other legacy
-sections remain as disabled placeholders. Services using a custom security
-policy must have the corresponding restrictions configured in that policy. [#7591]</li>
-<li>The <cite>anonymous</cite> authentication method is no longer supported. Existing
-anonymous authentication configurations remain as disabled placeholders.</li>
+<li>The event handler <cite>servers</cite> filter is replaced by <cite>pool_uuids</cite>. Existing
+configuration values are migrated automatically.
+[event-handlers] [#5461]</li>
+<li>Log messages no longer contain newline characters. Carriage returns and line
+feeds are replaced with spaces, with each CRLF pair replaced by a single space.
+[logs][event-handlers] [#5786]</li>
+<li>The implicit <cite>No</cite> default for account <cite>create_home_folder</cite> has been removed.
+Accounts without this setting now inherit their primary group's value.
+[server-side] [#6487]</li>
+<li>Python API extensions now receive read-only event data in
+<cite>getConfiguration()</cite>. Extensions that change data there must create a copy.
+The worker's <cite>handle()</cite> method still receives a mutable event copy.
+[api][event-handlers] [#7681]</li>
+<li>Account information is no longer included in <cite>data.avatar</cite> or <cite>{data_json}</cite>.
+The <cite>{data.avatar}</cite> and <cite>{data.avatar.ATTRIBUTE}</cite> placeholders are no longer
+available. Use <cite>{account}</cite> and <cite>{account.ATTRIBUTE}</cite> instead, for example
+<cite>{account.name}</cite>. Existing handler INI templates are automatically migrated.
+[event-handlers] [#7684-1]</li>
+<li>Tracebacks are no longer included in event data or <cite>{data_json}</cite>, including
+email templates. Use <cite>{tb}</cite> to explicitly include a traceback.
+Serialized events no longer include the legacy empty <cite>data_json</cite> field.
+The <cite>{data_json}</cite> placeholder remains available in event handler templates.
+[event-handlers] [#7684]</li>
 </ul>
 </div>
 </div>
@@ -851,218 +913,336 @@ anonymous authentication configurations remain as disabled placeholders.</li>
             </div>
             <footer>
                 <div
-                    class="relative bg-linear-115 from-(--color-footer-from) from-28% via-[var(--color-hero-via)] via-70% to-[var(--color-hero-to)] sm:bg-linear-145">
-                    <div class="bg-linear-to-b from-(--color-bg) pb-18"></div>
-                    <div class="absolute inset-2 mt-18 rounded-4xl bg-white/70 dark:bg-slate-900/70"></div>
+                    class="relative bg-linear-115 from-(--color-footer-from) from-28% via-[var(--color-hero-via)] via-70% to-[var(--color-hero-to)] sm:bg-linear-145 print:bg-none"
+                >
+                    <div class="bg-linear-to-b from-(--color-bg) pb-18 print:hidden"></div>
+                    <div
+                        class="absolute inset-2 mt-18 rounded-4xl bg-white/70 dark:bg-slate-900/70 print:hidden"
+                    ></div>
                     <div class="px-8">
                         <div class="mx-auto max-w-2xl lg:max-w-7xl">
                             <!---->
                             <div class="pb-8">
                                 <div
-                                    class="group/row relative isolate pt-[calc(--spacing(2)+1px)] last:pb-[calc(--spacing(2)+1px)]">
-                                    <div aria-hidden="true"
-                                        class="absolute inset-y-0 left-1/2 -z-10 w-full -translate-x-1/2">
+                                    class="group/row relative isolate pt-[calc(--spacing(2)+1px)] last:pb-[calc(--spacing(2)+1px)] print:hidden"
+                                >
+                                    <div
+                                        aria-hidden="true"
+                                        class="absolute inset-y-0 left-1/2 -z-10 w-full -translate-x-1/2"
+                                    >
                                         <div
-                                            class="absolute inset-x-0 top-0 border-t border-black/5 dark:border-white/10">
-                                        </div>
+                                            class="absolute inset-x-0 top-0 border-t border-black/5 dark:border-white/10"
+                                        ></div>
                                         <div
-                                            class="absolute inset-x-0 top-2 border-t border-black/5 dark:border-white/10">
-                                        </div>
+                                            class="absolute inset-x-0 top-2 border-t border-black/5 dark:border-white/10"
+                                        ></div>
                                         <div
-                                            class="absolute inset-x-0 bottom-0 hidden border-b border-black/5 group-last/row:block dark:border-white/10">
-                                        </div>
+                                            class="absolute inset-x-0 bottom-0 hidden border-b border-black/5 group-last/row:block dark:border-white/10"
+                                        ></div>
                                         <div
-                                            class="absolute inset-x-0 bottom-2 hidden border-b border-black/5 group-last/row:block dark:border-white/10">
-                                        </div>
+                                            class="absolute inset-x-0 bottom-2 hidden border-b border-black/5 group-last/row:block dark:border-white/10"
+                                        ></div>
                                     </div>
-                                    <div class="grid grid-cols-2 gap-y-10 pb-6 lg:grid-cols-6 lg:gap-8">
+                                    <div
+                                        class="grid grid-cols-2 gap-y-10 pb-6 lg:grid-cols-6 lg:gap-8"
+                                    >
                                         <div class="col-span-2 flex">
                                             <div class="group/item relative pt-6 lg:pb-6">
-                                                <svg viewBox="0 0 15 15" aria-hidden="true"
-                                                    class="absolute -top-2 -left-2 hidden size-[15px] fill-black/10 group-first/item:block">
-                                                    <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
-                                                </svg><svg viewBox="0 0 15 15" aria-hidden="true"
-                                                    class="absolute -top-2 -right-2 size-[15px] fill-black/10">
-                                                    <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
-                                                </svg><svg viewBox="0 0 15 15" aria-hidden="true"
-                                                    class="absolute -bottom-2 -left-2 hidden size-[15px] fill-black/10 group-first/item:group-last/row:block">
-                                                    <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
-                                                </svg><svg viewBox="0 0 15 15" aria-hidden="true"
-                                                    class="absolute -right-2 -bottom-2 hidden size-[15px] fill-black/10 group-last/row:block">
-                                                    <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
-                                                </svg><a title="Home" href="/"><img
+                                                <svg
+                                                    viewBox="0 0 15 15"
+                                                    aria-hidden="true"
+                                                    class="absolute -top-2 -left-2 hidden size-[15px] fill-black/10 group-first/item:block"
+                                                >
+                                                    <path
+                                                        d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"
+                                                    ></path></svg
+                                                ><svg
+                                                    viewBox="0 0 15 15"
+                                                    aria-hidden="true"
+                                                    class="absolute -top-2 -right-2 size-[15px] fill-black/10"
+                                                >
+                                                    <path
+                                                        d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"
+                                                    ></path></svg
+                                                ><svg
+                                                    viewBox="0 0 15 15"
+                                                    aria-hidden="true"
+                                                    class="absolute -bottom-2 -left-2 hidden size-[15px] fill-black/10 group-first/item:group-last/row:block"
+                                                >
+                                                    <path
+                                                        d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"
+                                                    ></path></svg
+                                                ><svg
+                                                    viewBox="0 0 15 15"
+                                                    aria-hidden="true"
+                                                    class="absolute -right-2 -bottom-2 hidden size-[15px] fill-black/10 group-last/row:block"
+                                                >
+                                                    <path
+                                                        d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"
+                                                    ></path></svg
+                                                ><a title="Home" href="/"
+                                                    ><img
                                                         src="/svg/sftpplus-logo-first-light.svg"
                                                         alt="SFTPPlus Light Logo"
-                                                        class="max-h-12 max-w-50 dark:hidden" /><img
+                                                        class="max-h-12 max-w-50 dark:hidden print:block!" /><img
                                                         src="/svg/sftpplus-logo-first-dark.svg"
                                                         alt="SFTPPlus Dark Logo"
-                                                        class="hidden max-h-12 max-w-50 dark:block" /></a>
-                                                <div class="text-xs text-[var(--color-text-main)]/50">
+                                                        class="hidden max-h-12 max-w-50 dark:block print:hidden!"
+                                                /></a>
+                                                <div
+                                                    class="text-sm text-[var(--color-text-main)]/50"
+                                                >
                                                     <p class="pt-2">
-                                                        SFTPPlus MFT is a
-                                                        product of Pro:Atria
-                                                        Ltd, <br />
-                                                        operating since
-                                                        2001.
+                                                        SFTPPlus MFT is a product of
+                                                        Pro:Atria Ltd, <br />
+                                                        operating since 2001.
                                                     </p>
                                                     <p class="pt-2">
-                                                        100% self-funded and
-                                                        independent.
+                                                        100% self-funded and independent.
                                                     </p>
                                                     <p class="pt-2">
-                                                        <strong>+44(0)1963
-                                                            441311</strong><br />
-                                                        Mon - Fri 9am - 5pm,
-                                                        UK time
+                                                        <strong>+44(0)1963 441311</strong
+                                                        ><br />
+                                                        Mon - Fri 9am - 5pm, UK time
                                                     </p>
                                                     <p class="pt-2">
-                                                        <strong>contact@proatria.com</strong>
+                                                        <strong
+                                                            >contact@proatria.com</strong
+                                                        >
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div
-                                            class="col-span-2 grid grid-cols-2 gap-x-8 gap-y-12 lg:col-span-4 lg:grid-cols-subgrid lg:pt-6">
+                                            class="col-span-2 grid grid-cols-2 gap-x-8 gap-y-12 lg:col-span-4 lg:grid-cols-subgrid lg:pt-6"
+                                        >
                                             <!--[-->
                                             <div>
-                                                <h3 class="text-base text-(--color-footer-product)/80">
+                                                <h3
+                                                    class="text-base text-(--color-footer-product)/80"
+                                                >
                                                     Product
                                                 </h3>
-                                                <ul class="mt-6 space-y-4 text-base text-[var(--color-text-main)]">
+                                                <ul
+                                                    class="mt-6 space-y-4 text-base text-[var(--color-text-main)]"
+                                                >
                                                     <!--[-->
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/product/server">Server-side
-                                                            transfers</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/pricing/"
+                                                            >Pricing</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/product/client">Client-side
-                                                            transfers</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/product/server"
+                                                            >File server</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/support/roadmap">Roadmap</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/product/client"
+                                                            >Automated transfers</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/support/life-cycle">Life-Cycle</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/protocols/"
+                                                            >Integrations</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/documentation/sftpplus/latest/installation/release-notes">Release
-                                                            Notes</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/platforms/"
+                                                            >Platforms</a
+                                                        >
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/authentications/"
+                                                            >Authentication</a
+                                                        >
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/comparisons/"
+                                                            >Comparisons</a
+                                                        >
                                                     </li>
                                                     <!--]-->
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h3 class="text-base text-(--color-footer-support)/80">
+                                                <h3
+                                                    class="text-base text-(--color-footer-solutions)/80"
+                                                >
+                                                    Solutions
+                                                </h3>
+                                                <ul
+                                                    class="mt-6 space-y-4 text-base text-[var(--color-text-main)]"
+                                                >
+                                                    <!--[-->
+                                                    <li>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/articles/solutions/sap-erp-sftp"
+                                                            >SAP SFTP</a
+                                                        >
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/articles/solutions/sharepoint-sftp"
+                                                            >SFTP to SharePoint</a
+                                                        >
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/articles/2024/as2-software"
+                                                            >AS2 transfers</a
+                                                        >
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/articles/tag-solutions-1"
+                                                            >All solutions</a
+                                                        >
+                                                    </li>
+                                                    <!--]-->
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <h3
+                                                    class="text-base text-(--color-footer-support)/80"
+                                                >
                                                     Support &amp; Docs
                                                 </h3>
-                                                <ul class="mt-6 space-y-4 text-base text-[var(--color-text-main)]">
+                                                <ul
+                                                    class="mt-6 space-y-4 text-base text-[var(--color-text-main)]"
+                                                >
                                                     <!--[-->
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/support/">Support</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/support/"
+                                                            >Support</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/pricing/">Pricing</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="https://www.sftpplus.com/documentation/sftpplus/latest/"
+                                                            target="_self"
+                                                            >Documentation</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/about/contact">Contact us</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/articles/tag-security-advisory-1"
+                                                            >Security advisories</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/documentation/sftpplus/latest/">Documentation</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="https://www.sftpplus.com/documentation/sftpplus/latest/installation/release-notes"
+                                                            target="_self"
+                                                            >Release notes</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/support/quality-assurance-testing">Quality
-                                                            assurance</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/support/life-cycle"
+                                                            >Version support</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="https://status.sftpplus.com/">Status</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/support/roadmap"
+                                                            >Roadmap</a
+                                                        >
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/support/quality-assurance-testing"
+                                                            >Quality assurance</a
+                                                        >
                                                     </li>
                                                     <!--]-->
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h3 class="text-base text-(--color-footer-resources)/80">
-                                                    Resources
-                                                </h3>
-                                                <ul class="mt-6 space-y-4 text-base text-[var(--color-text-main)]">
-                                                    <!--[-->
-                                                    <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/articles/tag-solutions-1">Solutions</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/protocols/">Protocols</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/platforms/">Platforms</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/authentications/">Authentication</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/articles/">Articles</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/articles/tag-security-advisory-1">Security
-                                                            Advisories</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/documentation/sftpplus/latest/standards/">Compliance</a>
-                                                    </li>
-                                                    <!--]-->
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <h3 class="text-base text-(--color-footer-about)/80">
+                                                <h3
+                                                    class="text-base text-(--color-footer-about)/80"
+                                                >
                                                     About
                                                 </h3>
-                                                <ul class="mt-6 space-y-4 text-base text-[var(--color-text-main)]">
+                                                <ul
+                                                    class="mt-6 space-y-4 text-base text-[var(--color-text-main)]"
+                                                >
                                                     <!--[-->
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75" href="/about/">Our
-                                                            company</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/about/"
+                                                            >Our company</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/about/careers">Careers</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/about/contact"
+                                                            >Contact us</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/about/customers">Customers</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/about/customers"
+                                                            >Customers</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/about/partners">Integrators</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/about/partners"
+                                                            >Partners</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/about/ethics-and-exports">Ethics &amp;
-                                                            Exports</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/articles/"
+                                                            >Articles</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75"
-                                                            href="/about/modern-slavery-statement">Modern
-                                                            Slavery</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="/about/careers"
+                                                            >Careers</a
+                                                        >
                                                     </li>
                                                     <li>
-                                                        <a class="data-hover:text-gray-950/75" href="/legal">Terms of
-                                                            use</a>
+                                                        <a
+                                                            class="data-hover:text-gray-950/75"
+                                                            href="https://www.sftpplus.com/documentation/sftpplus/latest/standards/"
+                                                            target="_self"
+                                                            >Standards &amp; compliance</a
+                                                        >
                                                     </li>
                                                     <!--]-->
                                                 </ul>
@@ -1072,90 +1252,195 @@ anonymous authentication configurations remain as disabled placeholders.</li>
                                     </div>
                                 </div>
                                 <div
-                                    class="group/row relative isolate flex justify-between pt-[calc(--spacing(2)+1px)] last:pb-[calc(--spacing(2)+1px)]">
-                                    <div aria-hidden="true"
-                                        class="absolute inset-y-0 left-1/2 -z-10 w-full -translate-x-1/2">
+                                    class="group/row relative isolate flex justify-between pt-[calc(--spacing(2)+1px)] last:pb-[calc(--spacing(2)+1px)]"
+                                >
+                                    <div
+                                        aria-hidden="true"
+                                        class="absolute inset-y-0 left-1/2 -z-10 w-full -translate-x-1/2"
+                                    >
                                         <div
-                                            class="absolute inset-x-0 top-0 border-t border-black/5 dark:border-white/10">
-                                        </div>
+                                            class="absolute inset-x-0 top-0 border-t border-black/5 dark:border-white/10"
+                                        ></div>
                                         <div
-                                            class="absolute inset-x-0 top-2 border-t border-black/5 dark:border-white/10">
-                                        </div>
+                                            class="absolute inset-x-0 top-2 border-t border-black/5 dark:border-white/10"
+                                        ></div>
                                         <div
-                                            class="absolute inset-x-0 bottom-0 hidden border-b border-black/5 group-last/row:block dark:border-white/10">
-                                        </div>
+                                            class="absolute inset-x-0 bottom-0 hidden border-b border-black/5 group-last/row:block dark:border-white/10"
+                                        ></div>
                                         <div
-                                            class="absolute inset-x-0 bottom-2 hidden border-b border-black/5 group-last/row:block dark:border-white/10">
-                                        </div>
+                                            class="absolute inset-x-0 bottom-2 hidden border-b border-black/5 group-last/row:block dark:border-white/10"
+                                        ></div>
                                     </div>
                                     <div>
                                         <div class="group/item relative py-3">
-                                            <svg viewBox="0 0 15 15" aria-hidden="true"
-                                                class="absolute -top-2 -left-2 hidden size-[15px] fill-black/10 group-first/item:block dark:fill-white/10">
-                                                <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
-                                            </svg><svg viewBox="0 0 15 15" aria-hidden="true"
-                                                class="absolute -top-2 -right-2 size-[15px] fill-black/10">
-                                                <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
-                                            </svg><svg viewBox="0 0 15 15" aria-hidden="true"
-                                                class="absolute -bottom-2 -left-2 hidden size-[15px] fill-black/10 group-first/item:group-last/row:block dark:fill-white/10">
-                                                <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
-                                            </svg><svg viewBox="0 0 15 15" aria-hidden="true"
-                                                class="absolute -right-2 -bottom-2 hidden size-[15px] fill-black/10 group-last/row:block dark:fill-white/10">
-                                                <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                            <svg
+                                                viewBox="0 0 15 15"
+                                                aria-hidden="true"
+                                                class="absolute -top-2 -left-2 hidden size-[15px] fill-black/10 group-first/item:block dark:fill-white/10"
+                                            >
+                                                <path
+                                                    d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"
+                                                ></path></svg
+                                            ><svg
+                                                viewBox="0 0 15 15"
+                                                aria-hidden="true"
+                                                class="absolute -top-2 -right-2 size-[15px] fill-black/10"
+                                            >
+                                                <path
+                                                    d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"
+                                                ></path></svg
+                                            ><svg
+                                                viewBox="0 0 15 15"
+                                                aria-hidden="true"
+                                                class="absolute -bottom-2 -left-2 hidden size-[15px] fill-black/10 group-first/item:group-last/row:block dark:fill-white/10"
+                                            >
+                                                <path
+                                                    d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"
+                                                ></path></svg
+                                            ><svg
+                                                viewBox="0 0 15 15"
+                                                aria-hidden="true"
+                                                class="absolute -right-2 -bottom-2 hidden size-[15px] fill-black/10 group-last/row:block dark:fill-white/10"
+                                            >
+                                                <path
+                                                    d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"
+                                                ></path>
                                             </svg>
-                                            <div class="text-sm text-[var(--color-text-main)]/80">
-                                                <div class="js-theme-switcher relative z-0 my-auto inline-grid cursor-pointer grid-cols-2 gap-1 rounded-full bg-gray-950/10 p-1 text-gray-950 lg:hidden dark:bg-gray-100/10 dark:text-white"
-                                                    role="radiogroup">
+                                            <div
+                                                class="text-xs text-[var(--color-text-main)]/80"
+                                            >
+                                                <div
+                                                    class="js-theme-switcher relative z-0 my-auto inline-grid cursor-pointer grid-cols-2 gap-1 rounded-full bg-gray-950/10 p-1 text-gray-950 lg:hidden dark:bg-gray-100/10 dark:text-white print:hidden"
+                                                    role="radiogroup"
+                                                >
                                                     <span
                                                         class="js-theme-switcher-light rounded-full p-1.5 *:size-7 data-checked:bg-white data-checked:ring data-checked:inset-ring data-checked:ring-gray-950/10 data-checked:inset-ring-white/10 sm:p-0 dark:data-checked:bg-gray-700 dark:data-checked:text-white dark:data-checked:ring-transparent"
-                                                        aria-label="Light theme" role="radio" aria-checked="false"
-                                                        tabindex="-1" data-checked=""><svg class="svg-inline--fa fa-sun"
-                                                            data-prefix="fas" data-icon="sun" role="img"
-                                                            viewBox="0 0 576 512" aria-hidden="true">
-                                                            <path class="" fill="currentColor"
-                                                                d="M288-32c8.4 0 16.3 4.4 20.6 11.7L364.1 72.3 468.9 46c8.2-2 16.9 .4 22.8 6.3S500 67 498 75.1l-26.3 104.7 92.7 55.5c7.2 4.3 11.7 12.2 11.7 20.6s-4.4 16.3-11.7 20.6L471.7 332.1 498 436.8c2 8.2-.4 16.9-6.3 22.8S477 468 468.9 466l-104.7-26.3-55.5 92.7c-4.3 7.2-12.2 11.7-20.6 11.7s-16.3-4.4-20.6-11.7L211.9 439.7 107.2 466c-8.2 2-16.8-.4-22.8-6.3S76 445 78 436.8l26.2-104.7-92.6-55.5C4.4 272.2 0 264.4 0 256s4.4-16.3 11.7-20.6L104.3 179.9 78 75.1c-2-8.2 .3-16.8 6.3-22.8S99 44 107.2 46l104.7 26.2 55.5-92.6 1.8-2.6c4.5-5.7 11.4-9.1 18.8-9.1zm0 144a144 144 0 1 0 0 288 144 144 0 1 0 0-288zm0 240a96 96 0 1 1 0-192 96 96 0 1 1 0 192z">
-                                                            </path>
-                                                        </svg></span><span
+                                                        aria-label="Light theme"
+                                                        role="radio"
+                                                        aria-checked="false"
+                                                        tabindex="-1"
+                                                        data-checked=""
+                                                        ><svg
+                                                            class="svg-inline--fa fa-sun"
+                                                            data-prefix="fas"
+                                                            data-icon="sun"
+                                                            role="img"
+                                                            viewBox="0 0 576 512"
+                                                            aria-hidden="true"
+                                                        >
+                                                            <path
+                                                                class=""
+                                                                fill="currentColor"
+                                                                d="M288-32c8.4 0 16.3 4.4 20.6 11.7L364.1 72.3 468.9 46c8.2-2 16.9 .4 22.8 6.3S500 67 498 75.1l-26.3 104.7 92.7 55.5c7.2 4.3 11.7 12.2 11.7 20.6s-4.4 16.3-11.7 20.6L471.7 332.1 498 436.8c2 8.2-.4 16.9-6.3 22.8S477 468 468.9 466l-104.7-26.3-55.5 92.7c-4.3 7.2-12.2 11.7-20.6 11.7s-16.3-4.4-20.6-11.7L211.9 439.7 107.2 466c-8.2 2-16.8-.4-22.8-6.3S76 445 78 436.8l26.2-104.7-92.6-55.5C4.4 272.2 0 264.4 0 256s4.4-16.3 11.7-20.6L104.3 179.9 78 75.1c-2-8.2 .3-16.8 6.3-22.8S99 44 107.2 46l104.7 26.2 55.5-92.6 1.8-2.6c4.5-5.7 11.4-9.1 18.8-9.1zm0 144a144 144 0 1 0 0 288 144 144 0 1 0 0-288zm0 240a96 96 0 1 1 0-192 96 96 0 1 1 0 192z"
+                                                            ></path></svg></span
+                                                    ><span
                                                         class="js-theme-switcher-dark rounded-full p-1.5 *:size-7 data-checked:bg-white data-checked:ring data-checked:inset-ring data-checked:ring-gray-950/10 data-checked:inset-ring-white/10 sm:p-0 dark:data-checked:bg-gray-500 dark:data-checked:text-white dark:data-checked:ring-transparent"
-                                                        aria-label="Dark theme" role="radio" aria-checked="false"
-                                                        tabindex="-1"><svg class="svg-inline--fa fa-moon"
-                                                            data-prefix="fas" data-icon="moon" role="img"
-                                                            viewBox="0 0 512 512" aria-hidden="true">
-                                                            <path class="" fill="currentColor"
-                                                                d="M256 0C114.6 0 0 114.6 0 256S114.6 512 256 512c68.8 0 131.3-27.2 177.3-71.4 7.3-7 9.4-17.9 5.3-27.1s-13.7-14.9-23.8-14.1c-4.9 .4-9.8 .6-14.8 .6-101.6 0-184-82.4-184-184 0-72.1 41.5-134.6 102.1-164.8 9.1-4.5 14.3-14.3 13.1-24.4S322.6 8.5 312.7 6.3C294.4 2.2 275.4 0 256 0z">
-                                                            </path>
-                                                        </svg></span>
+                                                        aria-label="Dark theme"
+                                                        role="radio"
+                                                        aria-checked="false"
+                                                        tabindex="-1"
+                                                        ><svg
+                                                            class="svg-inline--fa fa-moon"
+                                                            data-prefix="fas"
+                                                            data-icon="moon"
+                                                            role="img"
+                                                            viewBox="0 0 512 512"
+                                                            aria-hidden="true"
+                                                        >
+                                                            <path
+                                                                class=""
+                                                                fill="currentColor"
+                                                                d="M256 0C114.6 0 0 114.6 0 256S114.6 512 256 512c68.8 0 131.3-27.2 177.3-71.4 7.3-7 9.4-17.9 5.3-27.1s-13.7-14.9-23.8-14.1c-4.9 .4-9.8 .6-14.8 .6-101.6 0-184-82.4-184-184 0-72.1 41.5-134.6 102.1-164.8 9.1-4.5 14.3-14.3 13.1-24.4S322.6 8.5 312.7 6.3C294.4 2.2 275.4 0 256 0z"
+                                                            ></path></svg
+                                                    ></span>
                                                 </div>
-                                                © 2001 - 2026 Pro:Atria Ltd.
-                                                Company No: 4213930 •
-                                                <a href="/legal/privacy" class="font-bold">Privacy policy</a>
+                                                © 2001 - 2026 Pro:Atria Ltd. Company No:
+                                                4213930 •
+                                                <a href="/legal/privacy" class="font-bold"
+                                                    >Privacy policy</a
+                                                >
+                                                •
+                                                <a href="/legal" class="font-bold"
+                                                    >Terms of use</a
+                                                >
+                                                •
+                                                <a
+                                                    href="/about/ethics-and-exports"
+                                                    class="font-bold"
+                                                    >Ethics &amp; exports</a
+                                                >
+                                                •
+                                                <a
+                                                    href="/about/modern-slavery-statement"
+                                                    class="font-bold"
+                                                    >Modern slavery statement</a
+                                                >
+                                                •
+                                                <a
+                                                    href="https://status.sftpplus.com/"
+                                                    class="font-bold"
+                                                    >Status</a
+                                                >
                                                 • Website built using
-                                                <a href="/legal/credits" class="font-bold">open source</a>
+                                                <a href="/legal/credits" class="font-bold"
+                                                    >open source</a
+                                                >
                                                 and
-                                                <a href="/legal/cookies" class="font-bold">without cookies</a>.
+                                                <a href="/legal/cookies" class="font-bold"
+                                                    >without cookies</a
+                                                >.
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex">
-                                        <div class="group/item relative flex items-center gap-4 py-3">
-                                            <svg viewBox="0 0 15 15" aria-hidden="true"
-                                                class="absolute -top-2 -left-2 size-[15px] fill-black/10 group-first/item:block dark:fill-white/10">
-                                                <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
-                                            </svg><svg viewBox="0 0 15 15" aria-hidden="true"
-                                                class="absolute -top-2 -right-2 size-[15px] fill-black/10 dark:fill-white/10">
-                                                <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
-                                            </svg><svg viewBox="0 0 15 15" aria-hidden="true"
-                                                class="absolute -bottom-2 -left-2 size-[15px] fill-black/10 group-first/item:group-last/row:block dark:fill-white/10">
-                                                <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
-                                            </svg><svg viewBox="0 0 15 15" aria-hidden="true"
-                                                class="absolute -right-2 -bottom-2 hidden size-[15px] fill-black/10 group-last/row:block dark:fill-white/10">
-                                                <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
-                                            </svg><!--[--><a target="_blank" aria-label="Check our GitHub code"
+                                    <div class="flex print:hidden">
+                                        <div
+                                            class="group/item relative flex items-center gap-4 py-3"
+                                        >
+                                            <svg
+                                                viewBox="0 0 15 15"
+                                                aria-hidden="true"
+                                                class="absolute -top-2 -left-2 size-[15px] fill-black/10 group-first/item:block dark:fill-white/10"
+                                            >
+                                                <path
+                                                    d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"
+                                                ></path></svg
+                                            ><svg
+                                                viewBox="0 0 15 15"
+                                                aria-hidden="true"
+                                                class="absolute -top-2 -right-2 size-[15px] fill-black/10 dark:fill-white/10"
+                                            >
+                                                <path
+                                                    d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"
+                                                ></path></svg
+                                            ><svg
+                                                viewBox="0 0 15 15"
+                                                aria-hidden="true"
+                                                class="absolute -bottom-2 -left-2 size-[15px] fill-black/10 group-first/item:group-last/row:block dark:fill-white/10"
+                                            >
+                                                <path
+                                                    d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"
+                                                ></path></svg
+                                            ><svg
+                                                viewBox="0 0 15 15"
+                                                aria-hidden="true"
+                                                class="absolute -right-2 -bottom-2 hidden size-[15px] fill-black/10 group-last/row:block dark:fill-white/10"
+                                            >
+                                                <path
+                                                    d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"
+                                                ></path></svg
+                                            ><!--[--><a
+                                                target="_blank"
+                                                aria-label="Check our GitHub code"
                                                 class="text-gray-950 data-hover:text-gray-950/75"
-                                                href="https://github.com/sftpplus/"><!----></a><a target="_blank"
+                                                href="https://github.com/sftpplus/"
+                                                ><!----></a
+                                            ><a
+                                                target="_blank"
                                                 aria-label="Follow us on Mastodon"
                                                 class="text-gray-950 data-hover:text-gray-950/75"
-                                                href="https://mastodon.social/@sftpplus"><!----></a><!--]-->
+                                                href="https://mastodon.social/@sftpplus"
+                                                ><!----></a
+                                            ><!--]-->
                                         </div>
                                     </div>
                                 </div>

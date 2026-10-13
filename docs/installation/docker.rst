@@ -28,7 +28,7 @@ in order to behave like an application designed for Docker.
     Support for Windows will be added soon, allowing to run SFTPPlus in
     Windows Server native containers.
 
-We recommend that you enable the `standard-stream` event hander to send the
+We recommend that you enable the `standard-stream` event handler to send the
 audit trail to standard output and be made available in the
 `docker logs` tool.
 

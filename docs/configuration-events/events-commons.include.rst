@@ -173,26 +173,25 @@ components
     Leave it empty to handle events emitted by any component.
 
 
-servers
--------
+pool_uuids
+----------
 
 :Default value: `empty`
 :Optional: Yes
-:From version: 5.13.0
-:Values: * UUID of an SFTPPlus servers
+:From version: 6.1.0
+:Values: * UUID of a cluster pool
          * Comma-separated list of UUIDs
          * `all`
 :Description:
-    This is designed to be used with SFTPPlus cluster deployments.
+    This is designed for SFTPPlus cluster deployments. Select pool names in
+    the Web Manager; the configuration stores their UUIDs.
 
-    When configured it will handle events from particular SFTPPlus servers.
+    When configured, this handler processes events from the selected pools.
 
-    When left empty, it will only handle events emitted by the local SFTPPlus server.
+    When left empty, it only handles events emitted by the local server.
 
-    When set to `all`, it will handle events from all SFTPPlus servers.
-
-    It can be configured with one or multiple SFTPPlus server UUIDs.
-
+    When set to `all`, it handles events from all cluster pools and the local
+    server.
 
 source_addresses
 ----------------

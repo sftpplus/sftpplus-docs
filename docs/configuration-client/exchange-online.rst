@@ -37,36 +37,55 @@ password
 --------
 
 :Default value: Empty
-:Optional: No
+:Optional: Yes
 :From version: 5.4.0
 :Values: * OAuth2 client secret
 :Description:
     This option specifies the OAuth2 client secret used to authenticate on the remote server.
     The client secret is created from the Entra ID portal, using the App Registration page.
+    This option is not used when `authentication_method` is set to `workload-identity`.
+
+
+authentication_method
+---------------------
+
+:Default value: `entra-id`
+:Optional: No
+:Values: * `entra-id`
+         * `workload-identity`
+:From version: 6.1.0
+:Description:
+    Defines the method used to authenticate to Exchange Online.
+
+    Use `entra-id` to authenticate with the application ID, directory ID, and client secret.
+    Use `workload-identity` to authenticate using Azure Workload Identity. See
+    :ref:`Azure Workload Identity <azure-workload-identity>` for setup requirements.
 
 
 directory_id
 ------------
 
 :Default value: Empty
-:Optional: No
+:Optional: Yes
 :Values: * Text
 :From version: 5.4.0
 :Description:
     Directory (tenant) ID of the SFTPPlus inside the Entra ID.
     This value can be viewed after registering SFTPPlus in Entra ID via the `App registrations` page.
+    This option is not used when `authentication_method` is set to `workload-identity`.
 
 
 application_id
 --------------
 
 :Default value: Empty
-:Optional: No
+:Optional: Yes
 :Values: * Text
 :From version: 5.4.0
 :Description:
     Application (client) ID of the SFTPPlus inside the Entra ID.
     This value is obtained after registering SFTPPlus in Entra ID via the `App registrations` page.
+    This option is not used when `authentication_method` is set to `workload-identity`.
 
 
 tls_trusted_certificates

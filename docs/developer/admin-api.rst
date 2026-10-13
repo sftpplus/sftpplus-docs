@@ -86,9 +86,14 @@ Only `login` and `is_valid_session` can be called without an authenticated sessi
 login
 ^^^^^
 
-`login(username, password)`
+`login(username, password, instance="")`
 
-Authenticates an administrator and returns an object containing `session_id`.
+Authenticates an administrator or cluster node and returns an object containing `session_id`.
+
+Cluster nodes use the pool name as `username` and the pool sync password as `password`.
+The optional `instance` parameter supplies the node name as text.
+Only the first 40 characters are retained as the session's `instance_name`.
+It defaults to empty for older clients and is ignored for administrator sessions.
 
 
 logout
@@ -301,11 +306,18 @@ Restarts the component and returns its runtime properties.
 runnable_check
 ^^^^^^^^^^^^^^
 
-`runnable_check(family, configuration)`
+`runnable_check(family, configuration, tls_trusted_certificates=None)`
 
 Tests the supplied configuration object and returns the component's check result, or an error if the check fails.
 Include `uuid` when checking changes to an existing component; omit it for a new component.
 A check can temporarily start a component or connect to an external service.
+
+For TLS clients, an optional `tls_trusted_certificates` object can supply temporary trust material.
+Its `type` must be `pinned-keys` for a server certificate or public key,
+or `trusted-certificates` for a certification authority.
+Its `content_update` contains the PEM text.
+The certificate is used only for this check and is removed afterward, even if the check fails.
+Certificates automatically discovered or pinned during a check are also removed.
 
 
 location_browse
@@ -644,10 +656,11 @@ vault_item_export
 
 `vault_item_export(uuid, export_password="", export_format="")`
 
-Exports a private SSH key, OpenPGP key, or certificate from an existing vault item as a string.
+Exports a private SSH key, OpenPGP key, private certificate, or trusted certificates from an existing vault item as a string.
 Requires read permission for the vault item.
 Use `export_password` to encrypt the exported private material.
 `export_format` selects the SSH key format; an empty value uses the default OpenSSH format.
+For a private certificate, set `export_format` to `public` to export the certificate and its CA chain without the private key or CSR.
 
 
 vault_item_part_delete

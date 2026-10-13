@@ -113,6 +113,16 @@ client_forwarded_header
     If the value of the header is malformed, the request uses the
     TCP source address.
 
+    For OpenID Connect login, configuring this option also requires the reverse proxy to supply the original request's scheme and host.
+    When set to `Forwarded`, that header must contain both `proto` and `host` values.
+    For `X-Forwarded-For` or a custom header name, the proxy must supply both `X-Forwarded-Proto` and `X-Forwarded-Host`.
+    OpenID Connect login requests without these origin headers are rejected, including direct requests that contain a `Referer` header.
+    The proxy origin headers take precedence over `Referer` when constructing the OpenID Connect callback URL.
+
+    To support both direct and proxied access, configure two separate HTTP/HTTPS services on different listening addresses or ports.
+    Leave `client_forwarded_header` empty on the service used for direct access.
+    Configure it with the appropriate forwarding header on the service used by the reverse proxy.
+
     ..  warning::
         If you are not running SFTPPlus behind a proxy or load balancer,
         leave this configuration empty.

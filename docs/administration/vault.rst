@@ -78,7 +78,7 @@ the new vault item is stored inside the main configuration file.
 When using the Web manager to update the content of vault items,
 the new content is stored inside the main configuration file as well.
 
-Vault items stored in an external fault files are read-only inside the Web manager.
+Vault items stored in external vault files are read-only inside the Web Manager.
 
 SFTPPlus will not update the content of the external files.
 The external files are designed to be read-only files,
@@ -102,6 +102,8 @@ The multiple certificates can represent a certificate chain with root certificat
 multiple certificate chains, or multiple independent trusted certificates.
 
 The GUI provides the option to delete one or more certificates from the trusted certificates vault item.
+Use **Download** to download all certificates in the item as PEM,
+or **Copy to clipboard** to copy them together.
 
 SFTPPlus is distributed with a default set of trusted certificates vault items.
 These items can't be deleted or modified.
@@ -128,6 +130,7 @@ together with their corresponding private keys and optionally the full certifica
 
 When creating or updating a vault item of type `private-certificate`,
 you can import the content as PEM or as PFX/P12 files.
+The Web Manager accepts pasted PEM content with whitespace around each line.
 
 The `private-certificate` vault item can only store **a single** private key or CSR.
 
@@ -215,4 +218,4 @@ For example, the content of the external file `/etc/secrets/vault-items.ini` cou
     name: SSH Public Key
     type: ssh-public
     content:
-    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINlQ5nF5gyy2i4pnCXMUALY98psn sftp@vm1
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINlQ5nF5gyy2i4onCXMUALY98psn sftp@vm1

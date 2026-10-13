@@ -109,6 +109,12 @@ The sub-sections below will guide you through the initial server setup, includin
 
         Learn about the SQLite database resource and how to configure it.
 
+    .. grid-item-card:: :octicon:`globe` IP geolocation database
+        :link-type: doc
+        :link: ./geoip-database
+
+        Learn about the country and network information recorded for IP addresses.
+
 
 ..  toctree::
     :maxdepth: 1
@@ -128,3 +134,4 @@ The sub-sections below will guide you through the initial server setup, includin
     vault-items
     lets-encrypt
     sqlite
+    geoip-database

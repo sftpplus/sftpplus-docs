@@ -189,40 +189,140 @@ ends with exit code `1`::
     The password cannot contain leading or trailing space or tab characters.
 
 
+.. _operation-sftp-transfer-performance:
+
 Transfer performance
 --------------------
 
-The SFTP/SCP/SSH protocols are less efficient at bulk data transfer,
-when compared to FTPS or HTTPS.
-In SSH every block of data transferred requires an acknowledgment from the
-other peer.
+SFTP and SCP transfer speeds depend on the client, network, and storage.
+On connections with high latency, SSH flow control can limit transfer throughput
+even when the network has enough bandwidth.
 
-Clients like WinSCP, Filezilla, or PuTTY are exchanging data
-using 32 parallel requests,
-each request exchanging 4Kbytes blocks at a time.
-OpenSSH SFTP CLI uses by default 64 parallel requests, each at 32Kbytes.
+Uploads and downloads have separate receive limits.
+The receiver chooses how much data the sender can send before waiting for permission to send more.
+This allowance is called the receive window.
 
-By using WinSCP, Filezilla, or Putty you can expect transfer speed of up to
-7MB/s.
-When using OpenSSH SFTP command line client, you can expect transfer speed
-of up to 12MB/s.
+For uploads, the client sends file data to the server.
+The SFTPPlus SFTP/SCP server sets the receive window and maximum SSH packet size,
+using the `ssh_window_size` and `ssh_maximum_packet_size` service options.
 
-We are working to improve the speed of our SSH/SFTP implementation.
-In the near future, you can expect transfer speeds of 65MB/s.
+..  note::
+    The client controls the receive window and maximum SSH packet size for file **downloads**.
+    The `ssh_window_size` and `ssh_maximum_packet_size` service options
+    therefore only tune file **upload** speed.
+    To tune **download** performance, use equivalent receive-window and packet-size settings on the client.
 
-The benchmark for SFTP transfer is the OpenSSH SFTP implementation
-which can transfer at 170MB/s over the localhost with files stored on a fast
-SSD.
+A larger window lets the sender transmit more data while waiting for a window update from the receiver.
+This can reduce pauses on connections with high latency.
+It can also allow more data to arrive while earlier data waits to be written to disk.
+A window update grants permission to send more data;
+it does not confirm that the received file data has been written to disk.
 
-SFTPPlus performance falls behind the OpenSSH implementation.
-OpenSSH is a product targeted to Unix systems and focused on the SSH/SFTP
-protocol.
-SFTPPlus runs on Unix and Windows
-and support multiple file transfer protocols like HTTPS and FTPS.
+..  warning::
+    Buffering more data can increase memory usage for each file upload,
+    especially when a slow disk or a slow connection to network storage delays writes.
 
-Beside the actual file transfer, SFTPPlus provides detailed audit logs,
-like the name of the user performing an operation, duration of transfer and
-overall transfer speed.
+Increase the `ssh_window_size` option first, before changing `ssh_maximum_packet_size`.
+With the recommended `ssh_maximum_packet_size = 32768`, set `ssh_window_size` to at least 64 times `ssh_maximum_packet_size` (2 MiB).
+This lets the client send 64 maximum-sized SSH packets before waiting for a window update.
+It can also accommodate 66 parallel packets if some are smaller or the server replenishes the window while they are sent.
+To send 66 maximum-sized packets without an intervening window update, use a window of at least 66 times the packet size.
+The effect of parallel SFTP requests is discussed below.
+
+To try a larger 4 MiB window, set `ssh_window_size = 4194304`
+for the SSH service and test upload performance with the clients using it.
+Keep `ssh_maximum_packet_size` at its default of 32 KiB for compatibility with older clients.
+Clients can continue to send smaller packets,
+and outgoing packet sizes are determined by the client's advertised limit.
+
+
+Estimating throughput
+^^^^^^^^^^^^^^^^^^^^^
+
+An optimistic estimate of the receive-window throughput limit is
+`window size / round-trip time`.
+Use the server's receive window for uploads and the client's receive window for downloads.
+Round-trip time (RTT) includes the journey to the server and back;
+it is not the one-way network delay.
+For example, a 128 KiB window at 10 ms RTT gives
+`0.125 MiB / 0.01 seconds = 12.5 MiB/s`.
+
+The following values are calculated examples, not measured transfer speeds.
+
+..  list-table:: Receive-window throughput estimates
+    :header-rows: 1
+
+    * - Receive window
+      - Maximum SSH packet
+      - 10 ms RTT
+    * - 128 KiB
+      - 32 KiB
+      - 12.5 MiB/s
+    * - 128 KiB
+      - 64 KiB
+      - 12.5 MiB/s
+    * - 2 MiB
+      - 32 KiB
+      - 200 MiB/s
+    * - 2 MiB
+      - 256 KiB
+      - 200 MiB/s
+    * - 4 MiB
+      - 32 KiB
+      - 400 MiB/s
+
+At 100 ms RTT, divide these throughput estimates by 10.
+For example, the estimate for a 128 KiB window drops from 12.5 MiB/s to 1.25 MiB/s.
+
+Increasing the maximum SSH packet size does not necessarily improve transfer performance.
+For uploads, the client can send multiple chunks, each no larger than this limit,
+without waiting for confirmation after each chunk, as long as the server's receive window allows it.
+A larger receive window lets more data be in transit or buffered in server memory,
+which can reduce pauses and improve throughput.
+
+SFTP clients also control their file block size and the number of outstanding requests.
+Outstanding requests are file operation requests for which the client has not yet received a reply.
+For example:
+
+* WinSCP defaults to a limit of 32 outstanding download requests and 64 upload requests.
+  These can be changed with the `SFTPDownloadQueue` and `SFTPUploadQueue` settings.
+* FileZilla starts with a limit of 16 outstanding download requests
+  and adjusts it automatically during the transfer.
+* OpenSSH sftp defaults to a limit of 64 outstanding requests for uploads and downloads.
+  For example, `sftp -R 128 user@server` raises this limit to 128.
+
+The optimistic throughput limit from these requests is
+`outstanding requests * file block size / RTT`.
+At 10 ms RTT, the following examples assume the SSH window is large enough:
+
+..  list-table:: SFTP request throughput estimates at 10 ms RTT
+    :header-rows: 1
+
+    * - Outstanding requests
+      - File block size
+      - Throughput estimate
+    * - 1
+      - 32 KiB
+      - 3.125 MiB/s
+    * - 32
+      - 4 KiB
+      - 12.5 MiB/s
+    * - 32
+      - 32 KiB
+      - 100 MiB/s
+    * - 64
+      - 32 KiB
+      - 200 MiB/s
+
+The smallest limit determines the result.
+For example, an upload with 64 outstanding 32 KiB requests at 10 ms RTT
+is still limited to about 12.5 MiB/s by the server's 128 KiB receive window.
+A 2 MiB window raises that estimate to 200 MiB/s,
+but a 100 Mbit/s network link allows less than 11.9 MiB/s of file data after overhead.
+
+Clients that send only one request at a time pause after each uploaded file chunk
+while waiting for the server to confirm receipt.
+A larger receive window does not improve throughput when the existing window already accommodates that request.
 
 
 Load Balancer

@@ -20,7 +20,7 @@ The following variants of HTTP APIs are available:
 * GET and POST with HTML integration, for managing files via any web browser.
 
 The OpenAPI 3.0.3 file is available at the following URL `/____chsps__/openapi.yaml`.
-You can test the SFTPPlus OpenAPI using the folling URL `/__chsps__/openapi.html`.
+You can test the SFTPPlus OpenAPI using the following URL `/__chsps__/openapi.html`.
 The URLs are relative to the SFTPPlus HTTP or HTTPS servers.
 
 To have SFTPPlus respond via the JSON API, make the request using the

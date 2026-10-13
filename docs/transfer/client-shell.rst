@@ -142,7 +142,7 @@ To show all available commands, use::
 
 To find more details about a command, use::
 
-    > help COMAND_NAME
+    > help COMMAND_NAME
 
 For example, to show more details about the command `open`, use::
 

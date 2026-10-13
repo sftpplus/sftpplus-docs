@@ -241,7 +241,7 @@ Any of the commands listed below will result in a failure::
 
     ftp> LIST */file*
     ftp> LIST some_*/file2.txt
-    ftp> NLST som?/*
+    ftp> NLST some?/*
 
 Both LIST and NLST commands will only list direct (first level) folder members.
 

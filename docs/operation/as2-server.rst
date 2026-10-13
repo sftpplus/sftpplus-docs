@@ -36,7 +36,7 @@ HTTPS security
 
 The AS2 connections are secured at the transport layer by the HTTPS protocol.
 In this regard, the SFTPPlus AS2 server is configured just like any other HTTPS server.
-The SFTPPlus HTTPS server allows transfering files over web browser, AS2, REST, WebDAV by using a shared HTTPS server.
+The SFTPPlus HTTPS server allows transferring files over web browser, AS2, REST, WebDAV by using a shared HTTPS server.
 There is no need to set up separate HTTPS servers for each file transfer type.
 
 Mutual-TLS authentication is supported at the HTTPS level.
@@ -84,8 +84,8 @@ configuration option::
     as2_require_http_authentication = yes
     password = $6$rounds=80000$GE5tScXoFSfkMgBd$cDi7KLiu8X5gKkXC8d9FblkKG46p
     as2_trusted_certificates = janer-certificates-uuid
-    permissions =
-        allow-full-control
+    default_permissions = allow-full-control
+    path_permissions =
         *.exe, deny-full-control
 
     [vault-items/as2-server-certificate-uuid]
@@ -94,7 +94,7 @@ configuration option::
     content =
         ----BEGIN RSA PRIVATE KEY-----
         MIICXgIBAAKBgQDOoZUYd8KMYbre5zZIwR+V6dO2+cCYVS46BHbRbqt7gczkoIWh
-        EXAMPLE key with diferrent armour
+        EXAMPLE key with different armour
         Wh+QF3UArO8r8RYv3HRcnBjrGh+yEK93wIifVNGgy63FIQ==
         -----END RSA PRIVATE KEY-----
         -----BEGIN CERTIFICATE-----
@@ -107,7 +107,7 @@ configuration option::
     type = trusted-certificates
     name = AS2 certificates for user John D
     content = -----BEGIN CERTIFICATE-----
-        MIICpTCCAg6gAwIBAgIIP8vt0MYYvNIwDQYJKoZIhvcNAQELBQAwRjELMAkGA1UE
+        MIICpTCCAg6gAwIBAgIIP8vt0MYYvNIwDQYJKoZIhvcNAQELBQAwRjELMAkGA1
         MORE CERTIFICATE CONTENT
         JZQaMjV9XxNTFOlNUTWswff3uE677wSVDPSuNkxo2FLRcGfPUxAQGsgL5Ts=
         -----END CERTIFICATE-----

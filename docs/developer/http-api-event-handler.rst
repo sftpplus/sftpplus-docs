@@ -46,6 +46,9 @@ The `events` array contains a list of `event` objects.
 
 .. include:: /developer/event-object.include.rst
 
+The `server.instance_name` value identifies the node that emitted an event.
+It is only set for events emitted from nodes in a cluster pool.
+
 ..  warning::
   The `server` member found in the root container is deprecated and will be
   removed in SFTPPlus v5.
@@ -116,7 +119,8 @@ Below is an example for a `POST` request containing two JSON events::
           },
           "server": {
             "uuid": "cc5c804d-0a3c-4c4c-b651-eba6fc3b5902",
-            "name": "AZWMPreProd01"
+            "name": "AZWMPreProd01",
+            "instance_name": "node-1"
             }
         ]
     }

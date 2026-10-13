@@ -19,6 +19,156 @@ Release notes for earlier major versions are available below.
 .. release-notes-start
 
 
+Version 6.1.2, 2026-10-13
+-------------------------
+
+Version 6.1.0 released on 2026-10-09, and 6.1.1 were released on 2026-10-12,
+as a release candidate.
+
+
+Security Fixes
+^^^^^^^^^^^^^^
+
+* HTTP/HTTPS services configured to receive forwarded requests via a reverse
+  proxy now reject direct OpenID Connect login requests that lack the required
+  proxy origin headers, even when a `Referer` header is present.
+  To support both direct and proxied access, configure two separate services:
+  one with `client_forwarded_header` empty for direct access, and another with
+  forwarded headers configured for access through the reverse proxy.
+  [server-side][entra-id][okta][https] [#5782]
+* Tracebacks are now excluded from event data and default email, log, and
+  webhook output to prevent disclosure of sensitive information.
+  All event handler templates can explicitly include tracebacks using `{tb}`.
+  Event handling also uses less memory by generating JSON data only on demand.
+  [server-side][client-side] [#7684]
+* Vault items now report an error whenever parsing produces no usable content.
+  Previously, trusted certificate and pinned key items created from nonempty
+  input without usable PEM content could silently disable TLS server identity
+  verification, allowing an untrusted server to be accepted.
+  [client-side][ftps][https] [#7698]
+
+
+New Features
+^^^^^^^^^^^^
+
+* The Web Manager now stores a preferred color theme for each administrator
+  and applies it automatically after login.
+  The preference is available on the administrator's settings page.
+  Theme changes are saved automatically after 15 seconds without further
+  changes, while preserving other pending configuration edits.
+  [manager] [#2174]
+* A Helm chart is available as an option for installing SFTPPlus on Kubernetes.
+  [server-side][kubernetes] [#3036]
+* Administrators can configure the SSH receive window and maximum packet size
+  for each SFTP and SCP service to improve uploads over high-latency connections.
+  The receive window now defaults to 2 MiB instead of 128 KiB.
+  [server-side][sftp][scp] [#4654]
+* Cluster nodes now advertise their configured node name, or the local hostname
+  when no name is configured, during synchronization with the controller.
+  [server-side][cluster] [#5461]
+* Standard output and local file event handlers now support Logfmt output.
+  [server-side][client-side][logs] [#5786]
+*  Missing event data fields no longer interrupt text or CSV logging.
+   [logs] [#5786]
+* The Web Manager now provides permission selectors and an ordered path rule
+  table for configuring account and group file access.
+  [manager] [#5790]
+* The Web Manager now exports Prometheus metrics for process start time,
+  application metadata, resource usage, and reactor delay at `/metrics`.
+  [manager][kubernetes] [#6292]
+* The Web Manager activity log now shows the estimated country and network
+  organization for public IP addresses in newly recorded events.
+  [manager] [#6423]
+* Application authentication can now continue to another authentication method
+  when an account belongs to none of its allowed groups.
+  [server-side] [#6487]
+* Transfers can be scheduled on the 28th through 31st or on the last or
+  second-last day of each month. Days absent from a month are skipped.
+  [client-side] [#7019]
+* Certificate expiration warnings now cover AS2 private and partner certificates
+  configured for accounts, services, and locations, as well as TLS certificates
+  used by locations, resources, authentications, and event handlers.
+  [manager] [#7585]
+* The Web Manager group configuration now provides a list for adding and removing
+  home folder structure directories.
+  [manager] [#7615]
+* The Web Manager provides a virtual folder editor for accounts and groups,
+  with separate virtual and local paths and a local filesystem browser.
+  [manager] [#7617]
+* Account and group permissions are now configured separately using
+  `default_permissions` and `path_permissions`.
+  [server-side] [#7618]
+* Azure BLOB and Azure Files locations, and Exchange Online locations, can now
+  authenticate using Azure Workload Identity. Kubernetes deployments can access
+  these services without storing a client secret or storage access key.
+  [client-side][kubernetes] [#7629]
+* Transfer schedules can now be configured in the Web Manager using start and
+  stop actions, day selections, and a time picker.
+  [manager] [#7679]
+* Events now include a severity level and a peer address shortcut.
+  New standard output loggers use these fields in their default Logfmt output
+  for easier integration with Grafana and Loki.
+  [logs][kubernetes] [#7686]
+* Cluster nodes can now test their controller connection and configure trusted
+  certificates directly during initial setup or from the synchronization
+  resource in Web Manager.
+  [cluster][server-side] [#7698]
+* The Web Manager can export the full public certificate chain without the
+  private key, and export or copy all trusted certificates. Pasted PEM content
+  with whitespace around each line is accepted.
+  [manager] [#7700]
+
+
+Defect Fixes
+^^^^^^^^^^^^
+
+* AS2 uploads no longer fail with `Context was already finalized` when a
+  transfer pauses and resumes.
+  [client-side][as2] [#5591]
+* Web Client browser requests that fail during processing now return to the
+  login page instead of displaying a plain error page. JSON requests receive
+  an internal server error response in JSON format.
+  [server-side][https] [#5782]
+* Reduced CPU usage when viewing component status and configuration.
+  [manager] [#7547]
+* Monitoring large folders is faster when the location does not provide file
+  identifiers.
+  [client-side] [#7681-1]
+* Event handlers use less CPU when formatting timestamps and CSV log entries.
+  [logs][event-handlers] [#7681]
+* Services now release their listening ports when startup fails, allowing them
+  to restart after the configuration is corrected.
+  [server-side][ftp][sftp][https] [#7702]
+
+
+Deprecations and Removals
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The event handler `servers` filter is replaced by `pool_uuids`. Existing
+  configuration values are migrated automatically.
+  [event-handlers] [#5461]
+* Log messages no longer contain newline characters. Carriage returns and line
+  feeds are replaced with spaces, with each CRLF pair replaced by a single space.
+  [logs][event-handlers] [#5786]
+* The implicit `No` default for account `create_home_folder` has been removed.
+  Accounts without this setting now inherit their primary group's value.
+  [server-side] [#6487]
+* Python API extensions now receive read-only event data in
+  `getConfiguration()`. Extensions that change data there must create a copy.
+  The worker's `handle()` method still receives a mutable event copy.
+  [api][event-handlers] [#7681]
+* Account information is no longer included in `data.avatar` or `{data_json}`.
+  The `{data.avatar}` and `{data.avatar.ATTRIBUTE}` placeholders are no longer
+  available. Use `{account}` and `{account.ATTRIBUTE}` instead, for example
+  `{account.name}`. Existing handler INI templates are automatically migrated.
+  [event-handlers] [#7684-1]
+* Tracebacks are no longer included in event data or `{data_json}`, including
+  email templates. Use `{tb}` to explicitly include a traceback.
+  Serialized events no longer include the legacy empty `data_json` field.
+  The `{data_json}` placeholder remains available in event handler templates.
+  [event-handlers] [#7684]
+
+
 Version 6.0.0, 2026-09-18
 -------------------------
 

@@ -42,7 +42,7 @@ New Features
   only the entries selected by the active filters. [#4233]
 * The embedded OpenSSL libraries on Windows, generic Linux, and macOS were
   updated to version 1.1.1g. [#5400]
-* Red Hat Entreprise Linux 8 on X86_64 is now a supported platform. [#5324]
+* Red Hat Enterprise Linux 8 on X86_64 is now a supported platform. [#5324]
 * The bundled OpenSSL libraries on Windows, SLES 11,
   and generic Linux distributions were updated to version 1.1.1g. [#5357]
 

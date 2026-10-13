@@ -34,6 +34,49 @@ when there are more than 1000 total active connections::
     connections_count_trigger = 1000
 
 
+.. _configuration-analytics-certificate-warnings:
+
+Certificate and PGP key expiration warnings
+-------------------------------------------
+
+The `analytics` resource warns when configured certificates or PGP keys have expired or are about to expire.
+Each warning triggers an event with code `20114` and identifies the affected component and certificate or PGP key setting.
+The checks run when SFTPPlus starts and once per day, at midnight.
+
+Certificate expiration warnings are also visible in the Web Manager to administrators whose :doc:`roles </administration/roles>` grant read access to the `analytics` resource.
+This access reveals the names and UUIDs of affected components, including accounts and locations, even when the administrator has no direct read access to those components.
+Viewing a warning does not grant access to the component's configuration.
+Administrators need the appropriate read and edit permissions for the affected component to resolve the warning.
+
+The checks cover the general server TLS certificate and certificates configured for enabled services, authentication methods, and event handlers.
+Certificates configured for locations and resources are also checked, including components such as FTPS locations and email clients that start on demand.
+Private certificates and configured trusted certificates are checked.
+PGP keys configured for signing, verification, encryption, and decryption in enabled OpenPGP event handlers are also checked.
+PGP keys without an expiration date do not generate expiration warnings.
+
+For a set of trusted certificates, a warning reports the earliest certificate expiration.
+Pinned certificates and public keys are excluded from these checks.
+
+AS2 certificates are checked for both sending locations and receiving services, together with partner certificates configured for enabled accounts.
+HTTPS certificates configured for asynchronous AS2 MDN responses are also checked.
+
+
+.. _configuration-analytics-account-warnings:
+
+Account and password expiration warnings
+----------------------------------------
+
+The `analytics` resource checks enabled accounts for upcoming account and password expiration when SFTPPlus starts and once per day, at midnight.
+Warnings appear in the Web Manager and generate event `20068`.
+
+The `account_expiration_warning` and `password_expiration_warning` options specify how many days before expiration to generate warnings.
+Set either option to `0` to disable its warnings.
+Accounts and passwords without an expiration date, or that have already expired, do not generate expiration warnings.
+
+Administrators can view these warnings when their roles grant read access to the `analytics` resource.
+The access rules described in :ref:`configuration-analytics-certificate-warnings` also apply to account and password warnings.
+
+
 enabled
 -------
 
@@ -188,11 +231,9 @@ certificate_expiration_warning
     A warning is generated in Web Manager and an event is emitted if
     SFTPPlus is configured with a certificate that is about to expire in less than the configured number of days.
 
-    This is configured as number of days.
-
-    This is checked once per day, at midnight, and when SFTPPlus starts.
-
     Set it to `0` to disable triggering these alerts.
+
+    See :ref:`configuration-analytics-certificate-warnings` for details about the checks and the certificates they cover.
 
 
 account_expiration_warning
@@ -215,6 +256,8 @@ account_expiration_warning
 
     Set it to `0` to disable triggering these alerts.
 
+    See :ref:`configuration-analytics-account-warnings` for details about the checks and administrator access.
+
 
 password_expiration_warning
 ---------------------------
@@ -234,6 +277,8 @@ password_expiration_warning
     This is checked once per day, at midnight, and when SFTPPlus starts.
 
     Set it to `0` to disable triggering these alerts.
+
+    See :ref:`configuration-analytics-account-warnings` for details about the checks and administrator access.
 
 
 account_auto_disable_grace_interval

@@ -57,7 +57,7 @@ Then you may use::
 
     rc-service sftpplus-mft COMMAND
 
-The following COMMANDs are available:
+The following commands are available:
 
     * `start`
     * `stop`

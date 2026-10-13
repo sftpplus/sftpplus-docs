@@ -115,6 +115,17 @@ Update these handlers to use a supported format and ensure that the receiving en
 See the :doc:`HTTP event handler configuration </configuration-events/http>` for supported formats.
 
 
+HTTP authentication permissions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+HTTP authentication responses now support separate `default_permissions` and `path_permissions` members.
+The legacy `permissions` member is still accepted for compatibility.
+Its first list supplies default permissions, and subsequent lists supply path rules.
+If the first list is `["inherit"]`, default permissions are inherited and the account path rules are empty.
+Explicit `default_permissions` and `path_permissions` members take precedence over legacy values.
+See the :doc:`HTTP authentication API</developer/http-api-authentication>` for the current response format.
+
+
 Event handler group filters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

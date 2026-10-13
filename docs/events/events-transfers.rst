@@ -10,6 +10,7 @@ Automated file transfers events
 
 :Message: File "%(path)s" was modified in monitored path.
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 2.6.0
 :Description: None.
 
@@ -20,6 +21,7 @@ Automated file transfers events
 
 :Message: File "%(from_path)s" was renamed in monitored path to "%(to_path)s".
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 2.6.0
 :Description: None
 :Data:
@@ -37,6 +39,7 @@ Automated file transfers events
 
 :Message: Command failed: %(details)s
 :Groups: authenticated, failure, failure-critical, client-side
+:Log level: `critical`
 :From version: 3.0.0
 :Description: None
 
@@ -47,6 +50,7 @@ Automated file transfers events
 
 :Message: File "%(path)s" was created in monitored path.
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 2.6.0
 :Description: None
 
@@ -57,6 +61,7 @@ Automated file transfers events
 
 :Message: File "%(path)s" exists in the monitored path and will be transferred.
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 3.6.0
 :Description: None
 
@@ -67,6 +72,7 @@ Automated file transfers events
 
 :Message: Error occurred while taking a snapshot for "%(path)s". Retrying %(retries_left)s more times after %(delay)s seconds. %(details)s
 :Groups: location-operation, failure, client-side
+:Log level: `warn`
 :From version: 3.19.0
 :Description: None
 
@@ -77,6 +83,7 @@ Automated file transfers events
 
 :Message: File "%(path)s" added to batch. %(details)s
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 3.36.0
 :Description: None
 :Data:
@@ -91,6 +98,7 @@ Automated file transfers events
 
 :Message: Executing command "%(name)s" for "%(path)s".
 :Groups: transfer-job, informational, client-side
+:Log level: `trace`
 :From version: 2.7.0
 :Description: None
 :Data:
@@ -108,6 +116,7 @@ Automated file transfers events
 
 :Message: Command "%(name)s" was successful for "%(path)s". Output "%(output)s". Error "%(error)s". Exit code "%(exit_code)s".
 :Groups: transfer-job, success, client-side
+:Log level: `info`
 :From version: 2.7.0
 :Description: None
 :Data:
@@ -134,6 +143,7 @@ Automated file transfers events
 
 :Message: Command "%(name)s" failed for "%(path)s". Output "%(output)s". Error "%(error)s". Exit code "%(exit_code)s". %(details)s
 :Groups: transfer-job, failure, client-side
+:Log level: `warn`
 :From version: 2.7.0
 :Description: None
 :Data:
@@ -160,6 +170,7 @@ Automated file transfers events
 
 :Message: Source and destination ready. Start %(transfer_type)s for "%(path)s" with a size of %(size)s bytes. Content action: %(content_action)s.
 :Groups: transfer-job, informational, client-side
+:Log level: `trace`
 :From version: 2.9.0
 :Description: None
 :Data:
@@ -180,6 +191,7 @@ Automated file transfers events
 
 :Message: Failed to transfer "%(path)s". Will retry %(count)s more. Next try after %(wait)s seconds. %(details)s
 :Groups: transfer-job, failure, client-side, file-operation
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -197,6 +209,7 @@ Automated file transfers events
 
 :Message: Successful %(transfer_type)s for file "%(path)s" to "%(destination_path)s" with a size of %(size)s bytes of which %(transferred_size)s bytes were transferred in %(duration)s seconds at %(speed)s kB/s.
 :Groups: transfer-job, success, client-side, file-operation
+:Log level: `info`
 :From version: 2.9.0
 :Description: None
 :Data:
@@ -214,6 +227,7 @@ Automated file transfers events
 
 :Message: Error occurred while %(transfer_type)s for file "%(path)s" of %(size)s bytes of which %(transferred_size)s bytes were transferred in %(duration)s seconds at %(speed)s kB/s. %(details)s
 :Groups: transfer-job, failure, client-side, file-operation
+:Log level: `warn`
 :From version: 2.9.0
 :Description: None
 
@@ -224,6 +238,7 @@ Automated file transfers events
 
 :Message: Failed to open source file "%(path)s" for reading. %(details)s
 :Groups: transfer-job, failure, client-side, file-operation
+:Log level: `warn`
 :From version: 2.9.0
 :Description: None
 
@@ -234,6 +249,7 @@ Automated file transfers events
 
 :Message: Failed to open destination file "%(path)s" for writing. %(details)s
 :Groups: transfer-job, failure, client-side, file-operation
+:Log level: `warn`
 :From version: 2.9.0
 :Description: None
 
@@ -244,6 +260,7 @@ Automated file transfers events
 
 :Message: Transfer job failed at %(step_name)s after %(retries)s retries. The following files failed: %(failed_paths)s. %(success_paths)s %(skip_paths)s %(details)s
 :Groups: transfer-job, failure, failure-high, client-side
+:Log level: `error`
 :From version: 2.9.0
 :Description: None
 :Data:
@@ -273,6 +290,7 @@ Automated file transfers events
 
 :Message: Transfer succeeded for source %(paths)s to %(destination_paths)s with %(retries)s retries. %(skip_paths)s
 :Groups: transfer-job, success, client-side
+:Log level: `info`
 :From version: 2.9.0
 :Description: None
 :Data:
@@ -299,6 +317,7 @@ Automated file transfers events
 
 :Message: Internal error. Failed executing transfer for "%(path)s" at "%(step_name)s". %(details)s
 :Groups: transfer-job, failure, failure-critical, client-side
+:Log level: `critical`
 :From version: 2.9.0
 :Description: None
 
@@ -309,6 +328,7 @@ Automated file transfers events
 
 :Message: Less than %(minimum_count)s files were successfully transferred in the last %(success_interval)s seconds. Transfer count: %(transfer_count)s.
 :Groups: transfer, failure, failure-specific, client-side
+:Log level: `warn`
 :From version: 5.1.0
 :Description: None
 :Data:
@@ -329,6 +349,7 @@ Automated file transfers events
 
 :Message: Action "%(action)s" scheduled in "%(seconds)s" seconds by "%(date)s" for transfer "%(name)s".
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -349,6 +370,7 @@ Automated file transfers events
 
 :Message: Transfer "%(name)s" started in "%(state)s" state.
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -366,6 +388,7 @@ Automated file transfers events
 
 :Message: Scheduled action "%(action)s" executed for transfer "%(name)s".
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -383,6 +406,7 @@ Automated file transfers events
 
 :Message: Transfer "%(name)s" has detected a "%(action)s" action scheduled for "%(expected_date)s", but its execution time has already passed. It was re-scheduled for now.
 :Groups: transfer, failure, failure-specific, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -403,6 +427,7 @@ Automated file transfers events
 
 :Message: Keep alive call failed for resource "%(name)s" . %(details)s
 :Groups: authenticated, failure, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -417,6 +442,7 @@ Automated file transfers events
 
 :Message: Failed to archive "%(path)s" as "%(archive_path)s". %(details)s
 :Groups: transfer-job, failure, client-side
+:Log level: `warn`
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -431,6 +457,7 @@ Automated file transfers events
 
 :Message: File "%(path)s" was successfully archived as "%(archive_path)s".
 :Groups: transfer-job, success, client-side
+:Log level: `info`
 :From version: 2.10.0
 :Description: None
 :Data:
@@ -445,6 +472,7 @@ Automated file transfers events
 
 :Message: Invalid overwrite rule configuration "%(details)s" for transfer "%(name)s".
 :Groups: transfer-job, failure, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -459,6 +487,7 @@ Automated file transfers events
 
 :Message: Fail to transfer file "%(path)s" for "%(name)s". %(details)s
 :Groups: transfer-job, failure, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -473,6 +502,7 @@ Automated file transfers events
 
 :Message: Remote file "%(path)s" is going to be overwritten for transfer "%(name)s".
 :Groups: transfer-job, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -487,6 +517,7 @@ Automated file transfers events
 
 :Message: Remote file "%(existing_path)s" was renamed to "%(path)s" to prevent overwriting it for "%(name)s".
 :Groups: transfer-job, success, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -507,6 +538,7 @@ Automated file transfers events
 
 :Message: File "%(path)s" is going to be transferred as "%(destination_path)s" for "%(name)s" as a file with same name already exists on the destination.
 :Groups: transfer-job, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -524,6 +556,7 @@ Automated file transfers events
 
 :Message: Start collecting files for batch transfer "%(name)s" with an interval of %(seconds)s seconds starting with "%(path)s".
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -541,6 +574,7 @@ Automated file transfers events
 
 :Message: Added to the execution queue the %(kind)s transfer for "%(name)s" with %(count)s files: %(files)s.
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -567,6 +601,7 @@ Automated file transfers events
 
 :Message: Canceled execution of batch transfer for "%(name)s" with %(count)s files.
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -584,6 +619,7 @@ Automated file transfers events
 
 :Message: Closed with success "%(path)s" on "%(location)s" after opening for %(mode)s. Read: %(read_size)s. Write: %(write_size)s
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -601,6 +637,7 @@ Automated file transfers events
 
 :Message: Closed with failure "%(path)s" on "%(location)s" after opening for %(mode)s. %(details)s
 :Groups: failure, failure-high, location-operation, client-side
+:Log level: `error`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -618,6 +655,7 @@ Automated file transfers events
 
 :Message: Failed to read "%(path)s" on "%(location)s" after opening for %(mode)s. %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -635,6 +673,7 @@ Automated file transfers events
 
 :Message: Failed to write "%(path)s" on "%(location)s" after opening for %(mode)s. %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -652,6 +691,7 @@ Automated file transfers events
 
 :Message: Started monitoring %(recursive)s"%(path)s" on "%(location)s" every %(changes_poll_interval)ss (stable %(stable_interval)ss/%(failover_interval)ss).
 :Groups: success, authenticated, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -678,6 +718,7 @@ Automated file transfers events
 
 :Message: Stopped monitoring "%(path)s" on "%(location)s".
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -692,6 +733,7 @@ Automated file transfers events
 
 :Message: Operation to check the existence of "%(path)s" was successful on "%(location)s".
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -706,6 +748,7 @@ Automated file transfers events
 
 :Message: Failed to check that "%(path)s" exists on "%(location)s". %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -720,6 +763,7 @@ Automated file transfers events
 
 :Message: Successfully renamed "%(from)s" to "%(to)s" on "%(location)s".
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -743,6 +787,7 @@ Automated file transfers events
 
 :Message: Failed to rename "%(from)s" to "%(to)s" on "%(location)s". %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -766,6 +811,7 @@ Automated file transfers events
 
 :Message: Successfully deleted file "%(path)s" on "%(location)s".
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -780,6 +826,7 @@ Automated file transfers events
 
 :Message: Failed to delete file "%(path)s" on "%(location)s". %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -794,6 +841,7 @@ Automated file transfers events
 
 :Message: Successfully deleted directory (recursive %(recursive)s) "%(path)s" on "%(location)s".
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -811,6 +859,7 @@ Automated file transfers events
 
 :Message: Failed to delete directory (recursive %(recursive)s) "%(path)s" on "%(location)s". %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -828,6 +877,7 @@ Automated file transfers events
 
 :Message: Successfully created directory "%(path)s" on "%(location)s".
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -842,6 +892,7 @@ Automated file transfers events
 
 :Message: Failed to create directory "%(path)s" on "%(location)s". %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -856,6 +907,7 @@ Automated file transfers events
 
 :Message: Successfully listed directory "%(path)s" on "%(location)s".
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -870,6 +922,7 @@ Automated file transfers events
 
 :Message: Failed to list directory "%(path)s" on "%(location)s". %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -884,6 +937,7 @@ Automated file transfers events
 
 :Message: Successfully opened "%(path)s" for reading on "%(location)s".
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -898,6 +952,7 @@ Automated file transfers events
 
 :Message: Failed to open file "%(path)s" for reading on "%(location)s". %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -912,6 +967,7 @@ Automated file transfers events
 
 :Message: Successfully opened "%(path)s" for writing on "%(location)s".
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -926,6 +982,7 @@ Automated file transfers events
 
 :Message: Failed to open file "%(path)s" for writing on "%(location)s". %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -940,6 +997,7 @@ Automated file transfers events
 
 :Message: Successfully opened "%(path)s" for appending on "%(location)s".
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -954,6 +1012,7 @@ Automated file transfers events
 
 :Message: Failed to open file "%(path)s" for appending on "%(location)s". %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -968,6 +1027,7 @@ Automated file transfers events
 
 :Message: Successfully touched "%(path)s" on "%(location)s".
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -982,6 +1042,7 @@ Automated file transfers events
 
 :Message: Failed to touch "%(path)s" on "%(location)s". %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -996,6 +1057,7 @@ Automated file transfers events
 
 :Message: Successfully copied local "%(path)s" to local "%(to)s" (overwrite %(overwrite)s) on "%(location)s".
 :Groups: success, file-operation, location-operation, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1022,6 +1084,7 @@ Automated file transfers events
 
 :Message: Failed to copy local "%(path)s" to local "%(to)s" on "%(location)s". %(details)s
 :Groups: location-operation, failure, file-operation, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1048,6 +1111,7 @@ Automated file transfers events
 
 :Message: Sending keep alive call for resource "%(name)s".
 :Groups: authenticated, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1062,6 +1126,7 @@ Automated file transfers events
 
 :Message: Executing "%(condition)s" commands on destination for "%(name)s".
 :Groups: transfer-job, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1079,6 +1144,7 @@ Automated file transfers events
 
 :Message: Successfully executed "%(condition)s" commands on destination for "%(name)s".
 :Groups: transfer-job, success, client-side
+:Log level: `info`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1096,6 +1162,7 @@ Automated file transfers events
 
 :Message: Failed to execute "%(condition)s" commands on destination for "%(name)s". %(details)s
 :Groups: transfer-job, failure, client-side
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1113,6 +1180,7 @@ Automated file transfers events
 
 :Message: Disconnecting as resource "%(name)s" was idle for %(seconds)s seconds.
 :Groups: authenticated, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1130,6 +1198,7 @@ Automated file transfers events
 
 :Message: Reconnecting as resource "%(name)s" is configured to always keep the connection alive.
 :Groups: authenticated, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1144,6 +1213,7 @@ Automated file transfers events
 
 :Message: Failed to close source "%(path)s" after failing to open destination "%(destination_path)s". %(details)s
 :Groups: transfer-job, file-operation, failure, failure-high, client-side
+:Log level: `error`
 :From version: 3.12.0
 :Description: None
 :Data:
@@ -1161,6 +1231,7 @@ Automated file transfers events
 
 :Message: Transfer temporarily paused for file "%(path)s" at %(step_name)s as %(location)s is not yet available. All the other files are paused waiting for the location automatic (re)connection.
 :Groups: transfer-job, informational, client-side
+:Log level: `trace`
 :From version: 3.10.0
 :Description: None
 
@@ -1171,6 +1242,7 @@ Automated file transfers events
 
 :Message: Successfully got attributes for "%(path)s" on "%(location)s".
 :Groups: success, location-operation, client-side
+:Log level: `info`
 :From version: 3.20.0
 :Description: None
 :Data:
@@ -1185,6 +1257,7 @@ Automated file transfers events
 
 :Message: Failed to get attributes for "%(path)s" on "%(location)s". %(details)s
 :Groups: failure, location-operation, client-side
+:Log level: `warn`
 :From version: 3.20.0
 :Description: None
 :Data:
@@ -1199,6 +1272,7 @@ Automated file transfers events
 
 :Message: Start executing transfer for "%(name)s" with %(count)s files: %(files)s.
 :Groups: transfer-job, informational, client-side
+:Log level: `trace`
 :From version: 3.0.0
 :Description: None
 :Data:
@@ -1222,6 +1296,7 @@ Automated file transfers events
 
 :Message: Snapshot with %(total_files)s files and %(total_directories)s directories for "%(path)s".
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 3.48.0
 :Description: None
 :Data:
@@ -1242,6 +1317,7 @@ Automated file transfers events
 
 :Message: Not transferring file "%(path)s" in the monitored path. %(reason)s
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 4.0.0
 :Description: None
 :Data:
@@ -1256,6 +1332,7 @@ Automated file transfers events
 
 :Message: Transfer skipped for source "%(path)s". %(reason)s
 :Groups: transfer-job, informational, client-side
+:Log level: `trace`
 :From version: 4.0.0
 :Description: None
 :Data:
@@ -1273,6 +1350,7 @@ Automated file transfers events
 
 :Message: Successfully removed archived file "%(path)s" older than %(days)s days.
 :Groups: transfer, informational, file-operation, client-side
+:Log level: `trace`
 :From version: 3.51.0
 :Description: None
 
@@ -1283,6 +1361,7 @@ Automated file transfers events
 
 :Message: Transfer job canceled for "%(path)s" at "%(step_name)s".
 :Groups: transfer-job, failure, failure-specific, client-side
+:Log level: `warn`
 :From version: 4.3.0
 :Description: None
 
@@ -1293,6 +1372,7 @@ Automated file transfers events
 
 :Message: Conflicting content detected for source file "%(path)s". Consider increasing the 'stable_interval' configuration. %(details)s
 :Groups: transfer, failure, client-side
+:Log level: `warn`
 :From version: 4.3.0
 :Description: None
 :Data:
@@ -1307,6 +1387,7 @@ Automated file transfers events
 
 :Message: Removing file from transfer queue "%(path)s" as it was removed from the source location.
 :Groups: transfer, informational, client-side
+:Log level: `trace`
 :From version: 4.3.0
 :Description: None
 
@@ -1317,6 +1398,7 @@ Automated file transfers events
 
 :Message: Transfer failed for "%(path)s" at "%(step_name)s". %(details)s
 :Groups: transfer-job, failure, client-side
+:Log level: `warn`
 :From version: 4.3.0
 :Description: None
 
@@ -1327,6 +1409,7 @@ Automated file transfers events
 
 :Message: Location %(location)s for %(step_name)s is now available to transfer "%(path)s".
 :Groups: transfer-job, informational, client-side
+:Log level: `trace`
 :From version: 4.4.0
 :Description: None
 
@@ -1337,6 +1420,7 @@ Automated file transfers events
 
 :Message: Configured "stable_interval" ignored as it is smaller than "changes_poll_interval". %(stable_interval)s seconds used instead.
 :Groups: transfer, failure, failure-specific, client-side
+:Log level: `warn`
 :From version: 4.4.0
 :Description: None
 
@@ -1347,6 +1431,7 @@ Automated file transfers events
 
 :Message: Failed to delete parent directory %(path)s for a source file. %(details)s
 :Groups: transfer, failure, failure-high, client-side
+:Log level: `error`
 :From version: 4.10.0
 :Description: None
 
@@ -1357,6 +1442,7 @@ Automated file transfers events
 
 :Message: Failed to start monitoring "%(path)s" on "%(location)s". Will automatically retry when the location is connected. %(details)s
 :Groups: failure, transfer, client-side
+:Log level: `warn`
 :From version: 4.23.0
 :Description: None
 :Data:
@@ -1370,7 +1456,8 @@ Automated file transfers events
 ^^^^^
 
 :Message: Source directory at "%(path)s" has a large number of files. Found %(files_count)s files. This can affect the performance of the transfer.
-:Groups: session, operational, client-side
+:Groups: session, success, operational, client-side
+:Log level: `info`
 :From version: 5.17.0
 :Description: None
 :Data:

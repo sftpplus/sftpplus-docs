@@ -30,13 +30,22 @@ will continue regardless of the side effects produced by the event handler.
 All data used by the event handlers is Unicode, encoded as UTF-8.
 
 
-Event groups as an alternative to logging levels
-================================================
+Event groups and logging levels
+================================
 
-SFTPPlus does not use any form of logging level or severity level
-conventions to classify and categorize the generated log entries.
-Instead, the event groups are provided as a way to classify the entries.
+SFTPPlus uses event groups to classify generated log entries.
 A single event can belong to multiple groups.
+
+For compatibility with external logging systems, SFTPPlus provides a read-only `loglevel` for each event.
+Whenever possible, we recommend using SFTPPlus native event groups instead of logging levels,
+as groups describe the event's purpose and context in more detail.
+Each event definition specifies a lowercase `loglevel` consistent with its groups:
+
+* `failure-critical`: `critical`.
+* `failure-high`: `error`.
+* `failure`: `warn`.
+* `success`: `info`.
+* `informational`: `trace`.
 
 A special group is the `failure` group, which contains all events which may
 be considered an error.
@@ -170,6 +179,63 @@ space used by the plain text logging system.
 
 Audit entries stored in a `database` can be viewed and filtered using the
 Web Manager service.
+
+
+.. _administration-event-handlers-logfmt:
+
+Logfmt output
+=============
+
+The :doc:`Local File </configuration-events/local-file>` and :doc:`Standard Output Stream </configuration-events/standard-stream>` event handlers support Logfmt output.
+Set `output_format` to `logfmt` and use `entry_content` to select the event fields to include.
+New Standard Output Stream handlers created in the Web Manager use `logfmt` by default.
+Their `entry_content` is `{ts} {loglevel} {id} {msg} {peer.ip} {peer.port} {component.name} {data_values}`.
+New Local File handlers use `text` by default.
+
+Logfmt produces one line of space-separated `key=value` pairs per event.
+Include `{ts}` in `entry_content` to output the UTC event timestamp as `ts` in ISO-8601 / RFC-3339 format.
+The `{ts}` placeholder is a shortcut for `event.timestamp.iso_8601`: it uses the same value as `{timestamp.iso_8601}`, with the shorter output key `ts`.
+This placeholder is available only in Logfmt output, alongside the existing `{timestamp.*}` placeholders.
+Fields appear in template order, so place `{ts}` first to start each line with the timestamp.
+No timestamp is added when the template contains no timestamp placeholder.
+Each placeholder becomes a key, with dots replaced by underscores.
+Literal text between placeholders is ignored.
+The `{message}` placeholder uses the key `msg`.
+For example, `entry_content = {ts} {id} {message} {data.path}` produces::
+
+    ts=2026-09-23T08:18:00Z id=1234 msg="File received" data_path=/inbox/report.csv
+
+Empty values and values containing whitespace, equals signs, double quotes, backslashes, or control characters are double-quoted.
+Within quoted values, double quotes and backslashes are escaped.
+Carriage returns, newlines, and tabs are escaped as `\\r`, `\\n`, and `\\t`.
+Message line breaks are replaced with spaces for all event handlers.
+Missing `{data.KEY}` fields are omitted from Logfmt output.
+
+In Logfmt output, `{tb}` uses the output key `tb` and is omitted when the traceback is empty.
+Traceback line breaks are escaped so that the log entry remains on one line.
+
+The `{data_json}` placeholder emits event data as one quoted `data_json` value containing a JSON serialization without indentation or literal line breaks.
+Double quotes and backslashes in the JSON are escaped for Logfmt.
+For example, `data = {"output": {"deep": {"key": "value"}}}` produces::
+
+    data_json="{\"output\": {\"deep\": {\"key\": \"value\"}}}"
+
+The `{data_values}` placeholder is available only in Logfmt output.
+It expands event data into `d_KEY` pairs.
+Use `{account.name}` and other `{account.*}` placeholders for account information.
+Spaces and other special characters in data keys are replaced with underscores.
+
+Nested mappings and JSON objects are expanded recursively, joining their keys with underscores.
+For example, event `20053` can contain parsed JSON in `data.output`.
+If that output is `{"deep": {"key": "value"}}`, `{data_values}` produces `d_output_deep_key=value`.
+Each leaf value uses the same quoting and escaping rules as other Logfmt values.
+Empty mappings produce no pairs.
+
+Lists and JSON arrays remain single values, with their elements separated by a pipe with a space on each side (` | `).
+For example, `{"tags": ["one", "two"]}` produces `d_tags="one | two"` through `{data_values}`, or `data_tags="one | two"` through `{data.tags}`.
+Elements are converted to text before joining, and the resulting value uses the usual Logfmt quoting and escaping rules.
+An empty list produces a quoted empty value, such as `d_tags=""`.
+The `{data_json}` placeholder preserves lists as JSON arrays.
 
 
 Filtering the handled events
@@ -346,7 +412,7 @@ Source address of the remote peer
 You can include or exclude events based on the source IP address of the remote
 peer.
 
-If for example, your load balancers are sending probes usiing the
+If for example, your load balancers are sending probes using the
 ``172.26.2.45`` and ``196.168.9.34`` IP addresses you might want to exclude
 those connections from the main logs.
 

@@ -48,6 +48,39 @@ You can't define a scheduler using a mix of weekly and monthly based actions.
 Get in touch if you want a transfer with more complex scheduling rules.
 
 
+Configuring schedules in the Web Manager
+----------------------------------------
+
+To configure the schedule for a transfer, open its configuration and find `Schedule` under `Advanced`.
+Select `Start` or `Stop`, choose a day, enter a time, and select `Add`.
+This adds a schedule event.
+Pair each `Start` event with a `Stop` event to define an active period.
+Enter times in 24-hour format, using the server's local time zone.
+Once the events are defined, review and apply the configuration changes to save the schedule.
+
+..  note::
+
+    Day choices that are incompatible with existing actions are unavailable.
+    Daily and weekly actions can be combined, but neither can be combined with monthly actions.
+    The last and second last days of the month cannot be combined with numbered days 26 through 31.
+    Numbered days absent from a month are skipped.
+
+To change an action, remove it and add its replacement.
+Remove all actions to make the transfer active at all times.
+
+..  figure:: /static/guides/transfer-schedule-light.png
+    :alt: Transfer schedule editor in the Web Manager, light theme
+    :figclass: light-only
+
+    A transfer schedule in the Web Manager.
+
+..  figure:: /static/guides/transfer-schedule-dark.png
+    :alt: Transfer schedule editor in the Web Manager, dark theme
+    :figclass: dark-only
+
+    A transfer schedule in the Web Manager.
+
+
 Daily
 -----
 
@@ -136,14 +169,31 @@ Below is the configuration for a transfer that will start twice each 25th day of
     schedule = month_day_25-10:00-start, month_day_25-14:00-stop
                month_day_25-18:00-start, month_day_25-22:00-stop
 
+You can schedule actions on any numbered day from `month_day_1` through `month_day_31`.
+
+If a month does not have the configured day, the actions configured for that day are skipped.
+For example, `month_day_31` does not run in April, June, September, November, or February.
+In a common year, `month_day_29` and `month_day_30` also do not run in February.
+
+
+Last or second last day of the month
+------------------------------------
+
 To schedule an event for the last day of the month, use the explicit configuration::
 
     [transfers/6b775eec-f98b-4527-811f-fd8c5c71a028]
     schedule = month_day_last-10:00-start, month_day_last-14:00-stop
 
-Scheduling on the 28th, 29th, 30th, and 31st days of the month is not supported.
-This is due to the ambiguity of executing these events for months that don't have these days.
-Get in touch if you need to schedule on these days.
+To use the last two days of every month, regardless of its length, use `month_day_second_last` and `month_day_last`::
+
+    [transfers/6b775eec-f98b-4527-811f-fd8c5c71a028]
+    schedule = month_day_second_last-10:00-start, month_day_last-14:00-stop
+
+For example, these actions run on February 27 and 28 in a common year, and on February 28 and 29 in a leap year.
+
+..  warning::
+    Do not combine either relative month-end day with numbered days 26 through 31 in the same schedule.
+    Those days can overlap, so such a schedule is rejected during validation.
 
 
 Clock drift correction

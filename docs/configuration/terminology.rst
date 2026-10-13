@@ -262,11 +262,11 @@ Node
 ----
 
 A single SFTPPlus installation that operates as part of a cluster.
-The cluster can be used for high-availabilty, high-performance, or
+The cluster can be used for high-availability, high-performance, or
 testing/production purposes.
 
 The nodes from a cluster are all running the same configuration.
-At any given time a node can be removed or added While the cluster continue to work uninterupted.
+At any given time, a node can be removed or added while the cluster continues to work uninterrupted.
 
 
 Node variable

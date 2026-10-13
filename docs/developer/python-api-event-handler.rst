@@ -78,6 +78,23 @@ It will also return expired certificates.
 Event data members
 ------------------
 
+Event values are captured when the event is generated.
+Changes to an account or component after that point do not change the event's public values.
+The event and its nested dictionaries and lists passed to `getConfiguration(event)` in the main process are read-only.
+The `handle(event, configuration)` method receives its own mutable copy, decoded from JSON in the worker process.
+
+Create working copies of the fields that your extension needs to modify.
+For example, to add a value to the event data for your own processing::
+
+    data = dict(event.data)
+    data['custom_value'] = 'example'
+
+This is a shallow copy.
+Copy any nested dictionary or list before modifying it as well.
+Changing a working copy does not change the original event or the values seen by another event handler.
+Changes to the event in `handle()` also stay within that worker invocation.
+Credential access through `event.account.token` remains available in `getConfiguration()`.
+
 The event object received in the handler has the following structure.
 
 .. include:: /developer/event-object.include.rst

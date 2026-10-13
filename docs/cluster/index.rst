@@ -28,6 +28,12 @@ to name just a few.
     Get in touch if you plan to use SFTPPlus with auto-scale VMs.
 
 
+Prometheus monitoring is available for cluster deployments through each instance's Web Manager service.
+Enable Web Manager on each instance you want to monitor and configure Prometheus to scrape its `/metrics` endpoint separately.
+Each endpoint reports only the local process; the controller does not aggregate metrics from other nodes.
+See :doc:`Prometheus metrics </developer/prometheus-metrics>` for configuration and access requirements.
+
+
 .. grid:: 1 1 2 2
     :gutter: 2
     :padding: 0

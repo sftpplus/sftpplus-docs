@@ -84,101 +84,13 @@ As another example, to add a new group named **partners** see below::
         /pull/invoices
         /push
         /push/orders
-    permissions = allow-read, allow-write
+    default_permissions = allow-read, allow-write
+    path_permissions =
         *.pdf, allow-read
         *.csv, allow-write
     virtual_folders =
         /team, d:\storage\sales-team
         /division, d:\storage\EMEA
-
-
-Group inheritance for permissions
----------------------------------
-
-You can use SFTPPlus to implement AAA (Authentication, Authorization and
-Accounting) systems in order to track user activities
-and to control their access to resources on the network.
-
-Permissions can be set on the operating system level (for example, via changing
-the Windows file and folder permissions setting) but they can also be set on
-the application level via the SFTPPlus groups configuration.
-Please note that the OS permissions is overrides the application-level
-permissions set in SFTPPlus.
-
-Let's say you need better control to allocate permissions based on groups of
-users.
-
-To give you an example of how the group `permissions` configuration option
-work, ``bob``, ``charlie`` and ``alice`` are three accounts with permissions
-set to upload FTP files.
-They belong in a group called ``Education_Group_A``::
-
-    [groups/b904e6a6-d29f-4ccf-8abd-edcae4d3324f]
-    name = Education_Group_A
-    enabled = Yes
-    permissions = read
-
-We set the ``Education_Group_A`` group to only have `allow-read` permissions,
-meaning that the accounts in this group can only upload files,
-download existing files or obtain the attributes of files.
-
-If one of the users, ``alice``, requires additional permissions to create a
-folder while maintaining the permissions for ``bob`` and ``charlie``, the user
-``alice`` will need to be allocated into another group that has
-`allow-full-control` permission.
-
-You cannot change the settings for ``Education_Group_A``, in order to fix the
-``alice`` account since the changes will also affect the other users in that
-group, in this case ``bob`` and ``charlie``.
-
-For example, even when account is configured with
-:ref:`full-control permissions<configuration-groups-permissions>` in SFTPPlus,
-if the OS does not permit the account to read, write, delete and create files
-or folders, it will still fail with a permission error.
-
-
-Managing user-level permissions and group inheritance
------------------------------------------------------
-
-Administrators can set user-level permissions that will override a group
-permissions.
-
-Let's say ``alice`` can only have read permissions::
-
-    [accounts/4b535c97-c15a-4632-8b29-9aca6cff5ce8]
-    name = alice
-    type = application
-    group = b904e6a6-d29f-4ccf-8abd-edcae4d3324f
-    permission = allow-read
-
-The ``charlie`` account can only have write permissions::
-
-    [accounts/dc90e2c7-1149-4b8b-9e7e-91f96c4c607a]
-    name = charlie
-    type = application
-    group = b904e6a6-d29f-4ccf-8abd-edcae4d3324f
-    permission = allow-write
-
-And the rest of the users (in this case, one of them is ``bob``) in the
-``Education_Group_A`` group need `allow-full-control` permissions::
-
-    [accounts/30548ad7-0090-4c44-82d2-cfcc1c4b7351]
-    name = bob
-    type = application
-    group = b904e6a6-d29f-4ccf-8abd-edcae4d3324f
-    permission = Inherit
-
-    [groups/b904e6a6-d29f-4ccf-8abd-edcae4d3324f]
-    name = Education_Group_A
-    enabled = Yes
-    permissions = allow-full-control
-
-On the user configuration sections for ``alice`` and ``charlie`` you can set
-their own permissions, while ``bob`` will inherit permissions set by
-``Education_Group_A``.
-Once set, SFTPPlus will respect the user-level permissions set for ``alice``
-and ``charlie`` even though the ``Education_Group_A`` group has ``full-control``
-permission.
 
 
 Mapping SFTPPlus groups to external groups
@@ -638,8 +550,25 @@ allow_own_password_change
 :Description:
     Allow users of this group to change their own password.
 
-    In order for a new password to be changed,
-    it must meet the password policy requirements.
+    The new password must meet the password policy requirements.
+
+    See :doc:`password-update` for the differences between password changes and password recovery, and their configuration.
+
+
+allow_password_recovery
+-----------------------
+
+:Default value: `No`
+:Optional: Yes
+:From version: 6.1.0
+:Values: * `Yes`
+         * `No`
+:Description:
+    Allow application accounts with this group as their primary group to recover a forgotten password by email.
+    Additional groups do not grant this permission.
+    This option is configured only on groups.
+
+    See :doc:`password-update` for the requirements and configuration steps.
 
 
 password_lifetime
@@ -701,22 +630,18 @@ home_folder_structure
 
 .. _configuration-groups-permissions:
 
-permissions
------------
+
+.. _configuration-groups-permissions-default:
+
+default_permissions
+-------------------
 
 :Default value: `allow-full-control`
 :Optional: Yes
-:From version: 3.28.0
-:Values: * Comma separated list of global permissions
-         * path-match-expression, per-path-permission-1, permission-2
-         * List of permissions sets, separated by a new line.
+:From version: 6.1.0
+:Values: Comma separated list of permissions
 :Description:
-    This allows access rights to be defined in the file management
-    operations permitted for the accounts from this group.
-
-    The permissions control the ability of the account to read, write,
-    and navigate the contents of the files and folders associated to the
-    account.
+    Permissions used when no path rule matches the requested virtual path.
 
     The following permissions are supported:
 
@@ -731,39 +656,27 @@ permissions
     * `allow-delete-file`
     * `allow-set-attributes`
 
-    You can define multiple permissions by separating them with commas.
+    Separate multiple permissions with commas.
+    For enforcement and inheritance details, see :doc:`path-permissions`.
 
-    When not set,
-    the members of the group will have full access to any of their files.
+    These permissions are inherited only when this is a primary group for the account, and the account is configured to inherit the default permissions.
 
-    Different permissions can be set for different paths.
+.. _configuration-groups-permissions-paths:
 
-    The first set of permissions will apply to any path for which there is
-    no explicit configuration.
-    They are called the *global permissions*.
-    The *global permissions* are only used for accounts for which this group is the primary group.
+path_permissions
+-----------------
 
-    All the remaining sets of permissions define per-path permissions.
-    The first value in the list is a path-matching expression,
-    followed by the permissions for those paths.
+:Default value: Empty
+:Optional: Yes
+:From version: 6.1.0
+:Values: * Path matching expression followed by comma separated permissions, one rule per line
+         * Empty
+:Description:
+    Each rule contains a glob or regular expression followed by at least one permission listed under `default_permissions`.
 
-    The path expressions are matched against the *virtual path*,
-    which is the path as observed client-side, not the *real path* on the server's storage.
+    These permissions are applied to all accounts that are member of this group.
 
-    The path expressions can contain the `${USER}` placeholder (case-sensitive),
-    which gets replaced with the name of each authenticated user.
-    (Since 4.22.0)
-
-    Below is an example of configuring permissions::
-
-        permissions =
-            allow-list, allow-write
-            /inbox/*, allow-full-control
-            /queue/${USER}/*, allow-read, allow-write
-
-
-    For more detailed information and examples on how to configure the permissions,
-    see the :doc:`dedicated authorization documentation</configuration-auth/authorization>`.
+    For path matching, group inheritance, and examples, see :doc:`path-permissions`.
 
 
 amend_write_name

@@ -10,6 +10,7 @@ FTP / FTPS events
 
 :Message: Debug message.
 :Groups: process, operational, informational
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -20,6 +21,7 @@ FTP / FTPS events
 
 :Message: Virtual path overlaps an existing file or folder.
 :Groups: operational, failure, failure-high, compat
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -30,6 +32,7 @@ FTP / FTPS events
 
 :Message: Could not switch process security context. %(details)s.
 :Groups: operational, failure, failure-high, compat
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -40,6 +43,7 @@ FTP / FTPS events
 
 :Message: Modifying a virtual path is not allowed.
 :Groups: operational, failure, failure-high, compat
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -50,6 +54,7 @@ FTP / FTPS events
 
 :Message: Could not write PID file at %(path)s.
 :Groups: operational, failure, failure-high, compat
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -60,6 +65,7 @@ FTP / FTPS events
 
 :Message: Deleting Unix root folder is not allowed.
 :Groups: process, operational, failure, failure-high, compat
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -70,6 +76,7 @@ FTP / FTPS events
 
 :Message: Failed to remove group "%(group)s" from "%(path)s". %(details)s
 :Groups: operational, failure, failure-high, compat
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -80,6 +87,7 @@ FTP / FTPS events
 
 :Message: Could not get home folder for user "%(username)s". %(details)s
 :Groups: operational, failure, failure-high, compat
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -90,6 +98,7 @@ FTP / FTPS events
 
 :Message: Failed to get primary group for user "%(username)s".
 :Groups: operational, failure, failure-high, compat
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -100,6 +109,7 @@ FTP / FTPS events
 
 :Message: Failed to set owner to "%(owner)s" for "%(path)s". %(details)s
 :Groups: operational, failure, failure-high, compat
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -110,6 +120,7 @@ FTP / FTPS events
 
 :Message: Failed to add group "%(group)s" for "%(account)s". %(details)s
 :Groups: operational, failure, failure-high, compat
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -120,6 +131,7 @@ FTP / FTPS events
 
 :Message: Failed to check that user "%(account)s" exists.  %(details)s
 :Groups: operational, failure, failure-high, compat
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -130,6 +142,7 @@ FTP / FTPS events
 
 :Message: Successfully opened file "%(path)s" for writing at offset %(offset)s. Path requested as "%(requested_path)s.
 :Groups: authenticated, success, file-operation, ftp
+:Log level: `info`
 :From version: 2.4.0
 :Description: None
 :Data:
@@ -150,6 +163,7 @@ FTP / FTPS events
 
 :Message: Failed to open file "%(path)s" for writing  at offset %(offset)s. Path requested as "%(requested_path)s. %(details)s
 :Groups: authenticated, failure, file-operation, ftp
+:Log level: `warn`
 :From version: 2.4.0
 :Description: None
 :Data:
@@ -167,6 +181,7 @@ FTP / FTPS events
 
 :Message: Clients are required to send a valid certificate. Maybe the client did not send a certificate or the client certificate is not valid. %(details)s
 :Groups: session, failure, ftp
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 
@@ -177,6 +192,7 @@ FTP / FTPS events
 
 :Message: Failed to get a new %(mode)s passive port. %(details)s
 :Groups: authenticated, operational, failure, failure-high, ftp
+:Log level: `error`
 :From version: 1.8.1
 :Description: None
 :Data:
@@ -194,6 +210,7 @@ FTP / FTPS events
 
 :Message: Internal error. Failed to process the FTP command "%(line)s". %(details)s
 :Groups: operational, authenticated, failure, failure-critical, ftp
+:Log level: `critical`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -208,6 +225,7 @@ FTP / FTPS events
 
 :Message: Failed to parse %(count)s FTP LIST lines. %(details)s
 :Groups: operational, authenticated, failure, ftp, client-side
+:Log level: `warn`
 :From version: 5.23.0
 :Description: None
 :Data:
@@ -222,6 +240,7 @@ FTP / FTPS events
 
 :Message: FTP command "%(command)s" not implemented by the service.
 :Groups: authenticated, failure, ftp, failure-specific
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -236,6 +255,7 @@ FTP / FTPS events
 
 :Message: Extended Passive transfer requested.
 :Groups: operational, authenticated, informational, ftp
+:Log level: `trace`
 :From version: 1.8.1
 :Description: None
 
@@ -246,6 +266,7 @@ FTP / FTPS events
 
 :Message: Connection was closed before finalization of TLS handshake. %(details)s
 :Groups: session, failure
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 
@@ -256,6 +277,7 @@ FTP / FTPS events
 
 :Message: Expecting client connection on %(address)s:%(port)s for the next %(mode)s passive request.
 :Groups: authenticated, informational, ftp
+:Log level: `trace`
 :From version: 1.8.1
 :Description: This event is raised by both normal and extended passive requests.
 :Data:
@@ -276,6 +298,7 @@ FTP / FTPS events
 
 :Message: No FTP client connection to %(mode)s passive data %(address)s:%(port)s. %(details)s
 :Groups: authenticated, failure, failure-high, ftp
+:Log level: `error`
 :From version: 2.1.0
 :Description: None
 
@@ -286,6 +309,7 @@ FTP / FTPS events
 
 :Message: Initializing secure command channel.
 :Groups: session, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -296,6 +320,7 @@ FTP / FTPS events
 
 :Message: Processing APPE command for file "%(path)s".
 :Groups: authenticated, file-operation, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: FTP APPE command request was received from the client.
 
@@ -306,6 +331,7 @@ FTP / FTPS events
 
 :Message: Invalid address "%(address)s" for %(kind)s data command.
 :Groups: authenticated, failure, failure-specific, ftp
+:Log level: `warn`
 :From version: 2.1.0
 :Description: None
 :Data:
@@ -323,6 +349,7 @@ FTP / FTPS events
 
 :Message: No authentication method was enabled for this service.
 :Groups: session, failure, failure-high, failure-specific, ftp
+:Log level: `error`
 :From version: 1.7.4
 :Description: None
 
@@ -333,6 +360,7 @@ FTP / FTPS events
 
 :Message: User "%(username)s" is required to authenticate using a SSL certificate.
 :Groups: session, failure, ftp, failure-specific
+:Log level: `warn`
 :From version: 1.7.4
 :Description: None
 
@@ -343,6 +371,7 @@ FTP / FTPS events
 
 :Message: Failed to authenticate as user "%(username)s" with X.509 certificate credentials.
 :Groups: session, failure, failure-specific, ftp
+:Log level: `warn`
 :From version: 1.7.4
 :Description: None
 :Data:
@@ -357,6 +386,7 @@ FTP / FTPS events
 
 :Message: Data connection closed. Protected using %(encryption)s. Received: %(received)s. Sent %(sent)s. Speed %(speed)s bytes/second. Duration %(duration)s. %(host_address)s:%(host_port)s - %(peer_address)s:%(peer_port)s . Client certificate: %(certificate)s
 :Groups: authenticated, informational, ftp
+:Log level: `trace`
 :From version: 1.8.1
 :Description: None
 :Data:
@@ -395,6 +425,7 @@ FTP / FTPS events
 
 :Message: Data connection closed in a non clean way. Protected using %(encryption)s. Received %(received)s. Speed %(speed)s bytes/second. Sent %(sent)s. Duration %(duration)s. %(host_address)s:%(host_port)s - %(peer_address)s:%(peer_port)s. Client certificate: %(certificate)s %(details)s
 :Groups: authenticated, failure, ftp
+:Log level: `warn`
 :From version: 1.8.1
 :Description: None
 :Data:
@@ -436,6 +467,7 @@ FTP / FTPS events
 
 :Message: Data connection time out after initialization. %(host_address)s:%(host_port)s - %(peer_address)s:%(peer_port)s.
 :Groups: session, failure, failure-high, failure-specific, ftp
+:Log level: `error`
 :From version: 1.8.3
 :Description: None
 :Data:
@@ -459,6 +491,7 @@ FTP / FTPS events
 
 :Message: New FTP/FTPS client connection made.
 :Groups: session, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -469,6 +502,7 @@ FTP / FTPS events
 
 :Message: Command connection closed. Protected using %(encryption)s. Client connected with certificate: %(certificate)s
 :Groups: authenticated, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -483,6 +517,7 @@ FTP / FTPS events
 
 :Message: SSL/TLS required on the command channel.
 :Groups: session, failure, failure-specific, ftp
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 
@@ -493,6 +528,7 @@ FTP / FTPS events
 
 :Message: SSL/TLS required on the data channel.
 :Groups: session, failure, failure-specific, ftp
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 
@@ -503,6 +539,7 @@ FTP / FTPS events
 
 :Message: Request to change current folder to "%(path)s".
 :Groups: authenticated, file-operation, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -513,6 +550,7 @@ FTP / FTPS events
 
 :Message: Current folder successfully changed to "%(path)s".
 :Groups: authenticated, success, file-operation, ftp
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -523,6 +561,7 @@ FTP / FTPS events
 
 :Message: Failed to change to folder "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, ftp
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -537,6 +576,7 @@ FTP / FTPS events
 
 :Message: Successfully open file "%(path)s" for appending.
 :Groups: authenticated, success, file-operation, operation-append, ftp
+:Log level: `info`
 :From version: 2.4.0
 :Description: None
 
@@ -547,6 +587,7 @@ FTP / FTPS events
 
 :Message: Failed to open file "%(path)s" for appending. %(details)s
 :Groups: authenticated, failure, file-operation, operation-append, ftp
+:Log level: `warn`
 :From version: 2.4.0
 :Description: None
 
@@ -557,6 +598,7 @@ FTP / FTPS events
 
 :Message: Command connection closed due to an error. Protected using %(encryption)s. Client certificate: %(certificate)s %(details)s
 :Groups: authenticated, failure, ftp, failure-high
+:Log level: `error`
 :From version: 2.8.0
 :Description: None
 :Data:
@@ -571,6 +613,7 @@ FTP / FTPS events
 
 :Message: Request to delete "%(path)s".
 :Groups: authenticated, file-operation, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -581,6 +624,7 @@ FTP / FTPS events
 
 :Message: Successfully deleted "%(path)s".
 :Groups: authenticated, success, file-operation, operation-delete, ftp
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -591,6 +635,7 @@ FTP / FTPS events
 
 :Message: Failed to delete "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, operation-delete, ftp
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 
@@ -601,6 +646,7 @@ FTP / FTPS events
 
 :Message: Listing path "%(path)s" with wildcard "%(glob)s" for %(operation)s.
 :Groups: authenticated, file-operation, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -615,6 +661,7 @@ FTP / FTPS events
 
 :Message: Path "%(path)s" successfully listed with wildcard "%(glob)s" for %(operation)s.
 :Groups: authenticated, success, file-operation, ftp
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -625,6 +672,7 @@ FTP / FTPS events
 
 :Message: Failed to list path "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, ftp
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 
@@ -635,6 +683,7 @@ FTP / FTPS events
 
 :Message: Getting attributes for "%(path)s".
 :Groups: authenticated, file-operation, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -649,6 +698,7 @@ FTP / FTPS events
 
 :Message: Successfully got attributes for "%(path)s".
 :Groups: authenticated, success, file-operation, ftp
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -663,6 +713,7 @@ FTP / FTPS events
 
 :Message: Failed to get attributes for "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, ftp
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -677,6 +728,7 @@ FTP / FTPS events
 
 :Message: Creating folder "%(path)s".
 :Groups: authenticated, file-operation, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -687,6 +739,7 @@ FTP / FTPS events
 
 :Message: Successfully created folder "%(path)s".
 :Groups: authenticated, success, file-operation, operation-create-folder, ftp
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -697,6 +750,7 @@ FTP / FTPS events
 
 :Message: Failed to create folder "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, operation-create-folder, ftp
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 
@@ -707,6 +761,7 @@ FTP / FTPS events
 
 :Message: Data connection opened. %(host_address)s:%(host_port)s - %(peer_address)s:%(peer_port)s
 :Groups: authenticated, success, ftp
+:Log level: `info`
 :From version: 3.14.0
 :Description: None
 :Data:
@@ -730,6 +785,7 @@ FTP / FTPS events
 
 :Message: FTP(S) access started at "%(real_path)s" as "%(virtual_path)s".
 :Groups: authentication, authenticated, success, ftp
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -747,6 +803,7 @@ FTP / FTPS events
 
 :Message: Passive transfer requested in %(mode)s mode.
 :Groups: authenticated, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -761,6 +818,7 @@ FTP / FTPS events
 
 :Message: Active transfer requested in %(mode)s mode to "%(address)s:%(port)s".
 :Groups: authenticated, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -781,6 +839,7 @@ FTP / FTPS events
 
 :Message: Successfully initiated active connection to destination %(address)s:%(port)s using source %(source_address)s:%(source_port)s.
 :Groups: authenticated, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -804,6 +863,7 @@ FTP / FTPS events
 
 :Message: Failed to initiate active connection to destination %(address)s:%(port)s using source %(source_address)s:%(source_port)s. %(details)s
 :Groups: authenticated, failure, failure-high, ftp
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -827,6 +887,7 @@ FTP / FTPS events
 
 :Message: Requesting current folder.
 :Groups: authenticated, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -837,6 +898,7 @@ FTP / FTPS events
 
 :Message: Closing current FTP session.
 :Groups: session, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -847,6 +909,7 @@ FTP / FTPS events
 
 :Message: Opening file "%(path)s" for reading.
 :Groups: authenticated, file-operation, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -857,6 +920,7 @@ FTP / FTPS events
 
 :Message: Close successfully delivered file "%(path)s". Read %(total)s bytes at %(speed)s bytes/second in %(duration)s seconds.
 :Groups: authenticated, success, file-operation, operation-read, ftp
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -867,6 +931,7 @@ FTP / FTPS events
 
 :Message: Close failed delivered file "%(path)s". Read %(total)s bytes at %(speed)s bytes/second in %(duration)s seconds. %(details)s
 :Groups: authenticated, failure, failure-high, file-operation, operation-read, ftp
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -877,6 +942,7 @@ FTP / FTPS events
 
 :Message: Deleting folder "%(path)s".
 :Groups: authenticated, file-operation, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 
@@ -887,6 +953,7 @@ FTP / FTPS events
 
 :Message: Successfully deleted folder "%(path)s".
 :Groups: authenticated, success, file-operation, operation-delete, ftp
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -897,6 +964,7 @@ FTP / FTPS events
 
 :Message: Failed to delete folder "%(path)s". %(details)s
 :Groups: authenticated, failure, file-operation, operation-delete, ftp
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 
@@ -907,6 +975,7 @@ FTP / FTPS events
 
 :Message: Renaming "%(from)s" to "%(to)s".
 :Groups: authenticated, file-operation, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -927,6 +996,7 @@ FTP / FTPS events
 
 :Message: Successfully renamed "%(from)s" to "%(to)s".
 :Groups: authenticated, success, file-operation, operation-rename, ftp
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -947,6 +1017,7 @@ FTP / FTPS events
 
 :Message: Failed to rename "%(from)s" to "%(to)s". %(details)s
 :Groups: authenticated, failure, file-operation, operation-rename, ftp
+:Log level: `warn`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -967,6 +1038,7 @@ FTP / FTPS events
 
 :Message: Processing STOR command for file "%(path)s".
 :Groups: authenticated, file-operation, informational, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: FTP STOR command request was received from the client.
 :Data:
@@ -981,6 +1053,7 @@ FTP / FTPS events
 
 :Message: Close successfully received file "%(path)s". Wrote %(total)s bytes at %(speed)s bytes/second in %(duration)s seconds.
 :Groups: authenticated, success, file-operation, operation-write, ftp
+:Log level: `info`
 :From version: 1.6.0
 :Description: None
 
@@ -991,6 +1064,7 @@ FTP / FTPS events
 
 :Message: Close for failed receive file "%(path)s". Wrote %(total)s bytes at %(speed)s bytes/second in %(duration)s seconds. %(details)s
 :Groups: authenticated, failure, failure-high, file-operation, operation-write, ftp
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 
@@ -1001,6 +1075,7 @@ FTP / FTPS events
 
 :Message: Unknown FTP representation type "%(type)s".
 :Groups: authenticated, failure, ftp, failure-specific
+:Log level: `warn`
 :From version: 2.12.0
 :Description: None
 :Data:
@@ -1015,6 +1090,7 @@ FTP / FTPS events
 
 :Message: FTP representation type set to "%(type)s".
 :Groups: authenticated, informational, ftp
+:Log level: `trace`
 :From version: 2.12.0
 :Description: None
 :Data:
@@ -1029,6 +1105,7 @@ FTP / FTPS events
 
 :Message: Ignoring FTP representation type for "%(type)s".
 :Groups: authenticated, informational, ftp
+:Log level: `trace`
 :From version: 3.9.0
 :Description: None
 :Data:
@@ -1043,6 +1120,7 @@ FTP / FTPS events
 
 :Message: Listening on port %(port)s for the next passive request.
 :Groups: authenticated, informational, session, ftp
+:Log level: `trace`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -1057,6 +1135,7 @@ FTP / FTPS events
 
 :Message: Client FTP/FTPS connection time out. %(details)s
 :Groups: session, failure, failure-high, ftp
+:Log level: `error`
 :From version: 1.6.0
 :Description: None
 :Data:
@@ -1071,6 +1150,7 @@ FTP / FTPS events
 
 :Message: Successfully cleared the command channel.
 :Groups: authenticated, success, ftp
+:Log level: `info`
 :From version: 1.7.18
 :Description: None
 
@@ -1081,6 +1161,7 @@ FTP / FTPS events
 
 :Message: Command channel is already cleared.
 :Groups: authenticated, failure, ftp, failure-specific
+:Log level: `warn`
 :From version: 1.7.18
 :Description: None
 
@@ -1091,6 +1172,7 @@ FTP / FTPS events
 
 :Message: Server does not allow to clear the command channel.
 :Groups: authenticated, failure, ftp, failure-specific
+:Log level: `warn`
 :From version: 1.7.18
 :Description: None
 
@@ -1101,6 +1183,7 @@ FTP / FTPS events
 
 :Message: Failed to secure the %(channel_type)s channel. %(details)s
 :Groups: authenticated, failure, failure-high, ftp
+:Log level: `error`
 :From version: 3.47.0
 :Description: FTP TLS handshake failed (server-side).
 
@@ -1111,6 +1194,7 @@ FTP / FTPS events
 
 :Message: Failed to initiate FTP session. %(details)s
 :Groups: authentication, authenticated, failure, ftp
+:Log level: `warn`
 :From version: 4.16.0
 :Description: None
 
@@ -1121,6 +1205,7 @@ FTP / FTPS events
 
 :Message: Extended address active transfer requested to protocol "%(protocol)s" on address "%(ip)s:%(port)s".
 :Groups: authenticated, informational, ftp
+:Log level: `trace`
 :From version: 1.7.18
 :Description: None
 :Data:
@@ -1141,6 +1226,7 @@ FTP / FTPS events
 
 :Message: New client connection denied. Too many concurrent FTP/FTPS connections.
 :Groups: session, failure, failure-specific, ftp
+:Log level: `warn`
 :From version: 1.8.0
 :Description: None
 
@@ -1151,6 +1237,7 @@ FTP / FTPS events
 
 :Message: Internal error. Failed to start FTP protocol handler. %(details)s
 :Groups: session, failure, failure-critical, ftp
+:Log level: `critical`
 :From version: 1.8.3
 :Description: An internal server error occurred while creating FTP protocol handler for new client.
 
@@ -1161,6 +1248,7 @@ FTP / FTPS events
 
 :Message: Explicit FTPS for %(service)s changed to %(state)s.
 :Groups: operational, administration, informational, ftp
+:Log level: `trace`
 :From version: 2.4.0
 :Description: Inform about changes in SSL layer for FTP protocol.
 :Data:
@@ -1178,6 +1266,7 @@ FTP / FTPS events
 
 :Message: Successfully open file "%(path)s" for reading at offset %(offset)s.
 :Groups: authenticated, success, file-operation, operation-read, ftp
+:Log level: `info`
 :From version: 2.4.0
 :Description: None
 :Data:
@@ -1192,6 +1281,7 @@ FTP / FTPS events
 
 :Message: Failed to open file "%(path)s" for reading at offset %(offset)s. %(details)s
 :Groups: authenticated, failure, file-operation, operation-read, ftp
+:Log level: `warn`
 :From version: 2.4.0
 :Description: None
 
@@ -1202,6 +1292,7 @@ FTP / FTPS events
 
 :Message: Setting attributes for "%(path)s" to "%(attributes)s".
 :Groups: authenticated, informational, file-operation, ftp
+:Log level: `trace`
 :From version: 2.6.0
 :Description: None
 
@@ -1212,6 +1303,7 @@ FTP / FTPS events
 
 :Message: Successfully set attributes for "%(path)s" to "%(attributes)s".
 :Groups: authenticated, success, file-operation, ftp
+:Log level: `info`
 :From version: 2.6.0
 :Description: None
 
@@ -1222,6 +1314,7 @@ FTP / FTPS events
 
 :Message: Failed to set attributes for "%(path)s" to "%(attributes)s". %(details)s
 :Groups: authenticated, failure, file-operation, ftp
+:Log level: `warn`
 :From version: 2.6.0
 :Description: None
 :Data:
@@ -1236,6 +1329,7 @@ FTP / FTPS events
 
 :Message: Connected to passive data port %(host)s:%(port)s for "%(command)s". Server address: %(fqdn)s
 :Groups: session, informational, ftp, client-side
+:Log level: `trace`
 :From version: 4.27.0
 :Description: None
 :Data:
@@ -1253,6 +1347,7 @@ FTP / FTPS events
 
 :Message: Secure %(channel_type)s channel successfully initialized. Protected using: %(encryption)s. Client certificate: %(certificate)s
 :Groups: authenticated, informational, ftp
+:Log level: `trace`
 :From version: 4.33.0
 :Description: FTP TLS handshake done (server-side).
 :Data:
@@ -1270,6 +1365,7 @@ FTP / FTPS events
 
 :Message: Secure %(channel_type)s channel successfully initialized. Protected using: %(encryption)s. Server certificate: %(certificate)s
 :Groups: authenticated, informational, ftp, client-side
+:Log level: `trace`
 :From version: 4.33.0
 :Description: FTP TLS handshake done (client-side).
 :Data:
@@ -1287,6 +1383,7 @@ FTP / FTPS events
 
 :Message: Connected to the FTP/FTPS server.
 :Groups: session, informational, ftp, client-side
+:Log level: `trace`
 :From version: 3.2.0
 :Description: None
 
@@ -1297,6 +1394,7 @@ FTP / FTPS events
 
 :Message: Connection to FTP/FTPS server was lost. Protected using: %(encryption)s. Server certificate: %(certificate)s. Reason: %(reason)s
 :Groups: session, informational, ftp, client-side
+:Log level: `trace`
 :From version: 3.2.0
 :Description: None
 :Data:
@@ -1314,6 +1412,7 @@ FTP / FTPS events
 
 :Message: Failed authentication. Credentials not accepted for "%(name)s". %(details)s
 :Groups: operational, session, ftp, failure, client-side
+:Log level: `warn`
 :From version: 3.2.0
 :Description: None
 :Data:
@@ -1328,6 +1427,7 @@ FTP / FTPS events
 
 :Message: Security for the command channel cleared in "%(mode)s" mode.
 :Groups: authenticated, informational, ftp, client-side
+:Log level: `trace`
 :From version: 3.13.0
 :Description: None
 
@@ -1338,6 +1438,7 @@ FTP / FTPS events
 
 :Message: Connection to FTP/FTPS was authenticated.
 :Groups: authenticated, informational, ftp, client-side
+:Log level: `trace`
 :From version: 3.2.0
 :Description: FTP client auth accepted.
 
@@ -1348,6 +1449,7 @@ FTP / FTPS events
 
 :Message: Failed to secure the %(channel_type)s channel. %(details)s
 :Groups: session, failure, failure-high, ftp, client-side
+:Log level: `error`
 :From version: 4.33.0
 :Description: FTP TLS handshake failed (client-side).
 
@@ -1358,5 +1460,6 @@ FTP / FTPS events
 
 :Message: Failed to setup TLS session on data connection for "%(command)s". %(details)s
 :Groups: authenticated, failure, failure-high, ftp
+:Log level: `error`
 :From version: 4.35.0
 :Description: FTP TLS handshake failed (client-side).

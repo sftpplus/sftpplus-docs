@@ -30,6 +30,41 @@ The configuration for the node synchronization resource itself is independent of
     The content of the `local-file` authentication method configuration file is not synchronized.
 
 
+Setting up a node in Web Manager
+--------------------------------
+
+On a new installation, select **Cluster node** on the dashboard.
+For an existing installation, open the node synchronization resource and select the **Node** role.
+Both pages provide the same connection settings.
+
+Enter the controller's base URL, pool name, and shared pool sync password.
+Optionally, enter a node name to identify this instance on the controller.
+
+Choose how to verify the controller's certificate:
+
+* **Pin certificate on first connection** trusts the public key presented on the first connection.
+  Subsequent connections must use the same key.
+* **Auto-set certification authority** retrieves the CA chain on the first connection
+  and uses it to verify subsequent connections.
+* **Disable certificate verification** connects without verifying the controller's identity.
+* **Paste or upload a certificate** accepts a PEM server certificate or certification authority.
+  Select the certificate type and paste its contents or upload the file.
+* An existing trusted certificate or pinned key can also be selected.
+
+Use **Test** to check the connection, certificate verification, pool credentials,
+and access to the controller's configuration.
+The test does not apply the controller's configuration or save certificates.
+Temporary vault items are removed after both successful and failed tests.
+
+Use **Apply** to save the connection settings directly.
+Pasted or uploaded certificates are stored in the vault automatically.
+When using automatic pinning or CA discovery, the certificate is saved on the first connection after applying the settings.
+Only use these automatic modes when the first connection to the controller can be trusted.
+
+**Apply** also enables and starts the node synchronization resource.
+If the resource is already running, restart it to use settings that require a restart.
+
+
 role_in_cluster
 ---------------
 
@@ -129,9 +164,10 @@ node_name
 :Description:
     An optional name for this node within the pool.
 
-    This value is stored locally and is reserved for node identification.
-    It is not yet sent to the controller during authentication.
-    Leave it empty to retain the existing behavior.
+    The node advertises this name to the controller when authenticating.
+    Leave it empty to use the hostname reported by the local operating system, without a DNS lookup.
+    Only the first 40 characters are sent to the controller and recorded as the `instance_name` in the activity log.
+    Choose a distinct name for each node in the pool so that you can identify its activity.
 
     This is ignored when configured together with `role_in_cluster = controller`.
 
@@ -144,7 +180,8 @@ password
 :Values: * Plain text.
 :From version: 5.11.0
 :Description:
-    The shared pool password used by this node to authenticate to the controller.
+    The pool sync password used by this node to authenticate to the controller.
+    All nodes in a pool share this password.
 
     This is ignored when configured together with `role_in_cluster = controller`.
 

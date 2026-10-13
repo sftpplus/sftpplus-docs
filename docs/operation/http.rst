@@ -21,6 +21,75 @@ Check the dedicated :doc:`AS2 server usage </operation/as2-server>` to learn mor
 There is also a REST JSON API and WebDAV API available, designed to allow 3rd party applications to exchange files with SFTPPlus.
 Check our :doc:`developer documentation </developer/index>` to learn more about the available APIs.
 
+
+.. _http-public-url:
+
+Configuring and testing the public URL
+--------------------------------------
+
+Set the HTTP or HTTPS service's `base_url` to the public address used to access the service.
+SFTPPlus uses this address to build password recovery links.
+For example, use `https://files.example.com`.
+The URL must identify the service root without credentials, a path prefix, a query, or a fragment.
+Use HTTPS to protect recovery links and passwords in transit.
+
+This option is required when password recovery is enabled.
+The service cannot start if the URL is missing or invalid.
+The recovery URL is resolved at startup; changing this option requires a service restart.
+It does not change the service's listening address or its URL paths.
+
+Use the **Test** button next to **Public URL** in the Web Manager to check the address before saving.
+Your browser requests the public `__chsps__/constants.js` resource and checks its response without executing the script.
+For HTTPS, your browser must trust the public service's certificate.
+A Web Manager opened over HTTPS cannot test an HTTP URL because browsers block mixed content.
+
+See :doc:`/configuration-server/http-service` for the `base_url` configuration option.
+
+
+Recovering a forgotten password
+-------------------------------
+
+Web Client gen3 can send a password recovery link to an account's configured email address.
+An administrator must enable recovery on both the HTTP or HTTPS service and the account's primary group, configure the service's public URL, and configure the default Email Client resource.
+See :doc:`/configuration-auth/password-update` for the requirements and configuration steps.
+
+On the login page, select **Forgot your password?**, enter your email address, and select **Send recovery link**.
+The confirmation is the same whether or not the email address belongs to an eligible account.
+If an address belongs to more than one account, SFTPPlus does not send a recovery email.
+Contact the server support team if you cannot receive a link.
+
+Open the link in the email, enter and confirm a new password, and select **Save new password**.
+After the success message, select **Back to login** to sign in with the new password.
+Your new password must meet the server's password policy.
+Existing multifactor authentication requirements remain in effect.
+
+Recovery links expire after 15 minutes and can reset a password only once.
+If a password is rejected by the password policy, enter a compliant password and submit the same form again.
+The link remains valid until its original expiry time.
+For other recovery failures, request a new link using your original email address.
+Links are also invalidated when the HTTP or HTTPS service stops or restarts, when the account's password changes, or when the account no longer qualifies for recovery.
+SFTPPlus keeps only a hash of each recovery token in memory.
+
+Each accepted recovery request invalidates earlier links for the same account.
+
+Each HTTP service accepts at most ten recovery requests per source IP address in a 10-minute window.
+Additional requests receive a generic rate-limit error and do not send email or invalidate existing links.
+Unknown email addresses also count towards this limit.
+Behind a reverse proxy, recovery uses the same `client_forwarded_header` configuration as authentication.
+
+The service tracks up to 10,000 source IP addresses at a time.
+If this capacity is reached, requests from new sources receive the same generic rate-limit error until an existing window expires.
+The limit is held in memory and resets when the service restarts.
+It limits individual sources; clients using different source IP addresses have separate limits.
+Only the link from the latest request can be used.
+
+If you receive a recovery email you did not request, you can ignore it or report the incident to the server administrator.
+Recovery requests, email delivery results, and password recovery results are recorded in the activity log.
+
+
+HTTP protocol compatibility
+---------------------------
+
 The HTTP protocol is implemented based on
 `RFC 2616 <http://tools.ietf.org/html/rfc2616>`_,
 while the HTTPS protocol is based on
@@ -93,6 +162,25 @@ This will use the UI available in SFTPPlus version 4.15.0 or older.
 The latest UI version is `ui_version = ui-gen-2`.
 
 
+Third-generation login
+----------------------
+
+With `ui_version = ui-gen-3`, the login page displays a button for each configured OpenID Connect authentication method enabled for the HTTP/HTTPS service.
+You can offer multiple Microsoft Entra ID, Google, or Okta methods on the same login page.
+Each button displays the authentication method's configured name and an icon identifying the provider.
+
+Configure the service's `authentications` option to select its authentication methods.
+When this option is empty, the service uses the server's authentication methods.
+Stopped or failed methods remain visible on the login page.
+Restart the HTTP/HTTPS service after changing its authentication methods or the inherited server list.
+The provider configuration and callback URLs are the same as for the second-generation Web Client.
+
+Password authentication methods share a username and password form.
+When there is only one password authentication method, its name appears above the form.
+The separate two-factor authentication code field is available when application authentication is enabled.
+If only OpenID Connect methods are available, the password form is hidden.
+
+
 Custom appearance
 -----------------
 
@@ -112,10 +200,15 @@ The theme path should contain at least the following files:
 
 * `main.css`
 * `main.js` (only available in gen1)
-* `logo.svg` (only available in gen2)
+* `logo.svg` (used in gen2 and for the light theme in gen3)
+* `logo-dark.svg` (used for the dark theme in gen3)
 * `favicon.ico`
 
 If you don't need to customize the CSS or JavaScript leave the file empty.
+
+In gen3, the login page and file browser use `logo.svg` for the light theme and `logo-dark.svg` for the dark theme.
+When using a custom theme, provide both logo files.
+You can use the same image for both files if your logo is suitable for both themes.
 
 The name of the HTTP/HTTPS service will be used as the page name on the login page and the file browser page.
 
@@ -363,8 +456,8 @@ In this example, public access will no longer be available after the
     group = 95373161-b944-4d70-af5e-cab1976cc535
 
     home_folder_path = /local/path/to/public/files
-    permissions =
-        allow-read, allow-list
+    default_permissions = allow-read, allow-list
+    path_permissions =
         *.exe, deny-full-control
         /reports/, allow-write
 
@@ -392,7 +485,8 @@ or is a user authenticated with valid credentials::
     home_folder_path: /srv/upload_files
     description: Account user for HTTP public access
 
-    permissions: allow-list,allow-read
+    default_permissions: allow-list, allow-read
+    path_permissions:
         /uploads, deny-full-control
         /uploads/*/*, allow-list, allow-write, allow-read
 

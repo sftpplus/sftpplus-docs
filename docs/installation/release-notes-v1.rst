@@ -466,7 +466,7 @@ SFTPPlus Server 1.6.9 (0.1.9), released 23/06/2011
 SFTPPlus Server 1.6.8 (0.1.8), released 21/06/2011
 --------------------------------------------------
 
-* Add umask option for uploded files.
+* Add umask option for uploaded files.
 
 
 SFTPPlus Server 1.6.7 (0.1.7), released 16/06/2011

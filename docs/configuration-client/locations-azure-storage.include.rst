@@ -25,6 +25,7 @@ authentication_method
 :Optional: Yes
 :Values: * `access-key`
          * `entra-id`
+         * `workload-identity`
 :From version: 5.23.0
 :Description:
     The authentication method to use for connecting to the Azure cloud.
@@ -32,6 +33,9 @@ authentication_method
     The default value of `access-key` is used when authentication is done using one of the *security keys* defined for the storage account.
 
     Use `entra-id` to authenticate using OAuth 2.0 access tokens from the Microsoft Entra.
+
+    Use `workload-identity` to authenticate using a projected service account token and the Azure identity environment variables.
+    See :doc:`Azure Workload Identity setup</operation-client/azure-blob-files>` for deployment requirements.
 
 
 password
@@ -51,6 +55,8 @@ password
 
     For `authentication_method = entra-id`, this is the OAuth2 client
     secret and should be provided as-is, not in Base64 format.
+
+    This option is ignored when `authentication_method = workload-identity`.
 
 
 directory_id

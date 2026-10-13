@@ -1141,7 +1141,7 @@ Deprecations and Removals
   service and the server type was automatically updated.
   This change will now require a service restart.
   [server-side][ftp] [#7052]
-* The administration roles should no longe be configured with the `sync`
+* The administration roles should no longer be configured with the `sync`
   permission.
   A `cluster-node` should now be created and it automatically has the
   `sync` permission.

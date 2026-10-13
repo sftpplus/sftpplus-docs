@@ -453,7 +453,7 @@ Deprecations and Removals
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * The `markers` data attribute from event with ID `60006` was removed. It was
-  replaced by the generic `details` attribute containg the details for the
+  replaced by the generic `details` attribute containing the details for the
   delay of a transfer. [client-side] [#6067]
 
 
@@ -1064,7 +1064,7 @@ Deprecations and Removals
   [manager][security] [#5651-1]
 * The `configuration.identity` section from the server configuration JSON-RPC
   API was removed. The accounts, groups, roles, and administrator configuration
-  are now accessible via `configuration.acccounts`, `configuration.groups`,
+  are now accessible via `configuration.accounts`, `configuration.groups`,
   `configuration.roles`, and `configuration.administrators` options
   respectively. [manager][api] [#5651]
 

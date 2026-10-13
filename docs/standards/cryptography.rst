@@ -241,8 +241,8 @@ These are listed below according to preference::
     # See RFC for current recommendation (check updates).
     # This is based on:
     # https://tools.ietf.org/id/draft-ietf-curdle-ssh-kex-sha2-09.html
-    curve25519-sha256 (with OpneSSL 1.1.1 or newer)
-    curve25519-sha256@libssh.org (with OpneSSL 1.1.1 or newer)
+    curve25519-sha256 (with OpenSSL 1.1.1 or newer)
+    curve25519-sha256@libssh.org (with OpenSSL 1.1.1 or newer)
     ecdh-sha2-nistp521
     ecdh-sha2-nistp384
     ecdh-sha2-nistp256

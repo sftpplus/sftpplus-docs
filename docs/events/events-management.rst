@@ -10,6 +10,7 @@ Administration action events
 
 :Message: Request does not contains an session id.
 :Groups: session, failure, failure-specific, local-manager
+:Log level: `warn`
 :From version: 2.1.0
 :Description: None
 
@@ -20,6 +21,7 @@ Administration action events
 
 :Message: Authentication failed. %(details)s
 :Groups: session, failure, local-manager
+:Log level: `warn`
 :From version: 2.1.0
 :Description: None
 
@@ -30,6 +32,7 @@ Administration action events
 
 :Message: Process state read for "%(path)s" from manager API.
 :Groups: administration, informational, local-manager
+:Log level: `trace`
 :From version: 2.1.0
 :Description: None
 :Data:
@@ -44,6 +47,7 @@ Administration action events
 
 :Message: Internal error while applying the requested change from local manager. "%(details)s".
 :Groups: administration, failure, failure-critical, local-manager
+:Log level: `critical`
 :From version: 2.1.0
 :Description: None
 :Data:
@@ -58,6 +62,7 @@ Administration action events
 
 :Message: Internal JSON-RPC error: %(details)s
 :Groups: operational, administration, failure, failure-critical, local-manager
+:Log level: `critical`
 :From version: 2.1.0
 :Description: None
 
@@ -68,6 +73,7 @@ Administration action events
 
 :Message: All requested changes successfully applied. Changes: %(changes)s. Results: %(results)s.
 :Groups: administration, operational, success, local-manager
+:Log level: `info`
 :From version: 2.1.0
 :Description: None
 :Data:
@@ -85,6 +91,7 @@ Administration action events
 
 :Message: Not all requested changes successfully applied. Changes: %(changes)s. Results: %(results)s.
 :Groups: operational, administration, failure, failure-specific, local-manager
+:Log level: `warn`
 :From version: 2.1.0
 :Description: None
 :Data:
@@ -102,6 +109,7 @@ Administration action events
 
 :Message: %(kind)s administrator "%(name)s" logged in local manager as role "%(role)s".
 :Groups: administration, success, local-manager
+:Log level: `info`
 :From version: 2.1.0
 :Description: None
 :Data:
@@ -122,6 +130,7 @@ Administration action events
 
 :Message: Blocked IP "%(source_ip)s" removed from security policy "%(policy_name)s".
 :Groups: administration, success, local-manager
+:Log level: `info`
 :From version: 5.18.0
 :Description: Generated when an administrator removes a blocked host from a security policy.
 :Data:
@@ -139,6 +148,7 @@ Administration action events
 
 :Message: Administrative operation denied. %(details)s
 :Groups: administration, failure, local-manager
+:Log level: `warn`
 :From version: 4.15.0
 :Description: None
 
@@ -149,6 +159,7 @@ Administration action events
 
 :Message: Administrator logged out from local manager.
 :Groups: administration, success, local-manager
+:Log level: `info`
 :From version: 2.1.0
 :Description: None
 
@@ -159,6 +170,7 @@ Administration action events
 
 :Message: Bad format for requested changes: %(changes)s. %(details)s
 :Groups: administration, failure, failure-high, local-manager
+:Log level: `error`
 :From version: 2.1.0
 :Description: None
 :Data:
@@ -173,6 +185,7 @@ Administration action events
 
 :Message: Failed to apply requested change: "%(details)s".
 :Groups: administration, failure, local-manager
+:Log level: `warn`
 :From version: 2.1.0
 :Description: None
 :Data:
@@ -187,6 +200,7 @@ Administration action events
 
 :Message: Failed to process action for runnable with UUID %(uuid)s: %(details)s
 :Groups: session, failure, local-manager
+:Log level: `warn`
 :From version: 2.1.0
 :Description: None
 :Data:
@@ -204,6 +218,7 @@ Administration action events
 
 :Message: Web Manager request failed. %(details)s
 :Groups: operational, authenticated, failure, local-manager
+:Log level: `warn`
 :From version: 4.0.0
 :Description: None
 
@@ -214,6 +229,7 @@ Administration action events
 
 :Message: Internal error. Failed processing the action for runnable with UUID: %(uuid)s. %(details)s
 :Groups: session, failure, failure-critical, local-manager
+:Log level: `critical`
 :From version: 2.1.0
 :Description: None
 :Data:
@@ -228,6 +244,7 @@ Administration action events
 
 :Message: Failed to get content of database "%(database_uuid)s". %(details)s
 :Groups: operational, authenticated, failure, failure-high, local-manager
+:Log level: `error`
 :From version: 2.6.0
 :Description: None.
 :Data:
@@ -245,6 +262,7 @@ Administration action events
 
 :Message: Configuration synchronization from node.
 :Groups: administration, success, local-manager
+:Log level: `info`
 :From version: 4.14.0
 :Description: None
 
@@ -255,6 +273,7 @@ Administration action events
 
 :Message: Failed to apply the "%(operation)s" configuration change for "%(target)s": %(details)s
 :Groups: operational, administration, failure, failure-high, local-manager
+:Log level: `error`
 :From version: 4.27.0
 :Description: None
 :Data:
@@ -272,6 +291,7 @@ Administration action events
 
 :Message: Failed to get configuration for database "%(database_uuid)s". Source: %(source)s. %(details)s
 :Groups: operational, authenticated, failure, failure-high, local-manager
+:Log level: `error`
 :From version: 2.6.0
 :Description: None.
 :Data:
@@ -292,6 +312,7 @@ Administration action events
 
 :Message: Failed to get %(source)s data since database "%(database_uuid)s" is not started.
 :Groups: operational, authenticated, informational, local-manager
+:Log level: `trace`
 :From version: 2.6.0
 :Description: None.
 :Data:
@@ -309,6 +330,7 @@ Administration action events
 
 :Message: Vault item part "%(part_index)s:%(identifier)s" removed from "%(item_name)s".
 :Groups: authenticated, success, local-manager
+:Log level: `info`
 :From version: 5.20.0
 :Description: None
 :Data:
@@ -329,6 +351,7 @@ Administration action events
 
 :Message: Failed to get %(source)s database configuration for: "%(database_uuid)s".
 :Groups: operational, authenticated, informational, local-manager
+:Log level: `trace`
 :From version: 2.6.0
 :Description: None.
 :Data:
@@ -346,6 +369,7 @@ Administration action events
 
 :Message: Failed to process the management action. %(details)s
 :Groups: operational, authenticated, failure, failure-high, local-manager
+:Log level: `error`
 :From version: 2.9.0
 :Description: None
 
@@ -356,6 +380,7 @@ Administration action events
 
 :Message: Failed to generate SSH key or SSL key/csr. %(details)s
 :Groups: operational, authenticated, failure, failure-high, local-manager
+:Log level: `error`
 :From version: 2.12.0
 :Description: None
 
@@ -366,6 +391,7 @@ Administration action events
 
 :Message: Internal error. Failed processing database entries. %(details)s
 :Groups: operational, authenticated, failure, local-manager
+:Log level: `warn`
 :From version: 3.0.0
 :Description: None
 
@@ -376,6 +402,7 @@ Administration action events
 
 :Message: Successfully generated CSV logs from %(database_uuid)s.
 :Groups: operational, authenticated, success, local-manager
+:Log level: `info`
 :From version: 3.1.0
 :Description: None
 :Data:
@@ -390,13 +417,11 @@ Administration action events
 
 :Message: Error occurred while generating CSV logs from %(database_uuid)s. %(details)s
 :Groups: operational, authenticated, failure, local-manager
+:Log level: `warn`
 :From version: 3.1.0
 :Description: None
 :Data:
   :database_uuid: UUID of the database.
-
-
-  :tb: Debug information with the error trace.
 
 
 
@@ -407,6 +432,7 @@ Administration action events
 
 :Message: Embedded database "%(db_uuid)s" operation took %(duration)s seconds to retrieve %(size)s results.
 :Groups: success, authenticated, local-manager
+:Log level: `info`
 :From version: 4.31.0
 :Description: None
 :Data:
@@ -427,6 +453,7 @@ Administration action events
 
 :Message: Location "%(location)s" browsed at path "%(path)s".
 :Groups: administration, success, local-manager
+:Log level: `info`
 :From version: 5.18.0
 :Description: None
 :Data:

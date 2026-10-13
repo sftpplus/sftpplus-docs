@@ -153,6 +153,7 @@ permissions
 
     * `configuration` - includes all the configuration elements
     * `operation` - includes all the components/processes inside SFTPPlus
+    * `metrics` - allows reading the process metrics in Prometheus format
     * `sync` - allows reading full configuration by a secondary instance
       for synchronization.
 

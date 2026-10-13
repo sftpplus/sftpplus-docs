@@ -702,7 +702,7 @@ retry_count
     This is the number of times a failed file transfer is retried.
     The retries for failed file transfer are done after `retry_wait` seconds.
     If the file transfer still fails after all retries, the file is ignored.
-    Any other file continues to be transfered.
+    Any other file continues to be transferred.
 
     It is also the number of retries in the case the source directory is no longer available.
     The retries for a failed source directory, are done after `changes_poll_interval` seconds.
@@ -729,10 +729,6 @@ retry_wait
 
     When set to `0`, there will be no waiting time.
     As soon as a file transfer fails, it will be retried.
-
-
-..  FIXME:7019:
-    Update schedule once we support last days of month.
 
 
 schedule
@@ -767,19 +763,13 @@ schedule
     * Saturday
     * Sunday
 
-    The month days values are in the format:
-    * month_day_1
-    * month_day_2
-    * month_day_3
-    * ...
-    * month_day_26
-    * month_day_27
-    * month_day_last
+    The numbered month days run from `month_day_1` through `month_day_31`.
+    An action is skipped if the configured day does not occur in that month.
 
-    ..  note::
-        Scheduling on the days of 28, 29, 30 and 31 is not supported.
-        Get in touch if you need to schedule on these days and the
-        current support for `last day` scheduling doesn't work for you.
+    Use `month_day_last` for the last day of the month, or
+    `month_day_second_last` for the day before it.
+    Neither relative month-end day can be combined with numbered days 26
+    through 31 in the same schedule.
 
     For longer schedule definition you can define the actions across multiple
     lines.

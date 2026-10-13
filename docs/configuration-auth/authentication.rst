@@ -251,7 +251,7 @@ The account is then associated with this `group` in the Accounts section for
 that particular account.
 
 One item to note is that if the user configuration is missing and then this
-`DEFALT_GROUP` is used.
+`DEFAULT_GROUP` is used.
 
 ..  image:: /static/operation/windowsdomain-homefolder-group.png
 

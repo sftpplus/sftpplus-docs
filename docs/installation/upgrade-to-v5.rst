@@ -142,7 +142,7 @@ values were accidentally supported instead of the default local filesystem.
 
 The `configuration.identity` section from the server configuration JSON-RPC
 API was removed. The accounts, groups, roles, and administrator configuration
-are now accessible via `configuration.acccounts`, `configuration.groups`,
+are now accessible via `configuration.accounts`, `configuration.groups`,
 `configuration.roles`, and `configuration.administrators` options
 respectively. [manager][api] [#5651]
 

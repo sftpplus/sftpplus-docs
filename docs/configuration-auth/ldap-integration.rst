@@ -439,7 +439,7 @@ attributes other than the `memberOf` or `tokenGroups`.
 Below is a basic configuration syntax::
 
     group_mapping =
-        ldapAttributeName, MATCHING_EXPRESSION, PRIMARY-GROUP-UUID, OPIONAL-SECONDAY-GROUP_UUID
+        ldapAttributeName, MATCHING_EXPRESSION, PRIMARY-GROUP-UUID, OPTIONAL-SECONDARY-GROUP_UUID
 
 A set of group mapping / group association rules are defined,
 each rule has 3 components:

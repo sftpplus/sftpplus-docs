@@ -33,7 +33,7 @@ Below is the description for the main members of the event object.
 
 ----
 
-The `timestmap` contains the following attributes:
+The `timestamp` contains the following attributes:
 
 ----
 
@@ -159,6 +159,14 @@ The `server` contains the following attributes:
 :type: string
 :optional: No
 :description: UUID of the server emitting this event.
+
+----
+
+:name: instance_name
+:type: string
+:optional: Yes
+:description: Name of the node instance emitting this event.
+    It is only set for events emitted from nodes in a cluster pool.
 
 ----
 

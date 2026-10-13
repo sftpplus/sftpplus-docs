@@ -335,6 +335,29 @@ automatically created, in this order:
 * ``C:\file-server\users\JohnD\outbox\reports``
 
 
+Managing home folder structure in the Web Manager
+-------------------------------------------------
+
+In the Web Manager, open the group's configuration and find **Home folder structure** in the **File access** section.
+Enter a directory and select **Add directory**, or press Enter.
+Select the X icon next to a directory to remove it from the configuration.
+Removing a directory from this list does not delete it from the filesystem.
+
+..  note::
+
+    When SFTPPlus loads a group configuration, it automatically normalizes existing home folder structure paths before sending them to the Web Manager.
+    This also applies to values configured outside the Web Manager, such as by editing the configuration file, or saved by older versions of SFTPPlus.
+    It removes surrounding whitespace, replaces backslashes with forward slashes, collapses repeated slashes, and adds a leading and trailing slash to each path.
+    It also removes empty and duplicate entries and sorts the list.
+    These slashes refer to the account's home folder.
+    For example, `inbox` becomes `/inbox/`.
+    Values supplied through node variables are read-only in this editor and are not normalized.
+
+Apply changes to save any directories you added or removed.
+
+From an account's **Home folder structure** section, select a group name to open and highlight this setting in that group.
+
+
 Virtual folders
 ---------------
 
@@ -342,6 +365,20 @@ Virtual folders are directories that can be accessed outside of the account's lo
 but available as paths inside the user's home folder.
 
 Virtual folders act as symbolic links.
+
+In the Web Manager, use the `Virtual folders` editor on an account or group page.
+Enter the virtual path and the corresponding local filesystem path, then select `Add virtual folder`.
+The virtual path is automatically formatted with leading and trailing slashes.
+SFTPPlus also normalizes existing virtual paths when it loads account and group configurations, before sending them to the Web Manager.
+Local filesystem paths are left unchanged.
+Virtual paths supplied through node variables remain read-only and are not normalized.
+Use the folder button beside the local path to browse the server's filesystem.
+Adding a mapping for an existing virtual path replaces its local path.
+
+Adding a custom mapping replaces all inherited mappings for the account.
+Removing the last custom mapping restores inheritance.
+Use `Disable virtual folders` to prevent an account from using any virtual folders,
+or `Inherit from groups` to restore its group mappings.
 
 As for real folders, permissions for virtual folders can be defined at the
 account configuration level or inherited from group configuration.
@@ -384,14 +421,16 @@ inheriting the group's configuration settings::
         /virtual-in-root, C:\Storage\base
         /read-only-reports, C:\Storage\reports
         /upload/team/emea, C:\Storage\teams\sales
-    permissions = allow-full-control
+    default_permissions = allow-full-control
+    path_permissions =
         /read-only-reports/*, allow-list, allow-read
 
     [accounts/7521-bb32-6cce]
     name = JohnD
     group = d32e-653a-98da
     home_folder_path = C:\Users\JohnD
-    permissions = inherit
+    default_permissions = inherit
+    path_permissions =
 
 When a file transfer session is commenced, the session will make available to
 the user the following list of folder structure to file transfer clients::
@@ -468,7 +507,8 @@ access to both `/sales-emea` and `/sales-uk` virtual folders::
     name = JohnD
     group = d32e-653a-98da, 2a2e-823a-76de
     home_folder_path = C:\Users\JohnD
-    permissions = inherit
+    default_permissions = inherit
+    path_permissions =
 
 
 Virtual folders with dynamic username-based paths
@@ -500,7 +540,8 @@ Here is the configuration::
     name = JohnD
     group = 2a2e-823a-76de
     home_folder_path = inherit
-    permissions = inherit
+    default_permissions = inherit
+    path_permissions =
 
 
 Virtual folders and authentication

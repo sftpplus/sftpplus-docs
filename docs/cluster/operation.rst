@@ -209,6 +209,8 @@ The *nodes* of the cluster will send audit and security events to the cluster *c
 The nodes can be configured to send all their events or selected events, based on event IDs or event groups.
 
 The events received on the controller can be used as part of the event handlers defined on the controller.
+For each received event, the controller assigns `loglevel` using its own event definition.
+The node's `loglevel` is ignored, so the level recorded on the controller can differ from the level recorded on the node if their event definitions differ.
 
 The following event groups are always sent:
 

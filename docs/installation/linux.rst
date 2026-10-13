@@ -270,7 +270,7 @@ The generic command is::
 
     systemctl COMMAND sftpplus-mft
 
-The following COMMANDs are available:
+The following commands are available:
 
     * `start`
     * `stop`
